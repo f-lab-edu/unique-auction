@@ -1,2 +1,2 @@
 # unique-auction
-한정판매 중고 거래 사이트 
+한정판 거래 플랫폼 Unique Action
