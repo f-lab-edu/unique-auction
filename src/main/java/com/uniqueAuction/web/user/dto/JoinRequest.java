@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class SignupRequest {
+public class JoinRequest {
     private String email;
     private String password;
     private String username;
@@ -24,7 +24,7 @@ public class SignupRequest {
     }
 
     @Builder
-    public SignupRequest(String email, String password, String username, String phone) {
+    public JoinRequest(String email, String password, String username, String phone) {
         this.email = email;
         this.password = password;
         this.username = username;

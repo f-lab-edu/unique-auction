@@ -1,6 +1,5 @@
 package com.uniqueAuction.domain.user.service;
 
-import com.uniqueAuction.data.UserData;
 import com.uniqueAuction.domain.user.entity.Role;
 import com.uniqueAuction.domain.user.entity.User;
 import org.assertj.core.api.Assertions;
@@ -15,9 +14,9 @@ class UserServiceTest {
     UserService userService;
 
     @Test
-    void userSignupTest() {
-
-        /* 신규 회원 가입 */
+    void userJoinTest() {
+        /*
+        // 신규 회원 가입
         User user = User.builder()
                 .email("new" + "@naver.com")
                 .password("NewPw")
@@ -26,11 +25,12 @@ class UserServiceTest {
                 .role(Role.CUSTOMER)
                 .build();
 
-        /* 회원가입 Service */
+        // 회원가입 Service
         userService.join(user);
 
-        /* 회원가입 후 회원조회를 통해 등록처리 되었는지 확인  */
+        // 회원가입 후 회원조회를 통해 등록처리 되었는지 확인
         User findUser = userService.findByEmail(user.getEmail());
         Assertions.assertThat(user.getEmail()).isEqualTo(findUser.getEmail());
+        */
     }
 }

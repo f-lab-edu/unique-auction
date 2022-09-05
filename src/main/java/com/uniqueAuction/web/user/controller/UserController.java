@@ -1,8 +1,7 @@
 package com.uniqueAuction.web.user.controller;
 
-import com.uniqueAuction.domain.user.entity.User;
 import com.uniqueAuction.domain.user.service.UserService;
-import com.uniqueAuction.web.user.dto.SignupRequest;
+import com.uniqueAuction.web.user.dto.JoinRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +17,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/users")
-    public ResponseEntity<Void> signInUser(@RequestBody SignupRequest signupRequest) {
-        userService.join(signupRequest.toUser());
+    public ResponseEntity<Void> joinUser(@RequestBody JoinRequest joinRequest) {
+        userService.join(joinRequest.toUser());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
