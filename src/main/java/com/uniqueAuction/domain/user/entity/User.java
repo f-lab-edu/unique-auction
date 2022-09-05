@@ -3,9 +3,10 @@ package com.uniqueAuction.domain.user.entity;
 import lombok.*;
 
 @Getter
+@Setter
 @ToString
 public class User {
-    // private Long id;
+    private Long userId;
     private String email;
     private String password;
     private String username;
