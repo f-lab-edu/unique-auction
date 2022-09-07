@@ -1,29 +1,36 @@
 package com.uniqueAuction.web.user.controller;
 
 
+import com.uniqueAuction.domain.login.service.LoginService;
 import com.uniqueAuction.domain.user.entity.User;
-import com.uniqueAuction.domain.user.service.UserService;
-import com.uniqueAuction.exception.ResultMsg;
+import com.uniqueAuction.exception.CommonResponse;
 import com.uniqueAuction.web.user.dto.LoginRequest;
 import com.utils.SessionUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class LoginController {
 
-    private final UserService userService;
+    private final LoginService loginService;
 
     @PostMapping("/login")
-    public ResultMsg signIn(@RequestBody LoginRequest request, HttpSession session) {
+    public CommonResponse signIn(@RequestBody @Validated LoginRequest request, BindingResult result, HttpSession session) {
 
-        User loginUser = userService.login(request);
+        if (result.hasErrors()) {
+            throw new IllegalArgumentException(result.getFieldError().getDefaultMessage());
+        }
+
+        User loginUser = loginService.login(request);
 
         if (loginUser.getRole().equals("ADMIN")) {
             SessionUtil.setLoginAdminId(session, loginUser.getUserId());
@@ -31,7 +38,7 @@ public class LoginController {
             SessionUtil.setLoginMemberId(session, loginUser.getUserId());
         }
 
-        return new ResultMsg(HttpStatus.OK.toString(), "로그인 성공");
+        return CommonResponse.success("로그인 성공");
     }
 
 }

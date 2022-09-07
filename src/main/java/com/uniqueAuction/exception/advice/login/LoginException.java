@@ -1,4 +1,4 @@
-package com.uniqueAuction.exception;
+package com.uniqueAuction.exception.advice.login;
 
 public class LoginException extends RuntimeException {
 

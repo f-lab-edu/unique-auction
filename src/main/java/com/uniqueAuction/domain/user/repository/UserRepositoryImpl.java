@@ -1,8 +1,6 @@
 package com.uniqueAuction.domain.user.repository;
 
 import com.uniqueAuction.domain.user.entity.User;
-import com.uniqueAuction.exception.LoginException;
-import com.uniqueAuction.web.user.dto.LoginRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -37,18 +35,6 @@ public class UserRepositoryImpl implements UserRepository {
         findUser.setEmail(updateParam.getEmail());
         findUser.setUsername(updateParam.getUsername());
         findUser.setPhone(updateParam.getPhone());
-    }
-
-    @Override
-    public User login(LoginRequest loginRequest) {
-
-        return store.entrySet()
-                .stream()
-                .filter(user -> user.getValue().getEmail().equals(loginRequest.getEmail())
-                        && user.getValue().getPassword().equals(loginRequest.getPassword()))
-                .findFirst()
-                .map(Map.Entry::getValue)
-                .orElseThrow(() -> new LoginException("가입하지 않은 이메일이거나 잘못된 비밀번호입니다."));
     }
 
     @Override
