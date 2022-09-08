@@ -1,9 +1,12 @@
 package com.uniqueAuction.exception;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
 public class CommonResponse<T> {
     private String code;
     private String message;
