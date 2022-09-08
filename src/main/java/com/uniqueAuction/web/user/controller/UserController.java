@@ -1,7 +1,7 @@
 package com.uniqueAuction.web.user.controller;
 
 import com.uniqueAuction.domain.user.service.UserService;
-import com.uniqueAuction.web.user.dto.JoinRequest;
+import com.uniqueAuction.web.user.request.JoinRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.uniqueAuction.exception.advice.login;
 
 
-import com.uniqueAuction.exception.CommonResponse;
+import com.uniqueAuction.web.response.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

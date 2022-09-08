@@ -3,8 +3,8 @@ package com.uniqueAuction.web.user.controller;
 
 import com.uniqueAuction.domain.login.service.LoginService;
 import com.uniqueAuction.domain.user.entity.User;
-import com.uniqueAuction.exception.CommonResponse;
-import com.uniqueAuction.web.user.dto.LoginRequest;
+import com.uniqueAuction.web.response.CommonResponse;
+import com.uniqueAuction.web.user.request.LoginRequest;
 import com.utils.SessionUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

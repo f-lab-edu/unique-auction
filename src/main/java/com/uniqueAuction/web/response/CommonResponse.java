@@ -1,7 +1,6 @@
-package com.uniqueAuction.exception;
+package com.uniqueAuction.web.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 

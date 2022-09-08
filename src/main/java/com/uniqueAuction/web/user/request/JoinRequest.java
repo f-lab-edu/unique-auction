@@ -1,4 +1,4 @@
-package com.uniqueAuction.web.user.dto;
+package com.uniqueAuction.web.user.request;
 
 import com.uniqueAuction.domain.user.entity.Role;
 import com.uniqueAuction.domain.user.entity.User;
