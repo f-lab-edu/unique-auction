@@ -1,21 +1,24 @@
 package com.uniqueAuction.domain.user.service;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.uniqueAuction.domain.user.entity.User;
 import com.uniqueAuction.domain.user.repository.UserRepository;
+import com.uniqueAuction.web.user.request.JoinRequest;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
 
-    /* User 회원가입 */
-    public void join(User user) {
-        userRepository.save(user);
-    }
+	public void join(JoinRequest joinRequest) {
+		User user = joinRequest.toEntity(joinRequest);
+		user.setEncodedPassword(passwordEncoder.encode(joinRequest.getPassword()));
+		userRepository.save(user);
+	}
 
-    /* User 회원조회 */
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email).get();
-    }
 }
