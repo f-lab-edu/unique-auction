@@ -9,6 +9,8 @@ public interface UserRepository {
 
 	User findById(Long userId);
 
+	Boolean isDuplicated(String email);
+
 	List<User> findAll();
 
 	void update(Long userId, User updateParam);
