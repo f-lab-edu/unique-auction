@@ -21,8 +21,8 @@ public class LoginControllerAdvice {
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(IllegalArgumentException.class)
-    public CommonResponse LoginValidatedExHandler(IllegalArgumentException e) {
+    @ExceptionHandler(LoginValidationException.class)
+    public CommonResponse LoginValidatedExHandler(LoginValidationException e) {
         log.error("[exceptionHandler] ex", e);
         return new CommonResponse(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
     }
