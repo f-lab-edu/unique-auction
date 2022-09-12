@@ -4,7 +4,7 @@ package com.uniqueAuction.domain.login.service;
 import com.uniqueAuction.domain.user.entity.User;
 import com.uniqueAuction.domain.user.repository.UserRepository;
 import com.uniqueAuction.exception.advice.login.LoginException;
-import com.uniqueAuction.web.user.request.LoginRequest;
+import com.uniqueAuction.web.login.request.LoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

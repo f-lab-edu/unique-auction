@@ -1,4 +1,4 @@
-package com.uniqueAuction.web.user.request;
+package com.uniqueAuction.web.login.request;
 
 import lombok.Getter;
 import lombok.ToString;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-@RestControllerAdvice("com.uniqueAuction.web.user.controller")
+@RestControllerAdvice("com.uniqueAuction.web.login.controller")
 public class LoginControllerAdvice {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
