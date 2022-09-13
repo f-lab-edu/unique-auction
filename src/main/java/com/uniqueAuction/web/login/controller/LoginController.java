@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -22,15 +24,15 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/login")
-    public CommonResponse signIn(@RequestBody @Validated LoginRequest request, BindingResult result) {
+    public CommonResponse signIn(@RequestBody @Validated LoginRequest request, BindingResult result, HttpSession session) {
 
         if (result.hasErrors()) {
-            throw new LoginValidationException(result.getFieldError().getDefaultMessage());
+            throw new IllegalArgumentException(result.getFieldError().getDefaultMessage());
         }
 
         User login = loginService.login(request);
 
-        return CommonResponse.success("로그인 성공", login);
+        return CommonResponse.success("로그인 성공");
     }
 
 }

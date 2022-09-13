@@ -1,22 +1,32 @@
 package com.uniqueAuction.domain.user.service;
 
+import org.springframework.stereotype.Service;
+
 import com.uniqueAuction.domain.user.entity.User;
 import com.uniqueAuction.domain.user.repository.UserRepository;
+import com.uniqueAuction.exception.advice.user.UserException;
+import com.uniqueAuction.web.user.request.JoinRequest;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
+	private final UserRepository userRepository;
+	private final EncryptService encryptService;
 
-    /* User 회원가입 */
-    public void join(User user) {
-        userRepository.save(user);
-    }
+	public void join(JoinRequest joinRequest) {
+		User user = joinRequest.toEntity(joinRequest);
+		if (!isDuplicated(user)) {
+			user.setEncodedPassword(encryptService.encrypt(joinRequest.getPassword()));
+		} else {
+			throw new UserException("이미 존재하는 이메일입니다.");
+		}
+		userRepository.save(user);
+	}
 
-    /* User Id회원조회 */
-    public User findById(Long userId) {
-        return userRepository.findById(userId);
-    }
+	private boolean isDuplicated(User user) {
+		return userRepository.isDuplicated(user.getEmail());
+	}
+
 }

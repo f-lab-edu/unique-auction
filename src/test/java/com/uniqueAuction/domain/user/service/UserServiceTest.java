@@ -1,5 +1,8 @@
 package com.uniqueAuction.domain.user.service;
 
+import com.uniqueAuction.domain.user.entity.Role;
+import com.uniqueAuction.domain.user.entity.User;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
