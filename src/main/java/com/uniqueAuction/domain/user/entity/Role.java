@@ -11,11 +11,9 @@ public enum Role {
 
     public static void setSession(HttpSession session, User user) {
         if (user.getRole() == ADMIN) {
-            SessionUtil.setLoginAdminId(session, user.getUserId());
+            SessionUtil.setLoginAdminId(session, user.getId());
         } else {
-            SessionUtil.setLoginMemberId(session, user.getUserId());
+            SessionUtil.setLoginMemberId(session, user.getId());
         }
     }
-
-
 }
