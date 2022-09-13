@@ -1,7 +1,10 @@
 package com.uniqueAuction.web.login.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueAuction.domain.login.service.LoginService;
 import com.uniqueAuction.exception.advice.login.LoginControllerAdvice;
+import com.uniqueAuction.exception.advice.login.LoginException;
+import com.uniqueAuction.web.login.request.LoginRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +17,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,6 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class LoginControllerTest {
 
     private MockMvc mvc;
+
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @MockBean
     private LoginService loginService;
@@ -39,17 +46,16 @@ class LoginControllerTest {
     void 이메일필드NullTest() throws Exception {
 
 
+        LoginRequest req = new LoginRequest("", "12345678");
+
         final ResultActions actions =
                 mvc.perform(
-                        post("/login")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                                .characterEncoding("UTF-8")
-                                .content(
-                                        "{"
-                                                + "  \"email\" : \"\", "
-                                                + "  \"password\" : \"123\" "
-                                                + "}"));
+                                post("/login")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .accept(MediaType.APPLICATION_JSON)
+                                        .characterEncoding("UTF-8")
+                                        .content(objectMapper.writeValueAsString(req)))
+                        .andExpect(status().isBadRequest());
 
         // then
         actions.andExpect(status().isBadRequest());
@@ -58,42 +64,33 @@ class LoginControllerTest {
     @Test
     void 비밀번호필드NullTest() throws Exception {
 
+        LoginRequest req = new LoginRequest("email@email.com", "");
+
 
         final ResultActions actions =
                 mvc.perform(
-                        post("/login")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                                .characterEncoding("UTF-8")
-                                .content(
-                                        "{"
-                                                + "  \"email\" : \"test2@naver\", "
-                                                + "  \"password\" : \"\" "
-                                                + "}"));
+                                post("/login")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .accept(MediaType.APPLICATION_JSON)
+                                        .characterEncoding("UTF-8")
+                                        .content(objectMapper.writeValueAsString(req)))
+                        .andExpect(status().isBadRequest());
 
-        // then
-        actions.andExpect(status().isBadRequest());
     }
 
     @Test
     void 비밀번호8자리미만테스트() throws Exception {
 
+        LoginRequest req = new LoginRequest("email@email.com", "123");
 
         final ResultActions actions =
                 mvc.perform(
-                        post("/login")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                                .characterEncoding("UTF-8")
-                                .content(
-                                        "{"
-                                                + "  \"email\" : \"test2@naver\", "
-                                                + "  \"password\" : \"123\" "
-                                                + "}"));
-
-        // then
-        actions.andExpect(status().isBadRequest());
-
+                                post("/login")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .accept(MediaType.APPLICATION_JSON)
+                                        .characterEncoding("UTF-8")
+                                        .content(objectMapper.writeValueAsString(req)))
+                        .andExpect(status().isBadRequest());
     }
 
 
@@ -101,22 +98,16 @@ class LoginControllerTest {
     void 유저가없을시테스트() throws Exception {
 
 
-        final ResultActions actions =
-                mvc.perform(
+        LoginRequest req = new LoginRequest("email@email.com", "12345678");
+        given(loginService.login(any())).willThrow(LoginException.class);
+
+        mvc.perform(
                         post("/login")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .characterEncoding("UTF-8")
-                                .content(
-                                        "{"
-                                                + "  \"email\" : \"test2@naver\", "
-                                                + "  \"password\" : \"12345678\" "
-                                                + "}"));
+                                .content(objectMapper.writeValueAsString(req)))
+                .andExpect(status().isNotFound());
 
-
-        System.out.println(actions);
-
-        // then
-        actions.andExpect(status().isNotFound());
     }
 }

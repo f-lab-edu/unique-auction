@@ -23,14 +23,11 @@ public class LoginService {
     public User login(LoginRequest loginRequest) {
 
         List<User> users = userRepository.findAll();
-        System.out.println("@@@@@@@@@@@@@@@@@@@");
         User findUser = users.stream()
                 .filter(user -> user.getEmail().equals(loginRequest.getEmail())
                         && user.getPassword().equals(loginRequest.getPassword()))
                 .findFirst()
                 .orElseThrow(() -> new LoginException("가입하지 않은 이메일이거나 잘못된 비밀번호입니다."));
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@");
 
         Role.setSession(session, findUser);
 
