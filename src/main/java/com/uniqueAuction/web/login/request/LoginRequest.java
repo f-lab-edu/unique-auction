@@ -1,6 +1,5 @@
 package com.uniqueAuction.web.login.request;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -9,11 +8,16 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Getter
 public class LoginRequest {
+
+    public LoginRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     @NotBlank(message = "공백은 입력할 수 없습니다.")
     private String email;

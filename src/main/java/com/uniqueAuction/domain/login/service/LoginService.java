@@ -4,6 +4,7 @@ package com.uniqueAuction.domain.login.service;
 import com.uniqueAuction.domain.user.entity.Role;
 import com.uniqueAuction.domain.user.entity.User;
 import com.uniqueAuction.domain.user.repository.UserRepository;
+import com.uniqueAuction.domain.user.service.EncryptService;
 import com.uniqueAuction.exception.advice.login.LoginException;
 import com.uniqueAuction.web.login.request.LoginRequest;
 import lombok.RequiredArgsConstructor;
@@ -18,19 +19,18 @@ public class LoginService {
 
     private final UserRepository userRepository;
     private final HttpSession session;
+    private final EncryptService encryptService;
 
 
-    public User login(LoginRequest loginRequest) {
+    public void login(LoginRequest loginRequest) {
 
         List<User> users = userRepository.findAll();
         User findUser = users.stream()
                 .filter(user -> user.getEmail().equals(loginRequest.getEmail())
-                        && user.getPassword().equals(loginRequest.getPassword()))
+                        && user.getEncodedPassword().equals(encryptService.encrypt(loginRequest.getPassword())))
                 .findFirst()
                 .orElseThrow(() -> new LoginException("가입하지 않은 이메일이거나 잘못된 비밀번호입니다."));
 
         Role.setSession(session, findUser);
-
-        return findUser;
     }
 }

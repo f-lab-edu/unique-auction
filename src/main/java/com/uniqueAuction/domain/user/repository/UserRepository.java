@@ -1,19 +1,19 @@
 package com.uniqueAuction.domain.user.repository;
 
-import java.util.List;
-
 import com.uniqueAuction.domain.user.entity.User;
 
+import java.util.List;
+
 public interface UserRepository {
-	void save(User user);
+    void save(User user);
 
-	User findById(Long userId);
+    User findById(Long userId);
 
-	Boolean isDuplicated(String email);
+    Boolean isDuplicated(String email);
 
-	List<User> findAll();
+    List<User> findAll();
 
-	void update(Long userId, User updateParam);
+    void update(Long userId, User updateParam);
 
-	void clearStore();
+    void clearStore();
 }

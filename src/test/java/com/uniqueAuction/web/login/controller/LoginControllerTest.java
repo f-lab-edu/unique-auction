@@ -18,9 +18,22 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
+/**
+ * 로그인 서비스 테스트
+ * MockMvc를 사용해 테스트용 시뮬레이션이 되도록 만들어 줌.
+ * standaloneSetup : 해당 컨트롤러만 테스트 한다는 의미.
+ * mvc.perform : MockMvc 실행
+ * ObjectMapper : JSON 형식 사용시 응답 -> 직렬화   요청 ->역직렬화
+ * 직렬화 Byte형태로 데이터 변환.
+ * 역직렬화 : byte To Data Object
+ * ex) String text = mapper.WriteValueAsString(car); //{"name":"K5","color":"gray"}
+ * Car carObject = mapper.readValue(text, Car.class); //Car{name='k5',color='gary
+ */
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(LoginController.class)
@@ -37,7 +50,7 @@ class LoginControllerTest {
     public void setup() {
         mvc =
                 MockMvcBuilders.standaloneSetup(new LoginController(loginService))
-                        .setControllerAdvice(new LoginControllerAdvice())
+                        .setControllerAdvice(new LoginControllerAdvice()) // 컨트롤 어드 바이스 추가.
                         .addFilters(new CharacterEncodingFilter("UTF-8", true)) // utf-8 필터 추가
                         .build();
     }
@@ -93,13 +106,21 @@ class LoginControllerTest {
                         .andExpect(status().isBadRequest());
     }
 
-
+    /**
+     * 메서드가 리턴값이 있을시 given(loginService.login(any())).willThrow(LoginException.class);
+     * 메서드가 없을 시 doThrow 문법 사용
+     *
+     * @throws Exception
+     */
     @Test
     void 유저가없을시테스트() throws Exception {
 
 
         LoginRequest req = new LoginRequest("email@email.com", "12345678");
-        given(loginService.login(any())).willThrow(LoginException.class);
+
+        doThrow(LoginException.class)
+                .when(loginService)
+                .login(any());
 
         mvc.perform(
                         post("/login")

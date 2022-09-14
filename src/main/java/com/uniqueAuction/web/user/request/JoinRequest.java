@@ -1,12 +1,12 @@
 package com.uniqueAuction.web.user.request;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-
 import com.uniqueAuction.domain.user.entity.Role;
 import com.uniqueAuction.domain.user.entity.User;
-
+import com.uniqueAuction.domain.util.validator.annotation.Phone;
 import lombok.Getter;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Getter
 public class JoinRequest {
@@ -26,7 +26,7 @@ public class JoinRequest {
     private String username;
 
     @NotBlank(message = "휴대폰은 필수 입력 값입니다.")
-    @Pattern(regexp = "^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", message = "휴대폰 번호 형식에 맞지 않습니다.")
+    @Phone()
     private String phone;
 
     public JoinRequest() {
