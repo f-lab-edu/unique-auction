@@ -16,14 +16,13 @@ public class LoginControllerAdvice {
     @ExceptionHandler(LoginException.class) // 이컨트롤러에서 이 예외가 발생하면 여기에서 잡힘
     public CommonResponse LoginExHandler(LoginException e) {
         log.error("[exceptionHandler] ex:", e);
-        return CommonResponse.fail(HttpStatus.NOT_FOUND.toString(), e.getCode());
+        return CommonResponse.fail(e.getCode());
     }
-
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(LoginValidationException.class)
     public CommonResponse LoginValidatedExHandler(LoginValidationException e) {
         log.error("[exceptionHandler] ex", e);
-        return CommonResponse.fail(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
+        return CommonResponse.fail(e.getMessage());
     }
 }

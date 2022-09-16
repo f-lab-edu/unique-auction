@@ -1,7 +1,6 @@
 package com.uniqueAuction.web.login.controller;
 
 
-import com.uniqueAuction.domain.aop.LoginCheck;
 import com.uniqueAuction.domain.login.service.LoginService;
 import com.uniqueAuction.exception.advice.login.LoginValidationException;
 import com.uniqueAuction.web.login.request.LoginRequest;
@@ -13,8 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpSession;
 
 import static com.uniqueAuction.exception.ErrorCode.LOGIN_SUCCESS;
 
