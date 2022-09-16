@@ -1,6 +1,7 @@
 package com.uniqueAuction.web.login.controller;
 
 
+import com.uniqueAuction.domain.aop.LoginCheck;
 import com.uniqueAuction.domain.login.service.LoginService;
 import com.uniqueAuction.exception.advice.login.LoginValidationException;
 import com.uniqueAuction.web.login.request.LoginRequest;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+
+import static com.uniqueAuction.exception.ErrorCode.LOGIN_SUCCESS;
 
 /**
  * @Validated :  검증기 실행 애노테이션 WebDataBinder에 등록한 검증기 찾아서 실행 / 스프링에서 제공하는 어노테이션 및 기능 .
@@ -34,7 +37,7 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/login")
-    public CommonResponse signIn(@RequestBody @Validated LoginRequest request, BindingResult result, HttpSession session) {
+    public CommonResponse signIn(@RequestBody @Validated LoginRequest request, BindingResult result) {
 
         if (result.hasErrors()) {
             throw new LoginValidationException(result.getFieldError().getDefaultMessage());
@@ -42,7 +45,7 @@ public class LoginController {
 
         loginService.login(request);
 
-        return CommonResponse.success("로그인 성공");
+        return CommonResponse.success(LOGIN_SUCCESS);
     }
 
 }

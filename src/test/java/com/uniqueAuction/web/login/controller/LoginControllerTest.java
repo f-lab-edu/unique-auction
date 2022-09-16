@@ -2,6 +2,7 @@ package com.uniqueAuction.web.login.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueAuction.domain.login.service.LoginService;
+import com.uniqueAuction.exception.ErrorCode;
 import com.uniqueAuction.exception.advice.login.LoginControllerAdvice;
 import com.uniqueAuction.exception.advice.login.LoginException;
 import com.uniqueAuction.web.login.request.LoginRequest;
@@ -115,10 +116,9 @@ class LoginControllerTest {
     @Test
     void 유저가없을시테스트() throws Exception {
 
-
         LoginRequest req = new LoginRequest("email@email.com", "12345678");
 
-        doThrow(LoginException.class)
+        doThrow(new LoginException(ErrorCode.NOT_FOUND_USER))
                 .when(loginService)
                 .login(any());
 

@@ -1,24 +1,18 @@
 package com.uniqueAuction.exception.advice.login;
 
+import com.uniqueAuction.exception.ErrorCode;
+
 public class LoginException extends RuntimeException {
 
-    public LoginException() {
-        super();
+
+    private final ErrorCode errorCode;
+
+
+    public LoginException(ErrorCode errorCode) {
+        this.errorCode = errorCode;
     }
 
-    public LoginException(String message) {
-        super(message);
-    }
-
-    public LoginException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public LoginException(Throwable cause) {
-        super(cause);
-    }
-
-    protected LoginException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public ErrorCode getCode() {
+        return this.errorCode;
     }
 }

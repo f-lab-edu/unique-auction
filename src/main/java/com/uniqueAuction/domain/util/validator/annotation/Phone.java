@@ -3,6 +3,7 @@ package com.uniqueAuction.domain.util.validator.annotation;
 import com.uniqueAuction.domain.util.validator.PhoneValidator;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -16,4 +17,8 @@ import static java.lang.annotation.ElementType.FIELD;
 @Documented
 public @interface Phone {
     String message() default "휴대폰 번호 형식에 맞지 않습니다.";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

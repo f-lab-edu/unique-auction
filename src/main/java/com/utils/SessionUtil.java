@@ -54,6 +54,7 @@ public class SessionUtil {
         session.setAttribute(LOGIN_ADMIN, id);
     }
 
+
     /**
      * 해당 세션의 정보를 모두 삭제한다.
      *

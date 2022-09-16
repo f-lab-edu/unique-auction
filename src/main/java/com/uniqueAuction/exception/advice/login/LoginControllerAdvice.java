@@ -15,8 +15,8 @@ public class LoginControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(LoginException.class) // 이컨트롤러에서 이 예외가 발생하면 여기에서 잡힘
     public CommonResponse LoginExHandler(LoginException e) {
-        log.error("[exceptionHandler] ex", e);
-        return new CommonResponse(HttpStatus.NOT_FOUND.toString(), e.getMessage());
+        log.error("[exceptionHandler] ex:", e);
+        return CommonResponse.fail(HttpStatus.NOT_FOUND.toString(), e.getCode());
     }
 
 
@@ -24,6 +24,6 @@ public class LoginControllerAdvice {
     @ExceptionHandler(LoginValidationException.class)
     public CommonResponse LoginValidatedExHandler(LoginValidationException e) {
         log.error("[exceptionHandler] ex", e);
-        return new CommonResponse(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
+        return CommonResponse.fail(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
     }
 }
