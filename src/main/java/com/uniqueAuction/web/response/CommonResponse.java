@@ -26,8 +26,8 @@ public class CommonResponse<T> {
         return new CommonResponse(errorCode.getMessage());
     }
 
-    public static CommonResponse fail(ErrorCode code) {
-        return new CommonResponse(code);
+    public static CommonResponse fail(ErrorCode errorCode) {
+        return new CommonResponse(errorCode);
     }
 
     public static CommonResponse fail(String message) {
