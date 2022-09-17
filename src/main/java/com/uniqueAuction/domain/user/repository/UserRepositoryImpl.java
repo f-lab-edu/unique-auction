@@ -2,7 +2,6 @@ package com.uniqueAuction.domain.user.repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -22,16 +21,12 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public User findById(Long userId) {
-		return store.get(userId);
-	}
-
-	@Override
-	public Boolean isDuplicated(String email) {
+	public Long isExists(String email) {
 		return store.entrySet()
 			.stream()
 			.filter(e -> e.getValue().getEmail().equals(email)).findFirst()
-			.map(Map.Entry::getValue).isPresent();
+			.map(e -> e.getValue().getId())
+			.orElse(0L);
 	}
 
 	@Override
@@ -41,14 +36,6 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public void update(Long userId, User updateParam) {
-		User findUser = findById(userId);
-		findUser.setEmail(updateParam.getEmail());
-		findUser.setUsername(updateParam.getUsername());
-		findUser.setPhone(updateParam.getPhone());
-	}
-
-	@Override
-	public void clearStore() {
-		store.clear();
+		store.put(userId, updateParam);
 	}
 }

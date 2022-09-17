@@ -7,13 +7,10 @@ import com.uniqueAuction.domain.user.entity.User;
 public interface UserRepository {
 	void save(User user);
 
-	User findById(Long userId);
-
-	Boolean isDuplicated(String email);
+	Long isExists(String email);
 
 	List<User> findAll();
 
 	void update(Long userId, User updateParam);
 
-	void clearStore();
 }
