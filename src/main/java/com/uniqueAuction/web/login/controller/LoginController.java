@@ -44,5 +44,4 @@ public class LoginController {
 
         return CommonResponse.success(LOGIN_SUCCESS);
     }
-
 }

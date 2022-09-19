@@ -15,7 +15,7 @@ public class SessionUtil {
      * @return 로그인한 고객의 id 또는 null
      */
     public static String getLoginMemberId(HttpSession session) {
-        return (String) session.getAttribute(LOGIN_MEMBER);
+        return String.valueOf(session.getAttribute(LOGIN_MEMBER));
     }
 
     /**

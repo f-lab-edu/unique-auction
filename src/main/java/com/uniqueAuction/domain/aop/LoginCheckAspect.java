@@ -16,6 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 
+
 @Component
 @Aspect
 @Order(Ordered.LOWEST_PRECEDENCE)
@@ -41,6 +42,7 @@ public class LoginCheckAspect {
         if (proceedingJoinPoint.getArgs() != null)
             modifiedArgs[idIndex] = id;
 
+
         return proceedingJoinPoint.proceed(modifiedArgs);
     }
 
@@ -54,7 +56,7 @@ public class LoginCheckAspect {
                 id = SessionUtil.getLoginAdminId(session);
                 break;
             }
-            case "USER": {
+            case "CUSTOMER": {
                 id = SessionUtil.getLoginMemberId(session);
                 break;
             }
