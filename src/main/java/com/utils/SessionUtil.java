@@ -13,10 +13,9 @@ public class SessionUtil {
      *
      * @param session 사용자의 세션
      * @return 로그인한 고객의 id 또는 null
-     * @author topojs8
      */
     public static String getLoginMemberId(HttpSession session) {
-        return (String) session.getAttribute(LOGIN_MEMBER);
+        return String.valueOf(session.getAttribute(LOGIN_MEMBER));
     }
 
     /**
@@ -24,7 +23,6 @@ public class SessionUtil {
      *
      * @param session 사용자의 session
      * @param id      로그인한 고객의 id
-     * @author topojs8
      */
     public static void setLoginMemberId(HttpSession session, Long id) {
         session.setAttribute(LOGIN_MEMBER, id);
@@ -37,7 +35,6 @@ public class SessionUtil {
      *
      * @param session 사용자의 세션
      * @return 로그인한 사장님 id 또는 null
-     * @author topojs8
      */
     public static String getLoginAdminId(HttpSession session) {
         return (String) session.getAttribute(LOGIN_ADMIN);
@@ -48,17 +45,16 @@ public class SessionUtil {
      *
      * @param session 사용자의 세션
      * @param id      로그인한 사장님 id
-     * @author topojs8
      */
     public static void setLoginAdminId(HttpSession session, Long id) {
         session.setAttribute(LOGIN_ADMIN, id);
     }
 
+
     /**
      * 해당 세션의 정보를 모두 삭제한다.
      *
      * @param session 사용자의 세션
-     * @author topojs8
      */
     public static void clear(HttpSession session) {
         session.invalidate();

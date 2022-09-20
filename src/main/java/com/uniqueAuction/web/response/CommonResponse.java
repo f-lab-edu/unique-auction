@@ -1,42 +1,36 @@
 package com.uniqueAuction.web.response;
 
-import org.springframework.http.HttpStatus;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
-
+import com.uniqueAuction.exception.ErrorCode;
 import lombok.Getter;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @Getter
 public class CommonResponse<T> {
-	private String code;
-	private String message;
-	private T data;
 
-	public CommonResponse(String code, String message, T data) {
-		this.code = code;
-		this.message = message;
-		this.data = data;
-	}
+    private int code;
+    private String message;
+    private T data;
 
-	public CommonResponse(String code, String message) {
-		this.code = code;
-		this.message = message;
-	}
 
-	public static <T> CommonResponse success(String message, T data) {
-		return new CommonResponse(HttpStatus.OK.toString(), message, data);
-	}
+    public CommonResponse(String message) {
+        this.message = message;
+    }
 
-	public static <T> CommonResponse success(String message) {
-		return new CommonResponse(HttpStatus.OK.toString(), message);
-	}
+    public CommonResponse(ErrorCode errorCode) {
+        this.code = errorCode.getCode();
+        this.message = errorCode.getMessage();
+    }
 
-	public static <T> CommonResponse success(String code, String message) {
-		return new CommonResponse(code, message);
-	}
+    public static CommonResponse success(ErrorCode errorCode) {
+        return new CommonResponse(errorCode.getMessage());
+    }
 
-	public static CommonResponse fail(String code, String message) {
-		return new CommonResponse(code, message);
-	}
+    public static CommonResponse fail(ErrorCode errorCode) {
+        return new CommonResponse(errorCode);
+    }
+
+    public static CommonResponse fail(String message) {
+        return new CommonResponse(message);
+    }
 }

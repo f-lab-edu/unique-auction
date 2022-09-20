@@ -1,7 +1,8 @@
 package com.uniqueAuction.web.user.controller;
 
-import java.util.Objects;
-
+import com.uniqueAuction.domain.user.service.UserService;
+import com.uniqueAuction.web.user.request.JoinRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
 
-	private final UserService userService;
+    private final UserService userService;
 
 	@PostMapping("/users")
 	@ResponseStatus(HttpStatus.CREATED)

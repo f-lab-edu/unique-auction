@@ -9,6 +9,9 @@ import com.utils.annotation.Username;
 
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 @Getter
 public class JoinRequest {
 	private Long userId;

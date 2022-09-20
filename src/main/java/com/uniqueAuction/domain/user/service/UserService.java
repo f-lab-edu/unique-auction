@@ -1,7 +1,5 @@
 package com.uniqueAuction.domain.user.service;
 
-import org.springframework.stereotype.Service;
-
 import com.uniqueAuction.domain.user.entity.User;
 import com.uniqueAuction.domain.user.repository.UserRepository;
 import com.uniqueAuction.exception.advice.user.UserException;
@@ -9,12 +7,13 @@ import com.uniqueAuction.web.user.request.JoinRequest;
 import com.uniqueAuction.web.user.request.UpdateUserRequest;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-	private final UserRepository userRepository;
-	private final EncryptService encryptService;
+    private final UserRepository userRepository;
+    private final EncryptService encryptService;
 
 	public void join(JoinRequest joinRequest) {
 		User user = joinRequest.toEntity(joinRequest);
