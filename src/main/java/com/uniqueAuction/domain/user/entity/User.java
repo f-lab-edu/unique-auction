@@ -1,27 +1,30 @@
 package com.uniqueAuction.domain.user.entity;
 
-import lombok.*;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
-@Setter
 @ToString
 public class User {
-    private Long id;
-    private String email;
-    private String encodedPassword;
-    private String username;
-    private String phone;
+	private String email;
+	private String username;
+	private String phone;
+	private Role role;
 
-    /* Role setter 생성 제외 */
-    @Setter(AccessLevel.NONE)
-    private Role role;
+	@Setter
+	private Long id;
+	@Setter
+	private String encodedPassword;
 
-    @Builder
-    public User(String email, String encodedPassword, String username, String phone, Role role) {
-        this.email = email;
-        this.encodedPassword = encodedPassword;
-        this.username = username;
-        this.phone = phone;
-        this.role = role;
-    }
+	@Builder
+	public User(String email, String encodedPassword, String username, String phone, Role role) {
+		this.email = email;
+		this.encodedPassword = encodedPassword;
+		this.username = username;
+		this.phone = phone;
+		this.role = role;
+	}
 }
