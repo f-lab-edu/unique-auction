@@ -1,6 +1,7 @@
 package com.uniqueAuction.web.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.uniqueAuction.domain.product.entity.Product;
 import com.uniqueAuction.exception.ErrorCode;
 import lombok.Getter;
 
@@ -22,8 +23,16 @@ public class CommonResponse<T> {
         this.message = errorCode.getMessage();
     }
 
+    public CommonResponse(T data) {
+        this.data = data;
+    }
+
     public static CommonResponse success(ErrorCode errorCode) {
         return new CommonResponse(errorCode.getMessage());
+    }
+
+    public static CommonResponse success(Product product) {
+        return new CommonResponse(product);
     }
 
     public static CommonResponse fail(ErrorCode errorCode) {

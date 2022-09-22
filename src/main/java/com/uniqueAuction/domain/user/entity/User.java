@@ -1,5 +1,6 @@
 package com.uniqueAuction.domain.user.entity;
 
+import com.uniqueAuction.web.product.request.ProductSaveRequest;
 import lombok.*;
 
 @Getter
@@ -24,4 +25,6 @@ public class User {
         this.phone = phone;
         this.role = role;
     }
+
+
 }

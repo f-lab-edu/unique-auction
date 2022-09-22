@@ -1,0 +1,39 @@
+package com.uniqueAuction.web.product.request;
+
+import com.uniqueAuction.domain.product.entity.Product;
+import lombok.*;
+
+import javax.validation.constraints.NotBlank;
+
+@NoArgsConstructor
+@ToString
+@Getter
+public class ProductUpdateRequest {
+
+    @NotBlank(message = "공백은 입력할 수 없습니다.")
+    private String modelNumber;
+
+    @NotBlank(message = "공백은 입력할 수 없습니다.")
+    private String releasePrice;
+
+    @NotBlank(message = "공백은 입력할 수 없습니다.")
+    private String size;
+
+    @NotBlank(message = "공백은 입력할 수 없습니다.")
+    private String category;
+
+    @NotBlank(message = "공백은 입력할 수 없습니다.")
+    private String stock;
+
+
+
+    public Product updateProduct(){
+        return Product.builder()
+                .modelNumber(this.modelNumber)
+                .releasePrice(this.releasePrice)
+                .size(this.size)
+                .category(this.category)
+                .stock(this.stock).build();
+    }
+
+}
