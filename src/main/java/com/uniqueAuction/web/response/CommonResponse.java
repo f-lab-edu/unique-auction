@@ -31,8 +31,8 @@ public class CommonResponse<T> {
         return new CommonResponse(errorCode.getMessage());
     }
 
-    public static CommonResponse success(Product product) {
-        return new CommonResponse(product);
+    public static <T>CommonResponse success(T data) {
+        return new CommonResponse(data);
     }
 
     public static CommonResponse fail(ErrorCode errorCode) {
