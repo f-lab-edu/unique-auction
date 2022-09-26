@@ -2,6 +2,7 @@ package com.uniqueAuction.domain.trade.entity;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Builder
@@ -11,12 +12,9 @@ public class Trade {
 	private Long productId;
 	private Long purhcaseId;
 	private Long saleId;
-	private TradeStatus status;
 
-	public enum TradeStatus {
-		BID_COMPLETE, /* 입찰 체결 */
-		TRADE_COMPLETE /* 거래 완료*/
-	}
+	@Setter
+	private TradeStatus status;
 
 	public Trade(Long id, Long productId, Long purhcaseId, Long saleId,
 		TradeStatus status) {
