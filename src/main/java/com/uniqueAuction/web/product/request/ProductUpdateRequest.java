@@ -26,7 +26,6 @@ public class ProductUpdateRequest {
     private String stock;
 
 
-
     public Product updateProduct(){
         return Product.builder()
                 .modelNumber(this.modelNumber)

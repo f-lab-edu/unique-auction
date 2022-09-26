@@ -1,5 +1,6 @@
 package com.uniqueAuction.web.product.request;
 
+import com.uniqueAuction.domain.product.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,17 @@ public class ProductSaveRequest {
 
     @NotBlank(message = "수량은 공백은 입력할 수 없습니다.")
     private String stock;
+
+
+
+    public static Product saveToProduct(ProductSaveRequest productSaveRequest){
+        return Product.builder()
+                .modelNumber(productSaveRequest.getModelNumber())
+                .releasePrice(productSaveRequest.getReleasePrice())
+                .size(productSaveRequest.getSize())
+                .category(productSaveRequest.getCategory())
+                .stock(productSaveRequest.getStock())
+                .build();
+    }
 
 }

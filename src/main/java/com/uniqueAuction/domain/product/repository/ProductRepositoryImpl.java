@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static com.uniqueAuction.web.product.request.ProductSaveRequest.saveToProduct;
+
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 
@@ -19,7 +21,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void saveProduct(ProductSaveRequest productSaveRequest) {
-        store.put(sequence.addAndGet(1) , Product.of(productSaveRequest));
+        store.put(sequence.addAndGet(1) , saveToProduct(productSaveRequest));
     }
 
     @Override

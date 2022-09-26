@@ -32,7 +32,7 @@ public class ProductService {
         //상품 유무 체크
         productFindById(id);
 
-        productRepository.update(id,productUpdateRequest.updateProduct());
+        productRepository.update(id, productUpdateRequest.updateProduct());
     }
 
     public void deleteProduct(Long id) {
