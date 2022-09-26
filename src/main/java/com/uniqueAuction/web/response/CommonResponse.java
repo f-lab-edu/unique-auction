@@ -27,8 +27,8 @@ public class CommonResponse<T> {
         this.data = data;
     }
 
-    public static CommonResponse success(ErrorCode errorCode) {
-        return new CommonResponse(errorCode.getMessage());
+    public static CommonResponse success(String msg) {
+        return new CommonResponse(msg);
     }
 
     public static <T>CommonResponse success(T data) {

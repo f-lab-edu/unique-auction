@@ -9,7 +9,6 @@ public enum ErrorCode {
 
 
 
-    PRODUCT_SAVE_SUCCESS(2000, "상품을 등록하였습니다."),
     PRODUCT_UPDATE_SUCCESS(2001, "상품을 수정하였습니다."),
     NOT_FOUND_PRODUCT(2002, "해당 상품이 없습니다.")
     ;

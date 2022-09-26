@@ -8,11 +8,11 @@ import com.uniqueAuction.web.product.request.ProductSaveRequest;
 import com.uniqueAuction.web.product.request.ProductUpdateRequest;
 import com.uniqueAuction.web.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static com.uniqueAuction.exception.ErrorCode.PRODUCT_SAVE_SUCCESS;
 import static com.uniqueAuction.exception.ErrorCode.PRODUCT_UPDATE_SUCCESS;
 
 @RequiredArgsConstructor
@@ -39,7 +39,7 @@ public class ProductController {
 
         productService.saveProduct(productSaveRequest);
 
-        return CommonResponse.success(PRODUCT_SAVE_SUCCESS);
+        return CommonResponse.success(HttpStatus.CREATED.toString());
     }
 
 
