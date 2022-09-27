@@ -23,10 +23,11 @@ public class UserService {
 			user.setEncodedPassword(encryptService.encrypt(joinRequest.getPassword()));
 		} else {
 			throw new UserException("이미 존재하는 이메일입니다.");
+			
 		}
 
 		userRepository.save(user);
-		
+
 	}
 
 	public void update(UpdateUserRequest updateUserRequest) {
