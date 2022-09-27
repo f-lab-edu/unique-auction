@@ -26,6 +26,7 @@ public class UserService {
 		}
 
 		userRepository.save(user);
+		
 	}
 
 	public void update(UpdateUserRequest updateUserRequest) {
