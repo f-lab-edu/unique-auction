@@ -1,9 +1,12 @@
 package com.uniqueAuction.exception.advice.login;
 
+import com.uniqueAuction.web.response.ErrorResponse;
+import lombok.Getter;
+
+@Getter
 public class LoginValidationException extends RuntimeException {
-
-    public LoginValidationException(String message) {
-        super(message);
+    private final ErrorResponse errorResponse;
+    public LoginValidationException(ErrorResponse errorResponse) {
+        this.errorResponse = errorResponse;
     }
-
 }

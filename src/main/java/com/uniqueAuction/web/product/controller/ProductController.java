@@ -7,13 +7,13 @@ import com.uniqueAuction.exception.advice.product.ProductValidationException;
 import com.uniqueAuction.web.product.request.ProductSaveRequest;
 import com.uniqueAuction.web.product.request.ProductUpdateRequest;
 import com.uniqueAuction.web.response.CommonResponse;
+import com.uniqueAuction.web.response.ErrorResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static com.uniqueAuction.exception.ErrorCode.PRODUCT_UPDATE_SUCCESS;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @RestController
@@ -34,12 +34,16 @@ public class ProductController {
     public CommonResponse saveProduct(@RequestBody @Validated ProductSaveRequest productSaveRequest, BindingResult result) {
 
         if (result.hasErrors()) {
-            throw new ProductValidationException(result.getFieldError().getDefaultMessage());
+            throw new ProductValidationException(
+                    ErrorResponse.builder()
+                            .errorCode("VP0001")
+                            .errorMessage(Objects.requireNonNull(result.getFieldError()).getDefaultMessage())
+                            .build());
         }
 
         productService.saveProduct(productSaveRequest);
 
-        return CommonResponse.success(HttpStatus.CREATED.toString());
+        return CommonResponse.success();
     }
 
 
@@ -47,12 +51,16 @@ public class ProductController {
     public CommonResponse updateProduct(@PathVariable Long id, @RequestBody @Validated ProductUpdateRequest productUpdateRequest, BindingResult result) {
 
         if (result.hasErrors()) {
-            throw new ProductValidationException(result.getFieldError().getDefaultMessage());
+            throw new ProductValidationException(
+                    ErrorResponse.builder()
+                            .errorCode("VP0001")
+                            .errorMessage(Objects.requireNonNull(result.getFieldError()).getDefaultMessage())
+                            .build());
         }
 
         productService.updateProduct(id,productUpdateRequest);
 
-        return CommonResponse.success(PRODUCT_UPDATE_SUCCESS);
+        return CommonResponse.success();
     }
 
 
@@ -61,7 +69,7 @@ public class ProductController {
 
         productService.deleteProduct(id);
 
-        return CommonResponse.success(PRODUCT_UPDATE_SUCCESS);
+        return CommonResponse.success();
     }
 
 }
