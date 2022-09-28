@@ -6,7 +6,7 @@ import lombok.*;
 import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 @Getter
 public class ProductUpdateRequest {
 

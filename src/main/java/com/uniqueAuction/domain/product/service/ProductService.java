@@ -27,12 +27,12 @@ public class ProductService {
                 .orElseThrow(() -> new ProductException(NOT_FOUND_PRODUCT));
     }
 
-    public void updateProduct(Long id, ProductUpdateRequest productUpdateRequest) {
+    public Product updateProduct(Long id, ProductUpdateRequest productUpdateRequest) {
 
         //상품 유무 체크
         productFindById(id);
 
-        productRepository.update(id, productUpdateRequest.updateProduct());
+        return productRepository.update(id, productUpdateRequest.updateProduct());
     }
 
     public void deleteProduct(Long id) {

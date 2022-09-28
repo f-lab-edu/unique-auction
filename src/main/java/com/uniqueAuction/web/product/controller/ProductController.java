@@ -41,7 +41,9 @@ public class ProductController {
                             .build());
         }
 
+        System.out.println("!111");
         productService.saveProduct(productSaveRequest);
+        System.out.println("!222");
 
         return CommonResponse.success();
     }
@@ -58,9 +60,9 @@ public class ProductController {
                             .build());
         }
 
-        productService.updateProduct(id,productUpdateRequest);
+        Product updateProduct = productService.updateProduct(id, productUpdateRequest);
 
-        return CommonResponse.success();
+        return CommonResponse.success(updateProduct);
     }
 
 

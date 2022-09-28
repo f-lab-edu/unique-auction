@@ -9,8 +9,8 @@ import lombok.ToString;
 import javax.validation.constraints.NotBlank;
 
 
+@AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Getter
 public class ProductSaveRequest {
 

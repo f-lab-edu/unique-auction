@@ -1,9 +1,7 @@
 package com.uniqueAuction.domain.product.repository;
 
 import com.uniqueAuction.domain.product.entity.Product;
-import com.uniqueAuction.domain.user.entity.User;
 import com.uniqueAuction.web.product.request.ProductSaveRequest;
-import com.uniqueAuction.web.product.request.ProductUpdateRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -22,6 +20,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public void saveProduct(ProductSaveRequest productSaveRequest) {
         store.put(sequence.addAndGet(1) , saveToProduct(productSaveRequest));
+
     }
 
     @Override
@@ -30,8 +29,9 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public void update(Long id, Product updateProduct) {
+    public Product update(Long id, Product updateProduct) {
         store.put(id,updateProduct);
+        return store.get(id);
     }
 
     @Override
