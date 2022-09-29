@@ -1,16 +1,12 @@
 package com.uniqueAuction.web.product.request;
 
 import com.uniqueAuction.domain.product.entity.Product;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
 
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 @Getter
 public class ProductSaveRequest {
 
@@ -31,7 +27,7 @@ public class ProductSaveRequest {
 
 
 
-    public static Product saveToProduct(ProductSaveRequest productSaveRequest){
+    public static Product convert(ProductSaveRequest productSaveRequest){
         return Product.builder()
                 .modelNumber(productSaveRequest.getModelNumber())
                 .releasePrice(productSaveRequest.getReleasePrice())

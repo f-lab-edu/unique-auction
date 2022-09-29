@@ -1,5 +1,6 @@
 package com.uniqueAuction.web.product.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueAuction.domain.product.service.ProductService;
 import com.uniqueAuction.exception.advice.product.ProductControllerAdvice;
@@ -17,11 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import static com.uniqueAuction.web.product.request.ProductSaveRequest.saveToProduct;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -38,8 +35,10 @@ class ProductControllerTest {
     private ProductService productService;
 
 
-    private  ProductSaveRequest saveReq;
-    private  ProductUpdateRequest updateReq;
+    private ProductSaveRequest saveReq;
+    @JsonProperty
+    private ProductUpdateRequest updateReq;
+
     @BeforeEach
     public void setup() {
         mockMvc =
@@ -48,8 +47,19 @@ class ProductControllerTest {
                         .addFilters(new CharacterEncodingFilter("UTF-8", true))
                         .build();
 
-        saveReq = new ProductSaveRequest("123", "10000", "284", "운동화", "1");
-        updateReq = new ProductUpdateRequest("456", "10000", "284", "운동화", "12");
+        saveReq = ProductSaveRequest.builder()
+                .modelNumber("123")
+                .releasePrice("10000")
+                .size("284")
+                .category("운동화")
+                .stock("1").build();
+
+        updateReq = ProductUpdateRequest.builder()
+                .modelNumber("457")
+                .releasePrice("10000")
+                .size("284")
+                .category("dnsehdghk")
+                .stock("1").build();
 
     }
 

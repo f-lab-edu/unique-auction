@@ -3,11 +3,10 @@ package com.uniqueAuction.domain.product.service;
 
 import com.uniqueAuction.domain.product.entity.Product;
 import com.uniqueAuction.domain.product.repository.ProductRepository;
-import com.uniqueAuction.exception.advice.product.ProductException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.uniqueAuction.exception.ErrorCode.NOT_FOUND_PRODUCT;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -30,5 +29,9 @@ public class ProductService {
 
     public void deleteProduct(Long id) {
         productRepository.delete(id);
+    }
+
+    public List<Product> findByAll() {
+        return productRepository.findByAll();
     }
 }

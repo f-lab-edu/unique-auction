@@ -4,18 +4,20 @@ import com.uniqueAuction.domain.product.entity.Product;
 import com.uniqueAuction.domain.product.repository.ProductRepository;
 import com.uniqueAuction.web.product.request.ProductSaveRequest;
 import com.uniqueAuction.web.product.request.ProductUpdateRequest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.uniqueAuction.web.product.request.ProductSaveRequest.saveToProduct;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.uniqueAuction.web.product.request.ProductSaveRequest.convert;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 
 
 /**
@@ -39,34 +41,24 @@ class ProductServiceTest {
     @Mock
     private ProductRepository productRepository;
 
-    private ProductSaveRequest saveReq;
-
-    private  ProductUpdateRequest updateReq;
 
 
-
-    @BeforeEach
-    public void setup() {
-
-        saveReq = new ProductSaveRequest("123", "10000", "284", "운동화", "1");
-        updateReq = new ProductUpdateRequest("456", "10000", "284", "운동화", "12");
-
-    }
-
-
-    @Test
-    void 상품을저장한다() {
-
-        //given
-
-        doReturn(saveReq).when(productRepository).saveProduct(any(Product.class));
-
-        //when
-
-        productService.saveProduct(saveToProduct(saveReq));
-
-        //then
-    }
+//    @Test
+//    void 상품을저장한다() {
+//
+//        //given
+//
+//        doNothing().when(productRepository).saveProduct(getSaveProduct());
+//        doReturn(getListProduct(getSaveReq())).when(productRepository).findByAll();
+//
+//        //when
+//
+//        productService.saveProduct(convert(getSaveReq()));
+//        //then
+//
+//        System.out.println(productService.findByAll().size());
+//
+//    }
 
 
     @Test
@@ -94,16 +86,15 @@ class ProductServiceTest {
 
         Long pId = 1L;
 
-        Product updateProduct = updateReq.updateToProduct();
+        Product updateProduct = getUpdateReq().convert();
         //given
-        doReturn(updateProduct).when(productRepository).update(pId,updateProduct);
-//        given(productRepository.update(pId,updateProduct)).willReturn(updateProduct);
+        doReturn(updateProduct).when(productRepository).update(pId, updateProduct);
         //when
-        Product product = productService.updateProduct(pId,updateProduct);
+        Product product = productService.updateProduct(pId, updateProduct);
 
 
         //then
-        assertThat(product.getModelNumber()).isEqualTo("456");
+        assertThat(product.getModelNumber()).isEqualTo("457");
         assertThat(product.getReleasePrice()).isEqualTo("10000");
         assertThat(product.getSize()).isEqualTo("284");
         assertThat(product.getCategory()).isEqualTo("운동화");
@@ -118,14 +109,41 @@ class ProductServiceTest {
         //given
         Long pId = 1L;
         doNothing().when(productRepository).delete(1L);
+        doReturn(0).when(productRepository).findByAll().size();
 
         //when
-       productService.deleteProduct(pId);
+        productService.deleteProduct(pId);
+
+        System.out.println();
 
     }
 
-    private Product getSaveProduct(){
-        return new Product("123", "10000", "284", "운동화", "1");
+    private Product getSaveProduct() {
+        return convert(getSaveReq());
+    }
+
+    private ProductSaveRequest getSaveReq() {
+        return ProductSaveRequest.builder()
+                .modelNumber("123")
+                .releasePrice("10000")
+                .size("284")
+                .category("운동화")
+                .stock("1").build();
+    }
+
+    private ProductUpdateRequest getUpdateReq() {
+        return ProductUpdateRequest.builder()
+                .modelNumber("457")
+                .releasePrice("10000")
+                .size("284")
+                .category("운동화")
+                .stock("12").build();
+    }
+
+    public List<Product> getListProduct(ProductSaveRequest saveProduct) {
+        List<Product> list = new ArrayList();
+        list.add(convert(saveProduct));
+        return list;
     }
 
 }

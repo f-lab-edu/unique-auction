@@ -5,8 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder
 @Getter
 public class ProductUpdateRequest {
 
@@ -26,7 +25,7 @@ public class ProductUpdateRequest {
     private String stock;
 
 
-    public Product updateToProduct(){
+    public Product convert(){
         return Product.builder()
                 .modelNumber(this.modelNumber)
                 .releasePrice(this.releasePrice)
@@ -36,3 +35,4 @@ public class ProductUpdateRequest {
     }
 
 }
+//
