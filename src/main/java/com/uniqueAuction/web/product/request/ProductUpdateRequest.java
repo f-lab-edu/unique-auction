@@ -1,7 +1,9 @@
 package com.uniqueAuction.web.product.request;
 
 import com.uniqueAuction.domain.product.entity.Product;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
@@ -26,7 +28,7 @@ public class ProductUpdateRequest {
     private String stock;
 
 
-    public Product updateToProduct(){
+    public Product convert() {
         return Product.builder()
                 .modelNumber(this.modelNumber)
                 .releasePrice(this.releasePrice)

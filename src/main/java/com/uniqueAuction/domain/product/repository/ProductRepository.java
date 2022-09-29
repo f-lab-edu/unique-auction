@@ -1,7 +1,6 @@
 package com.uniqueAuction.domain.product.repository;
 
 import com.uniqueAuction.domain.product.entity.Product;
-import com.uniqueAuction.web.product.request.ProductSaveRequest;
 
 import java.util.Optional;
 
