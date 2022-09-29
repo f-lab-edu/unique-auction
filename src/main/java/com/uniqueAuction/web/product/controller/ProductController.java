@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
+import static com.uniqueAuction.web.product.request.ProductSaveRequest.saveToProduct;
+
 @RequiredArgsConstructor
 @RestController
 public class ProductController {
@@ -41,9 +43,7 @@ public class ProductController {
                             .build());
         }
 
-        System.out.println("!111");
-        productService.saveProduct(productSaveRequest);
-        System.out.println("!222");
+        productService.saveProduct(saveToProduct(productSaveRequest));
 
         return CommonResponse.success();
     }
@@ -60,7 +60,7 @@ public class ProductController {
                             .build());
         }
 
-        Product updateProduct = productService.updateProduct(id, productUpdateRequest);
+        Product updateProduct = productService.updateProduct(id, productUpdateRequest.updateToProduct());
 
         return CommonResponse.success(updateProduct);
     }

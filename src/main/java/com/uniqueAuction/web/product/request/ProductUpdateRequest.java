@@ -26,7 +26,7 @@ public class ProductUpdateRequest {
     private String stock;
 
 
-    public Product updateProduct(){
+    public Product updateToProduct(){
         return Product.builder()
                 .modelNumber(this.modelNumber)
                 .releasePrice(this.releasePrice)

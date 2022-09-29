@@ -6,7 +6,7 @@ import com.uniqueAuction.web.product.request.ProductSaveRequest;
 import java.util.Optional;
 
 public interface ProductRepository {
-    void saveProduct(ProductSaveRequest ProductSaveRequest);
+    void saveProduct(Product saveProduct);
 
 
     Optional<Product> productFindById(Long id);
