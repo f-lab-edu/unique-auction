@@ -21,15 +21,10 @@ public class ProductService {
     }
 
     public Product productFindById(Long id) {
-        return productRepository.productFindById(id)
-                .orElseThrow(() -> new ProductException(NOT_FOUND_PRODUCT));
+        return productRepository.productFindById(id);
     }
 
     public Product updateProduct(Long id, Product updateProduct) {
-
-        //상품 유무 체크
-        productFindById(id);
-
         return productRepository.update(id, updateProduct);
     }
 

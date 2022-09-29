@@ -21,8 +21,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Optional<Product> productFindById(Long id) {
-        return Optional.ofNullable(store.get(id));
+    public Product productFindById(Long id) {
+        return store.get(id);
     }
 
     @Override
