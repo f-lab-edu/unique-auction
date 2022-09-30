@@ -3,11 +3,9 @@ package com.uniqueAuction.domain.product.service;
 
 import com.uniqueAuction.domain.product.entity.Product;
 import com.uniqueAuction.domain.product.repository.ProductRepository;
-import com.uniqueAuction.exception.advice.product.ProductException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.uniqueAuction.exception.ErrorCode.NOT_FOUND_PRODUCT;
 
 @RequiredArgsConstructor
 @Service
@@ -21,8 +19,8 @@ public class ProductService {
     }
 
     public Product productFindById(Long id) {
-        return productRepository.productFindById(id)
-                .orElseThrow(() -> new ProductException(NOT_FOUND_PRODUCT));
+        return null;
+
     }
 
     public Product updateProduct(Long id, Product updateProduct) {
