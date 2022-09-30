@@ -3,7 +3,6 @@ package com.uniqueAuction.domain.product.repository;
 import com.uniqueAuction.domain.product.entity.Product;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -21,8 +20,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Optional<Product> productFindById(Long id) {
-        return Optional.ofNullable(store.get(id));
+    public Product productFindById(Long id) {
+        return store.get(id);
     }
 
     @Override

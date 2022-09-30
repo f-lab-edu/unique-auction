@@ -19,8 +19,7 @@ public class ProductService {
     }
 
     public Product productFindById(Long id) {
-        return null;
-
+        return productRepository.productFindById(id);
     }
 
     public Product updateProduct(Long id, Product updateProduct) {
