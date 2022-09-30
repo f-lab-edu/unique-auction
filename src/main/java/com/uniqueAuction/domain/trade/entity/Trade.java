@@ -12,16 +12,6 @@ public class Trade {
 	private Long productId;
 	private Long purhcaseId;
 	private Long saleId;
-
 	@Setter
 	private TradeStatus status;
-
-	public Trade(Long id, Long productId, Long purhcaseId, Long saleId,
-		TradeStatus status) {
-		this.id = id;
-		this.productId = productId;
-		this.purhcaseId = purhcaseId;
-		this.saleId = saleId;
-		this.status = status;
-	}
 }
