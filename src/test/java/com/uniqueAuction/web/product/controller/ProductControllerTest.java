@@ -2,7 +2,7 @@ package com.uniqueAuction.web.product.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueAuction.domain.product.service.ProductService;
-import com.uniqueAuction.exception.advice.product.ProductControllerAdvice;
+import com.uniqueAuction.exception.advice.CommonControllerAdvice;
 import com.uniqueAuction.web.product.request.ProductSaveRequest;
 import com.uniqueAuction.web.product.request.ProductUpdateRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,11 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import static com.uniqueAuction.web.product.request.ProductSaveRequest.saveToProduct;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -38,13 +34,14 @@ class ProductControllerTest {
     private ProductService productService;
 
 
-    private  ProductSaveRequest saveReq;
-    private  ProductUpdateRequest updateReq;
+    private ProductSaveRequest saveReq;
+    private ProductUpdateRequest updateReq;
+
     @BeforeEach
     public void setup() {
         mockMvc =
                 MockMvcBuilders.standaloneSetup(new ProductController(productService))
-                        .setControllerAdvice(new ProductControllerAdvice())
+                        .setControllerAdvice(new CommonControllerAdvice())
                         .addFilters(new CharacterEncodingFilter("UTF-8", true))
                         .build();
 

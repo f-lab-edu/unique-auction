@@ -3,8 +3,8 @@ package com.uniqueAuction.web.login.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueAuction.domain.login.service.LoginService;
 import com.uniqueAuction.exception.ErrorCode;
-import com.uniqueAuction.exception.advice.login.LoginControllerAdvice;
-import com.uniqueAuction.exception.advice.login.LoginException;
+import com.uniqueAuction.exception.advice.CommonControllerAdvice;
+import com.uniqueAuction.exception.advice.CommonNotFoundException;
 import com.uniqueAuction.web.login.request.LoginRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +51,7 @@ class LoginControllerTest {
     public void setup() {
         mvc =
                 MockMvcBuilders.standaloneSetup(new LoginController(loginService))
-                        .setControllerAdvice(new LoginControllerAdvice()) // 컨트롤 어드 바이스 추가.
+                        .setControllerAdvice(new CommonControllerAdvice()) // 컨트롤 어드 바이스 추가.
                         .addFilters(new CharacterEncodingFilter("UTF-8", true)) // utf-8 필터 추가
                         .build();
     }
@@ -118,7 +118,7 @@ class LoginControllerTest {
 
         LoginRequest req = new LoginRequest("email@email.com", "12345678");
 
-        doThrow(new LoginException(ErrorCode.NOT_FOUND_USER))
+        doThrow(new CommonNotFoundException(ErrorCode.NOT_FOUND_USER))
                 .when(loginService)
                 .login(any());
 

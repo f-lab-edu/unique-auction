@@ -1,10 +1,12 @@
 package com.uniqueAuction.domain.user.service;
 
-import com.uniqueAuction.exception.advice.user.UserException;
+import com.uniqueAuction.exception.advice.CommonException;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import static com.uniqueAuction.exception.ErrorCode.ENCRYPT_ERROR;
 
 @Service
 public class EncryptServiceImpl implements EncryptService {
@@ -21,7 +23,7 @@ public class EncryptServiceImpl implements EncryptService {
             }
             result = sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            throw new UserException("암호화 중 에러가 발생하였습니다", e);
+            throw new CommonException(ENCRYPT_ERROR);
         }
         return result;
     }

@@ -4,21 +4,13 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorCode {
-    /*
-     * 1. 에러코드분류체계(8) : 대분류(1) + 중분류(1) + 순번코드(4)
-     * 1-1. 대분류(1) : 시스템영역
-     *      - S : SYSTEM EXCEPTION
-     *      - B : BUSINESS EXCEPTION
-     *      - V : VALIDATION EXCEPTION
-     *
-     * 1-2. 중분류(1): 도메인 영역
-     *      - U : USER
-     *      - L : LOGIN
-     *      - P : PRODUCT
-     */
 
-    NOT_FOUND_USER("BU0001", "가입하지 않은 이메일이거나 잘못된 비밀번호입니다."),
-    NOT_FOUND_PRODUCT("BP0001", "해당 상품이 없습니다.")
+    NOT_FOUND_USER("not_found_user", "가입하지 않은 이메일이거나 잘못된 비밀번호입니다."),
+    DUPLICATE_USER("duplicate_user", "이미 존재하는 이메일입니다."),
+    MISSING_PARAMETER("missing_parameter", ""),
+    ENCRYPT_ERROR("encrypt_error", "암호화 중 에러가 발생하였습니다"),
+
+
     ;
 
     private final String code;
@@ -27,5 +19,13 @@ public enum ErrorCode {
     ErrorCode(String code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public String getMessge() {
+        return this.message;
     }
 }
