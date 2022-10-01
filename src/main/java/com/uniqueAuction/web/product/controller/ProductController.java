@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
+
 @RequiredArgsConstructor
 @RestController
 public class ProductController {
@@ -41,7 +42,7 @@ public class ProductController {
                             .build());
         }
 
-        productService.saveProduct(productSaveRequest);
+        productService.saveProduct(productSaveRequest.convert());
 
         return CommonResponse.success();
     }
@@ -58,9 +59,9 @@ public class ProductController {
                             .build());
         }
 
-        productService.updateProduct(id,productUpdateRequest);
+        Product updateProduct = productService.updateProduct(id, productUpdateRequest.convert());
 
-        return CommonResponse.success();
+        return CommonResponse.success(updateProduct);
     }
 
 

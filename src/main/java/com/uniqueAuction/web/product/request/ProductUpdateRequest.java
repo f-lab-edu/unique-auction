@@ -1,12 +1,14 @@
 package com.uniqueAuction.web.product.request;
 
 import com.uniqueAuction.domain.product.entity.Product;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 @Getter
 public class ProductUpdateRequest {
 
@@ -26,7 +28,7 @@ public class ProductUpdateRequest {
     private String stock;
 
 
-    public Product updateProduct(){
+    public Product convert() {
         return Product.builder()
                 .modelNumber(this.modelNumber)
                 .releasePrice(this.releasePrice)

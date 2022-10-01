@@ -1,15 +1,19 @@
 package com.uniqueAuction.web.user.request;
 
 import com.uniqueAuction.domain.user.entity.User;
-import com.utils.annotation.Email;
 
+import com.utils.annotation.RegExp;
 import lombok.Getter;
+
+import javax.validation.constraints.Email;
+
+import static com.utils.RegExpCode.EMAIL;
 
 @Getter
 public class UpdateUserRequest {
 	private Long userId;
 
-	@Email
+    @RegExp(regExpCode = EMAIL)
 	private String email;
 
 	private String password;

@@ -9,8 +9,8 @@ import lombok.ToString;
 import javax.validation.constraints.NotBlank;
 
 
+@AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Getter
 public class ProductSaveRequest {
 
@@ -31,14 +31,13 @@ public class ProductSaveRequest {
 
 
 
-    public static Product saveToProduct(ProductSaveRequest productSaveRequest){
+    public  Product convert(){
         return Product.builder()
-                .modelNumber(productSaveRequest.getModelNumber())
-                .releasePrice(productSaveRequest.getReleasePrice())
-                .size(productSaveRequest.getSize())
-                .category(productSaveRequest.getCategory())
-                .stock(productSaveRequest.getStock())
-                .build();
+                .modelNumber(this.modelNumber)
+                .releasePrice(this.releasePrice)
+                .size(this.size)
+                .category(this.category)
+                .stock(this.stock).build();
     }
 
 }

@@ -1,16 +1,11 @@
 package com.uniqueAuction.domain.product.repository;
 
 import com.uniqueAuction.domain.product.entity.Product;
-import com.uniqueAuction.domain.user.entity.User;
-import com.uniqueAuction.web.product.request.ProductSaveRequest;
-import com.uniqueAuction.web.product.request.ProductUpdateRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
-
-import static com.uniqueAuction.web.product.request.ProductSaveRequest.saveToProduct;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
@@ -20,8 +15,9 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 
     @Override
-    public void saveProduct(ProductSaveRequest productSaveRequest) {
-        store.put(sequence.addAndGet(1) , saveToProduct(productSaveRequest));
+    public void saveProduct(Product saveProduct) {
+        store.put(sequence.addAndGet(1), saveProduct);
+
     }
 
     @Override
@@ -30,8 +26,9 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public void update(Long id, Product updateProduct) {
-        store.put(id,updateProduct);
+    public Product update(Long id, Product updateProduct) {
+        store.put(id, updateProduct);
+        return store.get(id);
     }
 
     @Override

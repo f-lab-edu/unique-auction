@@ -4,8 +4,6 @@ package com.uniqueAuction.domain.product.service;
 import com.uniqueAuction.domain.product.entity.Product;
 import com.uniqueAuction.domain.product.repository.ProductRepository;
 import com.uniqueAuction.exception.advice.product.ProductException;
-import com.uniqueAuction.web.product.request.ProductSaveRequest;
-import com.uniqueAuction.web.product.request.ProductUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +15,8 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public void saveProduct(ProductSaveRequest productSaveRequest) {
-        productRepository.saveProduct(productSaveRequest);
+    public void saveProduct(Product product) {
+        productRepository.saveProduct(product);
 
     }
 
@@ -27,12 +25,12 @@ public class ProductService {
                 .orElseThrow(() -> new ProductException(NOT_FOUND_PRODUCT));
     }
 
-    public void updateProduct(Long id, ProductUpdateRequest productUpdateRequest) {
+    public Product updateProduct(Long id, Product updateProduct) {
 
         //상품 유무 체크
         productFindById(id);
 
-        productRepository.update(id, productUpdateRequest.updateProduct());
+        return productRepository.update(id, updateProduct);
     }
 
     public void deleteProduct(Long id) {
