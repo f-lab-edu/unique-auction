@@ -3,17 +3,16 @@ package com.uniqueAuction.web.product.controller;
 
 import com.uniqueAuction.domain.product.entity.Product;
 import com.uniqueAuction.domain.product.service.ProductService;
-import com.uniqueAuction.exception.advice.product.ProductValidationException;
+import com.uniqueAuction.exception.advice.CommonValidationException;
 import com.uniqueAuction.web.product.request.ProductSaveRequest;
 import com.uniqueAuction.web.product.request.ProductUpdateRequest;
 import com.uniqueAuction.web.response.CommonResponse;
-import com.uniqueAuction.web.response.ErrorResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
+import static com.uniqueAuction.exception.ErrorCode.MISSING_PARAMETER;
 
 
 @RequiredArgsConstructor
@@ -35,11 +34,7 @@ public class ProductController {
     public CommonResponse saveProduct(@RequestBody @Validated ProductSaveRequest productSaveRequest, BindingResult result) {
 
         if (result.hasErrors()) {
-            throw new ProductValidationException(
-                    ErrorResponse.builder()
-                            .errorCode("VP0001")
-                            .errorMessage(Objects.requireNonNull(result.getFieldError()).getDefaultMessage())
-                            .build());
+            throw new CommonValidationException(MISSING_PARAMETER);
         }
 
         productService.saveProduct(productSaveRequest.convert());
@@ -52,11 +47,7 @@ public class ProductController {
     public CommonResponse updateProduct(@PathVariable Long id, @RequestBody @Validated ProductUpdateRequest productUpdateRequest, BindingResult result) {
 
         if (result.hasErrors()) {
-            throw new ProductValidationException(
-                    ErrorResponse.builder()
-                            .errorCode("VP0001")
-                            .errorMessage(Objects.requireNonNull(result.getFieldError()).getDefaultMessage())
-                            .build());
+            throw new CommonValidationException(MISSING_PARAMETER);
         }
 
         Product updateProduct = productService.updateProduct(id, productUpdateRequest.convert());

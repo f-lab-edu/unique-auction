@@ -5,14 +5,15 @@ import com.uniqueAuction.domain.user.entity.Role;
 import com.uniqueAuction.domain.user.entity.User;
 import com.uniqueAuction.domain.user.repository.UserRepository;
 import com.uniqueAuction.domain.user.service.EncryptService;
-import com.uniqueAuction.exception.ErrorCode;
-import com.uniqueAuction.exception.advice.login.LoginException;
+import com.uniqueAuction.exception.advice.CommonNotFoundException;
 import com.uniqueAuction.web.login.request.LoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+
+import static com.uniqueAuction.exception.ErrorCode.NOT_FOUND_USER;
 
 @RequiredArgsConstructor
 @Service
@@ -31,7 +32,7 @@ public class LoginService {
                 .filter(user -> user.getEmail().equals(loginRequest.getEmail())
                         && user.getEncodedPassword().equals(encryptService.encrypt(loginRequest.getPassword())))
                 .findFirst()
-                .orElseThrow(() -> new LoginException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_USER));
 
         Role.setSession(session, findUser);
     }

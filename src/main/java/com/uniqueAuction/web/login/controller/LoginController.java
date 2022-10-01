@@ -2,10 +2,9 @@ package com.uniqueAuction.web.login.controller;
 
 
 import com.uniqueAuction.domain.login.service.LoginService;
-import com.uniqueAuction.exception.advice.login.LoginValidationException;
+import com.uniqueAuction.exception.advice.CommonValidationException;
 import com.uniqueAuction.web.login.request.LoginRequest;
 import com.uniqueAuction.web.response.CommonResponse;
-import com.uniqueAuction.web.response.ErrorResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
@@ -13,7 +12,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.Objects;
+
+import static com.uniqueAuction.exception.ErrorCode.MISSING_PARAMETER;
 
 /**
  * Validated :  검증기 실행 애노테이션 WebDataBinder에 등록한 검증기 찾아서 실행 / 스프링에서 제공하는 어노테이션 및 기능 .
@@ -37,11 +37,7 @@ public class LoginController {
     public CommonResponse signIn(@RequestBody @Validated LoginRequest request, BindingResult result) {
 
         if (result.hasErrors()) {
-            throw new LoginValidationException(
-                    ErrorResponse.builder()
-                            .errorCode("VP0001")
-                            .errorMessage(Objects.requireNonNull(result.getFieldError()).getDefaultMessage())
-                            .build());
+            throw new CommonValidationException(MISSING_PARAMETER);
         }
 
         loginService.login(request);
