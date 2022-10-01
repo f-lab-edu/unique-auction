@@ -1,6 +1,5 @@
 package com.uniqueAuction.web.product.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueAuction.domain.product.service.ProductService;
 import com.uniqueAuction.exception.advice.product.ProductControllerAdvice;
@@ -36,7 +35,7 @@ class ProductControllerTest {
 
 
     private ProductSaveRequest saveReq;
-    @JsonProperty
+
     private ProductUpdateRequest updateReq;
 
     @BeforeEach

@@ -1,12 +1,12 @@
 package com.uniqueAuction.web.product.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uniqueAuction.domain.product.entity.Product;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
 
-@Builder
 @Getter
 public class ProductSaveRequest {
 
@@ -27,6 +27,20 @@ public class ProductSaveRequest {
 
 
 
+    @Builder
+    public ProductSaveRequest(@JsonProperty("modelNumber")String modelNumber
+                            , @JsonProperty("releasePrice")String releasePrice
+                            , @JsonProperty("size") String size
+                            , @JsonProperty("category")String category
+                            , @JsonProperty("stock")String stock) {
+        this.modelNumber = modelNumber;
+        this.releasePrice = releasePrice;
+        this.size = size;
+        this.category = category;
+        this.stock = stock;
+    }
+
+
     public static Product convert(ProductSaveRequest productSaveRequest){
         return Product.builder()
                 .modelNumber(productSaveRequest.getModelNumber())
@@ -36,5 +50,4 @@ public class ProductSaveRequest {
                 .stock(productSaveRequest.getStock())
                 .build();
     }
-
 }
