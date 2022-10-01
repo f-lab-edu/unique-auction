@@ -8,9 +8,9 @@ import lombok.Setter;
 @Builder
 public class Sale {
 
-	//private Long id;
+	private Long id;
 	private Long userId;
-	private Long productId;
+	private String modelNumber;
 	private String size;
 	private String bidPrice;
 	private String returnAddress;

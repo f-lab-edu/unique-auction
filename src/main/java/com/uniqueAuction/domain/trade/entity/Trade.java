@@ -7,9 +7,7 @@ import lombok.Setter;
 @Getter
 @Builder
 public class Trade {
-
 	private Long id;
-	private Long productId;
 	private Long purhcaseId;
 	private Long saleId;
 	@Setter
