@@ -2,12 +2,12 @@ package com.uniqueAuction.web.trade.request;
 
 import javax.validation.constraints.NotBlank;
 
-import com.uniqueAuction.domain.trade.entity.Purchase;
+import com.uniqueAuction.domain.trade.entity.Sale;
 
 import lombok.Getter;
 
 @Getter
-public class PurchaseNowRequest {
+public class SaleNowRequest {
 
 	@NotBlank(message = "유저ID는 필수값입니다.")
 	private Long userId;
@@ -18,15 +18,15 @@ public class PurchaseNowRequest {
 	@NotBlank(message = "사이즈는 필수값입니다.")
 	private String size;
 
-	@NotBlank(message = "배송주소는 필수값입니다.")
-	private String shippingAddress;
+	@NotBlank(message = "반송주소는 필수값입니다.")
+	private String returnAddress;
 
-	public Purchase toEntity() {
-		return Purchase.builder()
+	public Sale toEntity() {
+		return Sale.builder()
 			.userId(this.userId)
 			.modelNumber(this.modelNumber)
 			.size(this.size)
-			.shippingAddress(this.shippingAddress)
+			.returnAddress(this.returnAddress)
 			.build();
 	}
 }

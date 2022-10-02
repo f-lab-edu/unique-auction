@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uniqueAuction.domain.trade.service.SaleService;
 import com.uniqueAuction.web.response.CommonResponse;
 import com.uniqueAuction.web.trade.request.SaleBidRequest;
+import com.uniqueAuction.web.trade.request.SaleNowRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +30,17 @@ public class SaleController {
 			throw new RuntimeException(Objects.requireNonNull(result.getFieldError()).getDefaultMessage());
 		}
 		saleService.saveSaleBid(saleBidRequest.toEntity());
+		return CommonResponse.success();
+	}
+
+	@PostMapping("/saleNow")
+	@ResponseStatus(HttpStatus.CREATED)
+	public CommonResponse saveSaleNow(@RequestBody @Validated SaleNowRequest saleNowRequest,
+		BindingResult result) {
+		if (result.hasErrors()) {
+			throw new RuntimeException(Objects.requireNonNull(result.getFieldError()).getDefaultMessage());
+		}
+		saleService.saveSaleNow(saleNowRequest.toEntity());
 		return CommonResponse.success();
 	}
 }

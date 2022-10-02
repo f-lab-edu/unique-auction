@@ -17,4 +17,14 @@ public class PurchaseRepositoryImpl implements PurchaseRepository {
 		purchases.put(sequence.addAndGet(1), purchase);
 		return sequence.addAndGet(1);
 	}
+
+	@Override
+	public Long isExists(String modelNumber, String size) {
+		return purchases.entrySet()
+			.stream()
+			.filter(e -> e.getValue().getModelNumber().equals(modelNumber))
+			.filter(e -> e.getValue().getSize().equals(size)).findFirst()
+			.map(e -> e.getValue().getId())
+			.orElse(0L);
+	}
 }
