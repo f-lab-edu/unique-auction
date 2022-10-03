@@ -16,7 +16,7 @@ public class PurchaseNowRequest {
 	private String modelNumber;
 
 	@NotBlank(message = "사이즈는 필수값입니다.")
-	private String size;
+	private String productSize;
 
 	@NotBlank(message = "배송주소는 필수값입니다.")
 	private String shippingAddress;
@@ -25,7 +25,7 @@ public class PurchaseNowRequest {
 		return Purchase.builder()
 			.userId(this.userId)
 			.modelNumber(this.modelNumber)
-			.size(this.size)
+			.productSize(this.productSize)
 			.shippingAddress(this.shippingAddress)
 			.build();
 	}

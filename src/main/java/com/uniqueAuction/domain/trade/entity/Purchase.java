@@ -11,7 +11,7 @@ public class Purchase {
 	private Long id;
 	private Long userId;
 	private String modelNumber;
-	private String size;
+	private String productSize;
 	private String bidPrice;
 	private String shippingAddress;
 

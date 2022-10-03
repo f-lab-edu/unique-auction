@@ -5,5 +5,5 @@ import com.uniqueAuction.domain.trade.entity.Sale;
 public interface SaleRepository {
 	Long save(Sale sale);
 
-	Long isExists(String modelNumber, String size);
+	Long getSaleId(String modelNumber, String size);
 }

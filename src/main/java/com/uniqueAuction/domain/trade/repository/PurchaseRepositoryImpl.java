@@ -19,11 +19,10 @@ public class PurchaseRepositoryImpl implements PurchaseRepository {
 	}
 
 	@Override
-	public Long isExists(String modelNumber, String size) {
+	public Long getPurchaseId(String modelNumber, String size) {
 		return purchases.entrySet()
 			.stream()
-			.filter(e -> e.getValue().getModelNumber().equals(modelNumber))
-			.filter(e -> e.getValue().getSize().equals(size)).findFirst()
+			.filter(e -> e.getValue().getModelNumber().equals(modelNumber) && e.getValue().getProductSize().equals(size)).findFirst()
 			.map(e -> e.getValue().getId())
 			.orElse(0L);
 	}

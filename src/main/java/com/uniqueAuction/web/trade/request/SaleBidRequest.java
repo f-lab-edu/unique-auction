@@ -16,7 +16,7 @@ public class SaleBidRequest {
 	private String modelNumber;
 
 	@NotBlank(message = "사이즈는 필수값입니다.")
-	private String size;
+	private String productSize;
 
 	@NotBlank(message = "입찰가격은 필수값입니다.")
 	private String bidPrice;
@@ -29,7 +29,7 @@ public class SaleBidRequest {
 			.userId(this.userId)
 			.modelNumber(this.modelNumber)
 			.bidPrice(this.bidPrice)
-			.size(this.size)
+			.productSize(this.productSize)
 			.returnAddress(this.returnAddress)
 			.build();
 	}

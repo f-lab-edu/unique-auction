@@ -35,7 +35,7 @@ public class PurchaseService {
 
 		/* purchaseId, saleId 세팅 */
 		Long purchaseId = purchaseRepository.save(purchase);
-		Long saleId = isExists(purchase);
+		Long saleId = getSaleId(purchase);
 
 		/* 즉시 구매 거래 생성, 거래 상태는 입찰 완료 (낙찰) */
 		if (saleId > 0) {
@@ -49,7 +49,7 @@ public class PurchaseService {
 		}
 	}
 
-	private Long isExists(Purchase purchase) {
-		return saleRepository.isExists(purchase.getModelNumber(), purchase.getSize());
+	private Long getSaleId(Purchase purchase) {
+		return saleRepository.getSaleId(purchase.getModelNumber(), purchase.getProductSize());
 	}
 }

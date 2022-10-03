@@ -16,7 +16,7 @@ public class SaleNowRequest {
 	private String modelNumber;
 
 	@NotBlank(message = "사이즈는 필수값입니다.")
-	private String size;
+	private String productSize;
 
 	@NotBlank(message = "반송주소는 필수값입니다.")
 	private String returnAddress;
@@ -25,7 +25,7 @@ public class SaleNowRequest {
 		return Sale.builder()
 			.userId(this.userId)
 			.modelNumber(this.modelNumber)
-			.size(this.size)
+			.productSize(this.productSize)
 			.returnAddress(this.returnAddress)
 			.build();
 	}
