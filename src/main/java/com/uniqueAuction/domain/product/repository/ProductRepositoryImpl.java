@@ -21,7 +21,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public void saveProduct(Product saveProduct) {
         long aa = sequence.addAndGet(1);
-        System.out.println("sequence.addAndGet(1):"+aa);
         store.put(aa, saveProduct);
 
     }
