@@ -28,11 +28,11 @@ public class ProductSaveRequest {
 
 
     @Builder
-    public ProductSaveRequest(@JsonProperty("modelNumber")String modelNumber
-                            , @JsonProperty("releasePrice")String releasePrice
-                            , @JsonProperty("size") String size
-                            , @JsonProperty("category")String category
-                            , @JsonProperty("stock")String stock) {
+    public ProductSaveRequest(@JsonProperty("name")String modelNumber
+            , @JsonProperty("name")String releasePrice
+            , @JsonProperty("size")String size
+            , @JsonProperty("category")String category
+            , @JsonProperty("stock")String stock) {
         this.modelNumber = modelNumber;
         this.releasePrice = releasePrice;
         this.size = size;
