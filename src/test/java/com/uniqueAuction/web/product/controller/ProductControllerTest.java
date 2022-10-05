@@ -45,8 +45,8 @@ class ProductControllerTest {
                         .addFilters(new CharacterEncodingFilter("UTF-8", true))
                         .build();
 
-        saveReq = new ProductSaveRequest("123", "10000", "284", "운동화", "1");
-        updateReq = new ProductUpdateRequest("456", "10000", "284", "운동화", "12");
+//        saveReq = new ProductSaveRequest("123", "10000", "284", "운동화", "1");
+//        updateReq = new ProductUpdateRequest("456", "10000", "284", "운동화", "12");
 
     }
 
