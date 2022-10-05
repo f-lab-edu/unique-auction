@@ -20,4 +20,8 @@ public class ImageService {
         return imageRepository.save(image);
     }
 
+    public Image update(Image image){
+        return imageRepository.update(image);
+    }
+
 }

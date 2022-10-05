@@ -8,7 +8,7 @@ public interface ProductRepository {
 
     Product findindById(Long id);
 
-    Product update(Long id, Product updateProduct);
+    Product update(Product updateProduct);
 
     void delete(Long id);
 }

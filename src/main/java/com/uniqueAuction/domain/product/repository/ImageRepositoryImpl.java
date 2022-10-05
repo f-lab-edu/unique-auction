@@ -23,10 +23,8 @@ public class ImageRepositoryImpl implements ImageRepository {
 
     }
     @Override
-    public Image update(Long id, Image image) {
-        store.put(id, image);
-        return store.get(id);
+    public Image update(Image image) {
+        store.put(image.getId(), image);
+        return store.get(image.getId());
     }
-
-
 }

@@ -24,12 +24,9 @@ public class ProductService {
         return productRepository.findindById(id);
     }
 
-    public Product updateProduct(Long id, Product updateProduct) {
+    public Product updateProduct(Product updateProduct) {
 
-        //상품 유무 체크
-        productFindById(id);
-
-        return productRepository.update(id, updateProduct);
+        return productRepository.update(updateProduct);
     }
 
     public void deleteProduct(Long id) {

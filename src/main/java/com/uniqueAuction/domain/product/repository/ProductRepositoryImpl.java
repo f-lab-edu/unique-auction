@@ -27,9 +27,9 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Product update(Long id, Product updateProduct) {
-        store.put(id, updateProduct);
-        return store.get(id);
+    public Product update(Product updateProduct) {
+        store.put(updateProduct.getId(), updateProduct);
+        return store.get(updateProduct.getId());
     }
 
     @Override

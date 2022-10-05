@@ -1,6 +1,7 @@
 package com.uniqueAuction.web.product.request;
 
 import com.uniqueAuction.domain.product.entity.Category;
+import com.uniqueAuction.domain.product.entity.Image;
 import com.uniqueAuction.domain.product.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,12 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Getter
 public class ProductUpdateRequest {
+
+    @NotBlank(message = "상품ID는 공백은 입력할 수 없습니다.")
+    private Long productId;
+
+    @NotBlank(message = "이미지ID는 공백은 입력할 수 없습니다.")
+    private Long imageId;
 
     @NotBlank(message = "모델번호는 공백은 입력할 수 없습니다.")
     private String modelNumber;
@@ -34,11 +41,20 @@ public class ProductUpdateRequest {
 
     public  Product toProduct(){
         return Product.builder()
+                .id(this.productId)
                 .modelNumber(this.modelNumber)
                 .releasePrice(this.releasePrice)
                 .color(this.color)
                 .category(this.category)
                 .brand(this.brand)
+                .build();
+    }
+
+    public Image toImage(){
+        return Image.builder()
+                .id(this.imageId)
+                .productId(this.productId)
+                .imgUrl(this.imgUrl)
                 .build();
     }
 

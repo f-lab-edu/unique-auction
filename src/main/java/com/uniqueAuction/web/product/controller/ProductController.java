@@ -51,13 +51,15 @@ public class ProductController {
 
 
     @PatchMapping("/products/{id}")
-    public CommonResponse updateProduct(@PathVariable Long id, @RequestBody @Validated ProductUpdateRequest productUpdateRequest, BindingResult result) {
+    public CommonResponse updateProduct(@RequestBody @Validated ProductUpdateRequest productUpdateRequest, BindingResult result) {
 
         if (result.hasErrors()) {
             throw new CommonValidationException(MISSING_PARAMETER);
         }
 
-        Product updateProduct = productService.updateProduct(id, productUpdateRequest.toProduct());
+        Product updateProduct = productService.updateProduct(productUpdateRequest.toProduct());
+
+        imageService.update(productUpdateRequest.toImage());
 
         return CommonResponse.success(updateProduct);
     }
