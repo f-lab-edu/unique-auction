@@ -2,7 +2,9 @@ package com.uniqueAuction.domain.product.service;
 
 
 import com.uniqueAuction.domain.product.entity.Product;
+import com.uniqueAuction.domain.product.repository.ImageRepository;
 import com.uniqueAuction.domain.product.repository.ProductRepository;
+import com.uniqueAuction.domain.product.repository.SizeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,9 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public void save(Product product) {
-        productRepository.save(product);
 
+    public long save(Product product) {
+       return productRepository.save(product);
     }
 
     public Product productFindById(Long id) {

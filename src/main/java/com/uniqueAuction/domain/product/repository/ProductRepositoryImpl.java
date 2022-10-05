@@ -14,8 +14,10 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 
     @Override
-    public void save(Product saveProduct) {
-        store.put(sequence.addAndGet(1), saveProduct);
+    public Long save(Product saveProduct) {
+        Long id = sequence.addAndGet(1);
+        store.put(id, saveProduct);
+        return id;
 
     }
 

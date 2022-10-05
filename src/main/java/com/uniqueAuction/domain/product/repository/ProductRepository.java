@@ -3,7 +3,7 @@ package com.uniqueAuction.domain.product.repository;
 import com.uniqueAuction.domain.product.entity.Product;
 
 public interface ProductRepository {
-    void save(Product saveProduct);
+    Long save(Product saveProduct);
 
 
     Product findindById(Long id);
