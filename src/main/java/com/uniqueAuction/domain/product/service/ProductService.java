@@ -13,13 +13,13 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public void saveProduct(Product product) {
-        productRepository.saveProduct(product);
+    public void save(Product product) {
+        productRepository.save(product);
 
     }
 
     public Product productFindById(Long id) {
-        return productRepository.productFindById(id);
+        return productRepository.findindById(id);
     }
 
     public Product updateProduct(Long id, Product updateProduct) {
