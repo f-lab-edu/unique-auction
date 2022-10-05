@@ -37,7 +37,7 @@ public class ProductController {
             throw new CommonValidationException(MISSING_PARAMETER);
         }
 
-        productService.saveProduct(productSaveRequest.convert());
+        productService.save(productSaveRequest.convert());
 
         return CommonResponse.success();
     }
