@@ -16,7 +16,5 @@ public class Purchase {
 	private String shippingAddress;
 
 	@Setter
-	private PurchaseType purchaseType;
-	@Setter
 	private TradeStatus tradeStatus;
 }

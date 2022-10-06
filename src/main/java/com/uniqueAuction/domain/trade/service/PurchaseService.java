@@ -5,7 +5,6 @@ import static com.uniqueAuction.exception.ErrorCode.*;
 import org.springframework.stereotype.Service;
 
 import com.uniqueAuction.domain.trade.entity.Purchase;
-import com.uniqueAuction.domain.trade.entity.PurchaseType;
 import com.uniqueAuction.domain.trade.entity.Trade;
 import com.uniqueAuction.domain.trade.entity.TradeStatus;
 import com.uniqueAuction.domain.trade.repository.PurchaseRepository;
@@ -22,30 +21,19 @@ public class PurchaseService {
 	private final SaleRepository saleRepository;
 	private final TradeRepository tradeRepository;
 
-	public void savePurchaseBid(Purchase purchase) {
-		purchase.setPurchaseType(PurchaseType.PURCHASE_BID);
+	public void savePurchase(Purchase purchase) {
+		/* 구매 등록 */
 		purchase.setTradeStatus(TradeStatus.BID_PROGRESS);
-		purchaseRepository.save(purchase);
-	}
-
-	public void savePurchaseNow(Purchase purchase) {
-		/* Purchase 생성, 즉시 구매, 입찰이 아닌 거래 완료 상태로 생성 */
-		purchase.setPurchaseType(PurchaseType.PURCHASE_NOW);
-		purchase.setTradeStatus(TradeStatus.TRADE_COMPLETE);
-
-		/* purchaseId, saleId 세팅 */
 		Long purchaseId = purchaseRepository.save(purchase);
 		Long saleId = getSaleId(purchase);
 
-		/* 즉시 구매 거래 생성, 거래 상태는 입찰 완료 (낙찰) */
+		/* 거래 등록 - 구매 희망가에 대한 판매 요청이 있는 경우 */
 		if (saleId > 0) {
 			Trade trade = Trade.builder().purhcaseId(purchaseId)
 				.saleId(saleId)
 				.status(TradeStatus.BID_COMPLETE)
 				.build();
 			tradeRepository.save(trade);
-		} else {
-			throw new CommonNotFoundException(NOT_FOUND_SALE_BID);
 		}
 	}
 

@@ -16,7 +16,5 @@ public class Sale {
 	private String returnAddress;
 
 	@Setter
-	private SaleType saleType;
-	@Setter
 	private TradeStatus tradeStatus;
 }
