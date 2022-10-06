@@ -21,7 +21,7 @@ public class ProductService {
     }
 
     public Product productFindById(Long id) {
-        return productRepository.findindById(id);
+        return productRepository.findById(id);
     }
 
     public Product updateProduct(Product updateProduct) {

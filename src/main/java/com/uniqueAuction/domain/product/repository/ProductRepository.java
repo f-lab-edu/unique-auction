@@ -6,7 +6,7 @@ public interface ProductRepository {
     Long save(Product saveProduct);
 
 
-    Product findindById(Long id);
+    Product findById(Long id);
 
     Product update(Product updateProduct);
 

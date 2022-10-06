@@ -12,7 +12,7 @@ public enum Category {
 
     신발,
     의류,
-    패션잡회,
+    패션잡화,
     전자기기,
 
    ;

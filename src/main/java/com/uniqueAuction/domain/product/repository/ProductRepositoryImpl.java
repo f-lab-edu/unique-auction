@@ -22,7 +22,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Product findindById(Long id) {
+    public Product findById(Long id) {
         return store.get(id);
     }
 
