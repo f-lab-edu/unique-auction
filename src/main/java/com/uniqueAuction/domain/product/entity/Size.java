@@ -10,6 +10,6 @@ public class Size {
 
     private Long id;
     private Long productId;
-    private int size;
+    private String size;
 
 }
