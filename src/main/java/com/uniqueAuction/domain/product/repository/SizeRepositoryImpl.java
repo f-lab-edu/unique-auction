@@ -14,19 +14,13 @@ public class SizeRepositoryImpl implements SizeRepository {
 
 
     @Override
-    public Long save(Size size) {
+    public void save(Size size) {
         Long id = sequence.addAndGet(1);
         store.put(id, size);
-
-        return id;
-
     }
 
     @Override
-    public Size update(Long id, Size size) {
-        store.put(id, size);
-        return store.get(id);
+    public void update(Size size) {
+        store.put(size.getId(), size);
     }
-
-
 }

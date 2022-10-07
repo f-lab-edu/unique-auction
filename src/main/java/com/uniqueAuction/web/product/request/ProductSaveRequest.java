@@ -11,8 +11,12 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -24,8 +28,8 @@ public class ProductSaveRequest {
     @NotBlank(message = "발매가는 공백은 입력할 수 없습니다.")
     private String releasePrice;
 
-    @NotBlank(message = "색상은 공백은 입력할 수 없습니다.")
-    private String color;
+    @NotNull(message = "사이즈는 공백은 입력할 수 없습니다.")
+    private String[] size;
 
     @NotNull(message = "카테고리는 공백은 입력할 수 없습니다.")
     private Category category;
@@ -37,23 +41,27 @@ public class ProductSaveRequest {
     private String brand;
 
 
-
-
-    public  Product toProduct(){
+    public Product toProduct() {
         return Product.builder()
                 .modelNumber(this.modelNumber)
                 .releasePrice(this.releasePrice)
-                .color(this.color)
                 .category(this.category)
                 .brand(this.brand)
                 .build();
     }
 
-    public Image toImage(Long productId){
+    public Image toImage(Long productId) {
         return Image.builder()
                 .productId(productId)
                 .imgUrl(this.imgUrl)
                 .build();
+    }
+
+    public List<Size> toSize(Long productId) {
+        return Arrays.stream(size)
+                .map(s -> Size.builder().productId(productId).size(s).build())
+                .collect(Collectors.toList());
+
     }
 
 }

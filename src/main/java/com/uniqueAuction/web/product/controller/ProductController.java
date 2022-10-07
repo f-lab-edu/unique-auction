@@ -2,16 +2,14 @@ package com.uniqueAuction.web.product.controller;
 
 
 import com.uniqueAuction.domain.product.entity.Product;
-import com.uniqueAuction.domain.product.repository.ImageRepository;
-import com.uniqueAuction.domain.product.repository.SizeRepository;
 import com.uniqueAuction.domain.product.service.ImageService;
 import com.uniqueAuction.domain.product.service.ProductService;
+import com.uniqueAuction.domain.product.service.SizeService;
 import com.uniqueAuction.exception.advice.CommonValidationException;
 import com.uniqueAuction.web.product.request.ProductSaveRequest;
 import com.uniqueAuction.web.product.request.ProductUpdateRequest;
 import com.uniqueAuction.web.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +23,7 @@ public class ProductController {
 
     private final ProductService productService;
     private final ImageService imageService;
+    private final SizeService sizeService;
 
 
     @GetMapping("/products/{id}")
@@ -42,9 +41,13 @@ public class ProductController {
             throw new CommonValidationException(MISSING_PARAMETER);
         }
 
+        System.out.println(productSaveRequest.toString());
+
         long productId = productService.save(productSaveRequest.toProduct());
 
         imageService.save(productSaveRequest.toImage(productId));
+
+        sizeService.save(productSaveRequest.toSize(productId));
 
         return CommonResponse.success();
     }
@@ -60,6 +63,8 @@ public class ProductController {
         Product updateProduct = productService.updateProduct(productUpdateRequest.toProduct());
 
         imageService.update(productUpdateRequest.toImage());
+
+        sizeService.update(productUpdateRequest.toSize());
 
         return CommonResponse.success(updateProduct);
     }

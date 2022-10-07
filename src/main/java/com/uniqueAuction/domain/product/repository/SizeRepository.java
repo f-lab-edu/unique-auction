@@ -4,8 +4,8 @@ import com.uniqueAuction.domain.product.entity.Product;
 import com.uniqueAuction.domain.product.entity.Size;
 
 public interface SizeRepository {
-    Long save(Size size);
+    void save(Size size);
 
-    Size update(Long id, Size Size);
+    void update(Size Size);
 
 }
