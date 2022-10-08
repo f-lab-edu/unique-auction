@@ -41,8 +41,6 @@ public class ProductController {
             throw new CommonValidationException(MISSING_PARAMETER);
         }
 
-        System.out.println(productSaveRequest.toString());
-
         long productId = productService.save(productSaveRequest.toProduct());
 
         imageService.save(productSaveRequest.toImage(productId));
