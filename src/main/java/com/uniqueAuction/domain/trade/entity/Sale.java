@@ -8,15 +8,13 @@ import lombok.Setter;
 @Builder
 public class Sale {
 
-	//private Long id;
+	private Long id;
 	private Long userId;
-	private Long productId;
-	private String size;
+	private String productId;
+	private String productSize;
 	private String bidPrice;
 	private String returnAddress;
 
-	@Setter
-	private SaleType saleType;
 	@Setter
 	private TradeStatus tradeStatus;
 }
