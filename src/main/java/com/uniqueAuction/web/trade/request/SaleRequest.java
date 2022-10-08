@@ -13,7 +13,7 @@ public class SaleRequest {
 	private Long userId;
 
 	@NotBlank(message = "모델번호는 필수값입니다.")
-	private String modelNumber;
+	private String productId;
 
 	@NotBlank(message = "사이즈는 필수값입니다.")
 	private String productSize;
@@ -27,7 +27,7 @@ public class SaleRequest {
 	public Sale toEntity() {
 		return Sale.builder()
 			.userId(this.userId)
-			.modelNumber(this.modelNumber)
+			.productId(this.productId)
 			.bidPrice(this.bidPrice)
 			.productSize(this.productSize)
 			.returnAddress(this.returnAddress)

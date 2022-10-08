@@ -19,10 +19,10 @@ public class SaleRepositoryImpl implements SaleRepository {
 	}
 
 	@Override
-	public Long getSaleId(String modelNumber, String size) {
+	public Long findByProductIdAndProductSize(String productId, String productSize) {
 		return sales.entrySet()
 			.stream()
-			.filter(e -> e.getValue().getModelNumber().equals(modelNumber) && e.getValue().getProductSize().equals(size)).findFirst()
+			.filter(e -> e.getValue().getProductId().equals(productId) && e.getValue().getProductSize().equals(productSize)).findFirst()
 			.map(e -> e.getValue().getId())
 			.orElse(0L);
 	}

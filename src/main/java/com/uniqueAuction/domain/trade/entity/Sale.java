@@ -10,7 +10,7 @@ public class Sale {
 
 	private Long id;
 	private Long userId;
-	private String modelNumber;
+	private String productId;
 	private String productSize;
 	private String bidPrice;
 	private String returnAddress;

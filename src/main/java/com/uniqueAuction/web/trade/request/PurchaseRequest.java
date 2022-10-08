@@ -13,7 +13,7 @@ public class PurchaseRequest {
 	private Long userId;
 
 	@NotBlank(message = "모델번호는 필수값입니다.")
-	private String modelNumber;
+	private String productId;
 
 	@NotBlank(message = "사이즈는 필수값입니다.")
 	private String productSize;
@@ -24,10 +24,11 @@ public class PurchaseRequest {
 	@NotBlank(message = "배송주소는 필수값입니다.")
 	private String shippingAddress;
 
+
 	public Purchase toEntity() {
 		return Purchase.builder()
 			.userId(this.userId)
-			.modelNumber(this.modelNumber)
+			.productId(this.productId)
 			.bidPrice(this.bidPrice)
 			.productSize(this.productSize)
 			.shippingAddress(this.shippingAddress)

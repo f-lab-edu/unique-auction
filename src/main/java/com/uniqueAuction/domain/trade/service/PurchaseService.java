@@ -10,7 +10,6 @@ import com.uniqueAuction.domain.trade.entity.TradeStatus;
 import com.uniqueAuction.domain.trade.repository.PurchaseRepository;
 import com.uniqueAuction.domain.trade.repository.SaleRepository;
 import com.uniqueAuction.domain.trade.repository.TradeRepository;
-import com.uniqueAuction.exception.advice.CommonNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +24,7 @@ public class PurchaseService {
 		/* 구매 등록 */
 		purchase.setTradeStatus(TradeStatus.BID_PROGRESS);
 		Long purchaseId = purchaseRepository.save(purchase);
-		Long saleId = getSaleId(purchase);
+		Long saleId = saleRepository.findByProductIdAndProductSize(purchase.getProductId(), purchase.getProductSize());
 
 		/* 거래 등록 - 구매 희망가에 대한 판매 요청이 있는 경우 */
 		if (saleId > 0) {
@@ -35,9 +34,5 @@ public class PurchaseService {
 				.build();
 			tradeRepository.save(trade);
 		}
-	}
-
-	private Long getSaleId(Purchase purchase) {
-		return saleRepository.getSaleId(purchase.getModelNumber(), purchase.getProductSize());
 	}
 }
