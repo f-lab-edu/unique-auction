@@ -29,7 +29,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         
-   #테스트는 전부 성공해야 통과.     
+   # 테스트는 전부 성공해야 통과.     
     - name: Test with Gradle
       run: ./gradlew --info test
       
@@ -40,7 +40,16 @@ jobs:
       if: ${{ always() }}
       with:
        files: .github/test-results/*.xml
-      
+     
+     
+     
+    # 캐싱 추가 테스트를 더빠르게 해준다. 캐싱을 함으로서 재컴파일 필요 없고 
+    # 종속성된 파일들을 원격 저장소에서 다운로드 할필요없이 캐시 복원된다 
+    - name: Cleanup Gradle Cache
+      if: ${{ always() }}
+      run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
       
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
