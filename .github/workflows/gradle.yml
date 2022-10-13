@@ -22,13 +22,18 @@ jobs:
     runs-on: ubuntu-latest    
 
     steps:
+    # 코드 체크 아웃
     - uses: actions/checkout@v3
+    
+    # 자바 버전 설정 11버전
     - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
         java-version: '11'
         distribution: 'temurin'
-        
+   # 코드 포맷 
+  # - name: code Formt Check
+  #    run:
    # 테스트는 전부 성공해야 통과.     
     - name: Test with Gradle
       run: ./gradlew --info test
