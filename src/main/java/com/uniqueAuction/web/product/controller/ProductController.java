@@ -30,7 +30,6 @@ public class ProductController {
 	@GetMapping("/products/{id}")
 	public CommonResponse selectProduct(@PathVariable Long id) {
 		Product product = productService.productFindById(id);
-
 		return CommonResponse.success(product);
 	}
 
