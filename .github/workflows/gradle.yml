@@ -44,7 +44,7 @@ jobs:
       uses: EnricoMi/publish-unit-test-result-action@v1
       if: ${{ always() }}
       with:
-       files: .github/test-results/result-*.xml
+       files: .github/test-results/test-*.xml
      
       
       # 실제 어플리케이션 빌드시 -x 옵션을 통해 test를 제외한다.
