@@ -22,7 +22,9 @@ public class SaleRepositoryImpl implements SaleRepository {
 	public Long findByProductIdAndProductSize(String productId, String productSize) {
 		return sales.entrySet()
 			.stream()
-			.filter(e -> e.getValue().getProductId().equals(productId) && e.getValue().getProductSize().equals(productSize)).findFirst()
+			.filter(
+				e -> e.getValue().getProductId().equals(productId) && e.getValue().getProductSize().equals(productSize))
+			.findFirst()
 			.map(e -> e.getValue().getId())
 			.orElse(0L);
 	}

@@ -7,11 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class UserServiceTest {
 
-    @Autowired
-    UserService userService;
+	@Autowired
+	UserService userService;
 
-    @Test
-    void userJoinTest() {
+	@Test
+	void userJoinTest() {
         /*
         // 신규 회원 가입
         User user = User.builder()
@@ -29,5 +29,5 @@ class UserServiceTest {
         User findUser = userService.findByEmail(user.getEmail());
         Assertions.assertThat(user.getEmail()).isEqualTo(findUser.getEmail());
         */
-    }
+	}
 }

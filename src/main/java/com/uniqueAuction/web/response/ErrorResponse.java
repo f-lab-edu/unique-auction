@@ -1,6 +1,7 @@
 package com.uniqueAuction.web.response;
 
 import com.uniqueAuction.exception.ErrorCode;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,15 +10,15 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder
 public class ErrorResponse {
-    private String errorCode;
-    private String errorMessage;
+	private String errorCode;
+	private String errorMessage;
 
-    public ErrorResponse(ErrorCode errorCode) {
-        this.errorCode = errorCode.getCode();
-        this.errorMessage = errorCode.getMessage();
-    }
+	public ErrorResponse(ErrorCode errorCode) {
+		this.errorCode = errorCode.getCode();
+		this.errorMessage = errorCode.getMessage();
+	}
 
-    public static ErrorResponse of(ErrorCode errorCode) {
-        return new ErrorResponse(errorCode);
-    }
+	public static ErrorResponse of(ErrorCode errorCode) {
+		return new ErrorResponse(errorCode);
+	}
 }

@@ -1,11 +1,10 @@
 package com.uniqueAuction.web.login.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueAuction.domain.login.service.LoginService;
-import com.uniqueAuction.exception.ErrorCode;
-import com.uniqueAuction.exception.advice.CommonControllerAdvice;
-import com.uniqueAuction.exception.advice.CommonNotFoundException;
-import com.uniqueAuction.web.login.request.LoginRequest;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,11 +17,12 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uniqueAuction.domain.login.service.LoginService;
+import com.uniqueAuction.exception.ErrorCode;
+import com.uniqueAuction.exception.advice.CommonControllerAdvice;
+import com.uniqueAuction.exception.advice.CommonNotFoundException;
+import com.uniqueAuction.web.login.request.LoginRequest;
 
 /**
  * 로그인 서비스 테스트
@@ -40,95 +40,93 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(LoginController.class)
 class LoginControllerTest {
 
-    private MockMvc mvc;
+	private MockMvc mvc;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+	ObjectMapper objectMapper = new ObjectMapper();
 
-    @MockBean
-    private LoginService loginService;
+	@MockBean
+	private LoginService loginService;
 
-    @BeforeEach
-    public void setup() {
-        mvc =
-                MockMvcBuilders.standaloneSetup(new LoginController(loginService))
-                        .setControllerAdvice(new CommonControllerAdvice()) // 컨트롤 어드 바이스 추가.
-                        .addFilters(new CharacterEncodingFilter("UTF-8", true)) // utf-8 필터 추가
-                        .build();
-    }
+	@BeforeEach
+	public void setup() {
+		mvc =
+			MockMvcBuilders.standaloneSetup(new LoginController(loginService))
+				.setControllerAdvice(new CommonControllerAdvice()) // 컨트롤 어드 바이스 추가.
+				.addFilters(new CharacterEncodingFilter("UTF-8", true)) // utf-8 필터 추가
+				.build();
+	}
 
-    @Test
-    void 이메일필드NullTest() throws Exception {
+	@Test
+	void 이메일필드NullTest() throws Exception {
 
+		LoginRequest req = new LoginRequest("", "12345678");
 
-        LoginRequest req = new LoginRequest("", "12345678");
+		final ResultActions actions =
+			mvc.perform(
+					post("/login")
+						.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON)
+						.characterEncoding("UTF-8")
+						.content(objectMapper.writeValueAsString(req)))
+				.andExpect(status().isBadRequest());
 
-        final ResultActions actions =
-                mvc.perform(
-                                post("/login")
-                                        .contentType(MediaType.APPLICATION_JSON)
-                                        .accept(MediaType.APPLICATION_JSON)
-                                        .characterEncoding("UTF-8")
-                                        .content(objectMapper.writeValueAsString(req)))
-                        .andExpect(status().isBadRequest());
+		// then
+		actions.andExpect(status().isBadRequest());
+	}
 
-        // then
-        actions.andExpect(status().isBadRequest());
-    }
+	@Test
+	void 비밀번호필드NullTest() throws Exception {
 
-    @Test
-    void 비밀번호필드NullTest() throws Exception {
+		LoginRequest req = new LoginRequest("email@email.com", "");
 
-        LoginRequest req = new LoginRequest("email@email.com", "");
+		final ResultActions actions =
+			mvc.perform(
+					post("/login")
+						.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON)
+						.characterEncoding("UTF-8")
+						.content(objectMapper.writeValueAsString(req)))
+				.andExpect(status().isBadRequest());
 
+	}
 
-        final ResultActions actions =
-                mvc.perform(
-                                post("/login")
-                                        .contentType(MediaType.APPLICATION_JSON)
-                                        .accept(MediaType.APPLICATION_JSON)
-                                        .characterEncoding("UTF-8")
-                                        .content(objectMapper.writeValueAsString(req)))
-                        .andExpect(status().isBadRequest());
+	@Test
+	void 비밀번호8자리미만테스트() throws Exception {
 
-    }
+		LoginRequest req = new LoginRequest("email@email.com", "123");
 
-    @Test
-    void 비밀번호8자리미만테스트() throws Exception {
+		final ResultActions actions =
+			mvc.perform(
+					post("/login")
+						.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON)
+						.characterEncoding("UTF-8")
+						.content(objectMapper.writeValueAsString(req)))
+				.andExpect(status().isBadRequest());
+	}
 
-        LoginRequest req = new LoginRequest("email@email.com", "123");
+	/**
+	 * 메서드가 리턴값이 있을시 given(loginService.login(any())).willThrow(LoginException.class);
+	 * 메서드가 없을 시 doThrow 문법 사용
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	void 유저가없을시테스트() throws Exception {
 
-        final ResultActions actions =
-                mvc.perform(
-                                post("/login")
-                                        .contentType(MediaType.APPLICATION_JSON)
-                                        .accept(MediaType.APPLICATION_JSON)
-                                        .characterEncoding("UTF-8")
-                                        .content(objectMapper.writeValueAsString(req)))
-                        .andExpect(status().isBadRequest());
-    }
+		LoginRequest req = new LoginRequest("email@email.com", "12345678");
 
-    /**
-     * 메서드가 리턴값이 있을시 given(loginService.login(any())).willThrow(LoginException.class);
-     * 메서드가 없을 시 doThrow 문법 사용
-     *
-     * @throws Exception
-     */
-    @Test
-    void 유저가없을시테스트() throws Exception {
+		doThrow(new CommonNotFoundException(ErrorCode.NOT_FOUND_USER))
+			.when(loginService)
+			.login(any());
 
-        LoginRequest req = new LoginRequest("email@email.com", "12345678");
+		mvc.perform(
+				post("/login")
+					.contentType(MediaType.APPLICATION_JSON)
+					.accept(MediaType.APPLICATION_JSON)
+					.characterEncoding("UTF-8")
+					.content(objectMapper.writeValueAsString(req)))
+			.andExpect(status().isNotFound());
 
-        doThrow(new CommonNotFoundException(ErrorCode.NOT_FOUND_USER))
-                .when(loginService)
-                .login(any());
-
-        mvc.perform(
-                        post("/login")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                                .characterEncoding("UTF-8")
-                                .content(objectMapper.writeValueAsString(req)))
-                .andExpect(status().isNotFound());
-
-    }
+	}
 }

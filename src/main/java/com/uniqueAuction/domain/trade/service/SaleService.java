@@ -1,7 +1,5 @@
 package com.uniqueAuction.domain.trade.service;
 
-import static com.uniqueAuction.exception.ErrorCode.*;
-
 import org.springframework.stereotype.Service;
 
 import com.uniqueAuction.domain.trade.entity.Sale;

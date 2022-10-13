@@ -2,7 +2,6 @@ package com.uniqueAuction.web.trade.controller;
 
 import java.util.Objects;
 
-import com.uniqueAuction.web.trade.request.SaleRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uniqueAuction.domain.trade.service.SaleService;
 import com.uniqueAuction.web.response.CommonResponse;
+import com.uniqueAuction.web.trade.request.SaleRequest;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController

@@ -24,7 +24,6 @@ public class PurchaseRequest {
 	@NotBlank(message = "배송주소는 필수값입니다.")
 	private String shippingAddress;
 
-
 	public Purchase toEntity() {
 		return Purchase.builder()
 			.userId(this.userId)
