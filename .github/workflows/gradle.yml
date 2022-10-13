@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest    
 
     steps:
-    # 코드 체크 아웃
+    # 코드 체크  아웃
     - uses: actions/checkout@v3
     
     # 자바 버전 설정 11버전
