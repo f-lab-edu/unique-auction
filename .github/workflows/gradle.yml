@@ -44,19 +44,17 @@ jobs:
       uses: EnricoMi/publish-unit-test-result-action@v1
       if: ${{ always() }}
       with:
-       files: .github/test-results/*.xml
+       files: .github/test-results/result-*.xml
      
-     
-     
-    # 캐싱 추가 테스트를 더빠르게 해준다. 캐싱을 함으로서 재컴파일 필요 없고 
+      
+      # 실제 어플리케이션 빌드시 -x 옵션을 통해 test를 제외한다.
+    - name: Build with Gradle
+      run: ./gradlew build -x test
+
+    # 캐싱 제거 테스트를 더빠르게 해준다. 캐싱을 함으로서 재컴파일 필요 없고 
     # 종속성된 파일들을 원격 저장소에서 다운로드 할필요없이 캐시 복원된다 
     - name: Cleanup Gradle Cache
       if: ${{ always() }}
       run: |
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
-      
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-      with:
-        arguments: build
