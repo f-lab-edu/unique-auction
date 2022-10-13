@@ -1,30 +1,30 @@
 package com.uniqueAuction.domain.product.repository;
 
-import com.uniqueAuction.domain.product.entity.Image;
-import com.uniqueAuction.domain.product.entity.Size;
-import org.springframework.stereotype.Repository;
-
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+
+import org.springframework.stereotype.Repository;
+
+import com.uniqueAuction.domain.product.entity.Image;
 
 @Repository
 public class ImageRepositoryImpl implements ImageRepository {
 
-    private static final ConcurrentHashMap<Long, Image> store = new ConcurrentHashMap<>();
-    private static final AtomicLong sequence = new AtomicLong();
+	private static final ConcurrentHashMap<Long, Image> store = new ConcurrentHashMap<>();
+	private static final AtomicLong sequence = new AtomicLong();
 
+	@Override
+	public Long save(Image image) {
+		Long imageId = sequence.addAndGet(1);
+		store.put(imageId, image);
 
-    @Override
-    public Long save(Image image) {
-        Long imageId = sequence.addAndGet(1);
-        store.put(imageId, image);
+		return imageId;
 
-        return imageId;
+	}
 
-    }
-    @Override
-    public Image update(Image image) {
-        store.put(image.getId(), image);
-        return store.get(image.getId());
-    }
+	@Override
+	public Image update(Image image) {
+		store.put(image.getId(), image);
+		return store.get(image.getId());
+	}
 }

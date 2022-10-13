@@ -1,6 +1,5 @@
 package com.uniqueAuction.domain.product.entity;
 
-
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,8 +7,8 @@ import lombok.Getter;
 @Getter
 public class Size {
 
-    private Long id;
-    private Long productId;
-    private String size;
+	private Long id;
+	private Long productId;
+	private String size;
 
 }

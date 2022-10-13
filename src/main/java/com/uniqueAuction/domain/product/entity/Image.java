@@ -7,9 +7,8 @@ import lombok.Getter;
 @Getter
 public class Image {
 
-    private Long id;
-    private Long productId;
-    private String imgUrl;
-
+	private Long id;
+	private Long productId;
+	private String imgUrl;
 
 }

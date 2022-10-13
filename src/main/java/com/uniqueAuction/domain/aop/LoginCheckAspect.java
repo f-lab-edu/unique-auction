@@ -1,8 +1,7 @@
 package com.uniqueAuction.domain.aop;
 
+import javax.servlet.http.HttpSession;
 
-import com.utils.SessionUtil;
-import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,8 +13,9 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpSession;
+import com.utils.SessionUtil;
 
+import lombok.extern.log4j.Log4j2;
 
 @Component
 @Aspect
@@ -23,55 +23,51 @@ import javax.servlet.http.HttpSession;
 @Log4j2
 public class LoginCheckAspect {
 
+	@Around("@annotation(com.uniqueAuction.domain.aop.LoginCheck) && @ annotation(loginCheck)")
+	public Object adminLoginCheck(ProceedingJoinPoint proceedingJoinPoint, LoginCheck loginCheck) throws Throwable {
+		HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest()
+			.getSession();
 
-    @Around("@annotation(com.uniqueAuction.domain.aop.LoginCheck) && @ annotation(loginCheck)")
-    public Object adminLoginCheck(ProceedingJoinPoint proceedingJoinPoint, LoginCheck loginCheck) throws Throwable {
-        HttpSession session = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest().getSession();
+		String id = null;
+		int idIndex = 0;
 
-        String id = null;
-        int idIndex = 0;
+		String userType = loginCheck.type().toString();
 
-        String userType = loginCheck.type().toString();
+		id = roleCheck(session, userType);
 
-        id = roleCheck(session, userType);
+		nullCheck(proceedingJoinPoint, id);
 
-        nullCheck(proceedingJoinPoint, id);
+		Object[] modifiedArgs = proceedingJoinPoint.getArgs();
 
-        Object[] modifiedArgs = proceedingJoinPoint.getArgs();
+		if (proceedingJoinPoint.getArgs() != null)
+			modifiedArgs[idIndex] = id;
 
-        if (proceedingJoinPoint.getArgs() != null)
-            modifiedArgs[idIndex] = id;
+		return proceedingJoinPoint.proceed(modifiedArgs);
+	}
 
+	private String roleCheck(HttpSession session, String userType) {
 
-        return proceedingJoinPoint.proceed(modifiedArgs);
-    }
+		String id = null;
 
+		switch (userType) {
+			case "ADMIN": {
+				id = SessionUtil.getLoginAdminId(session);
+				break;
+			}
+			case "CUSTOMER": {
+				id = SessionUtil.getLoginMemberId(session);
+				break;
+			}
+		}
+		return id;
+	}
 
-    private String roleCheck(HttpSession session, String userType) {
-
-        String id = null;
-
-        switch (userType) {
-            case "ADMIN": {
-                id = SessionUtil.getLoginAdminId(session);
-                break;
-            }
-            case "CUSTOMER": {
-                id = SessionUtil.getLoginMemberId(session);
-                break;
-            }
-        }
-        return id;
-    }
-
-
-    private void nullCheck(ProceedingJoinPoint proceedingJoinPoint, String id) {
-        if (id == null) {
-            log.debug(proceedingJoinPoint.toString() + "accountName :" + id);
-            throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "로그인한 id값을 확인해주세요.") {
-            };
-        }
-    }
-
+	private void nullCheck(ProceedingJoinPoint proceedingJoinPoint, String id) {
+		if (id == null) {
+			log.debug(proceedingJoinPoint.toString() + "accountName :" + id);
+			throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "로그인한 id값을 확인해주세요.") {
+			};
+		}
+	}
 
 }
