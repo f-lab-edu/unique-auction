@@ -28,8 +28,20 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+        
+   #테스트는 전부 성공해야 통과.     
     - name: Test with Gradle
       run: ./gradlew --info test
+      
+      
+   # 테스트 후 결과를 보기 위한 단계 추가
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: ${{ always() }}
+      with:
+       files: build/test-results/**/*.xml
+      
+      
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
