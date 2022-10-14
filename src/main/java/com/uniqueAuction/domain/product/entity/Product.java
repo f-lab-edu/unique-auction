@@ -12,7 +12,6 @@ public class Product {
 	private Long id;
 	private String modelNumber;
 	private String releasePrice;
-	private String size;
 	private Category category;
 	private String brand;
 }
