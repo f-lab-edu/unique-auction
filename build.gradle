@@ -6,6 +6,9 @@ plugins {
 
 }
 
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
 group = 'com.uniqueAuction'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -36,7 +39,8 @@ tasks.named('test') {
 }
 
 checkstyle {
-    maxWarnings = 0 // 규칙이 어긋나는 코드가 하나라도 있을 경우 빌드 fail
-    toolVersion = "7.6.1"
+    configFile = file("${rootDir}/naver-checkstyle-rules.xml")
+    toolVersion = "8.24"  // checkstyle 버전 8.24 이상 선언
 }
+
 
