@@ -10,10 +10,10 @@ import com.uniqueAuction.exception.advice.CommonException;
 
 public enum Category {
 
-	신발,
-	의류,
-	패션잡화,
-	전자기기,
+	SHOES,
+	CLOTHES,
+	FASHIONETC,
+	ELECTRONIC,
 
 	;
 
