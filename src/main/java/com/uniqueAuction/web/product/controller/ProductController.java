@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uniqueAuction.domain.product.entity.Product;
 import com.uniqueAuction.domain.product.service.ImageService;
 import com.uniqueAuction.domain.product.service.ProductService;
-import com.uniqueAuction.domain.product.service.SizeService;
+import com.uniqueAuction.domain.product.service.TradeItemService;
 import com.uniqueAuction.exception.advice.CommonValidationException;
 import com.uniqueAuction.web.product.request.ProductSaveRequest;
 import com.uniqueAuction.web.product.request.ProductUpdateRequest;
@@ -29,7 +29,7 @@ public class ProductController {
 
 	private final ProductService productService;
 	private final ImageService imageService;
-	private final SizeService sizeService;
+	private final TradeItemService tradeItemService;
 
 	@GetMapping("/products/{id}")
 	public CommonResponse selectProduct(@PathVariable Long id) {
@@ -50,7 +50,7 @@ public class ProductController {
 
 		imageService.save(productSaveRequest.toImage(productId));
 
-		sizeService.save(productSaveRequest.toSize(productId));
+		tradeItemService.save(productSaveRequest.toSize(productId));
 
 		return CommonResponse.success();
 	}
@@ -67,7 +67,7 @@ public class ProductController {
 
 		imageService.update(productUpdateRequest.toImage());
 
-		sizeService.update(productUpdateRequest.toSize());
+		tradeItemService.update(productUpdateRequest.toSize());
 
 		return CommonResponse.success(updateProduct);
 	}

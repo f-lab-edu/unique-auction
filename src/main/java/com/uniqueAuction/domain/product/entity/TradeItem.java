@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class Size {
+public class TradeItem {
 
 	private Long id;
 	private Long productId;

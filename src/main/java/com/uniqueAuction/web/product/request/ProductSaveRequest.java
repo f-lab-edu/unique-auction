@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import com.uniqueAuction.domain.product.entity.Category;
 import com.uniqueAuction.domain.product.entity.Image;
 import com.uniqueAuction.domain.product.entity.Product;
-import com.uniqueAuction.domain.product.entity.Size;
+import com.uniqueAuction.domain.product.entity.TradeItem;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -57,9 +57,9 @@ public class ProductSaveRequest {
 			.build();
 	}
 
-	public List<Size> toSize(Long productId) {
+	public List<TradeItem> toSize(Long productId) {
 		return Arrays.stream(size)
-			.map(s -> Size.builder().productId(productId).size(s).build())
+			.map(s -> TradeItem.builder().productId(productId).size(s).build())
 			.collect(Collectors.toList());
 
 	}
