@@ -1,6 +1,6 @@
-package com.uniqueAuction.web.response;
+package com.uniqueauction.web.response;
 
-import com.uniqueAuction.exception.ErrorCode;
+import com.uniqueauction.exception.ErrorCode;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

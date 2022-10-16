@@ -1,12 +1,12 @@
-package com.uniqueAuction.domain.product.entity;
+package com.uniqueauction.domain.product.entity;
 
-import static com.uniqueAuction.exception.ErrorCode.*;
+import static com.uniqueauction.exception.ErrorCode.*;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.uniqueAuction.exception.advice.CommonException;
+import com.uniqueauction.exception.advice.CommonException;
 
 public enum Category {
 

@@ -1,4 +1,4 @@
-package com.uniqueAuction.domain.user.entity;
+package com.uniqueauction.domain.user.entity;
 
 import javax.servlet.http.HttpSession;
 

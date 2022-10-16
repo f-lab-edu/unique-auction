@@ -1,4 +1,4 @@
-package com.uniqueAuction.web.product.request;
+package com.uniqueauction.web.product.request;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.uniqueAuction.domain.product.entity.Category;
-import com.uniqueAuction.domain.product.entity.Image;
-import com.uniqueAuction.domain.product.entity.Product;
-import com.uniqueAuction.domain.product.entity.TradeItem;
+import com.uniqueauction.domain.product.entity.Category;
+import com.uniqueauction.domain.product.entity.Image;
+import com.uniqueauction.domain.product.entity.Product;
+import com.uniqueauction.domain.product.entity.TradeItem;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

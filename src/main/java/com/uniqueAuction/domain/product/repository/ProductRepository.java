@@ -1,6 +1,6 @@
-package com.uniqueAuction.domain.product.repository;
+package com.uniqueauction.domain.product.repository;
 
-import com.uniqueAuction.domain.product.entity.Product;
+import com.uniqueauction.domain.product.entity.Product;
 
 public interface ProductRepository {
 	Long save(Product saveProduct);

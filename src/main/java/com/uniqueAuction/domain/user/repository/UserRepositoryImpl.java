@@ -1,4 +1,4 @@
-package com.uniqueAuction.domain.user.repository;
+package com.uniqueauction.domain.user.repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Repository;
 
-import com.uniqueAuction.domain.user.entity.User;
+import com.uniqueauction.domain.user.entity.User;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {

@@ -1,4 +1,4 @@
-package com.uniqueAuction.domain.trade.entity;
+package com.uniqueauction.domain.trade.entity;
 
 public enum SaleType {
 	SALE_NOW, /* 즉시 판매 */

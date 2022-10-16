@@ -1,6 +1,6 @@
-package com.uniqueAuction.web.user.controller;
+package com.uniqueauction.web.user.controller;
 
-import static com.uniqueAuction.exception.ErrorCode.*;
+import static com.uniqueauction.exception.ErrorCode.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uniqueAuction.domain.user.service.UserService;
-import com.uniqueAuction.exception.advice.CommonValidationException;
-import com.uniqueAuction.web.response.CommonResponse;
-import com.uniqueAuction.web.user.request.JoinRequest;
-import com.uniqueAuction.web.user.request.UpdateUserRequest;
+import com.uniqueauction.domain.user.service.UserService;
+import com.uniqueauction.exception.advice.CommonValidationException;
+import com.uniqueauction.web.response.CommonResponse;
+import com.uniqueauction.web.user.request.JoinRequest;
+import com.uniqueauction.web.user.request.UpdateUserRequest;
 
 import lombok.RequiredArgsConstructor;
 

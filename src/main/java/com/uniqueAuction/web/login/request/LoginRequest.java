@@ -1,4 +1,4 @@
-package com.uniqueAuction.web.login.request;
+package com.uniqueauction.web.login.request;
 
 import javax.validation.constraints.NotBlank;
 

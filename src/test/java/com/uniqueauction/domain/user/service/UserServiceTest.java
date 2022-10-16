@@ -1,4 +1,4 @@
-package com.uniqueAuction.domain.user.service;
+package com.uniqueauction.domain.user.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

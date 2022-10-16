@@ -1,8 +1,8 @@
-package com.uniqueAuction.domain.user.repository;
+package com.uniqueauction.domain.user.repository;
 
 import java.util.List;
 
-import com.uniqueAuction.domain.user.entity.User;
+import com.uniqueauction.domain.user.entity.User;
 
 public interface UserRepository {
 	void save(User user);

@@ -1,8 +1,8 @@
-package com.uniqueAuction.web.user.request;
+package com.uniqueauction.web.user.request;
 
 import static com.utils.RegExpCode.*;
 
-import com.uniqueAuction.domain.user.entity.User;
+import com.uniqueauction.domain.user.entity.User;
 import com.utils.annotation.RegExp;
 
 import lombok.Getter;

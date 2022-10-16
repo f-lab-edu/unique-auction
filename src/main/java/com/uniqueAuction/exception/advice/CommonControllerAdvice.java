@@ -1,17 +1,17 @@
-package com.uniqueAuction.exception.advice;
+package com.uniqueauction.exception.advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.uniqueAuction.web.response.CommonResponse;
-import com.uniqueAuction.web.response.ErrorResponse;
+import com.uniqueauction.web.response.CommonResponse;
+import com.uniqueauction.web.response.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RestControllerAdvice("com.uniqueAuction.web")
+@RestControllerAdvice("com.uniqueauction.web")
 public class CommonControllerAdvice {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

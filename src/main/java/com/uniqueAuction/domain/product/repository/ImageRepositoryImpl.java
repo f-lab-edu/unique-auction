@@ -1,11 +1,11 @@
-package com.uniqueAuction.domain.product.repository;
+package com.uniqueauction.domain.product.repository;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Repository;
 
-import com.uniqueAuction.domain.product.entity.Image;
+import com.uniqueauction.domain.product.entity.Image;
 
 @Repository
 public class ImageRepositoryImpl implements ImageRepository {

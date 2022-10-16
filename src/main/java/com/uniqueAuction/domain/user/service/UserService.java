@@ -1,15 +1,15 @@
-package com.uniqueAuction.domain.user.service;
+package com.uniqueauction.domain.user.service;
 
-import static com.uniqueAuction.exception.ErrorCode.*;
+import static com.uniqueauction.exception.ErrorCode.*;
 
 import org.springframework.stereotype.Service;
 
-import com.uniqueAuction.domain.user.entity.User;
-import com.uniqueAuction.domain.user.repository.UserRepository;
-import com.uniqueAuction.exception.advice.CommonException;
-import com.uniqueAuction.exception.advice.CommonNotFoundException;
-import com.uniqueAuction.web.user.request.JoinRequest;
-import com.uniqueAuction.web.user.request.UpdateUserRequest;
+import com.uniqueauction.domain.user.entity.User;
+import com.uniqueauction.domain.user.repository.UserRepository;
+import com.uniqueauction.exception.advice.CommonException;
+import com.uniqueauction.exception.advice.CommonNotFoundException;
+import com.uniqueauction.web.user.request.JoinRequest;
+import com.uniqueauction.web.user.request.UpdateUserRequest;
 
 import lombok.RequiredArgsConstructor;
 

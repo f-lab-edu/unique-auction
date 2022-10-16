@@ -1,11 +1,11 @@
-package com.uniqueAuction.domain.product.service;
+package com.uniqueauction.domain.product.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.uniqueAuction.domain.product.entity.TradeItem;
-import com.uniqueAuction.domain.product.repository.TradeItemRepository;
+import com.uniqueauction.domain.product.entity.TradeItem;
+import com.uniqueauction.domain.product.repository.TradeItemRepository;
 
 import lombok.RequiredArgsConstructor;
 

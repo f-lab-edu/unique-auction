@@ -1,11 +1,11 @@
-package com.uniqueAuction.domain.trade.repository;
+package com.uniqueauction.domain.trade.repository;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Repository;
 
-import com.uniqueAuction.domain.trade.entity.Purchase;
+import com.uniqueauction.domain.trade.entity.Purchase;
 
 @Repository
 public class PurchaseRepositoryImpl implements PurchaseRepository {
@@ -13,7 +13,19 @@ public class PurchaseRepositoryImpl implements PurchaseRepository {
 	private static final AtomicLong sequence = new AtomicLong();
 
 	@Override
-	public void save(Purchase purchase) {
+	public Long save(Purchase purchase) {
 		purchases.put(sequence.addAndGet(1), purchase);
+		return sequence.addAndGet(1);
+	}
+
+	@Override
+	public Long findByProductIdAndProductSize(String productId, String productSize) {
+		return purchases.entrySet()
+			.stream()
+			.filter(
+				e -> e.getValue().getProductId().equals(productId) && e.getValue().getProductSize().equals(productSize))
+			.findFirst()
+			.map(e -> e.getValue().getId())
+			.orElse(0L);
 	}
 }

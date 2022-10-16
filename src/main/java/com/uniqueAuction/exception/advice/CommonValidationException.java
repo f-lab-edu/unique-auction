@@ -1,6 +1,6 @@
-package com.uniqueAuction.exception.advice;
+package com.uniqueauction.exception.advice;
 
-import com.uniqueAuction.exception.ErrorCode;
+import com.uniqueauction.exception.ErrorCode;
 
 import lombok.Getter;
 

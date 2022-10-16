@@ -1,6 +1,6 @@
-package com.uniqueAuction.web.product.controller;
+package com.uniqueauction.web.product.controller;
 
-import static com.uniqueAuction.exception.ErrorCode.*;
+import static com.uniqueauction.exception.ErrorCode.*;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uniqueAuction.domain.product.entity.Product;
-import com.uniqueAuction.domain.product.service.ImageService;
-import com.uniqueAuction.domain.product.service.ProductService;
-import com.uniqueAuction.domain.product.service.TradeItemService;
-import com.uniqueAuction.exception.advice.CommonValidationException;
-import com.uniqueAuction.web.product.request.ProductSaveRequest;
-import com.uniqueAuction.web.product.request.ProductUpdateRequest;
-import com.uniqueAuction.web.response.CommonResponse;
+import com.uniqueauction.domain.product.entity.Product;
+import com.uniqueauction.domain.product.service.ImageService;
+import com.uniqueauction.domain.product.service.ProductService;
+import com.uniqueauction.domain.product.service.TradeItemService;
+import com.uniqueauction.exception.advice.CommonValidationException;
+import com.uniqueauction.web.product.request.ProductSaveRequest;
+import com.uniqueauction.web.product.request.ProductUpdateRequest;
+import com.uniqueauction.web.response.CommonResponse;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,6 +1,6 @@
-package com.uniqueAuction.domain.product.repository;
+package com.uniqueauction.domain.product.repository;
 
-import com.uniqueAuction.domain.product.entity.TradeItem;
+import com.uniqueauction.domain.product.entity.TradeItem;
 
 public interface TradeItemRepository {
 	void save(TradeItem tradeItem);

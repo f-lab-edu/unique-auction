@@ -1,9 +1,9 @@
-package com.uniqueAuction.domain.product.service;
+package com.uniqueauction.domain.product.service;
 
 import org.springframework.stereotype.Service;
 
-import com.uniqueAuction.domain.product.entity.Product;
-import com.uniqueAuction.domain.product.repository.ProductRepository;
+import com.uniqueauction.domain.product.entity.Product;
+import com.uniqueauction.domain.product.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
 

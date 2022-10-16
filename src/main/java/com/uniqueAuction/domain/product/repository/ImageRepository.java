@@ -1,6 +1,6 @@
-package com.uniqueAuction.domain.product.repository;
+package com.uniqueauction.domain.product.repository;
 
-import com.uniqueAuction.domain.product.entity.Image;
+import com.uniqueauction.domain.product.entity.Image;
 
 public interface ImageRepository {
 	Long save(Image image);

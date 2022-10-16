@@ -1,4 +1,4 @@
-package com.uniqueAuction.web.login.controller;
+package com.uniqueauction.web.login.controller;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -18,11 +18,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueAuction.domain.login.service.LoginService;
-import com.uniqueAuction.exception.ErrorCode;
-import com.uniqueAuction.exception.advice.CommonControllerAdvice;
-import com.uniqueAuction.exception.advice.CommonNotFoundException;
-import com.uniqueAuction.web.login.request.LoginRequest;
+import com.uniqueauction.domain.login.service.LoginService;
+import com.uniqueauction.exception.ErrorCode;
+import com.uniqueauction.exception.advice.CommonControllerAdvice;
+import com.uniqueauction.exception.advice.CommonNotFoundException;
+import com.uniqueauction.web.login.request.LoginRequest;
 
 /**
  * 로그인 서비스 테스트

@@ -1,13 +1,13 @@
-package com.uniqueAuction.domain.user.service;
+package com.uniqueauction.domain.user.service;
 
-import static com.uniqueAuction.exception.ErrorCode.*;
+import static com.uniqueauction.exception.ErrorCode.*;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import org.springframework.stereotype.Service;
 
-import com.uniqueAuction.exception.advice.CommonException;
+import com.uniqueauction.exception.advice.CommonException;
 
 @Service
 public class EncryptServiceImpl implements EncryptService {

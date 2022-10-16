@@ -1,6 +1,6 @@
-package com.uniqueAuction.domain.login.service;
+package com.uniqueauction.domain.login.service;
 
-import static com.uniqueAuction.exception.ErrorCode.*;
+import static com.uniqueauction.exception.ErrorCode.*;
 
 import java.util.List;
 
@@ -8,12 +8,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
-import com.uniqueAuction.domain.user.entity.Role;
-import com.uniqueAuction.domain.user.entity.User;
-import com.uniqueAuction.domain.user.repository.UserRepository;
-import com.uniqueAuction.domain.user.service.EncryptService;
-import com.uniqueAuction.exception.advice.CommonNotFoundException;
-import com.uniqueAuction.web.login.request.LoginRequest;
+import com.uniqueauction.domain.user.entity.Role;
+import com.uniqueauction.domain.user.entity.User;
+import com.uniqueauction.domain.user.repository.UserRepository;
+import com.uniqueauction.domain.user.service.EncryptService;
+import com.uniqueauction.exception.advice.CommonNotFoundException;
+import com.uniqueauction.web.login.request.LoginRequest;
 
 import lombok.RequiredArgsConstructor;
 

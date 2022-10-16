@@ -1,4 +1,4 @@
-package com.uniqueAuction.web.trade.controller;
+package com.uniqueauction.web.trade.controller;
 
 import java.util.Objects;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uniqueAuction.domain.trade.service.SaleService;
-import com.uniqueAuction.web.response.CommonResponse;
-import com.uniqueAuction.web.trade.request.SaleBidRequest;
+import com.uniqueauction.domain.trade.service.SaleService;
+import com.uniqueauction.web.response.CommonResponse;
+import com.uniqueauction.web.trade.request.SaleRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,13 +22,14 @@ public class SaleController {
 
 	private final SaleService saleService;
 
-	@PostMapping("/saleBid")
+	@PostMapping("/sale")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CommonResponse saveSaleBid(@RequestBody @Validated SaleBidRequest saleBidRequest, BindingResult result) {
+	public CommonResponse<?> saveSaleNow(@RequestBody @Validated SaleRequest saleRequest,
+		BindingResult result) {
 		if (result.hasErrors()) {
 			throw new RuntimeException(Objects.requireNonNull(result.getFieldError()).getDefaultMessage());
 		}
-		saleService.saveSaleBid(saleBidRequest);
+		saleService.saveSale(saleRequest.toEntity());
 		return CommonResponse.success();
 	}
 }

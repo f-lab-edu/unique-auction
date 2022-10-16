@@ -1,6 +1,6 @@
-package com.uniqueAuction.web.login.controller;
+package com.uniqueauction.web.login.controller;
 
-import static com.uniqueAuction.exception.ErrorCode.*;
+import static com.uniqueauction.exception.ErrorCode.*;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uniqueAuction.domain.login.service.LoginService;
-import com.uniqueAuction.exception.advice.CommonValidationException;
-import com.uniqueAuction.web.login.request.LoginRequest;
-import com.uniqueAuction.web.response.CommonResponse;
+import com.uniqueauction.domain.login.service.LoginService;
+import com.uniqueauction.exception.advice.CommonValidationException;
+import com.uniqueauction.web.login.request.LoginRequest;
+import com.uniqueauction.web.response.CommonResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
