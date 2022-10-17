@@ -6,4 +6,5 @@
 <suppressions>
     <suppress files="RegExpCode.java" checks=".*"/>
     <suppress files="ErrorCode.java" checks=".*"/>
+    <suppress files="Category.java" checks=".*"/>
 </suppressions>
