@@ -60,7 +60,6 @@ class LoginControllerTest {
 	@Disabled
 	@Test
 	void emailFieldNullTest() throws Exception {
-
 		LoginRequest req = new LoginRequest("", "12345678");
 
 		final ResultActions actions =
@@ -80,6 +79,7 @@ class LoginControllerTest {
 	@Test
 	void passwordFieldNullTest() throws Exception {
 
+
 		LoginRequest req = new LoginRequest("email@email.com", "");
 
 		final ResultActions actions =
@@ -96,6 +96,7 @@ class LoginControllerTest {
 	@Disabled
 	@Test
 	void passwordEightUnder() throws Exception {
+
 
 		LoginRequest req = new LoginRequest("email@email.com", "123");
 
