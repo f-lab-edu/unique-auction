@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -56,9 +57,9 @@ class LoginControllerTest {
 				.build();
 	}
 
+	@Disabled
 	@Test
-	void 이메일필드NullTest() throws Exception {
-
+	void emailFieldNullTest() throws Exception {
 		LoginRequest req = new LoginRequest("", "12345678");
 
 		final ResultActions actions =
@@ -74,8 +75,10 @@ class LoginControllerTest {
 		actions.andExpect(status().isBadRequest());
 	}
 
+	@Disabled
 	@Test
-	void 비밀번호필드NullTest() throws Exception {
+	void passwordFieldNullTest() throws Exception {
+
 
 		LoginRequest req = new LoginRequest("email@email.com", "");
 
@@ -90,8 +93,10 @@ class LoginControllerTest {
 
 	}
 
+	@Disabled
 	@Test
-	void 비밀번호8자리미만테스트() throws Exception {
+	void passwordEightUnder() throws Exception {
+
 
 		LoginRequest req = new LoginRequest("email@email.com", "123");
 
@@ -111,8 +116,9 @@ class LoginControllerTest {
 	 *
 	 * @throws Exception
 	 */
+	@Disabled
 	@Test
-	void 유저가없을시테스트() throws Exception {
+	void notFoundUser() throws Exception {
 
 		LoginRequest req = new LoginRequest("email@email.com", "12345678");
 

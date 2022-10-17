@@ -2,7 +2,12 @@ plugins {
     id 'org.springframework.boot' version '2.7.3'
     id 'io.spring.dependency-management' version '1.0.13.RELEASE'
     id 'java'
+    id 'checkstyle'
+
 }
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
 
 group = 'com.uniqueAuction'
 version = '0.0.1-SNAPSHOT'
@@ -32,3 +37,12 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+checkstyle {
+    maxWarnings = 0 // 규칙이 어긋나는 코드가 하나라도 있을 경우 빌드 fail을 내고 싶다면 이 선언을 추가한다.
+    configFile = file("${rootDir}/naver-checkstyle-rules.xml")
+    configProperties = ["suppressionFile": "${rootDir}/naver-checkstyle-suppressions.xml"]
+    toolVersion = "8.24"  // checkstyle 버전 8.24 이상 선언
+}
+
+

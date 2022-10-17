@@ -12,7 +12,8 @@ class UserServiceTest {
 
 	@Test
 	void userJoinTest() {
-        /*
+
+		/*
         // 신규 회원 가입
         User user = User.builder()
                 .email("new" + "@naver.com")
