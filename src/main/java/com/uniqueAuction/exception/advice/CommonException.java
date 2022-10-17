@@ -1,13 +1,14 @@
-package com.uniqueAuction.exception.advice;
+package com.uniqueauction.exception.advice;
 
-import com.uniqueAuction.exception.ErrorCode;
+import com.uniqueauction.exception.ErrorCode;
+
 import lombok.Getter;
 
 @Getter
 public class CommonException extends RuntimeException {
-    private final ErrorCode error;
+	private final ErrorCode error;
 
-    public CommonException(ErrorCode error) {
-        this.error = error;
-    }
+	public CommonException(ErrorCode error) {
+		this.error = error;
+	}
 }

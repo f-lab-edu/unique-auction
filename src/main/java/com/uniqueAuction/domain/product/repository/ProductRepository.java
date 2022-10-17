@@ -1,14 +1,13 @@
-package com.uniqueAuction.domain.product.repository;
+package com.uniqueauction.domain.product.repository;
 
-import com.uniqueAuction.domain.product.entity.Product;
+import com.uniqueauction.domain.product.entity.Product;
 
 public interface ProductRepository {
-    void saveProduct(Product saveProduct);
+	Long save(Product saveProduct);
 
+	Product findById(Long id);
 
-    Product productFindById(Long id);
+	Product update(Product updateProduct);
 
-    Product update(Long id, Product updateProduct);
-
-    void delete(Long id);
+	void delete(Long id);
 }

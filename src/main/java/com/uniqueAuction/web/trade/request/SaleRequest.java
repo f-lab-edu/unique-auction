@@ -1,8 +1,8 @@
-package com.uniqueAuction.web.trade.request;
+package com.uniqueauction.web.trade.request;
 
 import javax.validation.constraints.NotBlank;
 
-import com.uniqueAuction.domain.trade.entity.Sale;
+import com.uniqueauction.domain.trade.entity.Sale;
 
 import lombok.Getter;
 

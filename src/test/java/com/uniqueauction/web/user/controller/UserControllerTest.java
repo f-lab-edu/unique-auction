@@ -1,4 +1,4 @@
-package com.uniqueAuction.web.user.controller;
+package com.uniqueauction.web.user.controller;
 
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;

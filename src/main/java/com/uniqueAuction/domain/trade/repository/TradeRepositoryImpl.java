@@ -1,10 +1,11 @@
-package com.uniqueAuction.domain.trade.repository;
+package com.uniqueauction.domain.trade.repository;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.uniqueAuction.domain.trade.entity.Trade;
 import org.springframework.stereotype.Repository;
+
+import com.uniqueauction.domain.trade.entity.Trade;
 
 @Repository
 public class TradeRepositoryImpl implements TradeRepository {

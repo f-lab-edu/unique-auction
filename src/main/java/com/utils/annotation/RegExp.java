@@ -1,12 +1,16 @@
 package com.utils.annotation;
 
-
-import com.utils.RegExpCode;
-import com.utils.validator.RegExpValidator;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import java.lang.annotation.*;
+
+import com.utils.RegExpCode;
+import com.utils.validator.RegExpValidator;
 
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
@@ -14,12 +18,12 @@ import java.lang.annotation.*;
 @Documented
 public @interface RegExp {
 
-    String message() default "형식이 잘못 되었습니다.";
+	String message() default "형식이 잘못 되었습니다.";
 
-    Class<?>[] groups() default {};
+	Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default {};
+	Class<? extends Payload>[] payload() default {};
 
-    RegExpCode regExpCode();
+	RegExpCode regExpCode();
 
 }

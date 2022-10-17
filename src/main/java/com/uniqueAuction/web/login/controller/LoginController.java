@@ -1,19 +1,20 @@
-package com.uniqueAuction.web.login.controller;
+package com.uniqueauction.web.login.controller;
 
+import static com.uniqueauction.exception.ErrorCode.*;
 
-import com.uniqueAuction.domain.login.service.LoginService;
-import com.uniqueAuction.exception.advice.CommonValidationException;
-import com.uniqueAuction.web.login.request.LoginRequest;
-import com.uniqueAuction.web.response.CommonResponse;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.uniqueAuction.exception.ErrorCode.MISSING_PARAMETER;
+import com.uniqueauction.domain.login.service.LoginService;
+import com.uniqueauction.exception.advice.CommonValidationException;
+import com.uniqueauction.web.login.request.LoginRequest;
+import com.uniqueauction.web.response.CommonResponse;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Validated :  검증기 실행 애노테이션 WebDataBinder에 등록한 검증기 찾아서 실행 / 스프링에서 제공하는 어노테이션 및 기능 .
@@ -25,23 +26,22 @@ import static com.uniqueAuction.exception.ErrorCode.MISSING_PARAMETER;
  * HttpMessageConverter 단계에서 객체를 생성하지못하면 예외발생 .
  */
 
-
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 public class LoginController {
 
-    private final LoginService loginService;
+	private final LoginService loginService;
 
-    @PostMapping("/login")
-    public CommonResponse signIn(@RequestBody @Validated LoginRequest request, BindingResult result) {
+	@PostMapping("/login")
+	public CommonResponse signIn(@RequestBody @Validated LoginRequest request, BindingResult result) {
 
-        if (result.hasErrors()) {
-            throw new CommonValidationException(MISSING_PARAMETER);
-        }
+		if (result.hasErrors()) {
+			throw new CommonValidationException(MISSING_PARAMETER);
+		}
 
-        loginService.login(request);
+		loginService.login(request);
 
-        return CommonResponse.success();
-    }
+		return CommonResponse.success();
+	}
 }

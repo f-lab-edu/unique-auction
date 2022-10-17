@@ -1,5 +1,4 @@
-package com.uniqueAuction.domain.user.entity;
-
+package com.uniqueauction.domain.user.entity;
 
 import lombok.Builder;
 import lombok.Getter;

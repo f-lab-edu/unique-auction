@@ -1,15 +1,13 @@
-package com.uniqueAuction.domain.trade.service;
-
-import static com.uniqueAuction.exception.ErrorCode.*;
+package com.uniqueauction.domain.trade.service;
 
 import org.springframework.stereotype.Service;
 
-import com.uniqueAuction.domain.trade.entity.Sale;
-import com.uniqueAuction.domain.trade.entity.Trade;
-import com.uniqueAuction.domain.trade.entity.TradeStatus;
-import com.uniqueAuction.domain.trade.repository.PurchaseRepository;
-import com.uniqueAuction.domain.trade.repository.SaleRepository;
-import com.uniqueAuction.domain.trade.repository.TradeRepository;
+import com.uniqueauction.domain.trade.entity.Sale;
+import com.uniqueauction.domain.trade.entity.Trade;
+import com.uniqueauction.domain.trade.entity.TradeStatus;
+import com.uniqueauction.domain.trade.repository.PurchaseRepository;
+import com.uniqueauction.domain.trade.repository.SaleRepository;
+import com.uniqueauction.domain.trade.repository.TradeRepository;
 
 import lombok.RequiredArgsConstructor;
 

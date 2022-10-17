@@ -1,19 +1,18 @@
-package com.uniqueAuction.domain.user.entity;
-
-import com.utils.SessionUtil;
+package com.uniqueauction.domain.user.entity;
 
 import javax.servlet.http.HttpSession;
 
+import com.utils.SessionUtil;
+
 public enum Role {
-    CUSTOMER,
-    ADMIN;
+	CUSTOMER,
+	ADMIN;
 
-
-    public static void setSession(HttpSession session, User user) {
-        if (user.getRole() == ADMIN) {
-            SessionUtil.setLoginAdminId(session, user.getId());
-        } else {
-            SessionUtil.setLoginMemberId(session, user.getId());
-        }
-    }
+	public static void setSession(HttpSession session, User user) {
+		if (user.getRole() == ADMIN) {
+			SessionUtil.setLoginAdminId(session, user.getId());
+		} else {
+			SessionUtil.setLoginMemberId(session, user.getId());
+		}
+	}
 }

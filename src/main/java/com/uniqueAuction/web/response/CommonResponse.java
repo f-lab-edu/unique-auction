@@ -1,6 +1,7 @@
-package com.uniqueAuction.web.response;
+package com.uniqueauction.web.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.uniqueauction.web.response.ErrorResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

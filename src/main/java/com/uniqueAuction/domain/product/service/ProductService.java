@@ -1,36 +1,32 @@
-package com.uniqueAuction.domain.product.service;
+package com.uniqueauction.domain.product.service;
 
-
-import com.uniqueAuction.domain.product.entity.Product;
-import com.uniqueAuction.domain.product.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import com.uniqueauction.domain.product.entity.Product;
+import com.uniqueauction.domain.product.repository.ProductRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 public class ProductService {
 
-    private final ProductRepository productRepository;
+	private final ProductRepository productRepository;
 
-    public void saveProduct(Product product) {
-        productRepository.saveProduct(product);
+	public long save(Product product) {
+		return productRepository.save(product);
+	}
 
-    }
+	public Product productFindById(Long id) {
+		return productRepository.findById(id);
+	}
 
-    public Product productFindById(Long id) {
-        return productRepository.productFindById(id);
-    }
+	public Product updateProduct(Product updateProduct) {
 
-    public Product updateProduct(Long id, Product updateProduct) {
+		return productRepository.update(updateProduct);
+	}
 
-        //상품 유무 체크
-        productFindById(id);
-
-        return productRepository.update(id, updateProduct);
-    }
-
-    public void deleteProduct(Long id) {
-        productRepository.delete(id);
-    }
+	public void deleteProduct(Long id) {
+		productRepository.delete(id);
+	}
 }

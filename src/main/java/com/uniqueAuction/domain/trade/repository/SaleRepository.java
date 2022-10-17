@@ -1,6 +1,6 @@
-package com.uniqueAuction.domain.trade.repository;
+package com.uniqueauction.domain.trade.repository;
 
-import com.uniqueAuction.domain.trade.entity.Sale;
+import com.uniqueauction.domain.trade.entity.Sale;
 
 public interface SaleRepository {
 	Long save(Sale sale);
