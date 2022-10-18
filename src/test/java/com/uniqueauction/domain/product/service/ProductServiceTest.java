@@ -50,7 +50,7 @@ class ProductServiceTest {
 	// }
 
 	@Test
-	void 상품을저장한다() {
+	void productSaveTest() {
 
 		//given
 		lenient().doReturn(0L).when(productService).save(getSaveProduct());
@@ -64,7 +64,7 @@ class ProductServiceTest {
 	}
 
 	@Test
-	void 상품상세조회한다() {
+	void productDetailSelectTest() {
 
 		Long pId = 1L;
 
@@ -83,7 +83,7 @@ class ProductServiceTest {
 	}
 
 	@Test
-	void 상품을수정한다() {
+	void productUpdateTest() {
 
 		Long pId = 1L;
 
@@ -100,7 +100,7 @@ class ProductServiceTest {
 	}
 
 	@Test
-	void 상품을삭제한다() {
+	void productDeleteTest() {
 
 		//given
 		Long pId = 1L;

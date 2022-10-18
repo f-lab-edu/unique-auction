@@ -61,7 +61,7 @@ public class ProductController {
 	}
 
 	@DeleteMapping("/products/{id}")
-	public CommonResponse DeleteProduct(@PathVariable Long id) {
+	public CommonResponse deleteProduct(@PathVariable Long id) {
 
 		productService.deleteProduct(id);
 

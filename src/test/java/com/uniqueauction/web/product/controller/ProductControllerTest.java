@@ -79,7 +79,7 @@ class ProductControllerTest {
 
 	@Test
 	@DisplayName("상품 저장 완료가 되면 status  200을 반환한다.")
-	void 상품저장테스트() throws Exception {
+	void productSaveTest() throws Exception {
 
 		mockMvc.perform(
 
@@ -96,7 +96,7 @@ class ProductControllerTest {
 
 	@Test
 	@DisplayName("상품 수정  완료가 되면 status  200을 반환한다.")
-	void 상품업데이트테스트() throws Exception {
+	void productUpdateTest() throws Exception {
 
 		mockMvc.perform(
 				patch("/products/" + 1)
@@ -112,7 +112,7 @@ class ProductControllerTest {
 
 	@Test
 	@DisplayName("상품 삭제  완료가 되면 status  200을 반환한다.")
-	void 상품삭제테스트() throws Exception {
+	void productDeleteTest() throws Exception {
 		Long id = 1L;
 
 		mockMvc.perform(
@@ -129,7 +129,7 @@ class ProductControllerTest {
 
 	@Test
 	@DisplayName("상품 상세  완료가 되면 status  200을 반환한다.")
-	void 상품상세조회테스트() throws Exception {
+	void productDetailSelectTest() throws Exception {
 		Long id = 1L;
 
 		mockMvc.perform(

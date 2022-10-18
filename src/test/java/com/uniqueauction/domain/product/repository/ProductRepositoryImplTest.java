@@ -31,7 +31,7 @@ class ProductRepositoryImplTest {
 
 	@Test
 	@Order(1)
-	void 사용자저장() {
+	void userSaveTest() {
 
 		//given
 		long pId = productRepository.save(getSaveReq().toEntity());
@@ -42,7 +42,7 @@ class ProductRepositoryImplTest {
 
 	@Test
 	@Order(2)
-	void 사용자조회() {
+	void userSelectTest() {
 
 		//given
 		long pId = productRepository.save(getSaveReq().toEntity());
@@ -57,7 +57,7 @@ class ProductRepositoryImplTest {
 
 	@Test
 	@Order(3)
-	void 사용자수정() {
+	void userUpdateTest() {
 		//given
 		long pId = productRepository.save(getSaveReq().toEntity());
 
@@ -70,7 +70,7 @@ class ProductRepositoryImplTest {
 
 	@Test
 	@Order(4)
-	void 사용자삭제() {
+	void userDeleteTest() {
 		//given
 		productRepository.save(getSaveReq().toEntity());
 
