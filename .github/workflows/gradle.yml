@@ -32,9 +32,9 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         
-   # 코드 포맷 
-    - name: codeFormat Check
-      run: ./gradlew other checkstyleMain      
+#    # 코드 포맷 
+#     - name: codeFormat Check
+#       run: ./gradlew other checkstyleMain      
        
    # 테스트는 전부 성공해야 통과.     
     - name: Test with Gradle
