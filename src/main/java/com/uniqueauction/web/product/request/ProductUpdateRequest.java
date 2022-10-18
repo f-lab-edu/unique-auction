@@ -34,12 +34,13 @@ public class ProductUpdateRequest {
 	private String imgUrl;
 
 	@Builder
-	private ProductUpdateRequest(Long productId, Long imageId, String modelNumber, String releasePrice,
+	private ProductUpdateRequest(Long productId, String modelNumber, String releasePrice,
 		Category category, String imgUrl, String brand) {
 		this.productId = productId;
 		this.modelNumber = modelNumber;
 		this.releasePrice = releasePrice;
 		this.category = category;
+		this.imgUrl = imgUrl;
 		this.brand = brand;
 	}
 

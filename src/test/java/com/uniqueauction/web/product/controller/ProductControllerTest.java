@@ -59,7 +59,6 @@ class ProductControllerTest {
 	private ProductUpdateRequest updateProduct() {
 		return ProductUpdateRequest.builder()
 			.productId(1L)
-			.imageId(1L)
 			.modelNumber("1")
 			.releasePrice("10000")
 			.category(SHOES)
