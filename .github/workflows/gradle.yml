@@ -33,7 +33,7 @@ jobs:
         distribution: 'temurin'
         
    # 코드 포맷 
-    - name: Test with Gradle
+    - name: codeFormat Check
       run: ./gradlew other checkstyleMain      
        
    # 테스트는 전부 성공해야 통과.     
