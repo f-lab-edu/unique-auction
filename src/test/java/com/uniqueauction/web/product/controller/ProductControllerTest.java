@@ -52,6 +52,7 @@ class ProductControllerTest {
 			.category(SHOES)
 			.imgUrl(":test")
 			.brand("DD")
+			.imgUrl("/test/test")
 			.build();
 	}
 
@@ -64,6 +65,7 @@ class ProductControllerTest {
 			.category(SHOES)
 			.imgUrl(":test")
 			.brand("DD")
+			.imgUrl("/test/test")
 			.build();
 	}
 

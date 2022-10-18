@@ -123,6 +123,7 @@ class ProductServiceTest {
 			.modelNumber("123")
 			.releasePrice("10000")
 			.category(SHOES)
+			.imgUrl("/test/test")
 			.build();
 	}
 
@@ -132,6 +133,7 @@ class ProductServiceTest {
 			.modelNumber("457")
 			.releasePrice("10000")
 			.category(SHOES)
+			.imgUrl("/test/test")
 			.build();
 	}
 

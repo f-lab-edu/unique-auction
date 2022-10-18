@@ -86,6 +86,7 @@ class ProductRepositoryImplTest {
 			.modelNumber("123")
 			.releasePrice("10000")
 			.category(SHOES)
+			.imgUrl("/test/test")
 			.build();
 	}
 
@@ -95,6 +96,7 @@ class ProductRepositoryImplTest {
 			.modelNumber("457")
 			.releasePrice("10000")
 			.category(CLOTHES)
+			.imgUrl("/test/test")
 			.build();
 	}
 }

@@ -1,5 +1,6 @@
 package com.uniqueauction.web.product.request;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -29,6 +30,9 @@ public class ProductUpdateRequest {
 	@NotEmpty(message = "브랜드는 공백은 입력할 수 없습니다.")
 	private String brand;
 
+	@NotBlank(message = "이미지는 공백은 입력할 수 없습니다.")
+	private String imgUrl;
+
 	@Builder
 	private ProductUpdateRequest(Long productId, Long imageId, String modelNumber, String releasePrice,
 		Category category, String imgUrl, String brand) {
@@ -46,6 +50,7 @@ public class ProductUpdateRequest {
 			.releasePrice(this.releasePrice)
 			.category(this.category)
 			.brand(this.brand)
+			.imgUrl(this.imgUrl)
 			.build();
 	}
 }

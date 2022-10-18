@@ -11,4 +11,5 @@ public class Product {
 	private String releasePrice;
 	private Category category;
 	private String brand;
+	private String imgUrl;
 }

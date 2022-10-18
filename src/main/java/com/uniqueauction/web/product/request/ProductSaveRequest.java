@@ -45,6 +45,7 @@ public class ProductSaveRequest {
 			.releasePrice(this.releasePrice)
 			.category(this.category)
 			.brand(this.brand)
+			.imgUrl(imgUrl)
 			.build();
 	}
 }
