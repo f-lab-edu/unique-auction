@@ -33,7 +33,7 @@ public class UserController {
 			throw new CommonValidationException(MISSING_PARAMETER);
 		}
 		userService.join(joinRequest);
-		return CommonResponse.success("회원가입 성공");
+		return CommonResponse.success();
 	}
 
 	@PatchMapping("/users")
@@ -45,7 +45,7 @@ public class UserController {
 			throw new CommonValidationException(MISSING_PARAMETER);
 		}
 
-		userService.update(updateUserRequest);
-		return CommonResponse.success("회원정보 수정 성공");
+		userService.update(updateUserRequest.getUserId());
+		return CommonResponse.success();
 	}
 }
