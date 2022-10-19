@@ -1,9 +1,12 @@
 package com.uniqueauction.domain.trade.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.trade.entity.Sale;
 
-public interface SaleRepository {
-	Long save(Sale sale);
-
-	Long findByProductIdAndProductSize(String modelNumber, String size);
+@Repository
+public interface SaleRepository extends JpaRepository<Sale, Long> {
+	Sale findByProductAndProductSize(Product product, String productSize);
 }

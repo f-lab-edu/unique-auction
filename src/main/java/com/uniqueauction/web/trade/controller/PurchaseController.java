@@ -29,7 +29,7 @@ public class PurchaseController {
 		if (result.hasErrors()) {
 			throw new RuntimeException(Objects.requireNonNull(result.getFieldError()).getDefaultMessage());
 		}
-		purchaseService.savePurchase(purchaseRequest.toEntity());
+		purchaseService.savePurchase(purchaseRequest.convert());
 		return CommonResponse.success();
 	}
 }

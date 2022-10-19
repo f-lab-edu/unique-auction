@@ -1,13 +1,10 @@
 package com.uniqueauction.domain.product.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.uniqueauction.domain.product.entity.Product;
 
-public interface ProductRepository {
-	void saveProduct(Product saveProduct);
-
-	Product productFindById(Long id);
-
-	Product update(Long id, Product updateProduct);
-
-	void delete(Long id);
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Long> {
 }

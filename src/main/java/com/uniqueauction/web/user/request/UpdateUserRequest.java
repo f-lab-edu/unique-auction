@@ -5,9 +5,11 @@ import static com.utils.RegExpCode.*;
 import com.uniqueauction.domain.user.entity.User;
 import com.utils.annotation.RegExp;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Getter
+@Data
+@AllArgsConstructor
 public class UpdateUserRequest {
 	private Long userId;
 

@@ -27,7 +27,7 @@ public class UserController {
 
 	@PostMapping("/users")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CommonResponse joinUser(@RequestBody @Validated JoinRequest joinRequest, BindingResult result) {
+	public CommonResponse<?> joinUser(@RequestBody @Validated JoinRequest joinRequest, BindingResult result) {
 
 		if (result.hasErrors()) {
 			throw new CommonValidationException(MISSING_PARAMETER);
@@ -38,14 +38,14 @@ public class UserController {
 
 	@PatchMapping("/users")
 	@ResponseStatus(HttpStatus.OK)
-	public CommonResponse updateUser(@RequestBody @Validated UpdateUserRequest updateUserRequest,
+	public CommonResponse<?> updateUser(@RequestBody @Validated UpdateUserRequest updateUserRequest,
 		BindingResult result) {
 
 		if (result.hasErrors()) {
 			throw new CommonValidationException(MISSING_PARAMETER);
 		}
 
-		userService.update(updateUserRequest);
+		userService.update(updateUserRequest.getUserId());
 		return CommonResponse.success("회원정보 수정 성공");
 	}
 }

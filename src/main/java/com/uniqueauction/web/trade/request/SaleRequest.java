@@ -4,9 +4,11 @@ import javax.validation.constraints.NotBlank;
 
 import com.uniqueauction.domain.trade.entity.Sale;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Getter
+@Data
+@AllArgsConstructor
 public class SaleRequest {
 
 	@NotBlank(message = "유저ID는 필수값입니다.")
@@ -24,10 +26,9 @@ public class SaleRequest {
 	@NotBlank(message = "반송주소는 필수값입니다.")
 	private String returnAddress;
 
-	public Sale toEntity() {
+	public Sale convert() {
 		return Sale.builder()
 			.userId(this.userId)
-			.productId(this.productId)
 			.bidPrice(this.bidPrice)
 			.productSize(this.productSize)
 			.returnAddress(this.returnAddress)

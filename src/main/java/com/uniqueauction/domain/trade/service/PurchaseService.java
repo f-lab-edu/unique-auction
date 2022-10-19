@@ -3,6 +3,7 @@ package com.uniqueauction.domain.trade.service;
 import org.springframework.stereotype.Service;
 
 import com.uniqueauction.domain.trade.entity.Purchase;
+import com.uniqueauction.domain.trade.entity.Sale;
 import com.uniqueauction.domain.trade.entity.Trade;
 import com.uniqueauction.domain.trade.entity.TradeStatus;
 import com.uniqueauction.domain.trade.repository.PurchaseRepository;
@@ -21,16 +22,13 @@ public class PurchaseService {
 	public void savePurchase(Purchase purchase) {
 		/* 구매 등록 */
 		purchase.setTradeStatus(TradeStatus.BID_PROGRESS);
-		Long purchaseId = purchaseRepository.save(purchase);
-		Long saleId = saleRepository.findByProductIdAndProductSize(purchase.getProductId(), purchase.getProductSize());
+		Long purchaseId = purchaseRepository.save(purchase).getId();
+		Sale sale = saleRepository.findByProductAndProductSize(purchase.getProduct(), purchase.getProductSize());
 
-		/* 거래 등록 - 구매 희망가에 대한 판매 요청이 있는 경우 */
-		if (saleId > 0) {
-			Trade trade = Trade.builder().purhcaseId(purchaseId)
-				.saleId(saleId)
-				.status(TradeStatus.BID_COMPLETE)
-				.build();
-			tradeRepository.save(trade);
-		}
+		Trade trade = Trade.builder().purchase(purchase)
+			.sale(sale)
+			.status(TradeStatus.BID_COMPLETE)
+			.build();
+		tradeRepository.save(trade);
 	}
 }

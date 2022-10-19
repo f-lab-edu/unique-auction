@@ -5,12 +5,10 @@ import javax.validation.constraints.NotBlank;
 import com.uniqueauction.domain.product.entity.Product;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Getter
 public class ProductSaveRequest {
 
 	@NotBlank(message = "모델번호는 공백은 입력할 수 없습니다.")
@@ -32,9 +30,7 @@ public class ProductSaveRequest {
 		return Product.builder()
 			.modelNumber(this.modelNumber)
 			.releasePrice(this.releasePrice)
-			.size(this.size)
-			.category(this.category)
-			.stock(this.stock).build();
+			.category(this.category).build();
 	}
 
 }

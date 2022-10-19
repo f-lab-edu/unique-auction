@@ -5,14 +5,10 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Data;
 
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Getter
 public class LoginRequest {
 
 	@NotBlank(message = "공백은 입력할 수 없습니다.")

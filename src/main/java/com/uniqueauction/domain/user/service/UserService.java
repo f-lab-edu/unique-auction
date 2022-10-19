@@ -9,7 +9,6 @@ import com.uniqueauction.domain.user.repository.UserRepository;
 import com.uniqueauction.exception.advice.CommonException;
 import com.uniqueauction.exception.advice.CommonNotFoundException;
 import com.uniqueauction.web.user.request.JoinRequest;
-import com.uniqueauction.web.user.request.UpdateUserRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +19,7 @@ public class UserService {
 	private final EncryptService encryptService;
 
 	public void join(JoinRequest joinRequest) {
-		User user = joinRequest.toEntity(joinRequest);
+		User user = joinRequest.convert(joinRequest);
 		Long findId = isExists(user);
 
 		if (findId == 0) {
@@ -32,19 +31,14 @@ public class UserService {
 		userRepository.save(user);
 	}
 
-	public void update(UpdateUserRequest updateUserRequest) {
-		User user = updateUserRequest.toEntity(updateUserRequest);
-		Long findId = isExists(user);
-
-		if (findId > 0) {
-			userRepository.update(findId, user);
-		} else {
-			throw new CommonNotFoundException(NOT_FOUND_USER);
-		}
+	public void update(Long id) {
+		User user = userRepository.findById(id)
+			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_USER));
+		userRepository.save(user);
 	}
 
 	private Long isExists(User user) {
-		return userRepository.isExists(user.getEmail());
+		return userRepository.getByEmail(user.getEmail());
 	}
 
 }
