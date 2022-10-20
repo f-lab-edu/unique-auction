@@ -120,6 +120,7 @@ class ProductServiceTest {
 
 	private ProductSaveRequest getSaveReq() {
 		return ProductSaveRequest.builder()
+			.productName("상품1")
 			.modelNumber("123")
 			.releasePrice("10000")
 			.category(SHOES)
@@ -130,6 +131,7 @@ class ProductServiceTest {
 	private ProductUpdateRequest getUpdateReq(Long pId) {
 		return ProductUpdateRequest.builder()
 			.productId(pId)
+			.productName("상품2")
 			.modelNumber("457")
 			.releasePrice("10000")
 			.category(SHOES)

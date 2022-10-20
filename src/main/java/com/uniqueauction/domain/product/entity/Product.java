@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class Product {
 	private Long id;
+	private String name;
 	private String modelNumber;
 	private String releasePrice;
 	private Category category;

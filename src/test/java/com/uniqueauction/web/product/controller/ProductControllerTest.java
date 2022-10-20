@@ -37,6 +37,7 @@ class ProductControllerTest {
 
 	private ProductSaveRequest createProduct() {
 		return ProductSaveRequest.builder()
+			.productName("상품1")
 			.modelNumber("1")
 			.releasePrice("10000")
 			.category(SHOES)
@@ -47,6 +48,7 @@ class ProductControllerTest {
 
 	private ProductSaveRequest createNullField() {
 		return ProductSaveRequest.builder()
+			.productName("상품2")
 			.modelNumber("")
 			.releasePrice("10000")
 			.category(SHOES)
@@ -97,6 +99,8 @@ class ProductControllerTest {
 	@Test
 	@DisplayName("상품 수정  완료가 되면 status  200을 반환한다.")
 	void productUpdateTest() throws Exception {
+
+		// doReturn(any(Long.class)).when(productService).save(createProduct().toEntity());
 
 		mockMvc.perform(
 				patch("/products/" + 1)
