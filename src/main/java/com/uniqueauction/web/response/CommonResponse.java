@@ -1,7 +1,6 @@
 package com.uniqueauction.web.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.uniqueauction.web.response.ErrorResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,8 +14,8 @@ public class CommonResponse<T> {
 	private T data;
 	private ErrorResponse error;
 
-	public static CommonResponse<?> success() {
-		return new CommonResponse<>(true, null, null);
+	public static CommonResponse success() {
+		return new CommonResponse(true, null, null);
 	}
 
 	public static <T> CommonResponse<T> success(T data) {
