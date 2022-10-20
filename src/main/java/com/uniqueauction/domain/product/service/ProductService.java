@@ -1,11 +1,13 @@
 package com.uniqueauction.domain.product.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
+import com.uniqueauction.web.product.response.SearchProductResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,5 +40,11 @@ public class ProductService {
 
 	public void deleteAll() {
 		productRepository.deleteAll();
+	}
+
+	public List<SearchProductResponse> findByNameOrModelNumber(String serachProduct) {
+		return productRepository.findByNameOrModelNumber(serachProduct)
+			.stream().map(p -> new SearchProductResponse(p))
+			.collect(Collectors.toList());
 	}
 }

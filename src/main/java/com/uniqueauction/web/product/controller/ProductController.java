@@ -34,12 +34,18 @@ public class ProductController {
 		return CommonResponse.success(product);
 	}
 
+	@GetMapping("/products/search/{searProduct}")
+	public CommonResponse selectProducts(@PathVariable String searProduct) {
+		return CommonResponse.success(productService.findByNameOrModelNumber(searProduct));
+	}
+
 	@PostMapping("/products")
 	public CommonResponse saveProduct(@RequestBody @Validated ProductSaveRequest productSaveRequest,
 		BindingResult result) {
 
 		if (result.hasErrors()) {
-			throw new CommonValidationException(MISSING_PARAMETER);
+			String defaultMessage = result.getFieldError().getDefaultMessage();
+			throw new CommonValidationException(MISSING_PARAMETER.setMissingParameterMsg(defaultMessage));
 		}
 
 		productService.save(productSaveRequest.toEntity());
@@ -52,7 +58,8 @@ public class ProductController {
 		BindingResult result) {
 
 		if (result.hasErrors()) {
-			throw new CommonValidationException(MISSING_PARAMETER);
+			String defaultMessage = result.getFieldError().getDefaultMessage();
+			throw new CommonValidationException(MISSING_PARAMETER.setMissingParameterMsg(defaultMessage));
 		}
 
 		Product updateProduct = productService.update(productUpdateRequest.toEntity());

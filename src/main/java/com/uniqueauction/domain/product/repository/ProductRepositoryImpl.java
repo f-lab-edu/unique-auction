@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
@@ -47,6 +48,13 @@ public class ProductRepositoryImpl implements ProductRepository {
 	@Override
 	public List<Product> findByAll() {
 		return new ArrayList<>(store.values());
+	}
+
+	@Override
+	public List<Product> findByNameOrModelNumber(String serachProduct) {
+		return findByAll().stream()
+			.filter(p -> p.getName().equals(serachProduct) || p.getModelNumber().equals(serachProduct))
+			.collect(Collectors.toList());
 	}
 
 }

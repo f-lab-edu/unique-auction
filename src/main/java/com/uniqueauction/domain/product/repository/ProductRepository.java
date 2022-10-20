@@ -16,4 +16,7 @@ public interface ProductRepository {
 	void deleteAll();
 
 	List<Product> findByAll();
+
+	List<Product> findByNameOrModelNumber(String serachProduct);
+
 }
