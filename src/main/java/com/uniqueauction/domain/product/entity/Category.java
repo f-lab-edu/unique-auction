@@ -14,6 +14,7 @@ public enum Category {
 	CLOTHES,
 	FASHIONETC,
 	ELECTRONIC,
+
 	;
 
 	@JsonCreator
