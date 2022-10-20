@@ -15,8 +15,9 @@ on:
  # contents: read
 
 jobs:
-# 체크아웃 / 버전 설정/  코드포맷 
- job1:
+
+# 체크아웃 / 버전 설정
+ job0:
     runs-on: ubuntu-latest    
     steps:
     # 코드 체크  아웃
@@ -29,12 +30,18 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         
+#  코드포맷 
+ job1:
+    runs-on: ubuntu-latest    
+    needs: job0
+    steps:
    # 코드 포맷 
     - name: codeFormat Check
       run: ./gradlew checkstyleMain      
       
  job2: # 테스트/ 빌드 
      runs-on: ubuntu-latest   
+     needs: job0
      steps:     
      
    # 테스트는 전부 성공해야 통과.     
