@@ -11,7 +11,7 @@ import com.uniqueauction.web.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RestControllerAdvice("com.uniqueAuction.web")
+@RestControllerAdvice("com.uniqueauction.web")
 public class CommonControllerAdvice {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

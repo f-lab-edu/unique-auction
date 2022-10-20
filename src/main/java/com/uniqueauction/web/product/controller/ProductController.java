@@ -29,7 +29,8 @@ public class ProductController {
 
 	@GetMapping("/products/{id}")
 	public CommonResponse selectProduct(@PathVariable Long id) {
-		Product product = productService.productFindById(id);
+		Product product = productService.findById(id);
+
 		return CommonResponse.success(product);
 	}
 
@@ -41,20 +42,20 @@ public class ProductController {
 			throw new CommonValidationException(MISSING_PARAMETER);
 		}
 
-		productService.saveProduct(productSaveRequest.convert());
+		productService.save(productSaveRequest.toEntity());
 
 		return CommonResponse.success();
 	}
 
 	@PatchMapping("/products/{id}")
-	public CommonResponse updateProduct(@PathVariable Long id,
-		@RequestBody @Validated ProductUpdateRequest productUpdateRequest, BindingResult result) {
+	public CommonResponse updateProduct(@RequestBody @Validated ProductUpdateRequest productUpdateRequest,
+		BindingResult result) {
 
 		if (result.hasErrors()) {
 			throw new CommonValidationException(MISSING_PARAMETER);
 		}
 
-		Product updateProduct = productService.updateProduct(id, productUpdateRequest.convert());
+		Product updateProduct = productService.update(productUpdateRequest.toEntity());
 
 		return CommonResponse.success(updateProduct);
 	}

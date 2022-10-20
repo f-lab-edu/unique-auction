@@ -1,14 +1,15 @@
 package com.uniqueauction.web.product.request;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+import com.uniqueauction.domain.product.entity.Category;
 import com.uniqueauction.domain.product.entity.Product;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 public class ProductSaveRequest {
@@ -19,22 +20,32 @@ public class ProductSaveRequest {
 	@NotBlank(message = "발매가는 공백은 입력할 수 없습니다.")
 	private String releasePrice;
 
-	@NotBlank(message = "사이즈는 공백은 입력할 수 없습니다.")
-	private String size;
+	@NotNull(message = "카테고리는 공백은 입력할 수 없습니다.")
+	private Category category;
 
-	@NotBlank(message = "카테고리는 공백은 입력할 수 없습니다.")
-	private String category;
+	@NotBlank(message = "이미지주소는 공백은 입력할 수 없습니다.")
+	private String imgUrl;
 
-	@NotBlank(message = "수량은 공백은 입력할 수 없습니다.")
-	private String stock;
+	@NotBlank(message = "브랜드는 공백은 입력할 수 없습니다.")
+	private String brand;
 
-	public Product convert() {
+	@Builder
+	private ProductSaveRequest(String modelNumber, String releasePrice,
+		Category category, String imgUrl, String brand) {
+		this.modelNumber = modelNumber;
+		this.releasePrice = releasePrice;
+		this.category = category;
+		this.imgUrl = imgUrl;
+		this.brand = brand;
+	}
+
+	public Product toEntity() {
 		return Product.builder()
 			.modelNumber(this.modelNumber)
 			.releasePrice(this.releasePrice)
-			.size(this.size)
 			.category(this.category)
-			.stock(this.stock).build();
+			.brand(this.brand)
+			.imgUrl(imgUrl)
+			.build();
 	}
-
 }

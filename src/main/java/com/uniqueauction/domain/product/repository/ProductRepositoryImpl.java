@@ -1,5 +1,7 @@
 package com.uniqueauction.domain.product.repository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -14,24 +16,37 @@ public class ProductRepositoryImpl implements ProductRepository {
 	private static final AtomicLong sequence = new AtomicLong();
 
 	@Override
-	public void saveProduct(Product saveProduct) {
-		store.put(sequence.addAndGet(1), saveProduct);
+	public long save(Product saveProduct) {
+		Long id = sequence.addAndGet(1);
+		store.put(id, saveProduct);
+		return id;
 
 	}
 
 	@Override
-	public Product productFindById(Long id) {
+	public Product findById(Long id) {
 		return store.get(id);
 	}
 
 	@Override
-	public Product update(Long id, Product updateProduct) {
-		store.put(id, updateProduct);
-		return store.get(id);
+	public Product update(Product updateProduct) {
+		store.put(updateProduct.getId(), updateProduct);
+		return store.get(updateProduct.getId());
 	}
 
 	@Override
 	public void delete(Long id) {
 		store.remove(id);
 	}
+
+	@Override
+	public void deleteAll() {
+		store.clear();
+	}
+
+	@Override
+	public List<Product> findByAll() {
+		return new ArrayList<>(store.values());
+	}
+
 }

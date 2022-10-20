@@ -1,13 +1,19 @@
 package com.uniqueauction.domain.product.repository;
 
+import java.util.List;
+
 import com.uniqueauction.domain.product.entity.Product;
 
 public interface ProductRepository {
-	void saveProduct(Product saveProduct);
+	long save(Product saveProduct);
 
-	Product productFindById(Long id);
+	Product findById(Long id);
 
-	Product update(Long id, Product updateProduct);
+	Product update(Product updateProduct);
 
 	void delete(Long id);
+
+	void deleteAll();
+
+	List<Product> findByAll();
 }
