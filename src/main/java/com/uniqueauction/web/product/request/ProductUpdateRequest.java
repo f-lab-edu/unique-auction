@@ -50,6 +50,7 @@ public class ProductUpdateRequest {
 
 	public Product toEntity() {
 		return Product.builder()
+			.id(this.productId)
 			.name(productName)
 			.modelNumber(this.modelNumber)
 			.releasePrice(this.releasePrice)

@@ -4,6 +4,7 @@ import static com.uniqueauction.domain.product.entity.Category.*;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,13 @@ class ProductRepositoryImplTest {
 
 	private Product product;
 
+	private long pId;
+
+	@BeforeEach
+	public void set() {
+		pId = productRepository.save(getSaveReq().toEntity());
+	}
+
 	@AfterEach
 	public void clear() {
 		productRepository.deleteAll();
@@ -31,10 +39,8 @@ class ProductRepositoryImplTest {
 
 	@Test
 	@Order(1)
-	void userSaveTest() {
+	void productSaveTest() {
 
-		//given
-		long pId = productRepository.save(getSaveReq().toEntity());
 		//then
 		assertThat(pId).isEqualTo(1L);
 
@@ -42,10 +48,7 @@ class ProductRepositoryImplTest {
 
 	@Test
 	@Order(2)
-	void userSelectTest() {
-
-		//given
-		long pId = productRepository.save(getSaveReq().toEntity());
+	void productSelectTest() {
 
 		//when
 		product = productRepository.findById(pId);
@@ -57,9 +60,7 @@ class ProductRepositoryImplTest {
 
 	@Test
 	@Order(3)
-	void userUpdateTest() {
-		//given
-		long pId = productRepository.save(getSaveReq().toEntity());
+	void productUpdateTest() {
 
 		//when
 		Product update = productRepository.update(getUpdateReq(pId).toEntity());
@@ -70,12 +71,10 @@ class ProductRepositoryImplTest {
 
 	@Test
 	@Order(4)
-	void userDeleteTest() {
-		//given
-		productRepository.save(getSaveReq().toEntity());
+	void productDeleteTest() {
 
 		//when
-		productRepository.delete(4L);
+		productRepository.delete(pId);
 
 		//then
 		assertThat(productRepository.findByAll().size()).isEqualTo(0);

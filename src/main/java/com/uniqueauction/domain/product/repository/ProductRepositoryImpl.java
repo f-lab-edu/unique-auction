@@ -3,7 +3,6 @@ package com.uniqueauction.domain.product.repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
@@ -14,13 +13,13 @@ import com.uniqueauction.domain.product.entity.Product;
 public class ProductRepositoryImpl implements ProductRepository {
 
 	private static final ConcurrentHashMap<Long, Product> store = new ConcurrentHashMap<>();
-	private static final AtomicLong sequence = new AtomicLong();
+	private static Long sequence = 0L;
 
 	@Override
 	public long save(Product saveProduct) {
-		Long id = sequence.addAndGet(1);
-		store.put(id, saveProduct);
-		return id;
+		sequence++;
+		store.put(sequence, saveProduct);
+		return sequence;
 
 	}
 
