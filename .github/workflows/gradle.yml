@@ -31,7 +31,7 @@ jobs:
         
    # 코드 포맷 
     - name: codeFormat Check
-      run: ./gradlew other checkstyleMain      
+      run: ./gradlew checkstyleMain      
       
  job2: # 테스트/ 빌드 
      runs-on: ubuntu-latest   
