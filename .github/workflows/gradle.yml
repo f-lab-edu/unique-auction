@@ -16,8 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      # 코드 체크  아웃
-      - uses: actions/checkout@v3
 
       # 자바 버전 설정 11버전
       - name: Set up JDK 11
@@ -32,6 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      # 코드 체크  아웃
+      - uses: actions/checkout@v3
+
       # 코드 포맷
       - name: codeFormat Check
         run: ./gradlew checkstyleMain
@@ -40,6 +41,9 @@ jobs:
     needs: job0
     runs-on: ubuntu-latest
     steps:
+
+      # 코드 체크  아웃
+      - uses: actions/checkout@v3
 
       # 테스트는 전부 성공해야 통과.
       - name: Test with Gradle
