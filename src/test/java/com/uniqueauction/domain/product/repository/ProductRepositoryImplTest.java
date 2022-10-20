@@ -40,10 +40,8 @@ class ProductRepositoryImplTest {
 	@Test
 	@Order(1)
 	void productSaveTest() {
-
 		//then
 		assertThat(pId).isEqualTo(1L);
-
 	}
 
 	@Test
