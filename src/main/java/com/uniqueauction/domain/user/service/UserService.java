@@ -20,9 +20,7 @@ public class UserService {
 
 	public void join(JoinRequest joinRequest) {
 		User user = joinRequest.convert(joinRequest);
-		Long findId = isExists(user);
-
-		if (findId == 0) {
+		if (existsByEmail(user.getEmail())) {
 			user.setEncodedPassword(encryptService.encrypt(joinRequest.getPassword()));
 		} else {
 			throw new CommonException(DUPLICATE_USER);
@@ -37,8 +35,7 @@ public class UserService {
 		userRepository.save(user);
 	}
 
-	private Long isExists(User user) {
-		return userRepository.getByEmail(user.getEmail());
+	private boolean existsByEmail(String email) {
+		return userRepository.existsByEmail(email);
 	}
-
 }

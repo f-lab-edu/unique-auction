@@ -7,5 +7,5 @@ import com.uniqueauction.domain.user.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	Long getByEmail(String email);
+	boolean existsByEmail(String email);
 }
