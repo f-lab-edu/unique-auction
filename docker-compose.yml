@@ -1,0 +1,29 @@
+version: "3.0"
+services:
+  application:
+    build: .
+    restart: on-failure
+    ports:
+      - 8080:8080
+    depends_on:
+      - docker-mysql
+    container_name: ua_application
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/UA?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 12345678
+    networks:
+      - ua_network
+  docker-mysql:
+    image: mysql
+    container_name: ua_database
+    environment:
+      MYSQL_DATABASE: UA
+      MYSQL_ROOT_PASSWORD: 12345678
+    ports:
+      - 3306:3306
+    networks:
+      - ua_network
+
+networks:
+  ua_network:
