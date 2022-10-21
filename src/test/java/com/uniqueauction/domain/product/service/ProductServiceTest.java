@@ -2,7 +2,6 @@ package com.uniqueauction.domain.product.service;
 
 import static com.uniqueauction.domain.product.entity.Category.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -10,11 +9,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
@@ -29,7 +28,8 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
  * @Spy: Stub하지 않은 메소드들은 원본 메소드 그대로 사용하는 어노테이션
  * @InjectMocks: @Mock 또는 @Spy로 생성된 가짜 객체를 자동으로 주입시켜주는 어노테이션
  */
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class ProductServiceTest {
 
 	@Spy
@@ -52,14 +52,17 @@ class ProductServiceTest {
 	@Test
 	void productSaveTest() {
 
+		Product saveProduct = getSaveProduct();
 		//given
-		lenient().doReturn(0L).when(productService).save(getSaveProduct());
+		lenient().doReturn(0L).when(productService).save(saveProduct);
 
 		//when
-		long pId = productService.save(getSaveReq().toEntity());
+		long pId = productService.save(saveProduct);
 
 		assertThat(0L).isEqualTo(pId);
 		//then
+
+		verify(productService).save(saveProduct);
 
 	}
 
@@ -69,7 +72,7 @@ class ProductServiceTest {
 		Long pId = 1L;
 
 		//given
-		doReturn(getSaveProduct()).when(productRepository).findById(any(Long.class));
+		doReturn(getSaveProduct()).when(productRepository).findById(pId);
 
 		//when
 
@@ -79,6 +82,8 @@ class ProductServiceTest {
 		assertThat(product.getModelNumber()).isEqualTo("123");
 		assertThat(product.getReleasePrice()).isEqualTo("10000");
 		assertThat(product.getCategory()).isEqualTo(SHOES);
+
+		verify(productService).findById(pId);
 
 	}
 
@@ -97,6 +102,8 @@ class ProductServiceTest {
 		assertThat(product.getModelNumber()).isEqualTo("457");
 		assertThat(product.getReleasePrice()).isEqualTo("10000");
 		assertThat(product.getCategory()).isEqualTo(SHOES);
+
+		verify(productService).update(updateProduct);
 	}
 
 	@Test
@@ -111,6 +118,8 @@ class ProductServiceTest {
 		productService.deleteProduct(pId);
 
 		assertThat(productService.findByAll()).isEqualTo(null);
+
+		verify(productService).deleteProduct(pId);
 
 	}
 
