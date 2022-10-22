@@ -9,17 +9,22 @@ services:
       - docker-mysql
     container_name: ua_application
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/UA?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 12345678
     networks:
       - ua_network
+
   docker-mysql:
     image: mysql
-    container_name: ua_database
+    container_name: docker-mysql
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./conf:/etc/mysql/conf.d
     environment:
       MYSQL_DATABASE: UA
       MYSQL_ROOT_PASSWORD: 12345678
+      TZ: Asia/Seoul
     ports:
       - 3306:3306
     networks:
