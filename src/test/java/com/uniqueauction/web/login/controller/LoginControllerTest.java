@@ -5,9 +5,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,7 +39,7 @@ class LoginControllerTest {
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
-	@Autowired
+	@SpyBean
 	LoginController loginController;
 
 	@BeforeEach
@@ -98,24 +98,4 @@ class LoginControllerTest {
 				.andExpect(status().isBadRequest());
 	}
 
-	/**
-	 * 메서드가 리턴값이 있을시 given(loginService.login(any())).willThrow(LoginException.class);
-	 * 메서드가 없을 시 doThrow 문법 사용
-	 *
-	 * @throws Exception
-	 */
-	@Test
-	void notFoundUser() throws Exception {
-
-		LoginRequest req = new LoginRequest("email@email.com", "pw12344578");
-
-		mvc.perform(
-				post("/login")
-					.contentType(MediaType.APPLICATION_JSON)
-					.accept(MediaType.APPLICATION_JSON)
-					.characterEncoding("UTF-8")
-					.content(objectMapper.writeValueAsString(req)))
-			.andExpect(status().isNotFound());
-
-	}
 }
