@@ -6,9 +6,11 @@ import com.uniqueauction.domain.trade.entity.Sale;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class SaleRequest {
 
 	@NotBlank(message = "유저ID는 필수값입니다.")
@@ -26,7 +28,7 @@ public class SaleRequest {
 	@NotBlank(message = "반송주소는 필수값입니다.")
 	private String returnAddress;
 
-	public Sale convert() {
+	public Sale toEntity() {
 		return Sale.builder()
 			.userId(this.userId)
 			.bidPrice(this.bidPrice)

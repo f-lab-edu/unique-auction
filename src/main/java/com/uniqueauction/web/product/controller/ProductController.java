@@ -1,7 +1,5 @@
 package com.uniqueauction.web.product.controller;
 
-import static com.uniqueauction.exception.ErrorCode.*;
-
 import java.util.Optional;
 
 import org.springframework.validation.BindingResult;
@@ -17,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
 import com.uniqueauction.domain.product.service.ProductService;
-import com.uniqueauction.exception.advice.CommonValidationException;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
+import com.uniqueauction.web.product.request.ProductSearchRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
 import com.uniqueauction.web.response.CommonResponse;
 
@@ -37,29 +35,29 @@ public class ProductController {
 		return CommonResponse.success(product);
 	}
 
+	@GetMapping("/products/search")
+	public CommonResponse selectProducts(@RequestBody @Validated ProductSearchRequest productSearchRequest,
+		BindingResult result) {
+		return CommonResponse.success(productService.findByNameOrModelNumber(productSearchRequest.getProductName(),
+			productSearchRequest.getModelNumber()));
+	}
+
 	@PostMapping("/products")
 	public CommonResponse<?> saveProduct(@RequestBody @Validated ProductSaveRequest productSaveRequest,
 		BindingResult result) {
 
-		if (result.hasErrors()) {
-			throw new CommonValidationException(MISSING_PARAMETER);
-		}
-
-		productRepository.save(productSaveRequest.convert());
-
+		System.out.println("save");
+		productRepository.save(productSaveRequest.toEntity());
+		System.out.println("save end");
 		return CommonResponse.success();
 	}
 
 	@PatchMapping("/products/{id}")
-	public CommonResponse<?> updateProduct(@PathVariable Long id,
-		@RequestBody @Validated ProductUpdateRequest productUpdateRequest, BindingResult result) {
+	public CommonResponse updateProduct(@RequestBody @Validated ProductUpdateRequest productUpdateRequest,
+		BindingResult result) {
 
-		if (result.hasErrors()) {
-			throw new CommonValidationException(MISSING_PARAMETER);
-		}
-
-		productService.update(id);
-		Optional<Product> updateProduct = productRepository.findById(id);
+		productService.update(productUpdateRequest.toEntity());
+		Optional<Product> updateProduct = productRepository.findById(productUpdateRequest.getProductId());
 		return CommonResponse.success(updateProduct);
 	}
 

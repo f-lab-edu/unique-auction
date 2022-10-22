@@ -7,6 +7,8 @@ drop table if exists product;
 create table product
 (
     id            bigint not null auto_increment,
+    brand         varchar(255),
+    name          varchar(255),
     category      varchar(255),
     img_url       varchar(255),
     model_number  varchar(255),
