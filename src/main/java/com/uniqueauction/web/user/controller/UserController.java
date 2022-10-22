@@ -1,7 +1,5 @@
 package com.uniqueauction.web.user.controller;
 
-import static com.uniqueauction.exception.ErrorCode.*;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uniqueauction.domain.user.service.UserService;
-import com.uniqueauction.exception.advice.CommonValidationException;
 import com.uniqueauction.web.response.CommonResponse;
 import com.uniqueauction.web.user.request.JoinRequest;
 import com.uniqueauction.web.user.request.UpdateUserRequest;
@@ -29,9 +26,6 @@ public class UserController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public CommonResponse<?> joinUser(@RequestBody @Validated JoinRequest joinRequest, BindingResult result) {
 
-		if (result.hasErrors()) {
-			throw new CommonValidationException(MISSING_PARAMETER);
-		}
 		userService.join(joinRequest);
 		return CommonResponse.success("회원가입 성공");
 	}
@@ -40,11 +34,6 @@ public class UserController {
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse<?> updateUser(@RequestBody @Validated UpdateUserRequest updateUserRequest,
 		BindingResult result) {
-
-		if (result.hasErrors()) {
-			throw new CommonValidationException(MISSING_PARAMETER);
-		}
-
 		userService.update(updateUserRequest.getUserId());
 		return CommonResponse.success("회원정보 수정 성공");
 	}

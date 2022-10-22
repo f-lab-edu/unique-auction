@@ -17,7 +17,7 @@ public enum ErrorCode {
 	NOT_FOUND_IMAGE("not_found_image", "이미지를 찾을 수 없습니다.");
 
 	private final String code;
-	private final String message;
+	private String message;
 
 	ErrorCode(String code, String message) {
 		this.code = code;
@@ -28,7 +28,18 @@ public enum ErrorCode {
 		return this.code;
 	}
 
+	public ErrorCode setMissingParameterMsg(String msg) {
+		if (this.equals(MISSING_PARAMETER)) {
+			setMessage(msg);
+		}
+		return this;
+	}
+
 	public String getMessge() {
 		return this.message;
+	}
+
+	private void setMessage(String msg) {
+		this.message = msg;
 	}
 }

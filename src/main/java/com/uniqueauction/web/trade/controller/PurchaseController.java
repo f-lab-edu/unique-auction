@@ -1,7 +1,5 @@
 package com.uniqueauction.web.trade.controller;
 
-import java.util.Objects;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -26,10 +24,7 @@ public class PurchaseController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public CommonResponse<?> savePurchaseNow(@RequestBody @Validated PurchaseRequest purchaseRequest,
 		BindingResult result) {
-		if (result.hasErrors()) {
-			throw new RuntimeException(Objects.requireNonNull(result.getFieldError()).getDefaultMessage());
-		}
-		purchaseService.savePurchase(purchaseRequest.convert());
+		purchaseService.savePurchase(purchaseRequest.toEntity());
 		return CommonResponse.success();
 	}
 }

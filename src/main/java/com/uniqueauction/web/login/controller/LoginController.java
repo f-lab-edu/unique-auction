@@ -1,7 +1,5 @@
 package com.uniqueauction.web.login.controller;
 
-import static com.uniqueauction.exception.ErrorCode.*;
-
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uniqueauction.domain.login.service.LoginService;
-import com.uniqueauction.exception.advice.CommonValidationException;
 import com.uniqueauction.web.login.request.LoginRequest;
 import com.uniqueauction.web.response.CommonResponse;
 
@@ -35,10 +32,6 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public CommonResponse signIn(@RequestBody @Validated LoginRequest request, BindingResult result) {
-
-		if (result.hasErrors()) {
-			throw new CommonValidationException(MISSING_PARAMETER);
-		}
 
 		loginService.login(request);
 
