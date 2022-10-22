@@ -4,12 +4,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,7 +16,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.domain.login.service.LoginService;
 import com.uniqueauction.exception.advice.CommonControllerAdvice;
 import com.uniqueauction.web.login.request.LoginRequest;
 
@@ -42,9 +39,6 @@ class LoginControllerTest {
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
-	@MockBean
-	private LoginService loginService;
-
 	@Autowired
 	LoginController loginController;
 
@@ -55,7 +49,7 @@ class LoginControllerTest {
 				.setControllerAdvice(new CommonControllerAdvice()) // 컨트롤 어드 바이스 추가.
 				.addFilters(new CharacterEncodingFilter("UTF-8", true)) // utf-8 필터 추가
 				.build();
-		loginController = new LoginController(loginService);
+
 	}
 
 	@Test
@@ -110,15 +104,10 @@ class LoginControllerTest {
 	 *
 	 * @throws Exception
 	 */
-	@Disabled
 	@Test
 	void notFoundUser() throws Exception {
 
-		LoginRequest req = new LoginRequest("email@email.com", "12345678");
-
-		// doThrow(new CommonNotFoundException(ErrorCode.NOT_FOUND_USER))
-		// 	.when(loginService)
-		// 	.login(req);
+		LoginRequest req = new LoginRequest("email@email.com", "pw12344578");
 
 		mvc.perform(
 				post("/login")
