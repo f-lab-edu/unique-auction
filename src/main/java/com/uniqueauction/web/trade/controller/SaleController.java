@@ -1,7 +1,5 @@
 package com.uniqueauction.web.trade.controller;
 
-import java.util.Objects;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -26,9 +24,7 @@ public class SaleController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public CommonResponse<?> saveSaleNow(@RequestBody @Validated SaleRequest saleRequest,
 		BindingResult result) {
-		if (result.hasErrors()) {
-			throw new RuntimeException(Objects.requireNonNull(result.getFieldError()).getDefaultMessage());
-		}
+
 		saleService.saveSale(saleRequest.toEntity());
 		return CommonResponse.success();
 	}

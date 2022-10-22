@@ -15,6 +15,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ProductUpdateRequest {
 
+	@NotBlank(message = "모델명는 공백은 입력할 수 없습니다.")
+	private String productName;
+
 	@NotNull(message = "상품ID는 공백은 입력할 수 없습니다.")
 	private Long productId;
 
@@ -34,9 +37,10 @@ public class ProductUpdateRequest {
 	private String imgUrl;
 
 	@Builder
-	private ProductUpdateRequest(Long productId, String modelNumber, String releasePrice,
+	private ProductUpdateRequest(Long productId, String productName, String modelNumber, String releasePrice,
 		Category category, String imgUrl, String brand) {
 		this.productId = productId;
+		this.productName = productName;
 		this.modelNumber = modelNumber;
 		this.releasePrice = releasePrice;
 		this.category = category;
@@ -47,11 +51,12 @@ public class ProductUpdateRequest {
 	public Product toEntity() {
 		return Product.builder()
 			.id(this.productId)
+			.name(productName)
 			.modelNumber(this.modelNumber)
 			.releasePrice(this.releasePrice)
 			.category(this.category)
 			.brand(this.brand)
-			.imgUrl(this.imgUrl)
+			.imgUrl(imgUrl)
 			.build();
 	}
 }

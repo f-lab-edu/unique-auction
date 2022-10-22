@@ -14,6 +14,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ProductSaveRequest {
 
+	@NotBlank(message = "모델명는 공백은 입력할 수 없습니다.")
+	private String productName;
+
 	@NotBlank(message = "모델번호는 공백은 입력할 수 없습니다.")
 	private String modelNumber;
 
@@ -30,8 +33,9 @@ public class ProductSaveRequest {
 	private String brand;
 
 	@Builder
-	private ProductSaveRequest(String modelNumber, String releasePrice,
+	private ProductSaveRequest(String productName, String modelNumber, String releasePrice,
 		Category category, String imgUrl, String brand) {
+		this.productName = productName;
 		this.modelNumber = modelNumber;
 		this.releasePrice = releasePrice;
 		this.category = category;
@@ -41,6 +45,7 @@ public class ProductSaveRequest {
 
 	public Product toEntity() {
 		return Product.builder()
+			.name(productName)
 			.modelNumber(this.modelNumber)
 			.releasePrice(this.releasePrice)
 			.category(this.category)
