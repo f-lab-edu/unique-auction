@@ -26,7 +26,7 @@ jobs:
 
   #  코드포맷
   codeFormatCheck:
-    needs: job0
+    needs: setUp
     runs-on: ubuntu-latest
     steps:
 
@@ -38,7 +38,7 @@ jobs:
         run: ./gradlew checkstyleMain
 
   testCheck:
-    needs: job0
+    needs: setUp
     runs-on: ubuntu-latest
     steps:
 
