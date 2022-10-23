@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j2;
 public class ValidationCheckAspect {
 
 	@Around("execution(* com.uniqueauction.web..*Controller.*(..))")
-	public void validaiontCheck(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+	public void checkValidation(ProceedingJoinPoint proceedingJoinPoint) {
 
 		log.info("Validation Aop Start");
 		Object[] args = proceedingJoinPoint.getArgs();
