@@ -43,18 +43,13 @@ class ProductServiceTest {
 	public void clear() {
 		productRepository.deleteAll();
 	}
-	//
-	// @AfterEach
-	// public void clear() {
-	// 	productRepository.deleteAll();
-	// }
 
 	@Test
 	void productSaveTest() {
 
 		Product saveProduct = getSaveProduct();
 		//given
-		lenient().doReturn(0L).when(productService).save(saveProduct);
+		doReturn(0L).when(productService).save(saveProduct);
 
 		//when
 		long pId = productService.save(saveProduct);

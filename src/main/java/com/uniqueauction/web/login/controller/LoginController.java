@@ -31,7 +31,7 @@ public class LoginController {
 	private final LoginService loginService;
 
 	@PostMapping("/login")
-	public CommonResponse signIn(@RequestBody @Validated LoginRequest request, BindingResult result) {
+	public CommonResponse login(@RequestBody @Validated LoginRequest request, BindingResult result) {
 
 		loginService.login(request);
 
