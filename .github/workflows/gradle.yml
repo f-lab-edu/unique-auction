@@ -25,7 +25,7 @@ jobs:
           distribution: 'temurin'
 
   #  코드포맷
-  job1:
+  codeFormatCheck:
     needs: job0
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +37,7 @@ jobs:
       - name: codeFormat Check
         run: ./gradlew checkstyleMain
 
-  job2: # 테스트/ 빌드
+  testCheck:
     needs: job0
     runs-on: ubuntu-latest
     steps:
@@ -64,8 +64,8 @@ jobs:
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
 
-  job3:
-    needs: [ job1, job2 ]
+  Build:
+    needs: [ codeFormatCheck, testCheck ]
     runs-on: ubuntu-latest
     steps:
 
