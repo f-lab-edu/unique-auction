@@ -35,6 +35,6 @@ public class UserController {
 	public CommonResponse updateUser(@RequestBody @Validated UpdateUserRequest updateUserRequest,
 		BindingResult result) {
 		userService.update(updateUserRequest);
-		return CommonResponse.success("회원정보 수정 성공");
+		return CommonResponse.success();
 	}
 }
