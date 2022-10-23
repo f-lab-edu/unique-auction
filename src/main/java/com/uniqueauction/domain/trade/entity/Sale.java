@@ -34,6 +34,7 @@ public class Sale {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id")
+	@Setter
 	private Product product;
 
 	@Builder
