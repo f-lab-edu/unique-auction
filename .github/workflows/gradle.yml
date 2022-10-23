@@ -12,7 +12,7 @@ on:
     branches: [ "develop" ,"master" ]
 jobs:
   # 체크아웃 / 버전 설정
-  job0:
+  setUp:
     runs-on: ubuntu-latest
     steps:
 
