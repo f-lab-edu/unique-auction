@@ -50,8 +50,10 @@ public class ValidationCheckAspect {
 	}
 
 	private boolean isEmptyCheck(BindingResult result) {
-		return result.getFieldError().getCode().equals("NotBlank") ||
-			result.getFieldError().getCode().equals("NotEmpty") ||
+		return result.getFieldError().getCode().equals("NotBlank")
+			||
+			result.getFieldError().getCode().equals("NotEmpty")
+			||
 			result.getFieldError().getCode().equals("NotNull");
 	}
 
