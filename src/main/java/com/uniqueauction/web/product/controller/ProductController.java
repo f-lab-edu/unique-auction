@@ -1,5 +1,6 @@
 package com.uniqueauction.web.product.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uniqueauction.domain.product.entity.Product;
@@ -25,6 +27,7 @@ public class ProductController {
 	private final ProductService productService;
 
 	@GetMapping("/products/{id}")
+	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse selectProduct(@PathVariable Long id) {
 		Product product = productService.findById(id);
 
@@ -32,11 +35,13 @@ public class ProductController {
 	}
 
 	@GetMapping("/products/search/{searProduct}")
+	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse selectProducts(@PathVariable String searProduct) {
 		return CommonResponse.success(productService.findByNameOrModelNumber(searProduct));
 	}
 
 	@PostMapping("/products")
+	@ResponseStatus(HttpStatus.CREATED)
 	public CommonResponse saveProduct(@RequestBody @Validated ProductSaveRequest productSaveRequest,
 		BindingResult result) {
 
@@ -46,6 +51,7 @@ public class ProductController {
 	}
 
 	@PatchMapping("/products/{id}")
+	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse updateProduct(@RequestBody @Validated ProductUpdateRequest productUpdateRequest,
 		BindingResult result) {
 
@@ -55,6 +61,7 @@ public class ProductController {
 	}
 
 	@DeleteMapping("/products/{id}")
+	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse deleteProduct(@PathVariable Long id) {
 
 		productService.deleteProduct(id);

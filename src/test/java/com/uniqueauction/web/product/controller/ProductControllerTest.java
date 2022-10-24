@@ -45,7 +45,7 @@ class ProductControllerTest {
 	}
 
 	@Test
-	@DisplayName("상품 저장 완료가 되면 status  200을 반환한다.")
+	@DisplayName("상품 저장 완료가 되면 status  201을 반환한다.")
 	void productSaveTest() throws Exception {
 
 		mockMvc.perform(
@@ -55,7 +55,7 @@ class ProductControllerTest {
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(createProduct())))
-			.andExpect(status().isOk());
+			.andExpect(status().isCreated());
 
 	}
 
