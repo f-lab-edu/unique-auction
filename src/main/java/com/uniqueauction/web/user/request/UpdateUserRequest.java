@@ -14,10 +14,13 @@ public class UpdateUserRequest {
 	@RegExp(regExpCode = EMAIL)
 	private String email;
 
+	@RegExp(regExpCode = PASSWORD)
 	private String password;
 
+	@RegExp(regExpCode = USERNAME)
 	private String username;
 
+	@RegExp(regExpCode = PHONE)
 	private String phone;
 
 	public User toEntity(UpdateUserRequest updateUserRequest) {

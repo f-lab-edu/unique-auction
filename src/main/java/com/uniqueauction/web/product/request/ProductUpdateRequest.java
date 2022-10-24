@@ -1,7 +1,6 @@
 package com.uniqueauction.web.product.request;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.uniqueauction.domain.product.entity.Category;
@@ -15,25 +14,25 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ProductUpdateRequest {
 
-	@NotBlank(message = "모델명는 공백은 입력할 수 없습니다.")
+	@NotBlank(message = "모델명")
 	private String productName;
 
-	@NotNull(message = "상품ID는 공백은 입력할 수 없습니다.")
+	@NotNull(message = "상품ID")
 	private Long productId;
 
-	@NotEmpty(message = "모델번호는 공백은 입력할 수 없습니다.")
+	@NotBlank(message = "모델번호")
 	private String modelNumber;
 
-	@NotEmpty(message = "발매가는 공백은 입력할 수 없습니다.")
+	@NotBlank(message = "발매가")
 	private String releasePrice;
 
-	@NotNull(message = "카테고리는 공백은 입력할 수 없습니다.")
+	@NotNull(message = "카테고리")
 	private Category category;
 
-	@NotEmpty(message = "브랜드는 공백은 입력할 수 없습니다.")
+	@NotBlank(message = "브랜드")
 	private String brand;
 
-	@NotBlank(message = "이미지는 공백은 입력할 수 없습니다.")
+	@NotBlank(message = "이미지주소")
 	private String imgUrl;
 
 	@Builder

@@ -9,19 +9,19 @@ import lombok.Getter;
 @Getter
 public class PurchaseRequest {
 
-	@NotBlank(message = "유저ID는 필수값입니다.")
+	@NotBlank(message = "유저ID")
 	private Long userId;
 
-	@NotBlank(message = "모델번호는 필수값입니다.")
+	@NotBlank(message = "모델번호")
 	private String productId;
 
-	@NotBlank(message = "사이즈는 필수값입니다.")
+	@NotBlank(message = "사이즈")
 	private String productSize;
 
-	@NotBlank(message = "입찰가격은 필수값입니다.")
+	@NotBlank(message = "입찰가격")
 	private String bidPrice;
 
-	@NotBlank(message = "배송주소는 필수값입니다.")
+	@NotBlank(message = "배송주소")
 	private String shippingAddress;
 
 	public Purchase toEntity() {

@@ -21,6 +21,8 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class ValidationCheckAspect {
 
+	private static final String REQUIRED_FIELD_MESSAGE = " 필드는 필수값 입니다.";
+
 	@Around("execution(* com.uniqueauction.web..*Controller.*(..))")
 	public void checkValidation(ProceedingJoinPoint proceedingJoinPoint) {
 
@@ -36,9 +38,21 @@ public class ValidationCheckAspect {
 
 	private void checkError(BindingResult result) {
 		if (result.hasErrors()) {
+
 			String defaultMessage = result.getFieldError().getDefaultMessage();
+
+			if (isEmptyCheck(result)) {
+				defaultMessage = result.getFieldError().getDefaultMessage() + REQUIRED_FIELD_MESSAGE;
+			}
+
 			throw new CommonValidationException(MISSING_PARAMETER.setMissingParameterMsg(defaultMessage));
 		}
+	}
+
+	private boolean isEmptyCheck(BindingResult result) {
+		return result.getFieldError().getCode().equals("NotBlank") ||
+			result.getFieldError().getCode().equals("NotEmpty") ||
+			result.getFieldError().getCode().equals("NotNull");
 	}
 
 }
