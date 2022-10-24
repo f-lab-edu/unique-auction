@@ -11,7 +11,7 @@ public enum RegExpCode {
 	USERNAME("유저명은 필수값 입니다.", "^[A-Za-z0-9]{4,12}$", "유저명 형식에 맞지 않습니다."),
 	;
 
-	private String nullCheckMsg;
+	private final String nullCheckMsg;
 	private final String regExp;
 	private final String regExpCheckMsg;
 
