@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -90,7 +89,7 @@ class ProductControllerTest {
 				.build();
 	}
 
-	@Test
+	//@Test
 	@DisplayName("상품 저장 완료가 되면 status  200을 반환한다.")
 	void productSaveTest() throws Exception {
 
@@ -107,7 +106,7 @@ class ProductControllerTest {
 
 	}
 
-	@Test
+	//@Test
 	@DisplayName("상품 수정  완료가 되면 status  200을 반환한다.")
 	void productUpdateTest() throws Exception {
 
@@ -123,7 +122,7 @@ class ProductControllerTest {
 
 	}
 
-	@Test
+	//@Test
 	@DisplayName("상품 삭제  완료가 되면 status  200을 반환한다.")
 	void productDeleteTest() throws Exception {
 		Long id = 1L;
@@ -140,7 +139,7 @@ class ProductControllerTest {
 
 	}
 
-	@Test
+	//@Test
 	@DisplayName("상품 상세  완료가 되면 status  200을 반환한다.")
 	void productDetailSelectTest() throws Exception {
 		Long id = 1L;
@@ -158,7 +157,7 @@ class ProductControllerTest {
 	}
 
 	@Disabled
-	@Test
+	//@Test
 	@DisplayName("필드가 비어 있으면 예외를 반환한다")
 	void fieldNullCheck() throws Exception {
 		mockMvc.perform(

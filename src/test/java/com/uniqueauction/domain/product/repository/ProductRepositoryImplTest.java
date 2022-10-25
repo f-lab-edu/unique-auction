@@ -9,7 +9,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,14 +43,14 @@ class ProductRepositoryImplTest {
 		productRepository.deleteAll();
 	}
 
-	@Test
+	//@Test
 	@Order(1)
 	void productSaveTest() {
 		//then
 		assertThat(pId).isEqualTo(1L);
 	}
 
-	@Test
+	//@Test
 	@Order(2)
 	void productSelectTest() {
 
@@ -63,7 +62,7 @@ class ProductRepositoryImplTest {
 
 	}
 
-	@Test
+	//@Test
 	@Order(3)
 	void productUpdateTest() {
 		product = getUpdateReq(pId).toEntity();
@@ -74,7 +73,7 @@ class ProductRepositoryImplTest {
 		assertThat(update.get().getModelNumber()).isEqualTo("457");
 	}
 
-	@Test
+	//@Test
 	@Order(4)
 	void productDeleteTest() {
 
