@@ -31,19 +31,19 @@ class ProductRepositoryImplTest {
 
 	private Product product;
 
-	private long pId;
+	private Long pId;
 
 	@BeforeEach
 	public void set() {
-		productRepository.save(getSaveReq().toEntity());
-		pId = getSaveReq().toEntity().getId();
+		product = getSaveReq().toEntity();
+		pId = productRepository.save(product).getId();
 	}
 
 	@AfterEach
 	public void clear() {
 
 		productRepository.deleteAll();
-
+		
 	}
 
 	@Test
@@ -68,11 +68,10 @@ class ProductRepositoryImplTest {
 	@Test
 	@Order(3)
 	void productUpdateTest() {
-
+		product = getUpdateReq(pId).toEntity();
 		//when
 		productService.update(getUpdateReq(pId).toEntity());
 		Optional<Product> update = productRepository.findById(pId);
-
 		//then
 		assertThat(update.get().getModelNumber()).isEqualTo("457");
 	}

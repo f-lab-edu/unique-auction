@@ -10,4 +10,6 @@ import com.uniqueauction.domain.product.entity.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	List<Product> findByNameOrModelNumber(String name, String modelNumber);
+
+	Product findByModelNumber(String modelNumber);
 }

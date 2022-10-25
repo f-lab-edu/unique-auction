@@ -41,6 +41,7 @@ public class ProductUpdateRequest {
 
 	public Product toEntity() {
 		return Product.builder()
+			.id(productId)
 			.name(productName)
 			.modelNumber(this.modelNumber)
 			.releasePrice(this.releasePrice)

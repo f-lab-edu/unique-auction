@@ -3,6 +3,7 @@ package com.uniqueauction.domain.product.service;
 import static com.uniqueauction.exception.ErrorCode.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,27 @@ public class ProductService {
 
 	private final ProductRepository productRepository;
 
-	public void update(Product product) {
+	public Product update(Product product) {
 		productRepository.findById(product.getId())
 			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_PRODUCT));
-		productRepository.save(product);
+		Long pId = productRepository.save(product).getId();
+		return productRepository.findById(pId).get();
 	}
 
 	public List<Product> findByNameOrModelNumber(String name, String modelNumber) {
 		return productRepository.findByNameOrModelNumber(name, modelNumber);
+	}
+
+	public Long save(Product product) {
+		return productRepository.save(product).getId();
+	}
+
+	public void delete(Long id) {
+		Optional<Product> product = productRepository.findById(id);
+		productRepository.delete(product.get());
+	}
+
+	public Product findByModelNumber(String modelNumber) {
+		return productRepository.findByModelNumber(modelNumber);
 	}
 }

@@ -45,17 +45,13 @@ public class ProductController {
 	@PostMapping("/products")
 	public CommonResponse<?> saveProduct(@RequestBody @Validated ProductSaveRequest productSaveRequest,
 		BindingResult result) {
-
-		System.out.println("save");
-		productRepository.save(productSaveRequest.toEntity());
-		System.out.println("save end");
+		productService.save(productSaveRequest.toEntity());
 		return CommonResponse.success();
 	}
 
 	@PatchMapping("/products/{id}")
 	public CommonResponse updateProduct(@RequestBody @Validated ProductUpdateRequest productUpdateRequest,
 		BindingResult result) {
-
 		productService.update(productUpdateRequest.toEntity());
 		Optional<Product> updateProduct = productRepository.findById(productUpdateRequest.getProductId());
 		return CommonResponse.success(updateProduct);
@@ -63,9 +59,7 @@ public class ProductController {
 
 	@DeleteMapping("/products/{id}")
 	public CommonResponse<?> deleteProduct(@PathVariable Long id) {
-
-		productRepository.deleteById(id);
-
+		productService.delete(id);
 		return CommonResponse.success();
 	}
 

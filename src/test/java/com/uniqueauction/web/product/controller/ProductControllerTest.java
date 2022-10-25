@@ -103,7 +103,7 @@ class ProductControllerTest {
 					.content(objectMapper.writeValueAsString(createProduct())))
 			.andExpect(status().isOk());
 
-		verify(productRepository).save(any(Product.class));
+		verify(productService).save(any(Product.class));
 
 	}
 
@@ -136,7 +136,7 @@ class ProductControllerTest {
 					.content(String.valueOf(id)))
 			.andExpect(status().isOk());
 
-		verify(productRepository).delete(any(Product.class));
+		verify(productService).delete(any(Long.class));
 
 	}
 
