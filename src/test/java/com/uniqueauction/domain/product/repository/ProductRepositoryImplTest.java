@@ -41,9 +41,7 @@ class ProductRepositoryImplTest {
 
 	@AfterEach
 	public void clear() {
-
 		productRepository.deleteAll();
-		
 	}
 
 	@Test
