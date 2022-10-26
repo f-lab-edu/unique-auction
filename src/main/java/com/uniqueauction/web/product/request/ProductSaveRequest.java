@@ -6,12 +6,15 @@ import javax.validation.constraints.NotNull;
 import com.uniqueauction.domain.product.entity.Category;
 import com.uniqueauction.domain.product.entity.Product;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-@Getter
 public class ProductSaveRequest {
 
 	@NotBlank(message = "모델명는 공백은 입력할 수 없습니다.")
@@ -31,17 +34,6 @@ public class ProductSaveRequest {
 
 	@NotBlank(message = "브랜드는 공백은 입력할 수 없습니다.")
 	private String brand;
-
-	@Builder
-	private ProductSaveRequest(String productName, String modelNumber, String releasePrice,
-		Category category, String imgUrl, String brand) {
-		this.productName = productName;
-		this.modelNumber = modelNumber;
-		this.releasePrice = releasePrice;
-		this.category = category;
-		this.imgUrl = imgUrl;
-		this.brand = brand;
-	}
 
 	public Product toEntity() {
 		return Product.builder()

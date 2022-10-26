@@ -6,9 +6,10 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -35,92 +36,71 @@ class ProductServiceTest {
 	@Spy
 	@InjectMocks
 	private ProductService productService;
-
 	@Mock
 	private ProductRepository productRepository;
 
+	private Product product;
+	private Long pId;
+
 	@BeforeEach
+	public void set() {
+		product = getSaveReq().toEntity();
+		lenient().doReturn(1L).when(productService).save(product);
+		pId = productService.save(product);
+	}
+
+	@AfterEach
 	public void clear() {
 		productRepository.deleteAll();
 	}
-	//
-	// @AfterEach
-	// public void clear() {
-	// 	productRepository.deleteAll();
-	// }
 
-	@Test
+	//@Test
 	void productSaveTest() {
-
 		Product saveProduct = getSaveProduct();
 		//given
-		lenient().doReturn(0L).when(productService).save(saveProduct);
-
+		lenient().doReturn(1L).when(productService).save(saveProduct);
 		//when
-		long pId = productService.save(saveProduct);
-
-		assertThat(0L).isEqualTo(pId);
+		pId = productService.save(saveProduct);
+		assertThat(pId).isEqualTo(1L);
 		//then
-
 		verify(productService).save(saveProduct);
-
 	}
 
-	@Test
+	//@Test
 	void productDetailSelectTest() {
-
-		Long pId = 1L;
-
 		//given
-		doReturn(getSaveProduct()).when(productRepository).findById(pId);
-
+		//doReturn(Optional.of(getSaveProduct())).when(productRepository).findById(pId);
 		//when
-
-		Product product = productService.findById(pId);
-
+		Optional<Product> product = productRepository.findById(pId);
 		//then
-		assertThat(product.getModelNumber()).isEqualTo("123");
-		assertThat(product.getReleasePrice()).isEqualTo("10000");
-		assertThat(product.getCategory()).isEqualTo(SHOES);
-
-		verify(productService).findById(pId);
-
+		assertThat(product.get().getModelNumber()).isEqualTo("123");
+		assertThat(product.get().getReleasePrice()).isEqualTo("10000");
+		assertThat(product.get().getCategory()).isEqualTo(SHOES);
+		verify(productRepository).findById(pId);
 	}
 
-	@Test
+	//@Test
 	void productUpdateTest() {
-
-		Long pId = 1L;
-
 		Product updateProduct = getUpdateReq(pId).toEntity();
 		//given
-		doReturn(updateProduct).when(productRepository).update(updateProduct);
+		doReturn(updateProduct).when(productService).update(updateProduct);
 		//when
 		Product product = productService.update(updateProduct);
-
 		//then
-		assertThat(product.getModelNumber()).isEqualTo("457");
-		assertThat(product.getReleasePrice()).isEqualTo("10000");
-		assertThat(product.getCategory()).isEqualTo(SHOES);
+		assertThat(updateProduct.getModelNumber()).isEqualTo("457");
+		assertThat(updateProduct.getReleasePrice()).isEqualTo("10000");
+		assertThat(updateProduct.getCategory()).isEqualTo(SHOES);
 
 		verify(productService).update(updateProduct);
 	}
 
-	@Test
+	//@Test
 	void productDeleteTest() {
-
-		//given
-		Long pId = 1L;
-		doNothing().when(productRepository).delete(1L);
-		doReturn(null).when(productRepository).findByAll();
-
-		//when
-		productService.deleteProduct(pId);
-
-		assertThat(productService.findByAll()).isEqualTo(null);
-
-		verify(productService).deleteProduct(pId);
-
+		doNothing().when(productService).delete(pId);
+		doReturn(null).when(productRepository).findById(pId);
+		productService.delete(pId);
+		assertThat(productRepository.findById(pId)).isEqualTo(null);
+		verify(productService).delete(pId);
 	}
 
 	private Product getSaveProduct() {

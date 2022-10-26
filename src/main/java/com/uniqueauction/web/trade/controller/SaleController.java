@@ -25,7 +25,7 @@ public class SaleController {
 	public CommonResponse<?> saveSaleNow(@RequestBody @Validated SaleRequest saleRequest,
 		BindingResult result) {
 
-		saleService.saveSale(saleRequest.toEntity());
+		saleService.saveSale(saleRequest);
 		return CommonResponse.success();
 	}
 }

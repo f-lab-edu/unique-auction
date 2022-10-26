@@ -13,8 +13,10 @@ public enum ErrorCode {
 	ENCRYPT_ERROR("encrypt_error", "암호화 중 에러가 발생하였습니다"),
 	NOT_FOUND_SALE_BID("not_found_sale_bid", "즉시 구매가 불가능한 사이즈 입니다. 구매 입찰만 가능합니다."),
 	NOT_FOUND_PURCHASE_BID("not_found_purchase_bid", "즉시 판매가 불가능한 사이즈 입니다. 판매 입찰만 가능합니다."),
-
-	;
+	NOT_FOUND_PRODUCT("not_found_product", "등록되지 않은 상품입니다."),
+	NOT_FOUND_IMAGE("not_found_image", "이미지를 찾을 수 없습니다."),
+	DUPLICATE_PURCHASE("duplicate_purchase", "이미 존재하는 구매요청입니다."),
+	DUPLICATE_SALE("duplicate_sale", "이미 존재하는 판매요청입니다.");
 
 	private final String code;
 	private String message;

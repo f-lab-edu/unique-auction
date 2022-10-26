@@ -1,12 +1,21 @@
 package com.uniqueauction.domain.user.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
-@ToString
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 	private String email;
 	private String username;
@@ -14,16 +23,9 @@ public class User {
 	private Role role;
 
 	@Setter
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Setter
 	private String encodedPassword;
-
-	@Builder
-	public User(String email, String encodedPassword, String username, String phone, Role role) {
-		this.email = email;
-		this.encodedPassword = encodedPassword;
-		this.username = username;
-		this.phone = phone;
-		this.role = role;
-	}
 }
