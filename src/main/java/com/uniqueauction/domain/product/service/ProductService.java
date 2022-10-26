@@ -26,8 +26,8 @@ public class ProductService {
 		return productRepository.findById(pId).get();
 	}
 
-	public List<Product> findByNameOrModelNumber(String name, String modelNumber) {
-		return productRepository.findByNameOrModelNumber(name, modelNumber);
+	public List<Product> findByNameOrModelNumber(String searProduct) {
+		return productRepository.findByNameOrModelNumber(searProduct, searProduct);
 	}
 
 	public Long save(Product product) {
@@ -41,5 +41,9 @@ public class ProductService {
 
 	public Product findByModelNumber(String modelNumber) {
 		return productRepository.findByModelNumber(modelNumber);
+	}
+
+	public Optional<Product> findById(Long id) {
+		return productRepository.findById(id);
 	}
 }
