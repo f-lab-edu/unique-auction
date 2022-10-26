@@ -6,9 +6,11 @@ import com.uniqueauction.domain.user.entity.Role;
 import com.uniqueauction.domain.user.entity.User;
 import com.utils.annotation.RegExp;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Getter
+@Data
+@AllArgsConstructor
 public class JoinRequest {
 	private Long userId;
 	private Boolean isAdmin;
@@ -29,7 +31,7 @@ public class JoinRequest {
 		this.isAdmin = false;
 	}
 
-	public User toEntity(JoinRequest joinRequest) {
+	public User convert(JoinRequest joinRequest) {
 
 		Role requestRole = Role.CUSTOMER;
 

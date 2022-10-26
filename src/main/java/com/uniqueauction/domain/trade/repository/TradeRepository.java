@@ -1,7 +1,10 @@
 package com.uniqueauction.domain.trade.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.uniqueauction.domain.trade.entity.Trade;
 
-public interface TradeRepository {
-	Long save(Trade trade);
+@Repository
+public interface TradeRepository extends JpaRepository<Trade, Long> {
 }

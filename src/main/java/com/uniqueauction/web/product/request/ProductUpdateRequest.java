@@ -6,12 +6,15 @@ import javax.validation.constraints.NotNull;
 import com.uniqueauction.domain.product.entity.Category;
 import com.uniqueauction.domain.product.entity.Product;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-@Getter
 public class ProductUpdateRequest {
 
 	@NotBlank(message = "모델명")
@@ -35,21 +38,9 @@ public class ProductUpdateRequest {
 	@NotBlank(message = "이미지주소")
 	private String imgUrl;
 
-	@Builder
-	private ProductUpdateRequest(Long productId, String productName, String modelNumber, String releasePrice,
-		Category category, String imgUrl, String brand) {
-		this.productId = productId;
-		this.productName = productName;
-		this.modelNumber = modelNumber;
-		this.releasePrice = releasePrice;
-		this.category = category;
-		this.imgUrl = imgUrl;
-		this.brand = brand;
-	}
-
 	public Product toEntity() {
 		return Product.builder()
-			.id(this.productId)
+			.id(productId)
 			.name(productName)
 			.modelNumber(this.modelNumber)
 			.releasePrice(this.releasePrice)

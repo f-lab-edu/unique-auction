@@ -9,14 +9,12 @@ import org.hibernate.validator.constraints.Length;
 import com.utils.annotation.RegExp;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@Getter
 public class LoginRequest {
 
 	@RegExp(regExpCode = EMAIL)

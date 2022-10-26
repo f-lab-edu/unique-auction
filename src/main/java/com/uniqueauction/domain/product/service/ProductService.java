@@ -1,13 +1,15 @@
 package com.uniqueauction.domain.product.service;
 
+import static com.uniqueauction.exception.ErrorCode.*;
+
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
-import com.uniqueauction.web.product.response.SearchProductResponse;
+import com.uniqueauction.exception.advice.CommonNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,34 +19,27 @@ public class ProductService {
 
 	private final ProductRepository productRepository;
 
-	public long save(Product product) {
-		return productRepository.save(product);
+	public Product update(Product product) {
+		productRepository.findById(product.getId())
+			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_PRODUCT));
+		Long pId = productRepository.save(product).getId();
+		return productRepository.findById(pId).get();
 	}
 
-	public Product findById(Long id) {
-		return productRepository.findById(id);
+	public List<Product> findByNameOrModelNumber(String name, String modelNumber) {
+		return productRepository.findByNameOrModelNumber(name, modelNumber);
 	}
 
-	public Product update(Product updateProduct) {
-
-		return productRepository.update(updateProduct);
+	public Long save(Product product) {
+		return productRepository.save(product).getId();
 	}
 
-	public void deleteProduct(Long id) {
-		productRepository.delete(id);
+	public void delete(Long id) {
+		Optional<Product> product = productRepository.findById(id);
+		productRepository.delete(product.get());
 	}
 
-	public List<Product> findByAll() {
-		return productRepository.findByAll();
-	}
-
-	public void deleteAll() {
-		productRepository.deleteAll();
-	}
-
-	public List<SearchProductResponse> findByNameOrModelNumber(String serachProduct) {
-		return productRepository.findByNameOrModelNumber(serachProduct)
-			.stream().map(p -> new SearchProductResponse(p))
-			.collect(Collectors.toList());
+	public Product findByModelNumber(String modelNumber) {
+		return productRepository.findByModelNumber(modelNumber);
 	}
 }
