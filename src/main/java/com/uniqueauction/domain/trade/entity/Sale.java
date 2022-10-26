@@ -29,7 +29,6 @@ public class Sale {
 	private String productSize;
 	private String bidPrice;
 	private String returnAddress;
-	@Setter
 	private TradeStatus tradeStatus;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -38,12 +37,18 @@ public class Sale {
 	private Product product;
 
 	@Builder
-	public Sale(Long userId, String productSize, String bidPrice, String returnAddress,
+	public Sale(Long id, Long userId, String productSize, String bidPrice, String returnAddress,
 		TradeStatus tradeStatus) {
+		this.id = id;
 		this.userId = userId;
 		this.productSize = productSize;
 		this.bidPrice = bidPrice;
 		this.returnAddress = returnAddress;
 		this.tradeStatus = tradeStatus;
 	}
+
+	public void changeTradeStatus(TradeStatus tradeStatus) {
+		this.tradeStatus = tradeStatus;
+	}
+
 }

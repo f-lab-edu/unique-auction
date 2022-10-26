@@ -29,7 +29,6 @@ public class Purchase {
 	private String productSize;
 	private String bidPrice;
 	private String shippingAddress;
-	@Setter
 	private TradeStatus tradeStatus;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id")
@@ -37,13 +36,18 @@ public class Purchase {
 	private Product product;
 
 	@Builder
-	public Purchase(Long userId, String productSize, String bidPrice, String shippingAddress, Product product,
+	public Purchase(Long id, Long userId, String productSize, String bidPrice, String shippingAddress, Product product,
 		TradeStatus tradeStatus) {
+		this.id = id;
 		this.userId = userId;
 		this.productSize = productSize;
 		this.bidPrice = bidPrice;
 		this.shippingAddress = shippingAddress;
 		this.product = product;
+		this.tradeStatus = tradeStatus;
+	}
+
+	public void changeTradeStatus(TradeStatus tradeStatus) {
 		this.tradeStatus = tradeStatus;
 	}
 }
