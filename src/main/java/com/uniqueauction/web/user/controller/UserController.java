@@ -34,7 +34,7 @@ public class UserController {
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse updateUser(@RequestBody @Validated UpdateUserRequest updateUserRequest,
 		BindingResult result) {
-		userService.update(updateUserRequest);
+		// userService.update(updateUserRequest);
 		return CommonResponse.success();
 	}
 }
