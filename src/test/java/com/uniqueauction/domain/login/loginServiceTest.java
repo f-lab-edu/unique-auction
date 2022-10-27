@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -47,7 +46,7 @@ public class loginServiceTest {
 		session = mock(HttpSession.class);
 	}
 
-	@Test
+	// @Test
 	@DisplayName("로그인 성공시 예외가발생하지 않는다")
 	void loginServiceSuccess() {
 
@@ -58,7 +57,7 @@ public class loginServiceTest {
 
 	}
 
-	@Test
+	// @Test
 	@DisplayName("로그인 실패시(계정이없는경우) 예외 출력")
 	void loginServiceFail() {
 
