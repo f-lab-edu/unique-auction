@@ -6,7 +6,6 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +15,7 @@ import org.mockito.Spy;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.uniqueauction.UniqueAuctionApplication;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
@@ -29,8 +29,8 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
  * @Spy: Stub하지 않은 메소드들은 원본 메소드 그대로 사용하는 어노테이션
  * @InjectMocks: @Mock 또는 @Spy로 생성된 가짜 객체를 자동으로 주입시켜주는 어노테이션
  */
-@SpringBootTest
 @AutoConfigureMockMvc
+@SpringBootTest(classes = UniqueAuctionApplication.class)
 class ProductServiceTest {
 
 	@Spy
@@ -42,7 +42,6 @@ class ProductServiceTest {
 
 	@BeforeEach
 	public void clear() {
-		productRepository.deleteAll();
 	}
 
 	@Test
@@ -72,9 +71,8 @@ class ProductServiceTest {
 
 		//when
 
-		Optional<Product> product = productService.findById(pId);
+		Product product = productService.findById(pId);
 
-		//then
 		assertThat(product.getModelNumber()).isEqualTo("123");
 		assertThat(product.getReleasePrice()).isEqualTo("10000");
 		assertThat(product.getCategory()).isEqualTo(SHOES);
@@ -90,8 +88,9 @@ class ProductServiceTest {
 
 		Product updateProduct = getUpdateReq(pId).toEntity();
 		//given
-		doReturn(updateProduct).when(productRepository).update(updateProduct);
+		doReturn(updateProduct).when(productService).update(updateProduct);
 		//when
+
 		Product product = productService.update(updateProduct);
 
 		//then
@@ -107,15 +106,14 @@ class ProductServiceTest {
 
 		//given
 		Long pId = 1L;
-		doNothing().when(productRepository).delete(1L);
-		doReturn(null).when(productRepository).findByAll();
+		doNothing().when(productService).delete(pId);
 
 		//when
-		productService.deleteProduct(pId);
+		productService.delete(pId);
 
-		assertThat(productService.findByAll()).isEqualTo(null);
+		assertThat(productService.findById(pId)).isEqualTo(null);
 
-		verify(productService).deleteProduct(pId);
+		verify(productService).delete(pId);
 
 	}
 

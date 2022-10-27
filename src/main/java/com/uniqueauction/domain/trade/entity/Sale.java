@@ -31,9 +31,9 @@ public class Sale {
 	private String returnAddress;
 	private TradeStatus tradeStatus;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
 	@Setter
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_id")
 	private Product product;
 
 	@Builder
