@@ -1,5 +1,6 @@
 package com.uniqueauction.domain.product.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,11 +11,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Entity
 @NoArgsConstructor
+@Entity
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "product_id")
 	private Long id;
 	private String name;
 	private String modelNumber;
@@ -33,5 +35,16 @@ public class Product {
 		this.releasePrice = releasePrice;
 		this.category = category;
 		this.imgUrl = imgUrl;
+	}
+
+	public Product updateProduct(Product product) {
+		this.name = product.getName();
+		this.modelNumber = product.getModelNumber();
+		this.releasePrice = product.getReleasePrice();
+		this.category = product.getCategory();
+		this.brand = product.getBrand();
+		this.imgUrl = product.getImgUrl();
+
+		return this;
 	}
 }

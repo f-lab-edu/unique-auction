@@ -64,7 +64,7 @@ public class ProductController {
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse deleteProduct(@PathVariable Long id) {
 
-		productService.deleteProduct(id);
+		productService.delete(id);
 
 		return CommonResponse.success();
 	}

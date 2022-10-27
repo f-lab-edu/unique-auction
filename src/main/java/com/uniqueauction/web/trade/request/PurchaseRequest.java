@@ -13,7 +13,7 @@ public class PurchaseRequest {
 	private Long userId;
 
 	@NotBlank(message = "모델번호")
-	private String productId;
+	private Long productId;
 
 	@NotBlank(message = "사이즈")
 	private String productSize;
@@ -27,7 +27,7 @@ public class PurchaseRequest {
 	public Purchase toEntity() {
 		return Purchase.builder()
 			.userId(this.userId)
-			.productId(this.productId)
+			.id(this.productId)
 			.bidPrice(this.bidPrice)
 			.productSize(this.productSize)
 			.shippingAddress(this.shippingAddress)

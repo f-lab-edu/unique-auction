@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
@@ -19,31 +20,39 @@ public class ProductService {
 
 	private final ProductRepository productRepository;
 
+	@Transactional
 	public Product update(Product product) {
-		productRepository.findById(product.getId())
+		Product findProduct = productRepository.findById(product.getId())
 			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_PRODUCT));
-		Long pId = productRepository.save(product).getId();
-		return productRepository.findById(pId).get();
+		return findProduct.updateProduct(product);
 	}
 
+	@Transactional(readOnly = true)
 	public List<Product> findByNameOrModelNumber(String searProduct) {
 		return productRepository.findByNameOrModelNumber(searProduct, searProduct);
 	}
 
+	@Transactional
 	public Long save(Product product) {
 		return productRepository.save(product).getId();
 	}
 
+	@Transactional
 	public void delete(Long id) {
 		Optional<Product> product = productRepository.findById(id);
 		productRepository.delete(product.get());
 	}
 
+	@Transactional(readOnly = true)
 	public Product findByModelNumber(String modelNumber) {
 		return productRepository.findByModelNumber(modelNumber);
 	}
 
-	public Optional<Product> findById(Long id) {
-		return productRepository.findById(id);
+	@Transactional(readOnly = true)
+	public Product findById(Long id) {
+		return productRepository.findById(id)
+			.orElseThrow(()
+				-> new CommonNotFoundException(NOT_FOUND_PRODUCT)
+			);
 	}
 }

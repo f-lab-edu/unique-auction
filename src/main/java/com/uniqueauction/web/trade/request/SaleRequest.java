@@ -13,7 +13,7 @@ public class SaleRequest {
 	private Long userId;
 
 	@NotBlank(message = "모델번호")
-	private String productId;
+	private Long productId;
 
 	@NotBlank(message = "사이즈")
 	private String productSize;
@@ -27,7 +27,7 @@ public class SaleRequest {
 	public Sale toEntity() {
 		return Sale.builder()
 			.userId(this.userId)
-			.productId(this.productId)
+			.id(this.productId)
 			.bidPrice(this.bidPrice)
 			.productSize(this.productSize)
 			.returnAddress(this.returnAddress)
