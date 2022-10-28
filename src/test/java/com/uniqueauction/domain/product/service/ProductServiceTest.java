@@ -6,8 +6,12 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import com.uniqueauction.TestContainerBase;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -31,6 +35,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
  */
 @AutoConfigureMockMvc
 @SpringBootTest(classes = UniqueAuctionApplication.class)
+@TestContainerBase
 class ProductServiceTest {
 
 	@Spy
@@ -50,7 +55,7 @@ class ProductServiceTest {
 		updateProduct = getUpdateProduct(pId);
 	}
 
-	//@Test
+	@Test
 	void productSaveTest() {
 
 		//given
@@ -66,14 +71,13 @@ class ProductServiceTest {
 
 	}
 
-	//@Test
+	@Test
 	void productDetailSelectTest() {
 
 		Long pId = 1L;
 
 		//given
-		doReturn(saveProduct).when(productService).findById(pId);
-
+		doReturn(Optional.of(getSaveProduct())).when(productRepository).findById(pId);
 		//when
 
 		Product product = productService.findById(pId);
@@ -86,7 +90,7 @@ class ProductServiceTest {
 
 	}
 
-	//@Test
+	@Test
 	void productUpdateTest() {
 
 		Long pId = 1L;
@@ -105,7 +109,7 @@ class ProductServiceTest {
 		verify(productService).update(updateProduct);
 	}
 
-	//@Test
+	@Test
 	void productDeleteTest() {
 
 		//given
@@ -156,7 +160,7 @@ class ProductServiceTest {
 	}
 
 	public List<Product> getListProduct(ProductSaveRequest saveProduct) {
-		List<Product> list = new ArrayList();
+		List<Product> list = new ArrayList<>();
 		list.add(saveProduct.toEntity());
 		return list;
 	}
