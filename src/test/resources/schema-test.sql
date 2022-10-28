@@ -6,14 +6,14 @@ drop table if exists product;
 
 create table product
 (
-    id            bigint not null auto_increment,
+    product_id    bigint not null auto_increment,
     brand         varchar(255),
     name          varchar(255),
     category      varchar(255),
     img_url       varchar(255),
     model_number  varchar(255),
     release_price varchar(255),
-    primary key (id)
+    primary key (product_id)
 );
 
 create table purchase
@@ -26,7 +26,7 @@ create table purchase
     user_id          bigint,
     id               bigint,
     primary key (purchase_id),
-    constraint FK_purchase_product foreign key (id) references product (id)
+    constraint FK_purchase_product foreign key (id) references product (product_id)
 );
 
 create table sale
@@ -39,7 +39,7 @@ create table sale
     user_id        bigint,
     id             bigint,
     primary key (sale_id),
-    constraint FK_sale_product foreign key (id) references product (id)
+    constraint FK_sale_product foreign key (id) references product (product_id)
 );
 
 create table trade
