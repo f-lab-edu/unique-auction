@@ -8,6 +8,7 @@ import java.util.Optional;
 import com.uniqueauction.TestContainerBase;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.uniqueauction.domain.product.entity.Product;
@@ -16,8 +17,8 @@ import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
-@TestContainerBase
 @SpringBootTest
+@TestContainerBase
 class ProductRepositoryImplTest {
 
 	@Autowired

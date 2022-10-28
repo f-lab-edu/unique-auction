@@ -1,8 +1,12 @@
 package com.uniqueauction.web.login.request;
 
+import static com.utils.RegExpCode.*;
+
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
+
+import com.utils.annotation.RegExp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +17,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoginRequest {
 
-	@NotBlank(message = "공백은 입력할 수 없습니다.")
+	@RegExp(regExpCode = EMAIL)
 	private String email;
 
-	@Length(min = 8, message = "비밀번호는 최소 8자리 이상이어야 합니다.")
-	// @RegExp(regExpCode = PASSWORD)
-	@NotBlank(message = "공백은 입력할 수 없습니다.")
+	@RegExp(regExpCode = PASSWORD)
 	private String password;
 }

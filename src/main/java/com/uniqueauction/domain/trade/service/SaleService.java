@@ -37,7 +37,8 @@ public class SaleService {
 		product.ifPresent(sale::setProduct);
 
 		/* 판매 등록 */
-		sale.setTradeStatus(TradeStatus.BID_PROGRESS);
+		sale.changeTradeStatus(TradeStatus.BID_PROGRESS);
+
 		if (!saleRepository.existsByProductAndProductSize(sale.getProduct(), sale.getProductSize())) {
 			saleRepository.save(sale);
 		} else {

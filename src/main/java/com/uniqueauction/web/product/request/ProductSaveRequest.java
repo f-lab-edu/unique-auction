@@ -17,22 +17,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductSaveRequest {
 
-	@NotBlank(message = "모델명는 공백은 입력할 수 없습니다.")
+	@NotBlank(message = "상품명")
 	private String productName;
 
-	@NotBlank(message = "모델번호는 공백은 입력할 수 없습니다.")
+	@NotBlank(message = "모델번호")
 	private String modelNumber;
 
-	@NotBlank(message = "발매가는 공백은 입력할 수 없습니다.")
+	@NotBlank(message = "발매가")
 	private String releasePrice;
 
-	@NotNull(message = "카테고리는 공백은 입력할 수 없습니다.")
+	@NotNull(message = "카테고리")
 	private Category category;
 
-	@NotBlank(message = "이미지주소는 공백은 입력할 수 없습니다.")
+	@NotBlank(message = "이미지주소")
 	private String imgUrl;
 
-	@NotBlank(message = "브랜드는 공백은 입력할 수 없습니다.")
+	@NotBlank(message = "브랜드")
 	private String brand;
 
 	public Product toEntity() {

@@ -37,7 +37,7 @@ public class PurchaseService {
 		product.ifPresent(purchase::setProduct);
 
 		/* 구매 등록 */
-		purchase.setTradeStatus(TradeStatus.BID_PROGRESS);
+		purchase.changeTradeStatus(TradeStatus.BID_PROGRESS);
 		if (!purchaseRepository.existsByProductAndProductSize(purchase.getProduct(), purchase.getProductSize())) {
 			purchaseRepository.save(purchase);
 		} else {

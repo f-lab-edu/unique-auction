@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.domain.login.service.LoginService;
+import com.uniqueauction.UniqueAuctionApplication;
 import com.uniqueauction.exception.advice.CommonControllerAdvice;
 import com.uniqueauction.web.login.request.LoginRequest;
 
@@ -34,9 +34,10 @@ import com.uniqueauction.web.login.request.LoginRequest;
  * ex) String text = mapper.WriteValueAsString(car); //{"name":"K5","color":"gray"}
  * Car carObject = mapper.readValue(text, Car.class); //Car{name='k5',color='gary
  */
+@EnableAutoConfiguration
 @EnableAspectJAutoProxy
-@SpringBootTest
 @AutoConfigureMockMvc
+@SpringBootTest(classes = UniqueAuctionApplication.class)
 @TestContainerBase
 class LoginControllerTest {
 
@@ -44,10 +45,7 @@ class LoginControllerTest {
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
-	@MockBean
-	private LoginService loginService;
-
-	@Autowired
+	@SpyBean
 	LoginController loginController;
 
 	@BeforeEach
@@ -57,7 +55,7 @@ class LoginControllerTest {
 				.setControllerAdvice(new CommonControllerAdvice()) // 컨트롤 어드 바이스 추가.
 				.addFilters(new CharacterEncodingFilter("UTF-8", true)) // utf-8 필터 추가
 				.build();
-		loginController = new LoginController(loginService);
+
 	}
 
 	@Test
@@ -75,7 +73,7 @@ class LoginControllerTest {
 
 	}
 
-	//@Test
+	// @Test
 	void passwordFieldNullTest() throws Exception {
 
 		LoginRequest req = new LoginRequest("email@email.com", "");
@@ -91,7 +89,7 @@ class LoginControllerTest {
 
 	}
 
-	@Test
+  @Test
 	void passwordEightUnder() throws Exception {
 
 		LoginRequest req = new LoginRequest("email@email.com", "123");
