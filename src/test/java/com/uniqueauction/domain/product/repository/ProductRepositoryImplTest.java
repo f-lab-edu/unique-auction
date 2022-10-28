@@ -5,11 +5,8 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.TestMethodOrder;
+import com.uniqueauction.TestContainerBase;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -19,6 +16,7 @@ import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
+@TestContainerBase
 @SpringBootTest
 class ProductRepositoryImplTest {
 
@@ -43,14 +41,14 @@ class ProductRepositoryImplTest {
 		productRepository.deleteAll();
 	}
 
-	//@Test
+	@Test
 	@Order(1)
 	void productSaveTest() {
 		//then
 		assertThat(pId).isEqualTo(1L);
 	}
 
-	//@Test
+	@Test
 	@Order(2)
 	void productSelectTest() {
 
@@ -62,7 +60,7 @@ class ProductRepositoryImplTest {
 
 	}
 
-	//@Test
+	@Test
 	@Order(3)
 	void productUpdateTest() {
 		product = getUpdateReq(pId).toEntity();
@@ -73,7 +71,7 @@ class ProductRepositoryImplTest {
 		assertThat(update.get().getModelNumber()).isEqualTo("457");
 	}
 
-	//@Test
+	@Test
 	@Order(4)
 	void productDeleteTest() {
 

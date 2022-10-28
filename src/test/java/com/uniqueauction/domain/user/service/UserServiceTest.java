@@ -1,15 +1,18 @@
 package com.uniqueauction.domain.user.service;
 
+import com.uniqueauction.TestContainerBase;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
+@TestContainerBase
 class UserServiceTest {
 
 	@Autowired
 	UserService userService;
 
-	//@Test
+	@Test
 	void userJoinTest() {
 
 		/*

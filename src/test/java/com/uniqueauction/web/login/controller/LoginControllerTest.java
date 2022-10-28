@@ -3,8 +3,10 @@ package com.uniqueauction.web.login.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.uniqueauction.TestContainerBase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,6 +37,7 @@ import com.uniqueauction.web.login.request.LoginRequest;
 @EnableAspectJAutoProxy
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestContainerBase
 class LoginControllerTest {
 
 	private MockMvc mvc;
@@ -57,7 +60,7 @@ class LoginControllerTest {
 		loginController = new LoginController(loginService);
 	}
 
-	//@Test
+	@Test
 	void emailFieldNullTest() throws Exception {
 		LoginRequest req = new LoginRequest("", "12345678");
 
@@ -88,7 +91,7 @@ class LoginControllerTest {
 
 	}
 
-	//@Test
+	@Test
 	void passwordEightUnder() throws Exception {
 
 		LoginRequest req = new LoginRequest("email@email.com", "123");
@@ -110,7 +113,7 @@ class LoginControllerTest {
 	 * @throws Exception
 	 */
 	@Disabled
-	//@Test
+	@Test
 	void notFoundUser() throws Exception {
 
 		LoginRequest req = new LoginRequest("email@email.com", "12345678");
