@@ -2,7 +2,7 @@ package com.uniqueauction.web.review;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uniqueauction.domain.review.service.ReviewRepository;
@@ -19,19 +19,19 @@ public class ReviewController {
 	private final ReviewService reviewService;
 	private final ReviewRepository reviewRepository;
 
-	@GetMapping("/review")
+	@GetMapping("/reviews")
 	public CommonResponse<?> saveReview(SaveReviewRequest saveReviewRequest, BindingResult result) {
 		reviewService.save(saveReviewRequest);
 		return CommonResponse.success();
 	}
 
-	@PostMapping("/review/productRevies")
-	public CommonResponse<?> selectProductReviews(Long productId) {
+	@GetMapping("/reviews/productReviwes/{productId}")
+	public CommonResponse<?> selectProductReviews(@PathVariable Long productId) {
 		return CommonResponse.success(reviewService.findByProductId(productId));
 	}
 
-	@PostMapping("/review/userProductReviews")
-	public CommonResponse<?> selectUserProductReviews(Long userId) {
+	@GetMapping("/reviews/userProductReviews/{userId}")
+	public CommonResponse<?> selectUserProductReviews(@PathVariable Long userId) {
 		return CommonResponse.success(reviewService.findByUserId(userId));
 	}
 
