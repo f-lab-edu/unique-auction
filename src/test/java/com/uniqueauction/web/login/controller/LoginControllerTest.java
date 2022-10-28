@@ -4,11 +4,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,7 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.domain.login.service.LoginService;
+import com.uniqueauction.UniqueAuctionApplication;
 import com.uniqueauction.exception.advice.CommonControllerAdvice;
 import com.uniqueauction.web.login.request.LoginRequest;
 
@@ -32,19 +31,17 @@ import com.uniqueauction.web.login.request.LoginRequest;
  * ex) String text = mapper.WriteValueAsString(car); //{"name":"K5","color":"gray"}
  * Car carObject = mapper.readValue(text, Car.class); //Car{name='k5',color='gary
  */
+@EnableAutoConfiguration
 @EnableAspectJAutoProxy
-@SpringBootTest
 @AutoConfigureMockMvc
+@SpringBootTest(classes = UniqueAuctionApplication.class)
 class LoginControllerTest {
 
 	private MockMvc mvc;
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
-	@MockBean
-	private LoginService loginService;
-
-	@Autowired
+	@SpyBean
 	LoginController loginController;
 
 	@BeforeEach
@@ -54,7 +51,7 @@ class LoginControllerTest {
 				.setControllerAdvice(new CommonControllerAdvice()) // 컨트롤 어드 바이스 추가.
 				.addFilters(new CharacterEncodingFilter("UTF-8", true)) // utf-8 필터 추가
 				.build();
-		loginController = new LoginController(loginService);
+
 	}
 
 	//@Test
@@ -72,7 +69,7 @@ class LoginControllerTest {
 
 	}
 
-	//@Test
+	// @Test
 	void passwordFieldNullTest() throws Exception {
 
 		LoginRequest req = new LoginRequest("email@email.com", "");
@@ -88,7 +85,7 @@ class LoginControllerTest {
 
 	}
 
-	//@Test
+	// @Test
 	void passwordEightUnder() throws Exception {
 
 		LoginRequest req = new LoginRequest("email@email.com", "123");
@@ -103,29 +100,4 @@ class LoginControllerTest {
 				.andExpect(status().isBadRequest());
 	}
 
-	/**
-	 * 메서드가 리턴값이 있을시 given(loginService.login(any())).willThrow(LoginException.class);
-	 * 메서드가 없을 시 doThrow 문법 사용
-	 *
-	 * @throws Exception
-	 */
-	@Disabled
-	//@Test
-	void notFoundUser() throws Exception {
-
-		LoginRequest req = new LoginRequest("email@email.com", "12345678");
-
-		// doThrow(new CommonNotFoundException(ErrorCode.NOT_FOUND_USER))
-		// 	.when(loginService)
-		// 	.login(req);
-
-		mvc.perform(
-				post("/login")
-					.contentType(MediaType.APPLICATION_JSON)
-					.accept(MediaType.APPLICATION_JSON)
-					.characterEncoding("UTF-8")
-					.content(objectMapper.writeValueAsString(req)))
-			.andExpect(status().isNotFound());
-
-	}
 }

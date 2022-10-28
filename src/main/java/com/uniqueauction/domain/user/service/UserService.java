@@ -12,8 +12,8 @@ import com.uniqueauction.web.user.request.JoinRequest;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class UserService {
 	private final UserRepository userRepository;
 	private final EncryptService encryptService;

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.uniqueauction.domain.product.entity.Product;
@@ -19,6 +20,7 @@ import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
+@EnableAutoConfiguration
 @SpringBootTest
 class ProductRepositoryImplTest {
 
