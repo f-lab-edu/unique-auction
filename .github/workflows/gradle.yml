@@ -12,7 +12,7 @@ on:
     branches: [ "develop" ,"master" ]
 jobs:
   # 체크아웃 / 버전 설정
-  job0:
+  setUp:
     runs-on: ubuntu-latest
     steps:
 
@@ -25,8 +25,8 @@ jobs:
           distribution: 'temurin'
 
   #  코드포맷
-  job1:
-    needs: job0
+  codeFormatCheck:
+    needs: setUp
     runs-on: ubuntu-latest
     steps:
 
@@ -37,8 +37,8 @@ jobs:
       - name: codeFormat Check
         run: ./gradlew checkstyleMain
 
-  job2: # 테스트/ 빌드
-    needs: job0
+  testCheck:
+    needs: setUp
     runs-on: ubuntu-latest
     steps:
 
@@ -64,8 +64,8 @@ jobs:
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
 
-  job3:
-    needs: [ job1, job2 ]
+  Build:
+    needs: [ codeFormatCheck, testCheck ]
     runs-on: ubuntu-latest
     steps:
 

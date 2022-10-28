@@ -26,19 +26,11 @@ public enum ErrorCode {
 		this.message = message;
 	}
 
-	public String getCode() {
-		return this.code;
-	}
-
 	public ErrorCode setMissingParameterMsg(String msg) {
 		if (this.equals(MISSING_PARAMETER)) {
 			setMessage(msg);
 		}
 		return this;
-	}
-
-	public String getMessge() {
-		return this.message;
 	}
 
 	private void setMessage(String msg) {

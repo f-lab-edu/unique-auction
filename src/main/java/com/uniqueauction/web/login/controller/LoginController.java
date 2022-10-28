@@ -1,9 +1,11 @@
 package com.uniqueauction.web.login.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uniqueauction.domain.login.service.LoginService;
@@ -31,7 +33,8 @@ public class LoginController {
 	private final LoginService loginService;
 
 	@PostMapping("/login")
-	public CommonResponse signIn(@RequestBody @Validated LoginRequest request, BindingResult result) {
+	@ResponseStatus(HttpStatus.OK)
+	public CommonResponse login(@RequestBody @Validated LoginRequest request, BindingResult result) {
 
 		loginService.login(request);
 
