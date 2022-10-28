@@ -1,10 +1,12 @@
 package com.uniqueauction.web.review.request;
 
+import static com.utils.RegExpCode.*;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
+import com.utils.annotation.RegExp;
 
 import lombok.Getter;
 
@@ -24,7 +26,6 @@ public class SaveReviewRequest {
 	@NotNull
 	private int score;
 
-	@Length(max = 100)
+	@RegExp(regExpCode = REVIEW_CONTENT)
 	private String content;
-
 }

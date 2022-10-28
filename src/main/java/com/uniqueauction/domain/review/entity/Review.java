@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.validator.constraints.Length;
-
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
@@ -41,7 +39,7 @@ public class Review {
 	@RegExp(regExpCode = SCORE)
 	private int score;
 
-	@Length(max = 100)
+	@RegExp(regExpCode = REVIEW_CONTENT)
 	private String content;
 
 	@Builder
