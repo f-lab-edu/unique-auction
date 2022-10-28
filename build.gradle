@@ -27,13 +27,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
-    implementation 'org.projectlombok:lombok:1.18.20'
+    implementation 'org.projectlombok:lombok:1.18.24'
     implementation 'mysql:mysql-connector-java'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // testcontainers
+    testImplementation "org.junit.jupiter:junit-jupiter:5.9.0"
+    testImplementation "org.testcontainers:junit-jupiter:1.17.4"
+    testImplementation "org.testcontainers:mysql:1.17.4"
 }
 
 tasks.named('test') {

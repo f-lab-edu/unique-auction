@@ -3,7 +3,11 @@ package com.uniqueauction.web.login.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.uniqueauction.TestContainerBase;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,6 +39,7 @@ import com.uniqueauction.web.login.request.LoginRequest;
 @EnableAspectJAutoProxy
 @AutoConfigureMockMvc
 @SpringBootTest(classes = UniqueAuctionApplication.class)
+@TestContainerBase
 class LoginControllerTest {
 
 	private MockMvc mvc;
@@ -54,7 +59,7 @@ class LoginControllerTest {
 
 	}
 
-	//@Test
+	@Test
 	void emailFieldNullTest() throws Exception {
 		LoginRequest req = new LoginRequest("", "12345678");
 
@@ -85,7 +90,7 @@ class LoginControllerTest {
 
 	}
 
-	// @Test
+  @Test
 	void passwordEightUnder() throws Exception {
 
 		LoginRequest req = new LoginRequest("email@email.com", "123");
@@ -100,4 +105,29 @@ class LoginControllerTest {
 				.andExpect(status().isBadRequest());
 	}
 
+	/**
+	 * 메서드가 리턴값이 있을시 given(loginService.login(any())).willThrow(LoginException.class);
+	 * 메서드가 없을 시 doThrow 문법 사용
+	 *
+	 * @throws Exception
+	 */
+	@Disabled
+	@Test
+	void notFoundUser() throws Exception {
+
+		LoginRequest req = new LoginRequest("email@email.com", "12345678");
+
+		// doThrow(new CommonNotFoundException(ErrorCode.NOT_FOUND_USER))
+		// 	.when(loginService)
+		// 	.login(req);
+
+		mvc.perform(
+				post("/login")
+					.contentType(MediaType.APPLICATION_JSON)
+					.accept(MediaType.APPLICATION_JSON)
+					.characterEncoding("UTF-8")
+					.content(objectMapper.writeValueAsString(req)))
+			.andExpect(status().isNotFound());
+
+	}
 }
