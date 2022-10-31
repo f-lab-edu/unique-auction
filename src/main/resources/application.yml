@@ -9,12 +9,8 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: none
-    properties:
-      format_sql: true
-
-  sql:
-    init:
-      mode: always
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    generate-ddl: true
 
 
