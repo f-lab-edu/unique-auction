@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.uniqueauction.TestContainerBase;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,6 +16,8 @@ import org.mockito.Spy;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.uniqueauction.AbstractContainerBaseTest;
+import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.UniqueAuctionApplication;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
@@ -36,7 +36,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
 @AutoConfigureMockMvc
 @SpringBootTest(classes = UniqueAuctionApplication.class)
 @TestContainerBase
-class ProductServiceTest {
+class ProductServiceTest extends AbstractContainerBaseTest {
 
 	@Spy
 	@InjectMocks

@@ -3,11 +3,9 @@ package com.uniqueauction.web.login.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.uniqueauction.TestContainerBase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +18,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uniqueauction.AbstractContainerBaseTest;
+import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.UniqueAuctionApplication;
 import com.uniqueauction.exception.advice.CommonControllerAdvice;
 import com.uniqueauction.web.login.request.LoginRequest;
@@ -40,7 +40,7 @@ import com.uniqueauction.web.login.request.LoginRequest;
 @AutoConfigureMockMvc
 @SpringBootTest(classes = UniqueAuctionApplication.class)
 @TestContainerBase
-class LoginControllerTest {
+class LoginControllerTest extends AbstractContainerBaseTest {
 
 	private MockMvc mvc;
 
@@ -90,7 +90,7 @@ class LoginControllerTest {
 
 	}
 
-  @Test
+	@Test
 	void passwordEightUnder() throws Exception {
 
 		LoginRequest req = new LoginRequest("email@email.com", "123");
