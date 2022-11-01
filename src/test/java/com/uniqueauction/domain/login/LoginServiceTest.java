@@ -17,6 +17,8 @@ import org.mockito.Spy;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.uniqueauction.AbstractContainerBaseTest;
+import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.login.service.LoginService;
 import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.repository.UserRepository;
@@ -26,7 +28,8 @@ import com.uniqueauction.web.login.request.LoginRequest;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class loginServiceTest {
+@TestContainerBase
+public class LoginServiceTest extends AbstractContainerBaseTest {
 
 	@Spy
 	@InjectMocks
@@ -79,13 +82,12 @@ public class loginServiceTest {
 	}
 
 	private User getUser(LoginRequest loginRequest) {
-		User build = User.builder()
+		return User.builder()
 			.email("email@email.com")
 			.encodedPassword("@@@@@@@@@@")
 			.phone("010-1234-1344")
 			.role(ADMIN)
 			.build();
-		return build;
 	}
 
 	private LoginRequest getLoginRequest() {
