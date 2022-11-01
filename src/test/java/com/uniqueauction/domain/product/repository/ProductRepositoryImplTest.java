@@ -5,17 +5,12 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import com.uniqueauction.TestContainerBase;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.uniqueauction.AbstractContainerBaseTest;
-import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
@@ -24,7 +19,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
 @TestContainerBase
-class ProductRepositoryImplTest extends AbstractContainerBaseTest {
+class ProductRepositoryImplTest {
 
 	@Autowired
 	private ProductRepository productRepository;
