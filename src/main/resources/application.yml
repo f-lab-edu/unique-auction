@@ -8,13 +8,5 @@ spring:
 
   jpa:
     show-sql: true
-    hibernate:
-      ddl-auto: none
-    properties:
-      format_sql: true
-
-  sql:
-    init:
-      mode: always
 
 

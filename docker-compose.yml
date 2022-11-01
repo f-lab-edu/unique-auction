@@ -20,7 +20,7 @@ services:
     container_name: docker-mysql
     volumes:
       - ./db/data:/var/lib/mysql
-      - ./conf:/etc/mysql/conf.d
+      - ./mysql-init-files/:/docker-entrypoint-initdb.d/
     environment:
       MYSQL_DATABASE: UA
       MYSQL_ROOT_PASSWORD: 12345678
