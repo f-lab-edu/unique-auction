@@ -1,4 +1,4 @@
-package com.uniqueauction.domain.review.service;
+package com.uniqueauction.domain.review.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

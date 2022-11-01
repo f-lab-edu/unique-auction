@@ -1,8 +1,9 @@
 spring:
+  profiles:
+    active: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # url: jdbc:mysql://docker-mysql:3306/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-    url: jdbc:mysql://localhost:3306/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://docker-mysql:3306/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 12345678
 
@@ -17,4 +18,27 @@ spring:
     init:
       mode: always
 
+
+
+--- # 구분
+
+spring:
+  profiles:
+    default: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://docker-mysql:3306/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 12345678
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      format_sql: true
+
+  sql:
+    init:
+      mode: always
 

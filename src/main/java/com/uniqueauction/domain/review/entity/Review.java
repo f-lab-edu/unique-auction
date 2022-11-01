@@ -2,6 +2,7 @@ package com.uniqueauction.domain.review.entity;
 
 import static com.utils.RegExpCode.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class Review {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "review_id")
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -33,7 +35,7 @@ public class Review {
 	private User user;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "product_id")
 	private Product product;
 
 	@RegExp(regExpCode = SCORE)
