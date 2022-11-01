@@ -8,22 +8,22 @@ import javax.validation.constraints.NotNull;
 
 import com.utils.annotation.RegExp;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class SaveReviewRequest {
 
 	@NotNull(message = "유저아이디")
-	private Long userId;
+	private String userId;
 
 	@NotNull(message = "유저아이디")
-	private Long productId;
+	private String productId;
 
-	@NotNull(message = "점수")
-
+	@NotNull(message = "평점")
 	@Min(1)
 	@Max(5)
-	@NotNull
 	private int score;
 
 	@RegExp(regExpCode = REVIEW_CONTENT)
