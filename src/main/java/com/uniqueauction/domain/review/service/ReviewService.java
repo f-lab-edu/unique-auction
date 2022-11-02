@@ -25,8 +25,8 @@ public class ReviewService {
 	private final UserRepository userRepository;
 
 	public Long save(SaveReviewRequest reviewRequest) {
-		Product product = getProduct(reviewRequest);
-		User user = getUser(reviewRequest);
+		Product product = getProduct(reviewRequest.getProductId());
+		User user = getUser(reviewRequest.getUserId());
 
 		Review review = Review.createReview(user, product, reviewRequest);
 
@@ -43,14 +43,14 @@ public class ReviewService {
 		return reviewRepository.findByUserId(userId);
 
 	}
-	
-	private User getUser(SaveReviewRequest reviewRequest) {
-		return userRepository.findById(reviewRequest.getUserId())
+
+	private User getUser(String userId) {
+		return userRepository.findById(Long.valueOf(userId))
 			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_USER));
 	}
 
-	private Product getProduct(SaveReviewRequest reviewRequest) {
-		return productRepository.findById(reviewRequest.getProductId())
+	private Product getProduct(String productId) {
+		return productRepository.findById(Long.valueOf(productId))
 			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_PRODUCT));
 	}
 

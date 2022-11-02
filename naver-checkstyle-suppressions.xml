@@ -7,4 +7,6 @@
     <suppress files="RegExpCode.java" checks=".*"/>
     <suppress files="ErrorCode.java" checks=".*"/>
     <suppress files="Category.java" checks=".*"/>
+    <suppress files="docker-compose.yml" checks=".*"/>
+    <suppress files="application-test.yml" checks=".*"/>
 </suppressions>
