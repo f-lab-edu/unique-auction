@@ -20,7 +20,7 @@ public class UserService {
 
 	public void join(JoinRequest joinRequest) {
 		User user = joinRequest.convert(joinRequest);
-		if (existsByEmail(user.getEmail())) {
+		if (!existsByEmail(user.getEmail())) {
 			user.setEncodedPassword(encryptService.encrypt(joinRequest.getPassword()));
 		} else {
 			throw new CommonException(DUPLICATE_USER);
