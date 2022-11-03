@@ -1,5 +1,7 @@
 package com.uniqueauction.domain.review.service;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,8 @@ import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.event.ProductEvent;
 import com.uniqueauction.event.UserEvent;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
+import com.uniqueauction.web.review.response.ReviewByProductResponse;
+import com.uniqueauction.web.review.response.ReviewByUserResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,12 +37,12 @@ public class ReviewService {
 	}
 
 	@Transactional(readOnly = true)
-	public Review findByProductId(Long productId) {
+	public List<ReviewByProductResponse> findByProductId(Long productId) {
 		return reviewRepository.findByProductId(productId);
 	}
 
 	@Transactional(readOnly = true)
-	public Review findByUserId(Long userId) {
+	public List<ReviewByUserResponse> findByUserId(Long userId) {
 		return reviewRepository.findByUserId(userId);
 
 	}

@@ -30,13 +30,13 @@ public class ReviewController {
 		return CommonResponse.success();
 	}
 
-	@GetMapping("/reviews/productReviwes/{productId}")
+	@GetMapping("/reviews/{productId}/products")
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse selectProductReviews(@PathVariable Long productId) {
 		return CommonResponse.success(reviewService.findByProductId(productId));
 	}
 
-	@GetMapping("/reviews/userProductReviews/{userId}")
+	@GetMapping("/reviews/{userId}/users")
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse selectUserProductReviews(@PathVariable Long userId) {
 		return CommonResponse.success(reviewService.findByUserId(userId));
