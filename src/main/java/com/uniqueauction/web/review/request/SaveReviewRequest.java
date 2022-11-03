@@ -16,10 +16,10 @@ import lombok.Getter;
 public class SaveReviewRequest {
 
 	@NotNull(message = "유저아이디")
-	private String userId;
+	private Long userId;
 
 	@NotNull(message = "유저아이디")
-	private String productId;
+	private Long productId;
 
 	@NotNull(message = "평점")
 	@Min(1)

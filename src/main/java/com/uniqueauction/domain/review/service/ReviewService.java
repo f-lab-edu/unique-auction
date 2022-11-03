@@ -1,17 +1,15 @@
 package com.uniqueauction.domain.review.service;
 
-import static com.uniqueauction.exception.ErrorCode.*;
-
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.uniqueauction.domain.product.entity.Product;
-import com.uniqueauction.domain.product.repository.ProductRepository;
 import com.uniqueauction.domain.review.entity.Review;
 import com.uniqueauction.domain.review.repository.ReviewRepository;
 import com.uniqueauction.domain.user.entity.User;
-import com.uniqueauction.domain.user.repository.UserRepository;
-import com.uniqueauction.exception.advice.CommonNotFoundException;
+import com.uniqueauction.event.ProductEvent;
+import com.uniqueauction.event.UserEvent;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -21,10 +19,11 @@ import lombok.RequiredArgsConstructor;
 public class ReviewService {
 
 	private final ReviewRepository reviewRepository;
-	private final ProductRepository productRepository;
-	private final UserRepository userRepository;
+	private final ApplicationEventPublisher eventPublisher;
 
+	@Transactional()
 	public Long save(SaveReviewRequest reviewRequest) {
+
 		Product product = getProduct(reviewRequest.getProductId());
 		User user = getUser(reviewRequest.getUserId());
 
@@ -44,14 +43,21 @@ public class ReviewService {
 
 	}
 
-	private User getUser(String userId) {
-		return userRepository.findById(Long.valueOf(userId))
-			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_USER));
+	private User getUser(Long userId) {
+		UserEvent uEvnet = UserEvent.of(userId);
+
+		eventPublisher.publishEvent(uEvnet);
+
+		return uEvnet.getUser();
 	}
 
-	private Product getProduct(String productId) {
-		return productRepository.findById(Long.valueOf(productId))
-			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_PRODUCT));
+	private Product getProduct(Long productId) {
+
+		ProductEvent pEvent = ProductEvent.of(productId);
+
+		eventPublisher.publishEvent(pEvent);
+
+		return pEvent.getProduct();
 	}
 
 }
