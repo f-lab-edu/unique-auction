@@ -49,7 +49,6 @@ public class ReviewService {
 
 		ReviewByUserResponse response = ReviewByUserResponse.of(reviewRepository.findByUserId(userId));
 		response.addUserInfo(getUser(userId));
-		
 		return response;
 
 	}
