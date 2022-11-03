@@ -1,7 +1,5 @@
 package com.uniqueauction.domain.review.service;
 
-import java.util.List;
-
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,13 +35,22 @@ public class ReviewService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<ReviewByProductResponse> findByProductId(Long productId) {
-		return reviewRepository.findByProductId(productId);
+	public ReviewByProductResponse findByProductId(Long productId) {
+
+		ReviewByProductResponse response = ReviewByProductResponse.of(reviewRepository.findByProductId(productId));
+
+		response.addProductInfo(getProduct(productId));
+
+		return response;
 	}
 
 	@Transactional(readOnly = true)
-	public List<ReviewByUserResponse> findByUserId(Long userId) {
-		return reviewRepository.findByUserId(userId);
+	public ReviewByUserResponse findByUserId(Long userId) {
+
+		ReviewByUserResponse response = ReviewByUserResponse.of(reviewRepository.findByUserId(userId));
+		response.addUserInfo(getUser(userId));
+		
+		return response;
 
 	}
 
