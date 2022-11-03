@@ -1,6 +1,7 @@
 package com.uniqueauction.web.product.controller;
 
 import static com.uniqueauction.domain.product.entity.Category.*;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -9,7 +10,9 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -20,8 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.AbstractContainerBaseTest;
-import com.uniqueauction.TestContainerBase;
+import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.exception.advice.CommonControllerAdvice;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
@@ -30,15 +32,18 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
 @AutoConfigureMockMvc
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-@TestContainerBase
-class ProductControllerTest extends AbstractContainerBaseTest {
+class ProductControllerTest {
 
 	private MockMvc mockMvc;
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
-	@Autowired
+	@Spy
+	@InjectMocks
 	ProductController productController;
+
+	@Mock
+	private ProductService productService;
 
 	@BeforeEach
 	public void setup() {
@@ -69,6 +74,8 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 	@Test
 	@DisplayName("상품 수정  완료가 되면 status  200을 반환한다.")
 	void productUpdateTest() throws Exception {
+
+		doReturn(updateProduct().toEntity()).when(productService).update(updateProduct().toEntity());
 
 		mockMvc.perform(
 				patch("/products/" + 1)

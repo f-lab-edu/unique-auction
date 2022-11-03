@@ -4,7 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -111,15 +110,10 @@ class LoginControllerTest extends AbstractContainerBaseTest {
 	 *
 	 * @throws Exception
 	 */
-	@Disabled
 	@Test
 	void notFoundUser() throws Exception {
 
-		LoginRequest req = new LoginRequest("email@email.com", "12345678");
-
-		// doThrow(new CommonNotFoundException(ErrorCode.NOT_FOUND_USER))
-		// 	.when(loginService)
-		// 	.login(req);
+		LoginRequest req = new LoginRequest("email@email.com", "12341aA234");
 
 		mvc.perform(
 				post("/login")
