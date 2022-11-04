@@ -1,8 +1,10 @@
 drop table if exists trade;
+drop table if exists review;
 drop table if exists purchase;
 drop table if exists sale;
 drop table if exists user;
 drop table if exists product;
+
 
 create table product
 (
@@ -56,11 +58,25 @@ create table trade
 
 create table user
 (
-    id               bigint not null auto_increment,
+    user_id          bigint not null auto_increment,
     email            varchar(255),
     encoded_password varchar(255),
     phone            varchar(255),
     role             varchar(10),
     username         varchar(255),
-    primary key (id)
+    primary key (user_id)
+);
+
+
+create table review
+(
+    review_id   bigint not null auto_increment,
+    score       integer,
+    content     varchar(100),
+    user_id     bigint,
+    product_id  bigint,
+    primary key (review_id),
+    constraint FK_review_user foreign key (user_id) references user (user_id),
+    constraint FK_review_product foreign key (product_id) references product (product_id)
+
 );

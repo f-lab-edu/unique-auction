@@ -4,7 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,8 +17,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.AbstractContainerBaseTest;
-import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.UniqueAuctionApplication;
 import com.uniqueauction.exception.advice.CommonControllerAdvice;
 import com.uniqueauction.web.login.request.LoginRequest;
@@ -39,8 +36,7 @@ import com.uniqueauction.web.login.request.LoginRequest;
 @EnableAspectJAutoProxy
 @AutoConfigureMockMvc
 @SpringBootTest(classes = UniqueAuctionApplication.class)
-@TestContainerBase
-class LoginControllerTest extends AbstractContainerBaseTest {
+class LoginControllerTest {
 
 	private MockMvc mvc;
 
@@ -74,7 +70,7 @@ class LoginControllerTest extends AbstractContainerBaseTest {
 
 	}
 
-	// @Test
+	@Test
 	void passwordFieldNullTest() throws Exception {
 
 		LoginRequest req = new LoginRequest("email@email.com", "");
@@ -111,15 +107,10 @@ class LoginControllerTest extends AbstractContainerBaseTest {
 	 *
 	 * @throws Exception
 	 */
-	@Disabled
 	@Test
 	void notFoundUser() throws Exception {
 
-		LoginRequest req = new LoginRequest("email@email.com", "12345678");
-
-		// doThrow(new CommonNotFoundException(ErrorCode.NOT_FOUND_USER))
-		// 	.when(loginService)
-		// 	.login(req);
+		LoginRequest req = new LoginRequest("email@email.com", "12341aA234");
 
 		mvc.perform(
 				post("/login")

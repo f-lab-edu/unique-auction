@@ -35,6 +35,11 @@ public class UserService {
 		userRepository.save(user);
 	}
 
+	public User findById(Long userId) {
+		return userRepository.findById(userId)
+			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_USER));
+	}
+
 	private boolean existsByEmail(String email) {
 		return userRepository.existsByEmail(email);
 	}

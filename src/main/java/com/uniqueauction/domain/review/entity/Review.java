@@ -1,3 +1,22 @@
+package com.uniqueauction.domain.review.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.uniqueauction.domain.product.entity.Product;
+import com.uniqueauction.domain.user.entity.User;
+import com.uniqueauction.web.review.request.SaveReviewRequest;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 @ToString
 @Getter
 @Entity

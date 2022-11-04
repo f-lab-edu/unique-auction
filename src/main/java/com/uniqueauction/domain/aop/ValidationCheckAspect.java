@@ -24,16 +24,18 @@ public class ValidationCheckAspect {
 	private static final String REQUIRED_FIELD_MESSAGE = " 필드는 필수값 입니다.";
 
 	@Around("execution(* com.uniqueauction.web..*Controller.*(..))")
-	public void checkValidation(ProceedingJoinPoint proceedingJoinPoint) {
+	public Object checkValidation(ProceedingJoinPoint joinPoint) throws Throwable {
 
 		log.info("Validation Aop Start");
-		Object[] args = proceedingJoinPoint.getArgs();
+		Object[] args = joinPoint.getArgs();
 
 		for (Object arg : args) {
 			if (arg instanceof BindingResult) {
 				checkError((BindingResult)arg);
 			}
 		}
+		return joinPoint.proceed(args);
+
 	}
 
 	private void checkError(BindingResult result) {

@@ -34,10 +34,10 @@ public class ProductController {
 		return CommonResponse.success(product);
 	}
 
-	@GetMapping("/products/search/{searProduct}")
+	@GetMapping("/products/search/{search}")
 	@ResponseStatus(HttpStatus.OK)
-	public CommonResponse selectProducts(@PathVariable String searProduct) {
-		return CommonResponse.success(productService.findByNameOrModelNumber(searProduct));
+	public CommonResponse selectProducts(@PathVariable String search) {
+		return CommonResponse.success(productService.findByNameOrModelNumber(search));
 	}
 
 	@PostMapping("/products")
@@ -63,9 +63,7 @@ public class ProductController {
 	@DeleteMapping("/products/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse deleteProduct(@PathVariable Long id) {
-
 		productService.delete(id);
-
 		return CommonResponse.success();
 	}
 
