@@ -60,7 +60,7 @@ create table user
     email            varchar(255),
     encoded_password varchar(255),
     phone            varchar(255),
-    role             integer,
+    role             varchar(10),
     username         varchar(255),
     primary key (id)
 );
