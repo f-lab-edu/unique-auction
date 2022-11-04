@@ -2,8 +2,8 @@
 name: Bug report
 about: 의도하지 않은 동작을 하는경우 등록합니다
 title: "[BUG] "
-labels: bug
-assignees: f-lab-lion
+labels: bug, feature
+assignees: ''
 
 ---
 
