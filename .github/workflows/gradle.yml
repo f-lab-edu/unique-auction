@@ -11,7 +11,7 @@ on:
   push:
     branches: [ "develop" ,"master" ]
   pull_request:
-    branches: [ * ]
+    branches: [ '*' ]
 jobs:
   # 체크아웃 / 버전 설정
   setUp:
