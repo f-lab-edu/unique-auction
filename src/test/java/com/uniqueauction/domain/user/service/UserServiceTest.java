@@ -1,7 +1,6 @@
 package com.uniqueauction.domain.user.service;
 
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,7 +11,7 @@ class UserServiceTest {
 	UserService userService;
 
 	@Disabled
-	@Test
+		// @Test
 	void userJoinTest() {
 
 		/*

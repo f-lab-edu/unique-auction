@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -51,7 +50,7 @@ class ProductServiceTest {
 	}
 
 	@Disabled
-	@Test
+		// @Test
 	void productSaveTest() {
 
 		//given
@@ -59,9 +58,6 @@ class ProductServiceTest {
 
 		//when
 		Long save = productService.save(saveProduct);
-
-		System.out.println("@@");
-		System.out.println(save);
 
 		assertThat(1L).isEqualTo(save);
 		//then
@@ -71,7 +67,7 @@ class ProductServiceTest {
 	}
 
 	@Disabled
-	@Test
+		// @Test
 	void productDetailSelectTest() {
 
 		Long pId = 1L;
@@ -91,7 +87,7 @@ class ProductServiceTest {
 	}
 
 	@Disabled
-	@Test
+		// @Test
 	void productUpdateTest() {
 
 		Long pId = 1L;
@@ -112,7 +108,7 @@ class ProductServiceTest {
 	}
 
 	@Disabled
-	@Test
+		// @Test
 	void productDeleteTest() {
 
 		//given

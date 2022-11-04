@@ -18,8 +18,6 @@ public class UserHandler {
 	public void findUser(UserEvent foundUserEvent) {
 		User findUser = userService.findById(foundUserEvent.getUserId());
 		foundUserEvent.setUser(findUser);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@");
-		System.out.println(foundUserEvent.getUser().getId());
 	}
 
 }

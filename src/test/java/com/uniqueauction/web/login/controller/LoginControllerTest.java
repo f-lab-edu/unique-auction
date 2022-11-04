@@ -70,7 +70,7 @@ class LoginControllerTest {
 
 	}
 
-	// @Test
+	@Test
 	void passwordFieldNullTest() throws Exception {
 
 		LoginRequest req = new LoginRequest("email@email.com", "");
