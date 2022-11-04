@@ -18,7 +18,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.uniqueauction.AbstractContainerBaseTest;
-import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.login.service.LoginService;
 import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.repository.UserRepository;
@@ -28,7 +27,6 @@ import com.uniqueauction.web.login.request.LoginRequest;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestContainerBase
 public class LoginServiceTest extends AbstractContainerBaseTest {
 
 	@Spy

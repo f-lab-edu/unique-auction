@@ -17,8 +17,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.AbstractContainerBaseTest;
-import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.UniqueAuctionApplication;
 import com.uniqueauction.exception.advice.CommonControllerAdvice;
 import com.uniqueauction.web.login.request.LoginRequest;
@@ -38,8 +36,7 @@ import com.uniqueauction.web.login.request.LoginRequest;
 @EnableAspectJAutoProxy
 @AutoConfigureMockMvc
 @SpringBootTest(classes = UniqueAuctionApplication.class)
-@TestContainerBase
-class LoginControllerTest extends AbstractContainerBaseTest {
+class LoginControllerTest {
 
 	private MockMvc mvc;
 
