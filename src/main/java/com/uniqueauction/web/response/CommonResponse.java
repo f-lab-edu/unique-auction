@@ -14,7 +14,7 @@ public class CommonResponse<T> {
 	private T data;
 	private ErrorResponse error;
 
-	public static<T> CommonResponse<T> success() {
+	public static <T> CommonResponse<T> success() {
 		return new CommonResponse<>(true, null, null);
 	}
 
@@ -22,7 +22,7 @@ public class CommonResponse<T> {
 		return new CommonResponse<>(true, data, null);
 	}
 
-	public static<T> CommonResponse<T> fail(ErrorResponse errorResponse) {
+	public static <T> CommonResponse<T> fail(ErrorResponse errorResponse) {
 		return new CommonResponse<>(false, null, errorResponse);
 	}
 }
