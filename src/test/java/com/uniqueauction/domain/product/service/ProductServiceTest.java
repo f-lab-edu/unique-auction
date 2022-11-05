@@ -6,15 +6,19 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Spy;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.uniqueauction.AbstractContainerBaseTest;
+import com.uniqueauction.TestContainerBase;
+import com.uniqueauction.UniqueAuctionApplication;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
 import com.uniqueauction.exception.advice.CommonNotFoundException;
@@ -29,10 +33,12 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
  * @Spy: Stub하지 않은 메소드들은 원본 메소드 그대로 사용하는 어노테이션
  * @InjectMocks: @Mock 또는 @Spy로 생성된 가짜 객체를 자동으로 주입시켜주는 어노테이션
  */
-@ExtendWith(MockitoExtension.class)
-@SpringBootTest
-class ProductServiceTest {
+@AutoConfigureMockMvc
+@SpringBootTest(classes = UniqueAuctionApplication.class)
+@TestContainerBase
+class ProductServiceTest extends AbstractContainerBaseTest {
 
+	@Spy
 	@InjectMocks
 	private ProductService productService;
 
@@ -49,12 +55,11 @@ class ProductServiceTest {
 		updateProduct = getUpdateProduct(pId);
 	}
 
-	@Disabled
-		// @Test
+	@Test
 	void productSaveTest() {
 
 		//given
-		lenient().doReturn(any(Product.class)).when(productRepository).save(any(Product.class));
+		doReturn(1L).when(productService).save(saveProduct);
 
 		//when
 		Long save = productService.save(saveProduct);
@@ -66,14 +71,13 @@ class ProductServiceTest {
 
 	}
 
-	@Disabled
-		// @Test
+	@Test
 	void productDetailSelectTest() {
 
 		Long pId = 1L;
 
 		//given
-		doReturn(any(Product.class)).when(productRepository).findById(pId);
+		doReturn(Optional.of(getSaveProduct())).when(productRepository).findById(pId);
 		//when
 
 		Product product = productService.findById(pId);
@@ -86,15 +90,13 @@ class ProductServiceTest {
 
 	}
 
-	@Disabled
-		// @Test
+	@Test
 	void productUpdateTest() {
 
 		Long pId = 1L;
 
 		//given
-		doReturn(any(Product.class)).when(productRepository).findById(pId);
-		doReturn(updateProduct).when(productRepository).save(updateProduct);
+		doReturn(updateProduct).when(productService).update(updateProduct);
 		//when
 
 		Product product = productService.update(updateProduct);
@@ -107,8 +109,7 @@ class ProductServiceTest {
 		verify(productService).update(updateProduct);
 	}
 
-	@Disabled
-		// @Test
+	@Test
 	void productDeleteTest() {
 
 		//given

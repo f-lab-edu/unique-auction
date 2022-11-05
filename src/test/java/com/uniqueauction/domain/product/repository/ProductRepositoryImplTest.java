@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
@@ -17,6 +18,7 @@ import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
+@SpringBootTest
 @TestContainerBase
 class ProductRepositoryImplTest extends AbstractContainerBaseTest {
 
@@ -62,7 +64,7 @@ class ProductRepositoryImplTest extends AbstractContainerBaseTest {
 	void productUpdateTest() {
 		product = getUpdateReq(pId).toEntity();
 		//when
-		productRepository.save(product);
+		productService.update(getUpdateReq(pId).toEntity());
 		Optional<Product> update = productRepository.findById(pId);
 		//then
 		assertThat(update.get().getModelNumber()).isEqualTo("457");
