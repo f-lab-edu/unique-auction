@@ -17,7 +17,6 @@ public abstract class AbstractContainerBaseTest {
 			.withExposedPorts(6379)
 			.withReuse(true);
 		REDIS_CONTAINER.start();
-		
 		MY_SQL_CONTAINER = new MySQLContainer<>(MYSQL_IMAGE).withReuse(true);
 		MY_SQL_CONTAINER.start();
 	}
