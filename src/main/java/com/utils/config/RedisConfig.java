@@ -10,7 +10,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @Configuration
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 6000) /* 세션 만료 시간 : 60초 */
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 6000) /* 세션 만료 시간 : 60초 설정*/
 public class RedisConfig {
 
 	@Value("${spring.redis.host}")
