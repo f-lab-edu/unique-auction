@@ -4,8 +4,12 @@ import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.uniqueauction.AbstractContainerBaseTest;
+import com.uniqueauction.TestContainerBase;
+
 @SpringBootTest
-class UserServiceTest {
+@TestContainerBase
+class UserServiceTest extends AbstractContainerBaseTest {
 
 	@Autowired
 	UserService userService;
