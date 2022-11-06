@@ -5,7 +5,6 @@ drop table if exists sale;
 drop table if exists user;
 drop table if exists product;
 
-
 create table product
 (
     product_id          bigint not null auto_increment,
@@ -30,13 +29,13 @@ create table purchase
     shipping_address    varchar(255),
     trade_status        integer,
     user_id             bigint,
-    id                  bigint,
+    product_id          bigint,
     created_by          varchar(255),
     created_date        timestamp,
     last_modified_by    varchar(255),
     last_modified_date  timestamp,
     primary key (purchase_id),
-    constraint FK_purchase_product foreign key (id) references product (product_id)
+    constraint FK_purchase_product foreign key (product_id) references product (product_id)
 );
 
 create table sale
@@ -47,13 +46,13 @@ create table sale
     return_address      varchar(255),
     trade_status        integer,
     user_id             bigint,
-    id                  bigint,
+    product_id          bigint,
     created_by          varchar(255),
     created_date        timestamp,
     last_modified_by    varchar(255),
     last_modified_date  timestamp,
     primary key (sale_id),
-    constraint FK_sale_product foreign key (id) references product (product_id)
+    constraint FK_sale_product foreign key (product_id) references product (product_id)
 );
 
 create table trade
@@ -74,7 +73,7 @@ create table trade
 
 create table user
 (
-    id                  bigint not null auto_increment,
+    user_id             bigint not null auto_increment,
     email               varchar(255),
     encoded_password    varchar(255),
     phone               varchar(255),
@@ -84,10 +83,8 @@ create table user
     created_date        timestamp,
     last_modified_by    varchar(255),
     last_modified_date  timestamp,
-    primary key (id)
+    primary key (user_id)
 );
-
-
 
 create table review
 (
@@ -96,19 +93,12 @@ create table review
     content     varchar(100),
     user_id     bigint,
     product_id  bigint,
-    primary key (review_id),
-    constraint FK_review_user foreign key (user_id) references user (user_id),
-    constraint FK_review_product foreign key (product_id) references product (product_id)
-
-    id                  bigint not null auto_increment,
-    email               varchar(255),
-    encoded_password    varchar(255),
-    phone               varchar(255),
-    role                varchar(10),
-    username            varchar(255),
     created_by          varchar(255),
     created_date        timestamp,
     last_modified_by    varchar(255),
     last_modified_date  timestamp,
-    primary key (id)
+    primary key (review_id),
+    constraint FK_review_user foreign key (user_id) references user (user_id),
+    constraint FK_review_product foreign key (product_id) references product (product_id)
+
 );
