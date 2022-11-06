@@ -13,12 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
-import com.uniqueauction.UniqueAuctionApplication;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
 import com.uniqueauction.exception.advice.CommonNotFoundException;
@@ -33,8 +30,6 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
  * @Spy: Stub하지 않은 메소드들은 원본 메소드 그대로 사용하는 어노테이션
  * @InjectMocks: @Mock 또는 @Spy로 생성된 가짜 객체를 자동으로 주입시켜주는 어노테이션
  */
-@AutoConfigureMockMvc
-@SpringBootTest(classes = UniqueAuctionApplication.class)
 @TestContainerBase
 class ProductServiceTest extends AbstractContainerBaseTest {
 

@@ -15,8 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
@@ -27,8 +25,6 @@ import com.uniqueauction.domain.user.service.EncryptService;
 import com.uniqueauction.exception.advice.CommonNotFoundException;
 import com.uniqueauction.web.login.request.LoginRequest;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 @TestContainerBase
 public class LoginServiceTest extends AbstractContainerBaseTest {
 
