@@ -5,11 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -19,7 +15,6 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
-import com.uniqueauction.UniqueAuctionApplication;
 import com.uniqueauction.exception.advice.CommonControllerAdvice;
 import com.uniqueauction.web.login.request.LoginRequest;
 
@@ -34,10 +29,6 @@ import com.uniqueauction.web.login.request.LoginRequest;
  * ex) String text = mapper.WriteValueAsString(car); //{"name":"K5","color":"gray"}
  * Car carObject = mapper.readValue(text, Car.class); //Car{name='k5',color='gary
  */
-@EnableAutoConfiguration
-@EnableAspectJAutoProxy
-@AutoConfigureMockMvc
-@SpringBootTest(classes = UniqueAuctionApplication.class)
 @TestContainerBase
 class LoginControllerTest extends AbstractContainerBaseTest {
 
