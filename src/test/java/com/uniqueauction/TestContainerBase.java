@@ -26,5 +26,4 @@ import org.springframework.test.context.ActiveProfiles;
 @EnableAspectJAutoProxy
 @SpringBootTest
 public @interface TestContainerBase {
-
 }

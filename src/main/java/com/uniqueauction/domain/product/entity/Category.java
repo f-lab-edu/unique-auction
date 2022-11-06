@@ -13,8 +13,7 @@ public enum Category {
 	SHOES,
 	CLOTHES,
 	FASHIONETC,
-	ELECTRONIC,
-	;
+	ELECTRONIC;
 
 	@JsonCreator
 	public static Category setValue(String key) {
