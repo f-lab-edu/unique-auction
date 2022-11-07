@@ -6,12 +6,13 @@ import com.uniqueauction.domain.user.entity.User;
 import com.utils.annotation.RegExp;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 @AllArgsConstructor
 public class UpdateUserRequest {
-	private Long userId;
 
 	@RegExp(regExpCode = EMAIL)
 	private String email;
@@ -25,13 +26,13 @@ public class UpdateUserRequest {
 	@RegExp(regExpCode = PHONE)
 	private String phone;
 
-	public User toEntity(UpdateUserRequest updateUserRequest) {
+	public User toEntity() {
 
 		return User.builder()
-			.email(updateUserRequest.getEmail())
-			.username(updateUserRequest.getUsername())
-			.encodedPassword(updateUserRequest.getPassword())
-			.phone(updateUserRequest.getPhone())
+			.email(this.getEmail())
+			.username(this.getUsername())
+			.encodedPassword(this.getPassword())
+			.phone(this.getPhone())
 			.build();
 	}
 

@@ -7,12 +7,13 @@ import com.uniqueauction.domain.user.entity.User;
 import com.utils.annotation.RegExp;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 @AllArgsConstructor
 public class JoinRequest {
-	private Long userId;
 	private Boolean isAdmin;
 
 	@RegExp(regExpCode = EMAIL)
@@ -26,10 +27,6 @@ public class JoinRequest {
 
 	@RegExp(regExpCode = PHONE)
 	private String phone;
-
-	public JoinRequest() {
-		this.isAdmin = false;
-	}
 
 	public User convert(JoinRequest joinRequest) {
 

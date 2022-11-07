@@ -5,6 +5,7 @@ import static com.uniqueauction.exception.ErrorCode.*;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
@@ -28,6 +29,7 @@ public class SaleService {
 	private final SaleRepository saleRepository;
 	private final TradeRepository tradeRepository;
 
+	@Transactional
 	public void saveSale(SaleRequest saleRequest) {
 		/* sale 등록을 위한 product 조회 */
 		Optional<Product> product = Optional.ofNullable(productRepository.findById(saleRequest.getProductId())
