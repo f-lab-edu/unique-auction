@@ -1,55 +1,37 @@
 package com.uniqueauction.web.product.controller;
 
 import static com.uniqueauction.domain.product.entity.Category.*;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
-import com.uniqueauction.exception.advice.CommonControllerAdvice;
+import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
-@EnableAspectJAutoProxy
-@AutoConfigureMockMvc
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
 @TestContainerBase
 class ProductControllerTest extends AbstractContainerBaseTest {
 
+	@Autowired
 	private MockMvc mockMvc;
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
-	@Autowired
-	ProductController productController;
-
-	@BeforeEach
-	public void setup() {
-
-		mockMvc =
-			MockMvcBuilders.standaloneSetup(productController)
-				.setControllerAdvice(new CommonControllerAdvice())
-				.addFilters(new CharacterEncodingFilter("UTF-8", true))
-				.build();
-
-	}
+	@MockBean
+	private ProductService productService;
 
 	@Test
 	@DisplayName("상품 저장 완료가 되면 status  200을 반환한다.")
@@ -69,6 +51,8 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 	@Test
 	@DisplayName("상품 수정  완료가 되면 status  200을 반환한다.")
 	void productUpdateTest() throws Exception {
+
+		doReturn(updateProduct().toEntity()).when(productService).update(updateProduct().toEntity());
 
 		mockMvc.perform(
 				patch("/products/" + 1)
@@ -110,7 +94,6 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 
 	}
 
-	@Disabled
 	@Test
 	@DisplayName("필드가 비어 있으면 예외를 반환한다")
 	void fieldNullCheck() throws Exception {

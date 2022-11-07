@@ -11,11 +11,10 @@ import javax.servlet.http.HttpSession;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
@@ -26,8 +25,6 @@ import com.uniqueauction.domain.user.service.EncryptService;
 import com.uniqueauction.exception.advice.CommonNotFoundException;
 import com.uniqueauction.web.login.request.LoginRequest;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 @TestContainerBase
 public class LoginServiceTest extends AbstractContainerBaseTest {
 
@@ -49,7 +46,7 @@ public class LoginServiceTest extends AbstractContainerBaseTest {
 		session = mock(HttpSession.class);
 	}
 
-	// @Test
+	@Test
 	@DisplayName("로그인 성공시 예외가발생하지 않는다")
 	void loginServiceSuccess() {
 
@@ -60,7 +57,7 @@ public class LoginServiceTest extends AbstractContainerBaseTest {
 
 	}
 
-	// @Test
+	@Test
 	@DisplayName("로그인 실패시(계정이없는경우) 예외 출력")
 	void loginServiceFail() {
 

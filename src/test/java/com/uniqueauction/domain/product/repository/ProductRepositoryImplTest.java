@@ -7,12 +7,8 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
@@ -21,8 +17,6 @@ import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
-@TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
-@SpringBootTest
 @TestContainerBase
 class ProductRepositoryImplTest extends AbstractContainerBaseTest {
 
@@ -48,14 +42,12 @@ class ProductRepositoryImplTest extends AbstractContainerBaseTest {
 	}
 
 	@Test
-	@Order(1)
 	void productSaveTest() {
 		//then
 		assertThat(pId).isEqualTo(1L);
 	}
 
 	@Test
-	@Order(2)
 	void productSelectTest() {
 
 		//when
@@ -67,7 +59,6 @@ class ProductRepositoryImplTest extends AbstractContainerBaseTest {
 	}
 
 	@Test
-	@Order(3)
 	void productUpdateTest() {
 		product = getUpdateReq(pId).toEntity();
 		//when
@@ -78,7 +69,6 @@ class ProductRepositoryImplTest extends AbstractContainerBaseTest {
 	}
 
 	@Test
-	@Order(4)
 	void productDeleteTest() {
 
 		Optional<Product> result = productRepository.findById(pId);

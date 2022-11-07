@@ -40,7 +40,9 @@ public class ProductService {
 	@Transactional
 	public void delete(Long id) {
 		Optional<Product> product = productRepository.findById(id);
-		productRepository.delete(product.get());
+		product.ifPresent(
+			productRepository::delete
+		);
 	}
 
 	@Transactional(readOnly = true)

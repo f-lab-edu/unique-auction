@@ -1,13 +1,8 @@
 package com.uniqueauction.web.user.controller;
 
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 @TestContainerBase
 class UserControllerTest extends AbstractContainerBaseTest {
 /*
