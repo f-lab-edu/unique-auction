@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,6 +31,8 @@ import com.uniqueauction.web.login.request.LoginRequest;
  * ex) String text = mapper.WriteValueAsString(car); //{"name":"K5","color":"gray"}
  * Car carObject = mapper.readValue(text, Car.class); //Car{name='k5',color='gary
  */
+@EnableAutoConfiguration
+
 @TestContainerBase
 class LoginControllerTest extends AbstractContainerBaseTest {
 
