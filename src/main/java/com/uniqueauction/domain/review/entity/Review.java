@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.uniqueauction.domain.base.BaseEntity;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
@@ -21,7 +22,7 @@ import lombok.ToString;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Review {
+public class Review extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

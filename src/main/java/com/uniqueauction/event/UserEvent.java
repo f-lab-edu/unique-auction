@@ -22,8 +22,4 @@ public class UserEvent {
 	public static UserEvent of(Long userId) {
 		return new UserEvent(userId);
 	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 }
