@@ -25,16 +25,15 @@ public class UserController {
 	@PostMapping("/users")
 	@ResponseStatus(HttpStatus.CREATED)
 	public CommonResponse joinUser(@RequestBody @Validated JoinRequest joinRequest, BindingResult result) {
-
 		userService.join(joinRequest);
 		return CommonResponse.success();
 	}
 
-	@PatchMapping("/users")
+	@PatchMapping("/users/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse updateUser(@RequestBody @Validated UpdateUserRequest updateUserRequest,
 		BindingResult result) {
-		// userService.update(updateUserRequest);
+		userService.update(updateUserRequest);
 		return CommonResponse.success();
 	}
 }

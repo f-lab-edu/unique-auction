@@ -9,7 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -21,7 +20,6 @@ import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
-
 
 @ExtendWith(SpringExtension.class)
 @TestContainerBase
