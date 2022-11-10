@@ -83,7 +83,8 @@ create table user
     created_date        timestamp,
     last_modified_by    varchar(255),
     last_modified_date  timestamp,
-    primary key (user_id)
+    primary key (user_id),
+    UNIQUE KEY uk_email (email)
 );
 
 create table review

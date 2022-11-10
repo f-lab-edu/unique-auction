@@ -20,6 +20,8 @@ import lombok.Setter;
  *  Enum 타입 일경우
  *  @Enumerated(EnumType.STRING) 선언하지 않으면 enum필드 순서가 들어가는 인트값이 들어간다.
  *  원하는 값을 넣어주기위해 설정을 넣어준다.
+ *  유니크키 제약 : 커밋되는 시점에 유니크 조건이 만족하지 않으면 DataIntegrityViolationException 발생
+ *  동시성 이슈를 위해 설정해 놓았다.
  */
 @Getter
 @Entity
@@ -27,6 +29,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends BaseEntity {
+
+	@Column(unique = true)
 	private String email;
 	private String username;
 	private String phone;
