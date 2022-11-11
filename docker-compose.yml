@@ -1,7 +1,7 @@
 version: "3.0"
 services:
   docker-mysql:
-    image: mysql:8.0.31
+    image: mysql
     container_name: unique-docker-mysql
     volumes:
       - ./mysql-init-files/:/docker-entrypoint-initdb.d/
@@ -10,11 +10,11 @@ services:
       MYSQL_ROOT_PASSWORD: 12345678
       TZ: Asia/Seoul
     ports:
-      - "3309:3309"
+      - "13309:3306"
 
   
   docker-redis:
     image: redis:latest
     container_name: unique-docker-redis
     ports:
-      - "6377:6377"
+      - "16379:6379"
