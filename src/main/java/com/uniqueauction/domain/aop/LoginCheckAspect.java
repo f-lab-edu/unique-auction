@@ -35,10 +35,6 @@ public class LoginCheckAspect {
 		HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest()
 			.getSession();
 
-		System.out.println("seseionAP:" + session.getAttribute("MEMBER_USER"));
-
-		log.info("Login Checker AOP Start");
-
 		String id = null;
 
 		String userType = loginCheck.type().toString();
@@ -58,7 +54,6 @@ public class LoginCheckAspect {
 
 	private void compareId(String id, Object[] modifiedArgs) {
 		if (!modifiedArgs[ID_INDEX].equals(id)) {
-			System.out.println("id222" + id);
 			throw new CommonException(UN_AUTHORIZED);
 		}
 	}
