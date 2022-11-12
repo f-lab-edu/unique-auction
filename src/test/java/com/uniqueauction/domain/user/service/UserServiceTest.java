@@ -7,7 +7,7 @@ import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
 
 @TestContainerBase
-class UserServiceTest extends AbstractContainerBaseTest {
+class UserServiceTest {
 
 	@Autowired
 	UserService userService;

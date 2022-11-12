@@ -23,7 +23,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
 @ExtendWith(SpringExtension.class)
 @TestContainerBase
-class ProductControllerTest extends AbstractContainerBaseTest {
+class ProductControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;

@@ -31,7 +31,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
  * @InjectMocks: @Mock 또는 @Spy로 생성된 가짜 객체를 자동으로 주입시켜주는 어노테이션
  */
 @TestContainerBase
-class ProductServiceTest extends AbstractContainerBaseTest {
+class ProductServiceTest {
 
 	@Spy
 	@InjectMocks

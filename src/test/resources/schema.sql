@@ -17,7 +17,7 @@ create table product
     created_by          varchar(255),
     created_date        timestamp,
     last_modified_by    varchar(255),
-    last_modified_date  timestamp,
+    last_modified_date  timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (product_id)
 );
 
@@ -31,9 +31,9 @@ create table purchase
     user_id             bigint,
     product_id          bigint,
     created_by          varchar(255),
-    created_date        timestamp,
+    created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     last_modified_by    varchar(255),
-    last_modified_date  timestamp,
+    last_modified_date  timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (purchase_id),
     constraint FK_purchase_product foreign key (product_id) references product (product_id)
 );
@@ -48,9 +48,9 @@ create table sale
     user_id             bigint,
     product_id          bigint,
     created_by          varchar(255),
-    created_date        timestamp,
+    created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     last_modified_by    varchar(255),
-    last_modified_date  timestamp,
+    last_modified_date  timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (sale_id),
     constraint FK_sale_product foreign key (product_id) references product (product_id)
 );
@@ -62,9 +62,9 @@ create table trade
     purchase_id         bigint,
     sale_id             bigint,
     created_by          varchar(255),
-    created_date        timestamp,
+    created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     last_modified_by    varchar(255),
-    last_modified_date  timestamp,
+    last_modified_date  timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (id),
     constraint FK_trade_purchase foreign key (purchase_id) references purchase (purchase_id),
     constraint FK_trade_sale foreign key (sale_id) references sale (sale_id)
@@ -80,9 +80,9 @@ create table user
     role                varchar(10),
     username            varchar(255),
     created_by          varchar(255),
-    created_date        timestamp,
+    created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     last_modified_by    varchar(255),
-    last_modified_date  timestamp,
+    last_modified_date  timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (user_id)
 );
 
@@ -94,9 +94,9 @@ create table review
     user_id     bigint,
     product_id  bigint,
     created_by          varchar(255),
-    created_date        timestamp,
+    created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     last_modified_by    varchar(255),
-    last_modified_date  timestamp,
+    last_modified_date  timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (review_id),
     constraint FK_review_user foreign key (user_id) references user (user_id),
     constraint FK_review_product foreign key (product_id) references product (product_id)
