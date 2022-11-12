@@ -1,5 +1,8 @@
 package com.uniqueauction.exception.advice;
 
+import static com.uniqueauction.exception.ErrorCode.*;
+
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -34,5 +37,12 @@ public class CommonControllerAdvice {
 	public CommonResponse commonValidatedExHandler(CommonValidationException ex) {
 		log.error("[exceptionHandler] ex", ex);
 		return CommonResponse.fail(ErrorResponse.of(ex.getError()));
+	}
+
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public CommonResponse commonValidatedExHandler(DataIntegrityViolationException ex) {
+		log.error("[exceptionHandler] ex", ex);
+		return CommonResponse.fail(ErrorResponse.of(DUPLICATE_USER));
 	}
 }
