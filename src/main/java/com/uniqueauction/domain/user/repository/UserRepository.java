@@ -8,4 +8,6 @@ import com.uniqueauction.domain.user.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	boolean existsByEmail(String email);
+
+	User findByEmailAndEncodedPassword(String email, String encrypt);
 }
