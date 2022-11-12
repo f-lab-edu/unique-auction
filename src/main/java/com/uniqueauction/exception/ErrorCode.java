@@ -16,7 +16,9 @@ public enum ErrorCode {
 	NOT_FOUND_PRODUCT("not_found_product", "등록되지 않은 상품입니다."),
 	NOT_FOUND_IMAGE("not_found_image", "이미지를 찾을 수 없습니다."),
 	DUPLICATE_PURCHASE("duplicate_purchase", "이미 존재하는 구매요청입니다."),
-	DUPLICATE_SALE("duplicate_sale", "이미 존재하는 판매요청입니다.");
+	DUPLICATE_SALE("duplicate_sale", "이미 존재하는 판매요청입니다."),
+
+	UN_AUTHORIZED("UNAUTHORIZED", "권한이 없습니다.");
 
 	private final String code;
 	private String message;
