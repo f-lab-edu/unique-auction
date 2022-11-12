@@ -4,6 +4,6 @@ spring:
     url: jdbc:tc:mysql:8:///UA?TC_INITSCRIPT=file:src/test/resources/schema.sql
 
   redis:
-    #    host: docker-redis
-    host: localhost
-    port: 6379
+    host: 118.67.132.139
+    port: 16379
+    password: 12345678
