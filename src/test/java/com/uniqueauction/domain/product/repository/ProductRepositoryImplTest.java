@@ -18,7 +18,7 @@ import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
 @TestContainerBase
-class ProductRepositoryImplTest extends AbstractContainerBaseTest {
+class ProductRepositoryImplTest {
 
 	@Autowired
 	private ProductRepository productRepository;

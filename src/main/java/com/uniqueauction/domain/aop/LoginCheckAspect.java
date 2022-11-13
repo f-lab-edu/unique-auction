@@ -1,61 +1,49 @@
 package com.uniqueauction.domain.aop;
 
-import static com.uniqueauction.exception.ErrorCode.*;
-
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.uniqueauction.exception.advice.CommonException;
 import com.utils.SessionUtil;
 
 import lombok.extern.log4j.Log4j2;
 
-/**
- * 현재 로그인한 아이디를 체크해주는 AOP
- * 현재 로그인한 아이디와 다른 아이디가 들어오면
- * 세션에서 아이디 확인후 불일치시 권한 없음을 내보내준다.
- * 컨트롤러 메서드에  맨 첫번째 파라미터를 로그인 id 를 pathvariable로 지정해 준다.
- */
-
 @Component
 @Aspect
+@Order(Ordered.LOWEST_PRECEDENCE)
 @Log4j2
 public class LoginCheckAspect {
 
-	private static final int ID_INDEX = 0;
-
 	@Around("@annotation(com.uniqueauction.domain.aop.LoginCheck) && @ annotation(loginCheck)")
-	public Object adminLoginCheck(ProceedingJoinPoint pjt, LoginCheck loginCheck) throws Throwable {
+	public Object adminLoginCheck(ProceedingJoinPoint proceedingJoinPoint, LoginCheck loginCheck) throws Throwable {
 		HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest()
 			.getSession();
 
 		String id = null;
+		int idIndex = 0;
 
 		String userType = loginCheck.type().toString();
 
 		id = roleCheck(session, userType);
 
-		nullCheck(id);
+		nullCheck(proceedingJoinPoint, id);
 
-		Object[] modifiedArgs = pjt.getArgs();
+		Object[] modifiedArgs = proceedingJoinPoint.getArgs();
 
-		if (modifiedArgs != null) {
-			compareId(id, modifiedArgs);
+		if (proceedingJoinPoint.getArgs() != null) {
+			modifiedArgs[idIndex] = id;
 		}
 
-		return pjt.proceed(modifiedArgs);
-	}
-
-	private void compareId(String id, Object[] modifiedArgs) {
-		if (!modifiedArgs[ID_INDEX].equals(id)) {
-			throw new CommonException(UN_AUTHORIZED);
-		}
+		return proceedingJoinPoint.proceed(modifiedArgs);
 	}
 
 	private String roleCheck(HttpSession session, String userType) {
@@ -75,9 +63,11 @@ public class LoginCheckAspect {
 		return id;
 	}
 
-	private void nullCheck(String id) {
+	private void nullCheck(ProceedingJoinPoint proceedingJoinPoint, String id) {
 		if (id == null) {
-			throw new CommonException(UN_AUTHORIZED);
+			log.debug(proceedingJoinPoint.toString() + "accountName :" + id);
+			throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "로그인한 id값을 확인해주세요.") {
+			};
 		}
 	}
 

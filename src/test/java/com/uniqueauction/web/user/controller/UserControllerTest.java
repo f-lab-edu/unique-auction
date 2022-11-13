@@ -1,10 +1,9 @@
 package com.uniqueauction.web.user.controller;
 
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,35 +19,14 @@ import com.uniqueauction.web.user.request.JoinRequest;
 import com.uniqueauction.web.user.request.UpdateUserRequest;
 
 @TestContainerBase
-class UserControllerTest extends AbstractContainerBaseTest {
-
-	private static final int USER_ID = 1;
+class UserControllerTest {
 
 	@MockBean
 	private UserService userService;
 	@Autowired
 	private MockMvc mockMvc;
 
-	// private MockHttpSession mockSession;
-	// private MockHttpServletRequest request;
-
 	ObjectMapper objectMapper = new ObjectMapper();
-
-	@BeforeEach
-	void setUp() {
-		// mockSession = new MockHttpSession();
-		// mockSession.setAttribute("MEMBER_USER", 1);
-		//
-		// request = new MockHttpServletRequest();
-		// request.setSession(mockSession);
-
-		// RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-	}
-
-	@AfterEach
-	void clean() {
-		// mockSession.clearAttributes();
-	}
 
 	@Test
 	@DisplayName("유저 생성이 되면 status 200을 반환한다.")
@@ -64,20 +42,21 @@ class UserControllerTest extends AbstractContainerBaseTest {
 
 	}
 
-	// @Test
-	// @DisplayName("유저 수정 완료가 되면 status 200을 반환한다.")
-	// void userUpdateTest() throws Exception {
-	//
-	// 	mockMvc.perform(
-	// 			patch("/users/" + USER_ID)
-	// 				.session(mockSession)
-	// 				.contentType(MediaType.APPLICATION_JSON)
-	// 				.accept(MediaType.APPLICATION_JSON)
-	// 				.characterEncoding("UTF-8")
-	// 				.content(objectMapper.writeValueAsString(updateUser())))
-	// 		.andExpect(status().isOk());
-	//
-	// }
+	@Test
+	@DisplayName("유저 수정 완료가 되면 status 200을 반환한다.")
+	void userUpdateTest() throws Exception {
+
+		doReturn(updateUser().toEntity()).when(userService).update(updateUser());
+
+		mockMvc.perform(
+				patch("/users/" + 1)
+					.contentType(MediaType.APPLICATION_JSON)
+					.accept(MediaType.APPLICATION_JSON)
+					.characterEncoding("UTF-8")
+					.content(objectMapper.writeValueAsString(updateUser())))
+			.andExpect(status().isOk());
+
+	}
 
 	private JoinRequest createUser() {
 		return JoinRequest.builder()

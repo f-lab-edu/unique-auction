@@ -26,7 +26,7 @@ import com.uniqueauction.exception.advice.CommonNotFoundException;
 import com.uniqueauction.web.login.request.LoginRequest;
 
 @TestContainerBase
-public class LoginServiceTest extends AbstractContainerBaseTest {
+public class LoginServiceTest {
 
 	@Spy
 	@InjectMocks
