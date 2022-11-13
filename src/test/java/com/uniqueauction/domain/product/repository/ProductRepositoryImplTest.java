@@ -20,7 +20,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
 @TestContainerBase
 @SpringBootTest
-class ProductRepositoryImplTest extends AbstractContainerBaseTest {
+class ProductRepositoryImplTest {
 
 	@Autowired
 	private ProductRepository productRepository;

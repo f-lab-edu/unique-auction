@@ -29,7 +29,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
 @EnableAutoConfiguration
 @AutoConfigureMockMvc
 @SpringBootTest
-class ProductControllerTest extends AbstractContainerBaseTest {
+class ProductControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;

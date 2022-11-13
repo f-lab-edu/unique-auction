@@ -9,7 +9,7 @@ import com.uniqueauction.TestContainerBase;
 
 @TestContainerBase
 @SpringBootTest
-class UserServiceTest extends AbstractContainerBaseTest {
+class UserServiceTest {
 
 	@Autowired
 	UserService userService;

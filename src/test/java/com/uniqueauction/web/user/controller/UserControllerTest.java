@@ -28,7 +28,7 @@ import com.uniqueauction.web.user.request.UpdateUserRequest;
 @EnableAutoConfiguration
 @AutoConfigureMockMvc
 @SpringBootTest
-class UserControllerTest extends AbstractContainerBaseTest {
+class UserControllerTest {
 
 	@MockBean
 	private UserService userService;

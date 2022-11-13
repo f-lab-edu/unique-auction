@@ -33,7 +33,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
  */
 @TestContainerBase
 @SpringBootTest
-class ProductServiceTest extends AbstractContainerBaseTest {
+class ProductServiceTest {
 
 	@Spy
 	@InjectMocks

@@ -28,7 +28,7 @@ import com.uniqueauction.web.login.request.LoginRequest;
 
 @TestContainerBase
 @ExtendWith(MockitoExtension.class) //  Mockito를 사용하려면 붙여줘야되 어느테이션
-public class LoginServiceTest extends AbstractContainerBaseTest {
+public class LoginServiceTest {
 
 	@Spy
 	@InjectMocks

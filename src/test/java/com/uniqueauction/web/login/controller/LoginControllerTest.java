@@ -36,7 +36,7 @@ import com.uniqueauction.web.login.request.LoginRequest;
 @AutoConfigureMockMvc
 @SpringBootTest
 @TestContainerBase
-class LoginControllerTest extends AbstractContainerBaseTest {
+class LoginControllerTest {
 
 	private MockMvc mvc;
 
