@@ -83,6 +83,8 @@ create table user
     created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     last_modified_by    varchar(255),
     last_modified_date  timestamp DEFAULT CURRENT_TIMESTAMP,
+    primary key (user_id),
+    UNIQUE KEY uk_email (email)
     primary key (user_id)
 );
 
