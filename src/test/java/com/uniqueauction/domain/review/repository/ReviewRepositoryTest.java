@@ -23,10 +23,6 @@ import com.uniqueauction.web.review.response.ReviewInfo;
 @TestContainerBase
 class ReviewRepositoryTest {
 
-	private static final Long commonId1 = 1L;
-	private static final Long commonId2 = 2L;
-	private static final Long commonId3 = 3L;
-
 	@Autowired
 	private ReviewRepository repository;
 
@@ -65,37 +61,34 @@ class ReviewRepositoryTest {
 
 		//then
 		assertThat(review.getContent()).isEqualTo("test");
-		assertThat(review.getProduct().getId()).isEqualTo(commonId1);
-		assertThat(review.getUser().getId()).isEqualTo(commonId1);
 	}
 
 	@Test
 	@Order(2)
 	@DisplayName("상품 아이디로 조회 테스트")
 	void findByProductIdTest() {
-
-		for (Review r : repository.findAll()) {
-			System.out.println("@@@@@");
-			System.out.println(r.toString());
-		}
+		//given
+		Review review = repository.findAll().get(0);
 		//when
-		ReviewInfo byProductId = repository.findByProductId(2L).get(0);
+		ReviewInfo byProductId = repository.findByProductId(review.getProduct().getId()).get(0);
 
 		//then
 		assertThat(byProductId.getContent()).isEqualTo("test");
-		assertThat(byProductId.getScore()).isEqualTo(3);
 	}
 
 	@Test
 	@Order(3)
 	@DisplayName("유저 아이디로 조회 테스트")
 	void findByUserIdTest() {
+
+		//given
+		Review review = repository.findAll().get(0);
+
 		//when
-		ReviewInfo byUserId = repository.findByUserId(3L).get(0);
+		ReviewInfo byUserId = repository.findByUserId(review.getUser().getId()).get(0);
 
 		//then
 		assertThat(byUserId.getContent()).isEqualTo("test");
-		assertThat(byUserId.getScore()).isEqualTo(3);
 	}
 
 	private User getUser() {
