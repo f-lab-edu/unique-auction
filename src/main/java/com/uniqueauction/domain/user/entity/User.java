@@ -12,15 +12,19 @@ import com.uniqueauction.domain.base.BaseEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  *  Enum 타입 일경우
  *  @Enumerated(EnumType.STRING) 선언하지 않으면 enum필드 순서가 들어가는 인트값이 들어간다.
  *  원하는 값을 넣어주기위해 설정을 넣어준다.
  */
+@EqualsAndHashCode
+@ToString
 @Getter
 @Entity
 @Builder

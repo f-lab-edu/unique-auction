@@ -9,9 +9,13 @@ import javax.persistence.Id;
 import com.uniqueauction.domain.base.BaseEntity;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@EqualsAndHashCode
+@ToString
 @Getter
 @NoArgsConstructor
 @Entity
