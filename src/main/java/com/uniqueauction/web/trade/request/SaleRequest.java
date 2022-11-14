@@ -1,18 +1,21 @@
 package com.uniqueauction.web.trade.request;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.uniqueauction.domain.trade.entity.Sale;
 
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 @Getter
 public class SaleRequest {
 
-	@NotBlank(message = "유저ID")
+	@NotNull(message = "유저ID")
 	private Long userId;
 
-	@NotBlank(message = "모델번호")
+	@NotNull(message = "모델번호")
 	private Long productId;
 
 	@NotBlank(message = "사이즈")
