@@ -14,10 +14,12 @@ import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@EqualsAndHashCode
 @ToString
 @Getter
 @Entity
