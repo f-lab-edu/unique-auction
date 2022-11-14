@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
@@ -31,6 +32,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
  * @InjectMocks: @Mock 또는 @Spy로 생성된 가짜 객체를 자동으로 주입시켜주는 어노테이션
  */
 @TestContainerBase
+@SpringBootTest
 class ProductServiceTest {
 
 	@Spy

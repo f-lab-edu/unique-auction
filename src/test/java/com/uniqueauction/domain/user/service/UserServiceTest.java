@@ -2,11 +2,13 @@ package com.uniqueauction.domain.user.service;
 
 import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
 
 @TestContainerBase
+@SpringBootTest
 class UserServiceTest {
 
 	@Autowired
