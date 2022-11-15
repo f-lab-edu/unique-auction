@@ -33,13 +33,14 @@ public class UserService {
 
 	@Transactional
 	public User update(UpdateUserRequest userRequest) {
-		User updateUser = userRequest.toEntity();
-		if (!existsByEmail(updateUser.getEmail())) {
-			updateUser = userRequest.toEntity();
-		} else {
-			throw new CommonException(NOT_FOUND_USER);
-		}
-		return userRepository.findById(userRepository.save(updateUser).getId()).get();
+
+		User byEmailUser = userRepository.findByEmail(userRequest.getEmail());
+
+		userRequest.encryptPassword(encryptService.encrypt(userRequest.getPassword()));
+
+		byEmailUser.update(userRequest);
+
+		return byEmailUser;
 	}
 
 	@Transactional(readOnly = true)
