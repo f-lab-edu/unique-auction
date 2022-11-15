@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.uniqueauction.domain.base.BaseEntity;
+import com.uniqueauction.web.user.request.UpdateUserRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +24,7 @@ import lombok.ToString;
  *  @Enumerated(EnumType.STRING) 선언하지 않으면 enum필드 순서가 들어가는 인트값이 들어간다.
  *  원하는 값을 넣어주기위해 설정을 넣어준다.
  */
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @Getter
 @Entity
@@ -31,6 +32,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends BaseEntity {
+
+	@Id
+	@Column(name = "user_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	private String email;
 	private String username;
 	private String phone;
@@ -39,10 +46,12 @@ public class User extends BaseEntity {
 	private Role role;
 
 	@Setter
-	@Id
-	@Column(name = "user_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Setter
 	private String encodedPassword;
+
+	public void update(UpdateUserRequest userRequest) {
+		this.email = userRequest.getEmail();
+		this.username = userRequest.getUsername();
+		this.phone = userRequest.getPhone();
+		this.encodedPassword = userRequest.getPassword();
+	}
 }
