@@ -33,7 +33,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
  */
 // @TestContainerBase
 @ExtendWith(MockitoExtension.class) // 클래스단에 해당 어노테이션을 달아, 클래스가 Mockito를 사용함을 명시적으로 알립니다.
-class ProductServiceTest extends AbstractContainerBaseTest {
+class ProductServiceTest {
 
 	@Spy
 	@InjectMocks

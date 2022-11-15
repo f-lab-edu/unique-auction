@@ -15,7 +15,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
@@ -23,7 +22,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
 @ExtendWith(SpringExtension.class)
 @TestContainerBase
-class ProductControllerTest extends AbstractContainerBaseTest {
+class ProductControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
