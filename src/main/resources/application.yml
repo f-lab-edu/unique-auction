@@ -2,19 +2,18 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # url: jdbc:mysql://docker-mysql:3306/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-    url: jdbc:mysql://localhost:3306/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
+    url: jdbc:mysql://118.67.132.139:13309/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: uauser
     password: 12345678
 
   jpa:
     show-sql: true
 
-
   redis:
     #    host: docker-redis
-    host: 127.0.0.1
-    port: 6379
-
+    host: 118.67.132.139
+    port: 16379
+    password: 12345678
 
   session:
     store-type: redis
