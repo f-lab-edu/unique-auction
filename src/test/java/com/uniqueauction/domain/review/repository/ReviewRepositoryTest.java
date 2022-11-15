@@ -10,7 +10,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
@@ -21,7 +23,8 @@ import com.uniqueauction.web.review.request.SaveReviewRequest;
 import com.uniqueauction.web.review.response.ReviewInfo;
 
 @TestContainerBase
-class ReviewRepositoryTest {
+@SpringBootTest
+class ReviewRepositoryTest extends AbstractContainerBaseTest {
 
 	@Autowired
 	private ReviewRepository repository;
@@ -40,7 +43,6 @@ class ReviewRepositoryTest {
 
 	@BeforeEach
 	void set() {
-		System.out.println("setUp");
 		user = userRepository.save(getUser());
 		product = productRepository.save(getProduct());
 		review = repository.save(Review.createReview(user, product, createSaveReviewsReq()));
@@ -48,7 +50,6 @@ class ReviewRepositoryTest {
 
 	@AfterEach
 	void clear() {
-		System.out.println("clear");
 		repository.deleteAll();
 		userRepository.deleteAll();
 		productRepository.deleteAll();
