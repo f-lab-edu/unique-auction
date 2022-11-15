@@ -4,10 +4,7 @@ import static com.uniqueauction.domain.product.entity.Category.*;
 import static com.uniqueauction.domain.user.entity.Role.*;
 import static org.assertj.core.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,55 +38,47 @@ class ReviewRepositoryTest extends AbstractContainerBaseTest {
 
 	Product product;
 
-	@BeforeEach
-	void set() {
-		user = userRepository.save(getUser());
-		product = productRepository.save(getProduct());
-		review = repository.save(Review.createReview(user, product, createSaveReviewsReq()));
-	}
-
-	@AfterEach
-	void clear() {
-		repository.deleteAll();
-		userRepository.deleteAll();
-		productRepository.deleteAll();
-	}
-
 	@Test
-	@Order(1)
 	@DisplayName("리뷰 저장 테스트")
 	void reviewSave() {
 
+		setUp();
+
 		//then
 		assertThat(review.getContent()).isEqualTo("test");
+
+		clear();
+
 	}
 
 	@Test
-	@Order(2)
 	@DisplayName("상품 아이디로 조회 테스트")
 	void findByProductIdTest() {
-		//given
-		Review review = repository.findAll().get(0);
+
+		setUp();
+
 		//when
 		ReviewInfo byProductId = repository.findByProductId(review.getProduct().getId()).get(0);
 
 		//then
 		assertThat(byProductId.getContent()).isEqualTo("test");
+
+		clear();
 	}
 
 	@Test
-	@Order(3)
 	@DisplayName("유저 아이디로 조회 테스트")
 	void findByUserIdTest() {
 
-		//given
-		Review review = repository.findAll().get(0);
+		setUp();
 
 		//when
 		ReviewInfo byUserId = repository.findByUserId(review.getUser().getId()).get(0);
 
 		//then
 		assertThat(byUserId.getContent()).isEqualTo("test");
+
+		clear();
 	}
 
 	private User getUser() {
@@ -123,4 +112,19 @@ class ReviewRepositoryTest extends AbstractContainerBaseTest {
 			.content("test")
 			.build();
 	}
+
+	private void setUp() {
+		System.out.println("setup");
+		user = userRepository.save(getUser());
+		product = productRepository.save(getProduct());
+		review = repository.save(Review.createReview(user, product, createSaveReviewsReq()));
+
+	}
+
+	private void clear() {
+		repository.delete(review);
+		userRepository.delete(user);
+		productRepository.delete(product);
+	}
+
 }

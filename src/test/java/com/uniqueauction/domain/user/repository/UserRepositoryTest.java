@@ -7,8 +7,6 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,32 +27,27 @@ class UserRepositoryTest {
 
 	User user;
 
-	@BeforeEach
-	void set() {
-		System.out.println("setUp");
-		user = userRepository.save(getUser());
-	}
-
-	@AfterEach
-	void clear() {
-		System.out.println("clear");
-		userRepository.deleteAll();
-	}
-
 	@Test
 	@DisplayName("유저 저장 테스트")
 	void userSave() {
+
+		setUp();
 		//then
 		assertThat(user.getEmail()).isEqualTo("test@test.com");
 		assertThat(user.getUsername()).isEqualTo("test");
 		assertThat(user.getPhone()).isEqualTo("010-1234-1234");
 		assertThat(user.getEncodedPassword()).isEqualTo("#############");
+
+		clear();
 	}
 
 	@Test
 	@DisplayName("유저 업데이트 테스트")
 	@Transactional
 	void userUpdate() {
+
+		setUp();
+
 		User byEmailUser = userRepository.findByEmail(getUpdateUser().getEmail());
 
 		byEmailUser.update(getUpdateReq());
@@ -66,29 +59,42 @@ class UserRepositoryTest {
 		assertThat(updateUser.getUsername()).isEqualTo("update");
 		assertThat(updateUser.getPhone()).isEqualTo("010-1234-56678");
 		assertThat(updateUser.getEncodedPassword()).isEqualTo("@@@@@@@@@@@");
+
+		clear();
 	}
 
 	@Test
 	@DisplayName("중복메일 확인 테스트")
 	@Transactional
 	void existsByEmailTest() {
+		setUp();
+
 		boolean existsByEmail = userRepository.existsByEmail(getUser().getEmail());
 
 		assertThat(existsByEmail).isEqualTo(true);
+
+		clear();
 	}
 
 	@Test
 	@DisplayName("이메일로 조회  테스트")
 	@Transactional
 	void selectByEmailTest() {
+
+		setUp();
+
 		User byEmail = userRepository.findByEmail(getUser().getEmail());
 
 		assertThat(byEmail.getEmail()).isEqualTo(getUser().getEmail());
+
+		clear();
 	}
 
 	@Test
 	@DisplayName("이메일과 암호화된 비밀번호로 조회")
 	void selectEmailAndEncodePassword() {
+
+		setUp();
 
 		Optional<User> user = userRepository.findByEmailAndEncodedPassword(getUser().getEmail(),
 			getUpdateUser().getEncodedPassword());
@@ -97,6 +103,8 @@ class UserRepositoryTest {
 			u ->
 				assertThat(u.getEmail()).isEqualTo(getUser().getEmail())
 		);
+
+		clear();
 
 	}
 
@@ -127,6 +135,14 @@ class UserRepositoryTest {
 			.password("@@@@@@@@@@@")
 			.phone("010-1234-56678")
 			.build();
+	}
+
+	void setUp() {
+		user = userRepository.save(getUser());
+	}
+
+	void clear() {
+		userRepository.delete(user);
 	}
 
 }
