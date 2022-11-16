@@ -18,17 +18,14 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class UserService {
 	private final UserRepository userRepository;
-	private final EncryptService encryptService;
 
 	@Transactional
-	public void join(JoinRequest joinRequest) {
-		User user = joinRequest.convert(joinRequest);
+	public void join(User user) {
 		if (!existsByEmail(user.getEmail())) {
-			user.setEncodedPassword(encryptService.encrypt(joinRequest.getPassword()));
+			userRepository.save(user);
 		} else {
 			throw new CommonException(DUPLICATE_USER);
 		}
-		userRepository.save(user);
 	}
 
 	@Transactional

@@ -28,19 +28,18 @@ public class JoinRequest {
 	@RegExp(regExpCode = PHONE)
 	private String phone;
 
-	public User convert(JoinRequest joinRequest) {
+	public User convert() {
 
 		Role requestRole = Role.CUSTOMER;
 
-		if (joinRequest.getIsAdmin()) {
+		if (this.getIsAdmin()) {
 			requestRole = Role.ADMIN;
 		}
 
 		return User.builder()
-			.email(joinRequest.getEmail())
-			.username(joinRequest.getUsername())
-			.encodedPassword(joinRequest.getPassword())
-			.phone(joinRequest.getPhone())
+			.email(this.getEmail())
+			.username(this.getUsername())
+			.phone(this.getPhone())
 			.role(requestRole)
 			.build();
 	}
