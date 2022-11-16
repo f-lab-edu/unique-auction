@@ -64,6 +64,7 @@ class UserControllerTest {
 			.phone("01012345678")
 			.username("user1234")
 			.password("aaRr3456j")
+			.isAdmin(false)
 			.build();
 	}
 
