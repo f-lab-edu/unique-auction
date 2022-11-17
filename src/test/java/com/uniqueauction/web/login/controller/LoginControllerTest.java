@@ -28,7 +28,6 @@ import com.uniqueauction.web.login.request.LoginRequest;
  * ex) String text = mapper.WriteValueAsString(car); //{"name":"K5","color":"gray"}
  * Car carObject = mapper.readValue(text, Car.class); //Car{name='k5',color='gary
  */
-@TestContainerBase
 @SpringBootTest
 @AutoConfigureMockMvc
 class LoginControllerTest {

@@ -24,7 +24,6 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestContainerBase
 class ProductControllerTest {
 
 	@Autowired

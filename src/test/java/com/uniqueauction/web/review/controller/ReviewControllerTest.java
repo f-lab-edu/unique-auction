@@ -33,7 +33,6 @@ import com.uniqueauction.web.review.response.ReviewByProductResponse;
 import com.uniqueauction.web.review.response.ReviewByUserResponse;
 import com.uniqueauction.web.review.response.ReviewInfo;
 
-@TestContainerBase
 @SpringBootTest
 @AutoConfigureMockMvc
 class ReviewControllerTest {
