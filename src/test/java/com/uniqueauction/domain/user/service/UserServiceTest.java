@@ -35,7 +35,7 @@ class UserServiceTest {
 
 		doReturn(false).when(userRepository).existsByEmail(anyString());
 		doReturn("@@@@@@@@@@@").when(encryptService).encrypt(anyString());
-		lenient().doReturn(getUser()).when(userRepository).save(getUser());
+		doReturn(getUser()).when(userRepository).save(any(User.class));
 
 		userService.join(getJoinReq());
 

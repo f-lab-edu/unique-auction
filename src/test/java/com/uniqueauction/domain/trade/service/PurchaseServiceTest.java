@@ -57,11 +57,11 @@ class PurchaseServiceTest {
 	void savePurchaseTest() {
 		//given
 
-		lenient().doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
+		doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
 		Purchase purchase = getPurchaseReq().toEntity();
 		purchase.setProduct(getProduct());
 
-		lenient().doReturn(false)
+		doReturn(false)
 			.when(purchaseRepository)
 			.existsByProductAndProductSize(any(Product.class), any(String.class));
 
@@ -91,7 +91,7 @@ class PurchaseServiceTest {
 	void savePurchaseFailNotFoundProductTest() {
 		//given
 
-		lenient().doThrow(CommonException.class).when(productRepository).findById(any(Long.class));
+		doThrow(CommonException.class).when(productRepository).findById(any(Long.class));
 
 		//when
 		//then
@@ -107,12 +107,9 @@ class PurchaseServiceTest {
 	void savePurchaseFailDuplicatePurchaseTest() {
 		//given
 
-		lenient().doThrow(CommonException.class).when(productRepository).findById(any(Long.class));
-
-		lenient().doReturn(true)
-			.when(purchaseRepository)
-			.existsByProductAndProductSize(any(Product.class), any(String.class));
 		//when
+		doThrow(CommonException.class).when(productRepository).findById(any(Long.class));
+
 		//then
 		assertThatThrownBy(
 			() ->

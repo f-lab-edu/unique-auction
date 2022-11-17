@@ -57,15 +57,15 @@ class SaleServiceTest {
 	void saveSaleTest() {
 		//given
 
-		lenient().doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
+		doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
 		Sale sale = getSaleReq().toEntity();
 		sale.setProduct(getProduct());
 
-		lenient().doReturn(false)
+		doReturn(false)
 			.when(saleRepository)
 			.existsByProductAndProductSize(any(Product.class), any(String.class));
 
-		lenient().doReturn(Optional.ofNullable(getPurchase()))
+		doReturn(Optional.ofNullable(getPurchase()))
 			.when(purchaseRepository)
 			.findByProductAndProductSize(any(Product.class), any(String.class));
 
@@ -89,7 +89,7 @@ class SaleServiceTest {
 	void saveSaleFailNotFoundProductTest() {
 		//given
 
-		lenient().doThrow(CommonException.class).when(productRepository).findById(any(Long.class));
+		doThrow(CommonException.class).when(productRepository).findById(any(Long.class));
 
 		//when
 		//then
@@ -104,9 +104,9 @@ class SaleServiceTest {
 	@DisplayName("판매입찰 등록 실패테스트(중복된 판매물품일때 )")
 	void saveSaleFailDuplicatePurchaseTest() {
 		//given
-		lenient().doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
+		doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
 
-		lenient().doReturn(true)
+		doReturn(true)
 			.when(saleRepository)
 			.existsByProductAndProductSize(any(Product.class), any(String.class));
 
