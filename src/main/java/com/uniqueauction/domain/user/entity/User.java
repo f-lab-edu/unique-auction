@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.uniqueauction.domain.base.BaseEntity;
-import com.uniqueauction.web.user.request.UpdateUserRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,10 +47,10 @@ public class User extends BaseEntity {
 	@Setter
 	private String encodedPassword;
 
-	public void update(UpdateUserRequest userRequest) {
-		this.email = userRequest.getEmail();
-		this.username = userRequest.getUsername();
-		this.phone = userRequest.getPhone();
-		this.encodedPassword = userRequest.getPassword();
+	public void update(User user) {
+		this.email = user.getEmail();
+		this.username = user.getUsername();
+		this.phone = user.getPhone();
+		this.encodedPassword = user.getEncodedPassword();
 	}
 }
