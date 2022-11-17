@@ -59,12 +59,12 @@ class ReviewServiceTest {
 		// doReturn(getReview()).when(reviewRepository).save(getReview()); 왜 null이 나올까?
 
 		//when
-		Review save = reviewService.save(createSaveReviewsReq());
+		Review review = reviewService.save(createSaveReviewsReq());
 
-		assertThat(getProduct()).isEqualTo(save.getProduct());
-		assertThat(getUser()).isEqualTo(save.getUser());
-		assertThat("test").isEqualTo(save.getContent());
-		assertThat(5).isEqualTo(save.getScore());
+		assertThat(getProduct()).isEqualTo(review.getProduct());
+		assertThat(getUser()).isEqualTo(review.getUser());
+		assertThat("test").isEqualTo(review.getContent());
+		assertThat(5).isEqualTo(review.getScore());
 	}
 
 	@Test

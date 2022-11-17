@@ -30,7 +30,7 @@ public class SaleService {
 	private final TradeRepository tradeRepository;
 
 	@Transactional
-	public void saveSale(SaleRequest saleRequest) {
+	public Long saveSale(SaleRequest saleRequest) {
 		/* sale 등록을 위한 product 조회 */
 		Optional<Product> product = Optional.ofNullable(productRepository.findById(saleRequest.getProductId())
 			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT)));
@@ -58,6 +58,8 @@ public class SaleService {
 				.build();
 			tradeRepository.save(trade);
 		});
+
+		return sale.getId();
 
 	}
 }

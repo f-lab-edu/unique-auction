@@ -21,26 +21,26 @@ public class UserService {
 	private final EncryptService encryptService;
 
 	@Transactional
-	public void join(JoinRequest joinRequest) {
+	public User join(JoinRequest joinRequest) {
 		User user = joinRequest.convert(joinRequest);
 		if (!existsByEmail(user.getEmail())) {
 			user.setEncodedPassword(encryptService.encrypt(joinRequest.getPassword()));
 		} else {
 			throw new CommonException(DUPLICATE_USER);
 		}
-		userRepository.save(user);
+		return userRepository.save(user);
 	}
 
 	@Transactional
 	public User update(UpdateUserRequest userRequest) {
 
-		User byEmailUser = userRepository.findByEmail(userRequest.getEmail());
+		User user = userRepository.findByEmail(userRequest.getEmail());
 
-		userRequest.encryptPassword(encryptService.encrypt(userRequest.getPassword()));
+		userRequest.setEncryptPassword(encryptService.encrypt(userRequest.getPassword()));
 
-		byEmailUser.update(userRequest);
+		user.update(userRequest);
 
-		return byEmailUser;
+		return user;
 	}
 
 	@Transactional(readOnly = true)

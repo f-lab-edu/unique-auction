@@ -36,7 +36,7 @@ public class UpdateUserRequest {
 			.build();
 	}
 
-	public void encryptPassword(String password) {
+	public void setEncryptPassword(String password) {
 		this.password = password;
 	}
 

@@ -29,9 +29,8 @@ public class ReviewService {
 
 		Review review = Review.createReview(user, product, reviewRequest);
 
-		Review save = reviewRepository.save(review);
+		return reviewRepository.save(review);
 
-		return save;
 	}
 
 	@Transactional(readOnly = true)

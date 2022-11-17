@@ -1,7 +1,9 @@
 package com.uniqueauction.web.review.controller;
 
 import static com.uniqueauction.domain.product.entity.Category.*;
+import static com.uniqueauction.domain.user.entity.Role.*;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -22,7 +24,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueauction.TestContainerBase;
+import com.uniqueauction.domain.product.entity.Product;
+import com.uniqueauction.domain.review.entity.Review;
 import com.uniqueauction.domain.review.service.ReviewService;
+import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
 import com.uniqueauction.web.review.response.ReviewByProductResponse;
 import com.uniqueauction.web.review.response.ReviewByUserResponse;
@@ -42,8 +47,10 @@ class ReviewControllerTest {
 	private ReviewService reviewService;
 
 	@Test
-	@DisplayName("리뷰 저장 완료가 되면 status  200을 반환한다.")
+	@DisplayName("리뷰 저장 완료가 되면 status  201을 반환한다.")
 	void reviewSaveTest() throws Exception {
+
+		doReturn(getReview()).when(reviewService).save(any(SaveReviewRequest.class));
 
 		mockMvc.perform(
 				post("/reviews")
@@ -51,7 +58,9 @@ class ReviewControllerTest {
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(createSaveReviewsReq())))
-			.andExpect(status().isCreated());
+			.andExpect(status().isCreated())
+			.andExpect(jsonPath("data.score", is(5)))
+			.andExpect(jsonPath("data.content", is("test")));
 
 	}
 
@@ -161,6 +170,39 @@ class ReviewControllerTest {
 			.email("test@test.com")
 			.username("test")
 			.reviews(getReviewInfos())
+			.build();
+	}
+
+	private Review getReview() {
+		return Review.builder()
+			.content("test")
+			.score(5)
+			.user(getUser())
+			.product(getProduct())
+			.build();
+
+	}
+
+	private User getUser() {
+		return User.builder()
+			.id(1L)
+			.email("test@test.com")
+			.username("test")
+			.encodedPassword("1234Aa1234")
+			.phone("010-1234-1234")
+			.role(CUSTOMER)
+			.build();
+	}
+
+	private Product getProduct() {
+		return Product.builder()
+			.id(1L)
+			.name("상품1")
+			.modelNumber("1234")
+			.releasePrice("10000")
+			.category(SHOES)
+			.imgUrl("/test/set")
+			.brand("NIKE")
 			.build();
 	}
 

@@ -1,5 +1,8 @@
 package com.uniqueauction.web.trade.controller;
 
+import static com.uniqueauction.CommonUtilMethod.*;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -21,8 +24,6 @@ import com.uniqueauction.web.trade.request.SaleRequest;
 @AutoConfigureMockMvc
 class SaleControllerTest {
 
-	private static final Long COMMON_ID = 1L;
-
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -35,7 +36,7 @@ class SaleControllerTest {
 	@DisplayName("판매입찰 정상 테스트 201 반환 ")
 	void saleCreateTest() throws Exception {
 
-		doNothing().when(saleService).saveSale(any(SaleRequest.class));
+		doReturn(1L).when(saleService).saveSale(any());
 
 		mockMvc.perform(
 				post("/sale")
@@ -43,7 +44,9 @@ class SaleControllerTest {
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(getSaleReq())))
-			.andExpect(status().isCreated());
+			.andExpect(status().isCreated())
+			.andExpect(jsonPath("data", is(1)));
+
 	}
 
 	@Test
@@ -61,8 +64,8 @@ class SaleControllerTest {
 
 	public SaleRequest getSaleReq() {
 		return SaleRequest.builder()
-			.userId(COMMON_ID)
-			.productId(COMMON_ID)
+			.userId(getRandomLong())
+			.productId(getRandomLong())
 			.productSize("256")
 			.bidPrice("10000")
 			.returnAddress("test/est/test")
@@ -71,8 +74,8 @@ class SaleControllerTest {
 
 	public SaleRequest getEmptySaleReq() {
 		return SaleRequest.builder()
-			.userId(COMMON_ID)
-			.productId(COMMON_ID)
+			.userId(getRandomLong())
+			.productId(getRandomLong())
 			.productSize("")
 			.bidPrice("10000")
 			.returnAddress("test/est/test")

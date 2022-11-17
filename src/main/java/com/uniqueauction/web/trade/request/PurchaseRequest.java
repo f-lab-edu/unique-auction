@@ -15,7 +15,7 @@ public class PurchaseRequest {
 	@NotNull(message = "유저ID")
 	private Long userId;
 
-	@NotNull(message = "모델번호")
+	@NotNull(message = "상품번호")
 	private Long productId;
 
 	@NotBlank(message = "사이즈")
@@ -37,4 +37,3 @@ public class PurchaseRequest {
 			.build();
 	}
 }
-

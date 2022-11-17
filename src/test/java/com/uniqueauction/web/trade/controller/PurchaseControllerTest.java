@@ -1,5 +1,9 @@
 package com.uniqueauction.web.trade.controller;
 
+import static com.uniqueauction.CommonUtilMethod.*;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -13,16 +17,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.trade.service.PurchaseService;
 import com.uniqueauction.web.trade.request.PurchaseRequest;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestContainerBase
 class PurchaseControllerTest {
-
-	private static final Long COMMON_ID = 1L;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -36,13 +36,16 @@ class PurchaseControllerTest {
 	@DisplayName("구매입찰 정상 테스트 201 반환")
 	void purchaseCreateTest() throws Exception {
 
+		doReturn(1L).when(purchaseService).savePurchase(any());
+
 		mockMvc.perform(
 				post("/purchase")
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(getPurchaseReq())))
-			.andExpect(status().isCreated());
+			.andExpect(status().isCreated())
+			.andExpect(jsonPath("data", is(1)));
 	}
 
 	@Test
@@ -56,25 +59,27 @@ class PurchaseControllerTest {
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(getEmptyPurchaseReq())))
 			.andExpect(status().isBadRequest());
+
 	}
 
 	public PurchaseRequest getPurchaseReq() {
 		return PurchaseRequest.builder()
-			.userId(COMMON_ID)
-			.productId(COMMON_ID)
-			.productSize("256")
-			.bidPrice("10000")
-			.shippingAddress("test/est/test")
+			.userId(eq(getRandomLong()))
+			.productId(getRandomLong())
+			.productSize(getRandomString())
+			.bidPrice(getRandomString())
+			.shippingAddress(getRandomString())
 			.build();
 	}
 
 	public PurchaseRequest getEmptyPurchaseReq() {
 		return PurchaseRequest.builder()
-			.userId(COMMON_ID)
-			.productId(COMMON_ID)
+			.userId(getRandomLong())
+			.productId(getRandomLong())
 			.productSize("")
-			.bidPrice("10000")
-			.shippingAddress("test/est/test")
+			.bidPrice(getRandomString())
+			.shippingAddress(getRandomString())
 			.build();
 	}
+
 }

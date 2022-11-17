@@ -1,5 +1,6 @@
 package com.uniqueauction.domain.trade.service;
 
+import static com.uniqueauction.CommonUtilMethod.*;
 import static com.uniqueauction.domain.product.entity.Category.*;
 import static com.uniqueauction.domain.trade.entity.TradeStatus.*;
 import static org.assertj.core.api.Assertions.*;
@@ -29,8 +30,6 @@ import com.uniqueauction.web.trade.request.PurchaseRequest;
 
 @ExtendWith(MockitoExtension.class) // 클래스단에 해당 어노테이션을 달아, 클래스가 Mockito를 사용함을 명시적으로 알립니다.
 class PurchaseServiceTest {
-
-	private static final Long COMMON_ID = 1L;
 
 	@InjectMocks
 	PurchaseService purchaseService;
@@ -120,8 +119,8 @@ class PurchaseServiceTest {
 
 	public PurchaseRequest getPurchaseReq() {
 		return PurchaseRequest.builder()
-			.userId(COMMON_ID)
-			.productId(COMMON_ID)
+			.userId(getRandomLong())
+			.productId(getRandomLong())
 			.productSize("256")
 			.bidPrice("10000")
 			.shippingAddress("test/est/test")
@@ -130,7 +129,7 @@ class PurchaseServiceTest {
 
 	private Product getProduct() {
 		return Product.builder()
-			.id(COMMON_ID)
+			.id(getRandomLong())
 			.name("상품1")
 			.modelNumber("1234")
 			.releasePrice("10000")
@@ -142,8 +141,8 @@ class PurchaseServiceTest {
 
 	private Sale getSale() {
 		return Sale.builder()
-			.id(COMMON_ID)
-			.userId(COMMON_ID)
+			.id(getRandomLong())
+			.userId(getRandomLong())
 			.productSize("25666")
 			.bidPrice("10000")
 			.returnAddress("TESTSETTETETT")

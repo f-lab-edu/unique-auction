@@ -1,6 +1,8 @@
 package com.uniqueauction.web.product.controller;
 
 import static com.uniqueauction.domain.product.entity.Category.*;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -15,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
@@ -24,7 +25,7 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestContainerBase
-class ProductControllerTest extends AbstractContainerBaseTest {
+class ProductControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -38,6 +39,8 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 	@DisplayName("상품 저장 완료가 되면 status  200을 반환한다.")
 	void productSaveTest() throws Exception {
 
+		doReturn(createProduct().toEntity()).when(productService).save(any());
+
 		mockMvc.perform(
 
 				post("/products")
@@ -45,7 +48,13 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(createProduct())))
-			.andExpect(status().isCreated());
+			.andExpect(status().isCreated())
+			.andExpect(jsonPath("data.name", is("상품1")))
+			.andExpect(jsonPath("data.modelNumber", is("1")))
+			.andExpect(jsonPath("data.releasePrice", is("10000")))
+			.andExpect(jsonPath("data.category", is("SHOES")))
+			.andExpect(jsonPath("data.imgUrl", is("/test/test")))
+			.andExpect(jsonPath("data.brand", is("DD")));
 
 	}
 
@@ -114,7 +123,7 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 			.modelNumber("1")
 			.releasePrice("10000")
 			.category(SHOES)
-			.imgUrl(":test")
+			.imgUrl("/test/test")
 			.brand("DD")
 			.build();
 	}
@@ -125,7 +134,7 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 			.modelNumber("")
 			.releasePrice("10000")
 			.category(SHOES)
-			.imgUrl(":test")
+			.imgUrl("test/test")
 			.brand("DD")
 			.imgUrl("/test/test")
 			.build();
