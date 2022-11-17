@@ -50,7 +50,7 @@ class UserRepositoryTest {
 
 		User byEmailUser = userRepository.findByEmail(getUpdateUser().getEmail());
 
-		byEmailUser.update(getUpdateReq());
+		byEmailUser.update(getUpdateReq().toEntity());
 
 		User updateUser = userRepository.findByEmail(getUpdateUser().getEmail());
 

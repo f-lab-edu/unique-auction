@@ -62,7 +62,7 @@ class UserServiceTest {
 		doReturn(getUpdateReq().toEntity()).when(userRepository).findByEmail(anyString());
 		doReturn("@@@@@@@@@@@").when(encryptService).encrypt(anyString());
 
-		User user = userService.update(getUpdateReq());
+		User user = userService.update(getUpdateReq().toEntity());
 
 		assertThat(user.getEmail()).isEqualTo("test33@test.com");
 		assertThat(user.getEncodedPassword()).isEqualTo("@@@@@@@@@@@");

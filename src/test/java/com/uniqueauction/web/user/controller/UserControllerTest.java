@@ -58,7 +58,7 @@ class UserControllerTest {
 	@DisplayName("유저 수정 완료가 되면 status 200을 반환한다.")
 	void userUpdateTest() throws Exception {
 
-		doReturn(updateUser().toEntity()).when(userService).update(updateUser());
+		doReturn(updateUser().toEntity()).when(userService).update(updateUser().toEntity());
 
 		mockMvc.perform(
 				patch("/users/" + 1)
