@@ -114,7 +114,6 @@ class ReviewRepositoryTest extends AbstractContainerBaseTest {
 	}
 
 	private void setUp() {
-		System.out.println("setup");
 		user = userRepository.save(getUser());
 		product = productRepository.save(getProduct());
 		review = repository.save(Review.createReview(user, product, createSaveReviewsReq()));
