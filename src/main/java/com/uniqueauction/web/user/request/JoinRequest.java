@@ -37,9 +37,9 @@ public class JoinRequest {
 		}
 
 		return User.builder()
-			.email(this.getEmail())
-			.username(this.getUsername())
-			.phone(this.getPhone())
+			.email(getEmail())
+			.username(getUsername())
+			.phone(getPhone())
 			.role(requestRole)
 			.build();
 	}
