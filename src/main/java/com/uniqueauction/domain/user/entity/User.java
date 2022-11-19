@@ -1,6 +1,7 @@
 package com.uniqueauction.domain.user.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,7 +27,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends BaseEntity {
+public class User {
 	private String email;
 	private String username;
 	private String phone;
@@ -41,4 +42,8 @@ public class User extends BaseEntity {
 	private Long id;
 	@Setter
 	private String encodedPassword;
+
+	@Embedded
+	BaseEntity baseEntity;
+
 }
