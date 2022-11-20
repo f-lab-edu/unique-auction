@@ -1,7 +1,9 @@
 package com.uniqueauction.web.review.response;
 
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 @Getter
 public class ReviewInfo {
 

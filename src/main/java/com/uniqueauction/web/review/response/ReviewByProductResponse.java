@@ -5,8 +5,12 @@ import java.util.List;
 import com.uniqueauction.domain.product.entity.Category;
 import com.uniqueauction.domain.product.entity.Product;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
+@AllArgsConstructor
 @Getter
 public class ReviewByProductResponse {
 
