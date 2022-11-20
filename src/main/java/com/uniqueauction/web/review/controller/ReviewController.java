@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uniqueauction.domain.review.entity.Review;
 import com.uniqueauction.domain.review.service.ReviewService;
 import com.uniqueauction.web.response.CommonResponse;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
@@ -26,8 +27,8 @@ public class ReviewController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public CommonResponse saveReview(@RequestBody @Validated SaveReviewRequest saveReviewRequest,
 		BindingResult result) {
-		reviewService.save(saveReviewRequest);
-		return CommonResponse.success();
+		Review review = reviewService.save(saveReviewRequest);
+		return CommonResponse.success(review);
 	}
 
 	@GetMapping("/reviews/{productId}/products")

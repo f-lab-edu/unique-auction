@@ -24,7 +24,7 @@ public class PurchaseController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public CommonResponse<?> savePurchaseNow(@RequestBody @Validated PurchaseRequest purchaseRequest,
 		BindingResult result) {
-		purchaseService.savePurchase(purchaseRequest);
-		return CommonResponse.success();
+		Long purchaseId = purchaseService.savePurchase(purchaseRequest);
+		return CommonResponse.success(purchaseId);
 	}
 }
