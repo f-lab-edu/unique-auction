@@ -3,22 +3,18 @@ package com.uniqueauction.web.login.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
-import com.uniqueauction.exception.advice.CommonControllerAdvice;
+import com.uniqueauction.domain.login.service.LoginService;
 import com.uniqueauction.web.login.request.LoginRequest;
 
 /**
@@ -32,28 +28,17 @@ import com.uniqueauction.web.login.request.LoginRequest;
  * ex) String text = mapper.WriteValueAsString(car); //{"name":"K5","color":"gray"}
  * Car carObject = mapper.readValue(text, Car.class); //Car{name='k5',color='gary
  */
-@EnableAutoConfiguration
-@AutoConfigureMockMvc
 @SpringBootTest
-@TestContainerBase
+@AutoConfigureMockMvc
 class LoginControllerTest {
 
+	@Autowired
 	private MockMvc mvc;
 
+	@MockBean
+	LoginService loginService;
+
 	ObjectMapper objectMapper = new ObjectMapper();
-
-	@SpyBean
-	LoginController loginController;
-
-	@BeforeEach
-	public void setup() {
-		mvc =
-			MockMvcBuilders.standaloneSetup(loginController)
-				.setControllerAdvice(new CommonControllerAdvice()) // 컨트롤 어드 바이스 추가.
-				.addFilters(new CharacterEncodingFilter("UTF-8", true)) // utf-8 필터 추가
-				.build();
-
-	}
 
 	@Test
 	void emailFieldNullTest() throws Exception {

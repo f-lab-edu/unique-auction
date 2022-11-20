@@ -4,8 +4,12 @@ import java.util.List;
 
 import com.uniqueauction.domain.user.entity.User;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
+@AllArgsConstructor
+@Builder
 @Getter
 public class ReviewByUserResponse {
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.service.UserService;
 import com.uniqueauction.web.response.CommonResponse;
 import com.uniqueauction.web.user.request.JoinRequest;
@@ -25,15 +26,15 @@ public class UserController {
 	@PostMapping("/users")
 	@ResponseStatus(HttpStatus.CREATED)
 	public CommonResponse joinUser(@RequestBody @Validated JoinRequest joinRequest, BindingResult result) {
-		userService.join(joinRequest);
-		return CommonResponse.success();
+		User user = userService.join(joinRequest);
+		return CommonResponse.success(user);
 	}
 
 	@PatchMapping("/users/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse updateUser(@RequestBody @Validated UpdateUserRequest updateUserRequest,
 		BindingResult result) {
-		userService.update(updateUserRequest);
+		userService.update(updateUserRequest.toEntity());
 		return CommonResponse.success();
 	}
 }
