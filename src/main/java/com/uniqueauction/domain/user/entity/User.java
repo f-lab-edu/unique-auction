@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 import com.uniqueauction.domain.base.BaseEntity;
 
@@ -47,6 +48,9 @@ public class User {
 
 	@Setter
 	private String encodedPassword;
+
+	@Version
+	Integer version;
 
 	@Embedded
 	BaseEntity baseEntity;
