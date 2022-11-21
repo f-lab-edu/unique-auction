@@ -9,8 +9,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.service.ProductService;
@@ -18,6 +18,7 @@ import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
 @TestContainerBase
+@SpringBootTest
 class ProductRepositoryImplTest {
 
 	@Autowired

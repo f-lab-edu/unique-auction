@@ -6,9 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.ActiveProfiles;
 
 /** 통합 테스트시 외부 요인으로인해 기대하던 데이터를 받지못해 테스트 실패하는경우 발생.
@@ -23,8 +20,5 @@ import org.springframework.test.context.ActiveProfiles;
 //@ActiveProfiles("localtest")
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@AutoConfigureMockMvc
-@EnableAspectJAutoProxy
-@SpringBootTest
 public @interface TestContainerBase {
 }

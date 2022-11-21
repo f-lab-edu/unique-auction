@@ -25,7 +25,7 @@ public class SaleController {
 	public CommonResponse<?> saveSaleNow(@RequestBody @Validated SaleRequest saleRequest,
 		BindingResult result) {
 
-		saleService.saveSale(saleRequest);
-		return CommonResponse.success();
+		Long saleId = saleService.saveSale(saleRequest);
+		return CommonResponse.success(saleId);
 	}
 }

@@ -2,8 +2,6 @@ package com.uniqueauction.domain.login.service;
 
 import static com.uniqueauction.exception.ErrorCode.*;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
@@ -27,14 +25,10 @@ public class LoginService {
 
 	public void login(LoginRequest loginRequest) {
 
-		List<User> users = userRepository.findAll();
-
-		User findUser = users.stream()
-			.filter(user -> user.getEmail().equals(loginRequest.getEmail())
-				&& user.getEncodedPassword().equals(encryptService.encrypt(loginRequest.getPassword())))
-			.findFirst()
+		User user = userRepository.findByEmailAndEncodedPassword(
+				loginRequest.getEmail(), encryptService.encrypt(loginRequest.getPassword()))
 			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_USER));
 
-		Role.setSession(session, findUser);
+		Role.setSession(session, user);
 	}
 }
