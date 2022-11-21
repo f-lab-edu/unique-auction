@@ -51,7 +51,7 @@ public class User {
 
 	@Version
 	Integer version;
-  
+
 	@Embedded
 	BaseEntity baseEntity;
 
