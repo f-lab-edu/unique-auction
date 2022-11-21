@@ -1,6 +1,7 @@
 package com.uniqueauction.domain.user.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -30,7 +31,7 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends BaseEntity {
+public class User {
 
 	@Id
 	@Column(name = "user_id")
@@ -46,6 +47,9 @@ public class User extends BaseEntity {
 
 	@Setter
 	private String encodedPassword;
+
+	@Embedded
+	BaseEntity baseEntity;
 
 	public void update(User user) {
 		this.email = user.getEmail();
