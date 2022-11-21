@@ -1,5 +1,6 @@
 package com.uniqueauction.web.review.controller;
 
+import static com.uniqueauction.CommonUtilMethod.*;
 import static com.uniqueauction.domain.product.entity.Category.*;
 import static com.uniqueauction.domain.user.entity.Role.*;
 import static org.hamcrest.Matchers.*;
@@ -24,9 +25,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueauction.domain.product.entity.Product;
+import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.domain.review.entity.Review;
 import com.uniqueauction.domain.review.service.ReviewService;
 import com.uniqueauction.domain.user.entity.User;
+import com.uniqueauction.domain.user.service.UserService;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
 import com.uniqueauction.web.review.response.ReviewByProductResponse;
 import com.uniqueauction.web.review.response.ReviewByUserResponse;
@@ -44,11 +47,18 @@ class ReviewControllerTest {
 	@MockBean
 	private ReviewService reviewService;
 
+	@MockBean
+	private UserService userService;
+
+	@MockBean
+	private ProductService productService;
+
 	@Test
 	@DisplayName("리뷰 저장 완료가 되면 status  201을 반환한다.")
 	void reviewSaveTest() throws Exception {
 
 		doReturn(getReview()).when(reviewService).save(any(Review.class));
+		doReturn(getUser()).when(userService).findById(any(Long.class));
 
 		mockMvc.perform(
 				post("/reviews")
@@ -95,6 +105,7 @@ class ReviewControllerTest {
 	void selectProductReviws() throws Exception {
 
 		doReturn(findByPidRes()).when(reviewService).findByProductId(any(Product.class));
+		doReturn(getProduct()).when(productService).findById(any(Long.class));
 
 		mockMvc.perform(get("/reviews/1/products")
 				.accept(MediaType.APPLICATION_JSON))
@@ -114,6 +125,7 @@ class ReviewControllerTest {
 	void selectUserReviws() throws Exception {
 
 		doReturn(findByUidRes()).when(reviewService).findByUserId(any(User.class));
+		doReturn(getUser()).when(userService).findById(any(Long.class));
 
 		mockMvc.perform(get("/reviews/1/users")
 				.accept(MediaType.APPLICATION_JSON))
@@ -128,8 +140,8 @@ class ReviewControllerTest {
 
 	private SaveReviewRequest createSaveReviewsReq() {
 		return SaveReviewRequest.builder()
-			.userId(1L)
-			.productId(1L)
+			.userId(getRandomLong())
+			.productId(getRandomLong())
 			.score(3)
 			.content("test")
 			.build();
@@ -146,8 +158,8 @@ class ReviewControllerTest {
 
 	private SaveReviewRequest underOneScoreSaveReviewsReq() {
 		return SaveReviewRequest.builder()
-			.userId(1L)
-			.productId(1L)
+			.userId(getRandomLong())
+			.productId(getRandomLong())
 			.score(0)
 			.content("test")
 			.build();
@@ -183,7 +195,7 @@ class ReviewControllerTest {
 
 	private User getUser() {
 		return User.builder()
-			.id(1L)
+			.id(getRandomLong())
 			.email("test@test.com")
 			.username("test")
 			.encodedPassword("1234Aa1234")
@@ -194,7 +206,7 @@ class ReviewControllerTest {
 
 	private Product getProduct() {
 		return Product.builder()
-			.id(1L)
+			.id(getRandomLong())
 			.name("상품1")
 			.modelNumber("1234")
 			.releasePrice("10000")
