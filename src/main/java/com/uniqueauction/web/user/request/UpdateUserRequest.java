@@ -7,9 +7,9 @@ import com.utils.annotation.RegExp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Builder
 @AllArgsConstructor
 public class UpdateUserRequest {
@@ -34,6 +34,10 @@ public class UpdateUserRequest {
 			.encodedPassword(this.getPassword())
 			.phone(this.getPhone())
 			.build();
+	}
+
+	public void setEncryptPassword(String password) {
+		this.password = password;
 	}
 
 }

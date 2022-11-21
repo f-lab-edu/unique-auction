@@ -17,8 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 
-import com.uniqueauction.AbstractContainerBaseTest;
-import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.login.service.LoginService;
 import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.repository.UserRepository;
@@ -26,7 +24,6 @@ import com.uniqueauction.domain.user.service.EncryptService;
 import com.uniqueauction.exception.advice.CommonNotFoundException;
 import com.uniqueauction.web.login.request.LoginRequest;
 
-@TestContainerBase
 @ExtendWith(MockitoExtension.class) //  Mockito를 사용하려면 붙여줘야되 어느테이션
 public class LoginServiceTest {
 

@@ -79,6 +79,7 @@ create table user
     phone               varchar(255),
     role                varchar(10),
     username            varchar(255),
+    version             integer(255),
     created_by          varchar(255),
     created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     last_modified_by    varchar(255),

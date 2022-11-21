@@ -45,9 +45,9 @@ public class ProductController {
 	public CommonResponse saveProduct(@RequestBody @Validated ProductSaveRequest productSaveRequest,
 		BindingResult result) {
 
-		productService.save(productSaveRequest.toEntity());
+		Product product = productService.save(productSaveRequest.toEntity());
 
-		return CommonResponse.success();
+		return CommonResponse.success(product);
 	}
 
 	@PatchMapping("/products/{id}")
