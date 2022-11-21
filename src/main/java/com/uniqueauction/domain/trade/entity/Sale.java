@@ -1,6 +1,7 @@
 package com.uniqueauction.domain.trade.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Sale extends BaseEntity {
+public class Sale {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +32,9 @@ public class Sale extends BaseEntity {
 	private String bidPrice;
 	private String returnAddress;
 	private TradeStatus tradeStatus;
+
+	@Embedded
+	BaseEntity baseEntity;
 
 	@Setter
 	@ManyToOne(fetch = FetchType.LAZY)
