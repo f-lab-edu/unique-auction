@@ -12,7 +12,6 @@ import com.uniqueauction.web.review.response.ReviewByUserResponse;
 
 import lombok.RequiredArgsConstructor;
 
-
 @RequiredArgsConstructor
 @Service
 public class ReviewService {
@@ -20,9 +19,9 @@ public class ReviewService {
 	private final ReviewRepository reviewRepository;
 
 	@Transactional()
-	public Long save(Review review) {
+	public Review save(Review review) {
 
-		return reviewRepository.save(review).getId();
+		return reviewRepository.save(review);
 	}
 
 	@Transactional(readOnly = true)

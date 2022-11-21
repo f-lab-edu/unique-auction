@@ -18,6 +18,8 @@ import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.service.UserService;
 import com.uniqueauction.web.response.CommonResponse;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
+import com.uniqueauction.web.review.response.ReviewByProductResponse;
+import com.uniqueauction.web.review.response.ReviewByUserResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,8 +39,8 @@ public class ReviewController {
 		User user = userService.findById(saveReviewRequest.getUserId());
 		Product product = productService.findById(saveReviewRequest.getProductId());
 
-		reviewService.save(Review.createReview(user, product, saveReviewRequest));
-		return CommonResponse.success();
+		Review review = reviewService.save(Review.createReview(user, product, saveReviewRequest));
+		return CommonResponse.success(review);
 	}
 
 	@GetMapping("/reviews/{productId}/products")
@@ -46,14 +48,17 @@ public class ReviewController {
 	public CommonResponse selectProductReviews(@PathVariable Long productId) {
 		Product product = productService.findById(productId);
 
-		return CommonResponse.success(reviewService.findByProductId(product));
+		ReviewByProductResponse productReviews = reviewService.findByProductId(product);
+
+		return CommonResponse.success(productReviews);
 	}
 
 	@GetMapping("/reviews/{userId}/users")
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse selectUserProductReviews(@PathVariable Long userId) {
 		User user = userService.findById(userId);
-		return CommonResponse.success(reviewService.findByUserId(user));
+		ReviewByUserResponse usersReviews = reviewService.findByUserId(user);
+		return CommonResponse.success(usersReviews);
 	}
 }
 
