@@ -8,11 +8,15 @@ import javax.validation.constraints.NotNull;
 
 import com.utils.annotation.RegExp;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SaveReviewRequest {
 
 	@NotNull(message = "유저아이디")
