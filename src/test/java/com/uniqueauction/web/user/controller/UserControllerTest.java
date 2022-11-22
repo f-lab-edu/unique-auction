@@ -17,7 +17,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.user.service.UserService;
 import com.uniqueauction.web.user.request.JoinRequest;
@@ -72,7 +71,7 @@ class UserControllerTest {
 			.email("1234@gmail.com")
 			.phone("01012345678")
 			.username("user1234")
-			.password("aaRr3456j")
+			.password("user1234!!")
 			.build();
 	}
 
@@ -81,7 +80,7 @@ class UserControllerTest {
 			.email("1234@gmail.com")
 			.phone("01012345678")
 			.username("user5678")
-			.password("aaRr3456kk")
+			.password("user1234@@")
 			.build();
 	}
 }
