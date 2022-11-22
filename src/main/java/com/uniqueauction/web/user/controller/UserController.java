@@ -13,7 +13,7 @@ import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.service.EncryptService;
 import com.uniqueauction.domain.user.service.UserService;
 import com.uniqueauction.web.response.CommonResponse;
-import com.uniqueauction.web.user.request.JoinRequest;
+import com.uniqueauction.web.user.request.SaveUserRequest;
 import com.uniqueauction.web.user.request.UpdateUserRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -27,9 +27,9 @@ public class UserController {
 
 	@PostMapping("/users")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CommonResponse joinUser(@RequestBody @Validated JoinRequest joinRequest, BindingResult result) {
-		User user = joinRequest.convert();
-		user.setEncodedPassword(encryptService.encrypt(joinRequest.getPassword()));
+	public CommonResponse joinUser(@RequestBody @Validated SaveUserRequest saveUserRequest, BindingResult result) {
+		User user = saveUserRequest.convert();
+		user.setEncodedPassword(encryptService.encrypt(saveUserRequest.getPassword()));
 		userService.join(user);
 		return CommonResponse.success();
 	}
@@ -38,7 +38,10 @@ public class UserController {
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse updateUser(@RequestBody @Validated UpdateUserRequest updateUserRequest,
 		BindingResult result) {
-		userService.update(updateUserRequest.toEntity());
+		User user = updateUserRequest.convert();
+		user.setEncodedPassword(encryptService.encrypt(updateUserRequest.getPassword()));
+		userService.update(user);
+
 		return CommonResponse.success();
 	}
 }

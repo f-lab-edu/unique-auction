@@ -15,6 +15,7 @@ import org.springframework.test.annotation.Rollback;
 
 import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.user.entity.User;
+import com.uniqueauction.domain.user.service.EncryptService;
 import com.uniqueauction.web.user.request.UpdateUserRequest;
 
 @TestContainerBase
@@ -25,6 +26,9 @@ class UserRepositoryTest {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private EncryptService encryptService;
+
 	User user;
 
 	@Test
@@ -33,10 +37,10 @@ class UserRepositoryTest {
 
 		setUp();
 		//then
-		assertThat(user.getEmail()).isEqualTo("test@test.com");
-		assertThat(user.getUsername()).isEqualTo("test");
-		assertThat(user.getPhone()).isEqualTo("010-1234-1234");
-		assertThat(user.getEncodedPassword()).isEqualTo("#############");
+		assertThat(user.getEmail()).isEqualTo(getUser().getEmail());
+		assertThat(user.getUsername()).isEqualTo(getUser().getUsername());
+		assertThat(user.getPhone()).isEqualTo(getUser().getPhone());
+		assertThat(user.getEncodedPassword()).isEqualTo(getUser().getEncodedPassword());
 
 		clear();
 	}
@@ -49,16 +53,16 @@ class UserRepositoryTest {
 		setUp();
 
 		User byEmailUser = userRepository.findByEmail(getUpdateUser().getEmail());
-
-		byEmailUser.update(getUpdateReq().toEntity());
-
-		User updateUser = userRepository.findByEmail(getUpdateUser().getEmail());
+		byEmailUser.update(getUpdateUserRequest().convert());
+		byEmailUser.setEncodedPassword(encryptService.encrypt(getUpdateUserRequest().getPassword()));
+		userRepository.save(byEmailUser);
+		User updateUser = userRepository.findByEmail(byEmailUser.getEmail());
 
 		//then
-		assertThat(updateUser.getEmail()).isEqualTo("test@test.com");
-		assertThat(updateUser.getUsername()).isEqualTo("update");
-		assertThat(updateUser.getPhone()).isEqualTo("010-1234-56678");
-		assertThat(updateUser.getEncodedPassword()).isEqualTo("@@@@@@@@@@@");
+		assertThat(updateUser.getEmail()).isEqualTo(getUpdateUser().getEmail());
+		assertThat(updateUser.getUsername()).isEqualTo(getUpdateUser().getUsername());
+		assertThat(updateUser.getPhone()).isEqualTo(getUpdateUser().getPhone());
+		assertThat(updateUser.getEncodedPassword()).isEqualTo(encryptService.encrypt(getUpdateUserRequest().getPassword()));
 
 		clear();
 	}
@@ -77,7 +81,7 @@ class UserRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("이메일로 조회  테스트")
+	@DisplayName("이메일로 조회 테스트")
 	@Transactional
 	void selectByEmailTest() {
 
@@ -112,7 +116,7 @@ class UserRepositoryTest {
 		return User.builder()
 			.email("test@test.com")
 			.username("test")
-			.encodedPassword("#############")
+			.encodedPassword(encryptService.encrypt("user1234!!"))
 			.phone("010-1234-1234")
 			.role(CUSTOMER)
 			.build();
@@ -122,17 +126,17 @@ class UserRepositoryTest {
 		return User.builder()
 			.email("test@test.com")
 			.username("update")
-			.encodedPassword("@@@@@@@@@@@")
+			.encodedPassword(encryptService.encrypt("user1234@@"))
 			.phone("010-1234-56678")
 			.role(ADMIN)
 			.build();
 	}
 
-	public UpdateUserRequest getUpdateReq() {
+	public UpdateUserRequest getUpdateUserRequest() {
 		return UpdateUserRequest.builder()
 			.email("test@test.com")
 			.username("update")
-			.password("@@@@@@@@@@@")
+			.password("user1234@@")
 			.phone("010-1234-56678")
 			.build();
 	}
