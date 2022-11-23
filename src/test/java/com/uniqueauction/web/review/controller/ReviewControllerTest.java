@@ -57,8 +57,9 @@ class ReviewControllerTest {
 	@DisplayName("리뷰 저장 완료가 되면 status  201을 반환한다.")
 	void reviewSaveTest() throws Exception {
 
+		doReturn(getUser()).when(userService).findById(anyLong());
+		doReturn(getProduct()).when(productService).findById(anyLong());
 		doReturn(getReview()).when(reviewService).save(any(Review.class));
-		doReturn(getUser()).when(userService).findById(any(Long.class));
 
 		mockMvc.perform(
 				post("/reviews")
@@ -83,7 +84,6 @@ class ReviewControllerTest {
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(overFiveScoreSaveReviewsReq())))
 			.andExpect(status().isBadRequest());
-
 	}
 
 	@Test
@@ -97,15 +97,16 @@ class ReviewControllerTest {
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(underOneScoreSaveReviewsReq())))
 			.andExpect(status().isBadRequest());
-
 	}
 
 	@Test
 	@DisplayName("프로덕트 ID로 리뷰 목록들을 조회한다.")
 	void selectProductReviws() throws Exception {
 
-		doReturn(findByPidRes()).when(reviewService).findByProductId(anyLong());
-    
+		doReturn(getProduct()).when(productService).findById(anyLong());
+
+		doReturn(findByPidRes()).when(reviewService).findByProductId(any(Product.class));
+
 		mockMvc.perform(get("/reviews/1/products")
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
@@ -122,8 +123,8 @@ class ReviewControllerTest {
 	@Test
 	@DisplayName("유저 ID로 리뷰 목록들을 조회한다.")
 	void selectUserReviws() throws Exception {
-
-    doReturn(findByUidRes()).when(reviewService).findByUserId(anyLong());
+		doReturn(getUser()).when(userService).findById(anyLong());
+		doReturn(findByUidRes()).when(reviewService).findByUserId(any(User.class));
 
 		mockMvc.perform(get("/reviews/1/users")
 				.accept(MediaType.APPLICATION_JSON))
