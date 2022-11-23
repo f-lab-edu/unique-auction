@@ -84,7 +84,6 @@ class ReviewControllerTest {
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(overFiveScoreSaveReviewsReq())))
 			.andExpect(status().isBadRequest());
-
 	}
 
 	@Test
@@ -98,7 +97,6 @@ class ReviewControllerTest {
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(underOneScoreSaveReviewsReq())))
 			.andExpect(status().isBadRequest());
-
 	}
 
 	@Test
