@@ -6,12 +6,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
-import com.uniqueauction.domain.user.entity.Role;
 import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.repository.UserRepository;
 import com.uniqueauction.domain.user.service.EncryptService;
 import com.uniqueauction.exception.advice.CommonNotFoundException;
 import com.uniqueauction.web.login.request.LoginRequest;
+import com.utils.SessionUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +29,6 @@ public class LoginService {
 				loginRequest.getEmail(), encryptService.encrypt(loginRequest.getPassword()))
 			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_USER));
 
-		Role.setSession(session, user);
+		SessionUtil.setSession(session, user);
 	}
 }

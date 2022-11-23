@@ -1,11 +1,10 @@
 package com.uniqueauction.domain.product.service;
 
+import static com.uniqueauction.CommonUtilMethod.*;
 import static com.uniqueauction.domain.product.entity.Category.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +41,7 @@ class ProductServiceTest {
 
 	private Product saveProduct;
 	private Product updateProduct;
-	private Long pId = 1L;
+	private Long pId = getRandomLong();
 
 	@BeforeEach
 	public void set() {
@@ -73,8 +72,6 @@ class ProductServiceTest {
 	@Test
 	void productDetailSelectTest() {
 
-		Long pId = 1L;
-
 		//given
 		doReturn(Optional.of(getSaveProduct())).when(productRepository).findById(pId);
 		//when
@@ -91,8 +88,6 @@ class ProductServiceTest {
 
 	@Test
 	void productUpdateTest() {
-
-		Long pId = 1L;
 
 		//given
 		doReturn(updateProduct).when(productService).update(updateProduct);
@@ -157,11 +152,4 @@ class ProductServiceTest {
 			.imgUrl("/test/test")
 			.build();
 	}
-
-	public List<Product> getListProduct(ProductSaveRequest saveProduct) {
-		List<Product> list = new ArrayList<>();
-		list.add(saveProduct.toEntity());
-		return list;
-	}
-
 }

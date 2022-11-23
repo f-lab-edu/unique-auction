@@ -1,5 +1,6 @@
 package com.uniqueauction.domain.review.repository;
 
+import static com.uniqueauction.CommonUtilMethod.*;
 import static com.uniqueauction.domain.product.entity.Category.*;
 import static com.uniqueauction.domain.user.entity.Role.*;
 import static org.assertj.core.api.Assertions.*;
@@ -83,7 +84,6 @@ class ReviewRepositoryTest extends AbstractContainerBaseTest {
 
 	private User getUser() {
 		return User.builder()
-			// .id(commonId)
 			.email("test@test.com")
 			.username("test")
 			.encodedPassword("1234Aa1234")
@@ -94,7 +94,6 @@ class ReviewRepositoryTest extends AbstractContainerBaseTest {
 
 	private Product getProduct() {
 		return Product.builder()
-			// .id(commonId)
 			.name("상품1")
 			.modelNumber("1234")
 			.releasePrice("10000")
@@ -106,8 +105,8 @@ class ReviewRepositoryTest extends AbstractContainerBaseTest {
 
 	private SaveReviewRequest createSaveReviewsReq() {
 		return SaveReviewRequest.builder()
-			.userId(1L)
-			.productId(1L)
+			.userId(getRandomLong())
+			.productId(getRandomLong())
 			.score(3)
 			.content("test")
 			.build();
