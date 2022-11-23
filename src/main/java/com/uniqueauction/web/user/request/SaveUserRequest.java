@@ -9,13 +9,11 @@ import com.utils.annotation.RegExp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class SaveUserRequest {
+public class JoinRequest {
 	private Boolean isAdmin;
 
 	@RegExp(regExpCode = EMAIL)
@@ -30,6 +28,11 @@ public class SaveUserRequest {
 	@RegExp(regExpCode = PHONE)
 	private String phone;
 
+	public JoinRequest() {
+		this.isAdmin = false;
+	}
+
+	public User convert(JoinRequest joinRequest) {
 	public User convert() {
 
 		Role requestRole = Role.CUSTOMER;

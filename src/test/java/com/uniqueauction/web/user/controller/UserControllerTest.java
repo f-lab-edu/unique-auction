@@ -80,8 +80,8 @@ class UserControllerTest {
 			.email("1234@gmail.com")
 			.phone("01012345678")
 			.username("user1234")
-			.password("userUser11")
 			.isAdmin(false)
+			.password("user1234!!")
 			.build();
 	}
 
@@ -90,7 +90,7 @@ class UserControllerTest {
 			.email("1234@gmail.com")
 			.phone("01012345678")
 			.username("user5678")
-			.password("aaRr3456kk")
+			.password("user1234@@")
 			.build();
 	}
 }
