@@ -28,6 +28,10 @@ public class JoinRequest {
 	@RegExp(regExpCode = PHONE)
 	private String phone;
 
+	public JoinRequest() {
+		this.isAdmin = false;
+	}
+
 	public User convert(JoinRequest joinRequest) {
 
 		Role requestRole = Role.CUSTOMER;
