@@ -1,6 +1,10 @@
 package com.utils;
 
+import static com.uniqueauction.domain.user.entity.Role.*;
+
 import javax.servlet.http.HttpSession;
+
+import com.uniqueauction.domain.user.entity.User;
 
 public class SessionUtil {
 
@@ -55,5 +59,13 @@ public class SessionUtil {
 	 */
 	public static void clear(HttpSession session) {
 		session.invalidate();
+	}
+
+	public static void setSession(HttpSession session, User user) {
+		if (user.getRole() == ADMIN) {
+			SessionUtil.setLoginAdminId(session, user.getId());
+		} else {
+			SessionUtil.setLoginMemberId(session, user.getId());
+		}
 	}
 }

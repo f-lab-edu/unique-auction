@@ -1,5 +1,6 @@
 package com.uniqueauction.web.product.controller;
 
+import static com.uniqueauction.CommonUtilMethod.*;
 import static com.uniqueauction.domain.product.entity.Category.*;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.any;
@@ -17,7 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
@@ -76,14 +76,13 @@ class ProductControllerTest {
 	@Test
 	@DisplayName("상품 삭제  완료가 되면 status  200을 반환한다.")
 	void productDeleteTest() throws Exception {
-		Long id = 1L;
 
 		mockMvc.perform(
 				delete("/products/" + 1)
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
-					.content(String.valueOf(id)))
+					.content(String.valueOf(getRandomLong())))
 			.andExpect(status().isOk());
 
 	}
@@ -91,14 +90,13 @@ class ProductControllerTest {
 	@Test
 	@DisplayName("상품 상세  완료가 되면 status  200을 반환한다.")
 	void productDetailSelectTest() throws Exception {
-		Long id = 1L;
 
 		mockMvc.perform(
 				get("/products/" + 1)
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
-					.content(String.valueOf(id)))
+					.content(String.valueOf(getRandomLong())))
 			.andExpect(status().isOk());
 
 	}
@@ -141,7 +139,7 @@ class ProductControllerTest {
 
 	private ProductUpdateRequest updateProduct() {
 		return ProductUpdateRequest.builder()
-			.productId(1L)
+			.productId(getRandomLong())
 			.productName("상품2")
 			.modelNumber("1")
 			.releasePrice("10000")

@@ -1,5 +1,6 @@
 package com.uniqueauction.domain.review.service;
 
+import static com.uniqueauction.CommonUtilMethod.*;
 import static com.uniqueauction.domain.product.entity.Category.*;
 import static com.uniqueauction.domain.user.entity.Role.*;
 import static org.assertj.core.api.Assertions.*;
@@ -28,7 +29,7 @@ import com.uniqueauction.web.review.response.ReviewInfo;
 @ExtendWith(MockitoExtension.class) // 클래스단에 해당 어노테이션을 달아, 클래스가 Mockito를 사용함을 명시적으로 알립니다.
 class ReviewServiceTest {
 
-	private static final Long commonId = 1L;
+	private static final Long DUMY = getRandomLong();
 
 	@InjectMocks
 	ReviewService reviewService;
@@ -48,7 +49,6 @@ class ReviewServiceTest {
 
 		doReturn(getReview()).when(reviewRepository).save(any(Review.class));
 
-		// doReturn(getReview()).when(reviewRepository).save(getReview()); 왜 null이 나올까?
 		//when
 		Review review = reviewService.save(getReview());
 
@@ -88,8 +88,8 @@ class ReviewServiceTest {
 
 	private SaveReviewRequest createSaveReviewsReq() {
 		return SaveReviewRequest.builder()
-			.userId(1L)
-			.productId(1L)
+			.userId(DUMY)
+			.productId(DUMY)
 			.score(3)
 			.content("test")
 			.build();
@@ -97,7 +97,7 @@ class ReviewServiceTest {
 
 	private User getUser() {
 		return User.builder()
-			.id(commonId)
+			.id(DUMY)
 			.email("test@test.com")
 			.username("test")
 			.encodedPassword("1234Aa1234")
@@ -108,7 +108,7 @@ class ReviewServiceTest {
 
 	private Product getProduct() {
 		return Product.builder()
-			.id(commonId)
+			.id(DUMY)
 			.name("상품1")
 			.modelNumber("1234")
 			.releasePrice("10000")

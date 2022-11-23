@@ -24,6 +24,8 @@ import com.uniqueauction.web.trade.request.PurchaseRequest;
 @AutoConfigureMockMvc
 class PurchaseControllerTest {
 
+	private static final Long DUMY = getRandomLong();
+
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -36,7 +38,7 @@ class PurchaseControllerTest {
 	@DisplayName("구매입찰 정상 테스트 201 반환")
 	void purchaseCreateTest() throws Exception {
 
-		doReturn(1L).when(purchaseService).savePurchase(any());
+		doReturn(DUMY).when(purchaseService).savePurchase(any());
 
 		mockMvc.perform(
 				post("/purchase")
@@ -45,7 +47,7 @@ class PurchaseControllerTest {
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(getPurchaseReq())))
 			.andExpect(status().isCreated())
-			.andExpect(jsonPath("data", is(1)));
+			.andExpect(jsonPath("data", is(DUMY)));
 	}
 
 	@Test

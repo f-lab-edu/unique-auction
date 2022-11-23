@@ -104,9 +104,8 @@ class ReviewControllerTest {
 	@DisplayName("프로덕트 ID로 리뷰 목록들을 조회한다.")
 	void selectProductReviws() throws Exception {
 
-		doReturn(findByPidRes()).when(reviewService).findByProductId(any(Product.class));
-		doReturn(getProduct()).when(productService).findById(any(Long.class));
-
+		doReturn(findByPidRes()).when(reviewService).findByProductId(anyLong());
+    
 		mockMvc.perform(get("/reviews/1/products")
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
@@ -124,8 +123,7 @@ class ReviewControllerTest {
 	@DisplayName("유저 ID로 리뷰 목록들을 조회한다.")
 	void selectUserReviws() throws Exception {
 
-		doReturn(findByUidRes()).when(reviewService).findByUserId(any(User.class));
-		doReturn(getUser()).when(userService).findById(any(Long.class));
+    doReturn(findByUidRes()).when(reviewService).findByUserId(anyLong());
 
 		mockMvc.perform(get("/reviews/1/users")
 				.accept(MediaType.APPLICATION_JSON))
@@ -149,8 +147,8 @@ class ReviewControllerTest {
 
 	private SaveReviewRequest overFiveScoreSaveReviewsReq() {
 		return SaveReviewRequest.builder()
-			.userId(1L)
-			.productId(1L)
+			.userId(getRandomLong())
+			.productId(getRandomLong())
 			.score(6)
 			.content("test")
 			.build();

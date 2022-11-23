@@ -51,14 +51,13 @@ public class LoginServiceTest {
 		request.setSession(session);
 
 		loginService = new LoginService(userRepository, session, encryptService);
-		// RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 	}
 
 	@Test
 	@DisplayName("로그인 성공시 예외가발생하지 않는다")
 	void loginServiceSuccess() {
 
-		doReturn("@@@@@@@@@@").when(encryptService).encrypt(getLoginRequest().getPassword());
+		doReturn("@@@@@@@@@@").when(encryptService).encrypt(anyString());
 
 		User user = getUser();
 
@@ -73,9 +72,14 @@ public class LoginServiceTest {
 	@DisplayName("로그인 실패시(계정이없는경우) 예외 출력")
 	void loginServiceFail() {
 
+		doReturn("@@@@@@@@@@").when(encryptService).encrypt(anyString());
+
+		doReturn(Optional.empty()).when(userRepository)
+			.findByEmailAndEncodedPassword(anyString(), anyString());
+
 		assertThatThrownBy(
 			() ->
-				loginService.login(getNotUserRequest())
+				loginService.login(getLoginRequest())
 		).isInstanceOf(CommonNotFoundException.class);
 
 	}
