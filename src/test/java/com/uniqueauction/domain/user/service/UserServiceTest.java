@@ -14,7 +14,7 @@ import com.uniqueauction.domain.user.entity.Role;
 import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.repository.UserRepository;
 import com.uniqueauction.exception.advice.CommonException;
-import com.uniqueauction.web.user.request.JoinRequest;
+import com.uniqueauction.web.user.request.SaveUserRequest;
 import com.uniqueauction.web.user.request.UpdateUserRequest;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,11 +34,9 @@ class UserServiceTest {
 	void userJoinTest() {
 
 		doReturn(false).when(userRepository).existsByEmail(anyString());
-		doReturn("@@@@@@@@@@@").when(encryptService).encrypt(anyString());
+		doReturn(encryptService.encrypt(getSaveUserRequest().getPassword())).when(encryptService).encrypt(anyString());
 		doReturn(getUser()).when(userRepository).save(any(User.class));
-
-		userService.join(getJoinReq());
-
+		userService.join(getSaveUserRequest().convert());
 		verify(userRepository).save(getUser());
 
 	}
@@ -48,9 +46,8 @@ class UserServiceTest {
 	void userJoinFailDuplicateUserTest() {
 
 		doReturn(true).when(userRepository).existsByEmail(anyString());
-
 		assertThatThrownBy(
-			() -> userService.join(getJoinReq())
+			() -> userService.join(getSaveUserRequest().convert())
 		).isInstanceOf(CommonException.class);
 
 	}
@@ -59,41 +56,41 @@ class UserServiceTest {
 	@DisplayName("업데이트 테스트")
 	void userUpdateTest() {
 
-		doReturn(getUpdateReq().toEntity()).when(userRepository).findByEmail(anyString());
-		doReturn("@@@@@@@@@@@").when(encryptService).encrypt(anyString());
+		doReturn(getUpdateUserRequest().convert()).when(userRepository).findByEmail(anyString());
+		doReturn(encryptService.encrypt(getSaveUserRequest().getPassword())).when(encryptService).encrypt(anyString());
 
-		User user = userService.update(getUpdateReq().toEntity());
+		User user = userService.update(getUpdateUserRequest().convert());
 
-		assertThat(user.getEmail()).isEqualTo("test33@test.com");
-		assertThat(user.getEncodedPassword()).isEqualTo("@@@@@@@@@@@");
-		assertThat(user.getUsername()).isEqualTo("변경된유저");
-		assertThat(user.getPhone()).isEqualTo("01012345678");
+		assertThat(user.getEmail()).isEqualTo(getUpdateUserRequest().getEmail());
+		assertThat(user.getEncodedPassword()).isEqualTo(encryptService.encrypt(getUpdateUserRequest().getPassword()));
+		assertThat(user.getUsername()).isEqualTo(getUpdateUserRequest().getUsername());
+		assertThat(user.getPhone()).isEqualTo(getUpdateUserRequest().getPhone());
 	}
 
 	public User getUser() {
 		return User.builder()
 			.email("test@test.com")
-			.encodedPassword("@@@@@@@@@@@")
+			.encodedPassword(encryptService.encrypt("user1234!!"))
 			.username("테스트유저")
 			.phone("01012341234")
 			.role(Role.CUSTOMER)
 			.build();
 	}
 
-	public JoinRequest getJoinReq() {
-		return JoinRequest.builder()
+	public SaveUserRequest getSaveUserRequest() {
+		return SaveUserRequest.builder()
 			.email("test@test.com")
-			.password("12345678aA")
+			.password("user1234!!")
 			.username("테스트유저")
 			.phone("01012341234")
 			.isAdmin(false)
 			.build();
 	}
 
-	public UpdateUserRequest getUpdateReq() {
+	public UpdateUserRequest getUpdateUserRequest() {
 		return UpdateUserRequest.builder()
 			.email("test33@test.com")
-			.password("1345345A")
+			.password("user1234@@")
 			.username("변경된유저")
 			.phone("01012345678")
 			.build();

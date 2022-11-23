@@ -28,12 +28,11 @@ public class UpdateUserRequest {
 	@RegExp(regExpCode = PHONE)
 	private String phone;
 
-	public User toEntity() {
+	public User convert() {
 
 		return User.builder()
 			.email(this.getEmail())
 			.username(this.getUsername())
-			.encodedPassword(this.getPassword())
 			.phone(this.getPhone())
 			.build();
 	}
