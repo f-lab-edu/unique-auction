@@ -21,7 +21,6 @@ import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.review.entity.Review;
 import com.uniqueauction.domain.review.repository.ReviewRepository;
 import com.uniqueauction.domain.user.entity.User;
-import com.uniqueauction.web.review.request.SaveReviewRequest;
 import com.uniqueauction.web.review.response.ReviewByProductResponse;
 import com.uniqueauction.web.review.response.ReviewByUserResponse;
 import com.uniqueauction.web.review.response.ReviewInfo;
@@ -62,6 +61,7 @@ class ReviewServiceTest {
 	@DisplayName("프로덕트 아이디로 리뷰 조회")
 	void findByProductId() {
 		doReturn(getReviewsInfo()).when(reviewRepository).findByProductId(any(Long.class));
+
 		//when
 		ReviewByProductResponse byProductId = reviewService.findByProductId(getProduct());
 		//then
@@ -84,15 +84,6 @@ class ReviewServiceTest {
 		assertThat(byUserId.getUsername()).isEqualTo("test");
 		assertThat(byUserId.getEmail()).isEqualTo("test@test.com");
 		assertThat(byUserId.getReviews().size()).isEqualTo(5);
-	}
-
-	private SaveReviewRequest createSaveReviewsReq() {
-		return SaveReviewRequest.builder()
-			.userId(DUMY)
-			.productId(DUMY)
-			.score(3)
-			.content("test")
-			.build();
 	}
 
 	private User getUser() {
