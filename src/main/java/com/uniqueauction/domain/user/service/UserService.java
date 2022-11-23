@@ -9,7 +9,6 @@ import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.repository.UserRepository;
 import com.uniqueauction.exception.advice.CommonException;
 import com.uniqueauction.exception.advice.CommonNotFoundException;
-import com.uniqueauction.web.user.request.JoinRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,28 +16,21 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class UserService {
 	private final UserRepository userRepository;
-	private final EncryptService encryptService;
 
 	@Transactional
-	public User join(JoinRequest joinRequest) {
-		User user = joinRequest.convert(joinRequest);
+	public User join(User user) {
 		if (!existsByEmail(user.getEmail())) {
-			user.setEncodedPassword(encryptService.encrypt(joinRequest.getPassword()));
+			userRepository.save(user);
 		} else {
 			throw new CommonException(DUPLICATE_USER);
 		}
-		return userRepository.save(user);
+		return userRepository.findByEmail(user.getEmail());
 	}
 
 	@Transactional
 	public User update(User updateUser) {
-
 		User user = userRepository.findByEmail(updateUser.getEmail());
-
-		updateUser.setEncodedPassword(encryptService.encrypt(updateUser.getEncodedPassword()));
-
 		user.update(updateUser);
-
 		return user;
 	}
 

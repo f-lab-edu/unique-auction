@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uniqueauction.domain.user.entity.User;
+import com.uniqueauction.domain.user.service.EncryptService;
 import com.uniqueauction.domain.user.service.UserService;
 import com.uniqueauction.web.response.CommonResponse;
-import com.uniqueauction.web.user.request.JoinRequest;
+import com.uniqueauction.web.user.request.SaveUserRequest;
 import com.uniqueauction.web.user.request.UpdateUserRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -22,19 +23,25 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	private final UserService userService;
+	private final EncryptService encryptService;
 
 	@PostMapping("/users")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CommonResponse joinUser(@RequestBody @Validated JoinRequest joinRequest, BindingResult result) {
-		User user = userService.join(joinRequest);
-		return CommonResponse.success(user);
+	public CommonResponse joinUser(@RequestBody @Validated SaveUserRequest saveUserRequest, BindingResult result) {
+		User user = saveUserRequest.convert();
+		user.setEncodedPassword(encryptService.encrypt(saveUserRequest.getPassword()));
+		userService.join(user);
+		return CommonResponse.success();
 	}
 
 	@PatchMapping("/users/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse updateUser(@RequestBody @Validated UpdateUserRequest updateUserRequest,
 		BindingResult result) {
-		userService.update(updateUserRequest.toEntity());
+		User user = updateUserRequest.convert();
+		user.setEncodedPassword(encryptService.encrypt(updateUserRequest.getPassword()));
+		userService.update(user);
+
 		return CommonResponse.success();
 	}
 }

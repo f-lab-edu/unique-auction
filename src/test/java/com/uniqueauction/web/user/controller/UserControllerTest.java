@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.service.UserService;
-import com.uniqueauction.web.user.request.JoinRequest;
+import com.uniqueauction.web.user.request.SaveUserRequest;
 import com.uniqueauction.web.user.request.UpdateUserRequest;
 
 @SpringBootTest
@@ -46,18 +46,14 @@ class UserControllerTest {
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(createUser())))
-			.andExpect(status().isCreated())
-			.andExpect(jsonPath("data.username", is("테스트유저")))
-			.andExpect(jsonPath("data.email", is("email@email.com")))
-			.andExpect(jsonPath("data.encodedPassword", is("@@@@@@@@@@")))
-			.andExpect(jsonPath("data.phone", is("010-1234-1344")));
+			.andExpect(status().isCreated());
 	}
 
 	@Test
 	@DisplayName("유저 수정 완료가 되면 status 200을 반환한다.")
 	void userUpdateTest() throws Exception {
 
-		doReturn(updateUser().toEntity()).when(userService).update(updateUser().toEntity());
+		doReturn(updateUser().convert()).when(userService).update(updateUser().convert());
 
 		mockMvc.perform(
 				patch("/users/" + 1)
@@ -79,12 +75,13 @@ class UserControllerTest {
 			.build();
 	}
 
-	private JoinRequest createUser() {
-		return JoinRequest.builder()
+	private SaveUserRequest createUser() {
+		return SaveUserRequest.builder()
 			.email("1234@gmail.com")
 			.phone("01012345678")
 			.username("user1234")
-			.password("aaRr3456j")
+			.isAdmin(false)
+			.password("user1234!!")
 			.build();
 	}
 
@@ -93,7 +90,7 @@ class UserControllerTest {
 			.email("1234@gmail.com")
 			.phone("01012345678")
 			.username("user5678")
-			.password("aaRr3456kk")
+			.password("user1234@@")
 			.build();
 	}
 }

@@ -1,5 +1,6 @@
 package com.uniqueauction.domain.review.service;
 
+import static com.uniqueauction.CommonUtilMethod.*;
 import static com.uniqueauction.domain.product.entity.Category.*;
 import static com.uniqueauction.domain.user.entity.Role.*;
 import static org.assertj.core.api.Assertions.*;
@@ -20,6 +21,7 @@ import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.review.entity.Review;
 import com.uniqueauction.domain.review.repository.ReviewRepository;
 import com.uniqueauction.domain.user.entity.User;
+import com.uniqueauction.event.ReviewEventPublisher;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
 import com.uniqueauction.web.review.response.ReviewByProductResponse;
 import com.uniqueauction.web.review.response.ReviewByUserResponse;
@@ -28,7 +30,7 @@ import com.uniqueauction.web.review.response.ReviewInfo;
 @ExtendWith(MockitoExtension.class) // 클래스단에 해당 어노테이션을 달아, 클래스가 Mockito를 사용함을 명시적으로 알립니다.
 class ReviewServiceTest {
 
-	private static final Long commonId = 1L;
+	private static final Long DUMY = getRandomLong();
 
 	@InjectMocks
 	ReviewService reviewService;
@@ -36,9 +38,12 @@ class ReviewServiceTest {
 	@Mock
 	ReviewRepository reviewRepository;
 
+	@Mock
+	ReviewEventPublisher reviewEventPublisher;
+
 	@BeforeEach
 	void setUp() {
-		reviewService = new ReviewService(reviewRepository);
+		reviewService = new ReviewService(reviewRepository, reviewEventPublisher);
 	}
 
 	@Test
@@ -46,11 +51,12 @@ class ReviewServiceTest {
 	void saveReviewsTest() {
 		//given
 
+		doReturn(getUser()).when(reviewEventPublisher).getUser(any(Long.class));
+		doReturn(getProduct()).when(reviewEventPublisher).getProduct(any(Long.class));
 		doReturn(getReview()).when(reviewRepository).save(any(Review.class));
 
-		// doReturn(getReview()).when(reviewRepository).save(getReview()); 왜 null이 나올까?
 		//when
-		Review review = reviewService.save(getReview());
+		Review review = reviewService.save(createSaveReviewsReq());
 
 		assertThat(getProduct()).isEqualTo(review.getProduct());
 		assertThat(getUser()).isEqualTo(review.getUser());
@@ -62,8 +68,10 @@ class ReviewServiceTest {
 	@DisplayName("프로덕트 아이디로 리뷰 조회")
 	void findByProductId() {
 		doReturn(getReviewsInfo()).when(reviewRepository).findByProductId(any(Long.class));
+		doReturn(getProduct()).when(reviewEventPublisher).getProduct(any(Long.class));
+
 		//when
-		ReviewByProductResponse byProductId = reviewService.findByProductId(getProduct());
+		ReviewByProductResponse byProductId = reviewService.findByProductId(any(Long.class));
 		//then
 
 		assertThat(byProductId.getProductName()).isEqualTo("상품1");
@@ -76,9 +84,10 @@ class ReviewServiceTest {
 	void findByUserId() {
 
 		doReturn(getReviewsInfo()).when(reviewRepository).findByUserId(any(Long.class));
+		doReturn(getUser()).when(reviewEventPublisher).getUser(any(Long.class));
 
 		//when
-		ReviewByUserResponse byUserId = reviewService.findByUserId(getUser());
+		ReviewByUserResponse byUserId = reviewService.findByUserId(any(Long.class));
 		//then
 
 		assertThat(byUserId.getUsername()).isEqualTo("test");
@@ -88,8 +97,8 @@ class ReviewServiceTest {
 
 	private SaveReviewRequest createSaveReviewsReq() {
 		return SaveReviewRequest.builder()
-			.userId(1L)
-			.productId(1L)
+			.userId(DUMY)
+			.productId(DUMY)
 			.score(3)
 			.content("test")
 			.build();
@@ -97,7 +106,7 @@ class ReviewServiceTest {
 
 	private User getUser() {
 		return User.builder()
-			.id(commonId)
+			.id(DUMY)
 			.email("test@test.com")
 			.username("test")
 			.encodedPassword("1234Aa1234")
@@ -108,7 +117,7 @@ class ReviewServiceTest {
 
 	private Product getProduct() {
 		return Product.builder()
-			.id(commonId)
+			.id(DUMY)
 			.name("상품1")
 			.modelNumber("1234")
 			.releasePrice("10000")
