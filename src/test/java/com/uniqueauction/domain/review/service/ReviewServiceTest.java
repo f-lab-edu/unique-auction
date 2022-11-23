@@ -21,8 +21,6 @@ import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.review.entity.Review;
 import com.uniqueauction.domain.review.repository.ReviewRepository;
 import com.uniqueauction.domain.user.entity.User;
-import com.uniqueauction.event.ReviewEventPublisher;
-import com.uniqueauction.web.review.request.SaveReviewRequest;
 import com.uniqueauction.web.review.response.ReviewByProductResponse;
 import com.uniqueauction.web.review.response.ReviewByUserResponse;
 import com.uniqueauction.web.review.response.ReviewInfo;
@@ -38,12 +36,9 @@ class ReviewServiceTest {
 	@Mock
 	ReviewRepository reviewRepository;
 
-	@Mock
-	ReviewEventPublisher reviewEventPublisher;
-
 	@BeforeEach
 	void setUp() {
-		reviewService = new ReviewService(reviewRepository, reviewEventPublisher);
+		reviewService = new ReviewService(reviewRepository);
 	}
 
 	@Test
@@ -51,12 +46,10 @@ class ReviewServiceTest {
 	void saveReviewsTest() {
 		//given
 
-		doReturn(getUser()).when(reviewEventPublisher).getUser(any(Long.class));
-		doReturn(getProduct()).when(reviewEventPublisher).getProduct(any(Long.class));
 		doReturn(getReview()).when(reviewRepository).save(any(Review.class));
 
 		//when
-		Review review = reviewService.save(createSaveReviewsReq());
+		Review review = reviewService.save(getReview());
 
 		assertThat(getProduct()).isEqualTo(review.getProduct());
 		assertThat(getUser()).isEqualTo(review.getUser());
@@ -68,10 +61,9 @@ class ReviewServiceTest {
 	@DisplayName("프로덕트 아이디로 리뷰 조회")
 	void findByProductId() {
 		doReturn(getReviewsInfo()).when(reviewRepository).findByProductId(any(Long.class));
-		doReturn(getProduct()).when(reviewEventPublisher).getProduct(any(Long.class));
 
 		//when
-		ReviewByProductResponse byProductId = reviewService.findByProductId(any(Long.class));
+		ReviewByProductResponse byProductId = reviewService.findByProductId(getProduct());
 		//then
 
 		assertThat(byProductId.getProductName()).isEqualTo("상품1");
@@ -84,24 +76,14 @@ class ReviewServiceTest {
 	void findByUserId() {
 
 		doReturn(getReviewsInfo()).when(reviewRepository).findByUserId(any(Long.class));
-		doReturn(getUser()).when(reviewEventPublisher).getUser(any(Long.class));
 
 		//when
-		ReviewByUserResponse byUserId = reviewService.findByUserId(any(Long.class));
+		ReviewByUserResponse byUserId = reviewService.findByUserId(getUser());
 		//then
 
 		assertThat(byUserId.getUsername()).isEqualTo("test");
 		assertThat(byUserId.getEmail()).isEqualTo("test@test.com");
 		assertThat(byUserId.getReviews().size()).isEqualTo(5);
-	}
-
-	private SaveReviewRequest createSaveReviewsReq() {
-		return SaveReviewRequest.builder()
-			.userId(DUMY)
-			.productId(DUMY)
-			.score(3)
-			.content("test")
-			.build();
 	}
 
 	private User getUser() {

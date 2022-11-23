@@ -25,9 +25,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueauction.domain.product.entity.Product;
+import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.domain.review.entity.Review;
 import com.uniqueauction.domain.review.service.ReviewService;
 import com.uniqueauction.domain.user.entity.User;
+import com.uniqueauction.domain.user.service.UserService;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
 import com.uniqueauction.web.review.response.ReviewByProductResponse;
 import com.uniqueauction.web.review.response.ReviewByUserResponse;
@@ -45,11 +47,19 @@ class ReviewControllerTest {
 	@MockBean
 	private ReviewService reviewService;
 
+	@MockBean
+	private UserService userService;
+
+	@MockBean
+	private ProductService productService;
+
 	@Test
 	@DisplayName("리뷰 저장 완료가 되면 status  201을 반환한다.")
 	void reviewSaveTest() throws Exception {
 
-		doReturn(getReview()).when(reviewService).save(any(SaveReviewRequest.class));
+		doReturn(getUser()).when(userService).findById(anyLong());
+		doReturn(getProduct()).when(productService).findById(anyLong());
+		doReturn(getReview()).when(reviewService).save(any(Review.class));
 
 		mockMvc.perform(
 				post("/reviews")
@@ -95,7 +105,9 @@ class ReviewControllerTest {
 	@DisplayName("프로덕트 ID로 리뷰 목록들을 조회한다.")
 	void selectProductReviws() throws Exception {
 
-		doReturn(findByPidRes()).when(reviewService).findByProductId(anyLong());
+		doReturn(getProduct()).when(productService).findById(anyLong());
+
+		doReturn(findByPidRes()).when(reviewService).findByProductId(any(Product.class));
 
 		mockMvc.perform(get("/reviews/1/products")
 				.accept(MediaType.APPLICATION_JSON))
@@ -113,8 +125,8 @@ class ReviewControllerTest {
 	@Test
 	@DisplayName("유저 ID로 리뷰 목록들을 조회한다.")
 	void selectUserReviws() throws Exception {
-
-		doReturn(findByUidRes()).when(reviewService).findByUserId(anyLong());
+		doReturn(getUser()).when(userService).findById(anyLong());
+		doReturn(findByUidRes()).when(reviewService).findByUserId(any(User.class));
 
 		mockMvc.perform(get("/reviews/1/users")
 				.accept(MediaType.APPLICATION_JSON))
