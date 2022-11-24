@@ -7,8 +7,6 @@ import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.review.entity.Review;
 import com.uniqueauction.domain.review.repository.ReviewRepository;
 import com.uniqueauction.domain.user.entity.User;
-import com.uniqueauction.event.ReviewEventPublisher;
-import com.uniqueauction.web.review.request.SaveReviewRequest;
 import com.uniqueauction.web.review.response.ReviewByProductResponse;
 import com.uniqueauction.web.review.response.ReviewByUserResponse;
 
@@ -19,37 +17,31 @@ import lombok.RequiredArgsConstructor;
 public class ReviewService {
 
 	private final ReviewRepository reviewRepository;
-	private final ReviewEventPublisher reviewEventPublisher;
 
 	@Transactional()
-	public Review save(SaveReviewRequest reviewRequest) {
-
-		Product product = reviewEventPublisher.getProduct(reviewRequest.getProductId());
-		User user = reviewEventPublisher.getUser(reviewRequest.getUserId());
-
-		Review review = Review.createReview(user, product, reviewRequest);
+	public Review save(Review review) {
 
 		return reviewRepository.save(review);
-
 	}
 
 	@Transactional(readOnly = true)
-	public ReviewByProductResponse findByProductId(Long productId) {
+	public ReviewByProductResponse findByProductId(Product product) {
 
-		ReviewByProductResponse response = ReviewByProductResponse.of(reviewRepository.findByProductId(productId));
+		ReviewByProductResponse response = ReviewByProductResponse.of(
+			reviewRepository.findByProductId(product.getId()));
 
-		response.addProductInfo(reviewEventPublisher.getProduct(productId));
+		response.addProductInfo(product);
 
 		return response;
 	}
 
 	@Transactional(readOnly = true)
-	public ReviewByUserResponse findByUserId(Long userId) {
+	public ReviewByUserResponse findByUserId(User user) {
 
-		ReviewByUserResponse response = ReviewByUserResponse.of(reviewRepository.findByUserId(userId));
-		response.addUserInfo(reviewEventPublisher.getUser(userId));
+		ReviewByUserResponse response = ReviewByUserResponse.of(reviewRepository.findByUserId(user.getId()));
+		response.addUserInfo(user);
 		return response;
 
 	}
-
 }
+

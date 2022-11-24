@@ -10,10 +10,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uniqueauction.domain.product.entity.Product;
+import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.domain.review.entity.Review;
 import com.uniqueauction.domain.review.service.ReviewService;
+import com.uniqueauction.domain.user.entity.User;
+import com.uniqueauction.domain.user.service.UserService;
 import com.uniqueauction.web.response.CommonResponse;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
+import com.uniqueauction.web.review.response.ReviewByProductResponse;
+import com.uniqueauction.web.review.response.ReviewByUserResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,24 +28,37 @@ import lombok.RequiredArgsConstructor;
 public class ReviewController {
 
 	private final ReviewService reviewService;
+	private final UserService userService;
+	private final ProductService productService;
 
 	@PostMapping("/reviews")
 	@ResponseStatus(HttpStatus.CREATED)
 	public CommonResponse saveReview(@RequestBody @Validated SaveReviewRequest saveReviewRequest,
 		BindingResult result) {
-		Review review = reviewService.save(saveReviewRequest);
+
+		User user = userService.findById(saveReviewRequest.getUserId());
+		Product product = productService.findById(saveReviewRequest.getProductId());
+
+		Review review = reviewService.save(Review.createReview(user, product, saveReviewRequest));
 		return CommonResponse.success(review);
 	}
 
 	@GetMapping("/reviews/{productId}/products")
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse selectProductReviews(@PathVariable Long productId) {
-		return CommonResponse.success(reviewService.findByProductId(productId));
+		Product product = productService.findById(productId);
+
+		ReviewByProductResponse productReviews = reviewService.findByProductId(product);
+
+		return CommonResponse.success(productReviews);
 	}
 
 	@GetMapping("/reviews/{userId}/users")
 	@ResponseStatus(HttpStatus.OK)
 	public CommonResponse selectUserProductReviews(@PathVariable Long userId) {
-		return CommonResponse.success(reviewService.findByUserId(userId));
+		User user = userService.findById(userId);
+		ReviewByUserResponse usersReviews = reviewService.findByUserId(user);
+		return CommonResponse.success(usersReviews);
 	}
 }
+
