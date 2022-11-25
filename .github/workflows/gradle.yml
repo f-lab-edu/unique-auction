@@ -96,22 +96,12 @@ jobs:
         run: chmod +x gradlew
         shell: bash
 
- 
-
 
       # 프로젝트 테스트 진행없이 빌드
       - name: Build with Gradle
         run: ./gradlew build -x test -x checkstyleTest -x checkstyleMain
         shell: bash
 
-
-#       # 운영서버용 Docker 빌드 생성 및 푸시
-#       - name: prod Docker build & push
-#         if: contains(github.ref, 'master')
-#         run: |
-#           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-#           docker build -f Dockerfile-prod -t ${{ secrets.DOCKER_REPO }}/nooblol-prod .
-#           docker push ${{ secrets.DOCKER_REPO }}/nooblol-prod
 
       #운영서버 SSH접속 및 배포 - 현재 운영서버는 셋팅이 되어있지 않아 모두 주석으로 진행하였다.
       # Main Deploy
@@ -125,8 +115,5 @@ jobs:
          password: ${{ secrets.NCP_RELEASE_SERVER_PASSWORD }}
          port: ${{ secrets.NCP_RELEASE_SERVER_SSH_PORT }}
          script: |
-           sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-           sudo docker rm -f $(docker ps -q -a)
-           sudo docker pull ${{ secrets.DOCKER_REPO }}/nooblol-prod
            docker-compose up -d
            docker image prune -f
