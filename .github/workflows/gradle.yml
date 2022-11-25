@@ -75,3 +75,58 @@ jobs:
       # 실제 어플리케이션 빌드시 -x 옵션을 통해 test와 컨벤션(위에서해줌) 제외한다.
       - name: Build with Gradle
         run: ./gradlew build -x test -x checkstyleTest -x checkstyleMain
+ # 작업명
+  CD:
+    ## NCP OS : Ubuntu 18.04
+    needs: [ Build ]
+    runs-on: ubuntu-18.04
+
+    steps:
+      ## Project JDK 11 Setting
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      
+      # Gradle의 사용권한 셋팅
+      - name: Grant Execute permission for gradlew
+        run: chmod +x gradlew
+        shell: bash
+
+ 
+
+
+      # 프로젝트 테스트 진행없이 빌드
+      - name: Build with Gradle
+        run: ./gradlew build -x test -x checkstyleTest -x checkstyleMain
+        shell: bash
+
+
+#       # 운영서버용 Docker 빌드 생성 및 푸시
+#       - name: prod Docker build & push
+#         if: contains(github.ref, 'master')
+#         run: |
+#           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+#           docker build -f Dockerfile-prod -t ${{ secrets.DOCKER_REPO }}/nooblol-prod .
+#           docker push ${{ secrets.DOCKER_REPO }}/nooblol-prod
+
+      #운영서버 SSH접속 및 배포 - 현재 운영서버는 셋팅이 되어있지 않아 모두 주석으로 진행하였다.
+      # Main Deploy
+      - name: Deploy to Release
+        uses: appleboy/ssh-action@master
+        id: deploy-prod
+        if: contains(github.ref, 'main')
+        with:
+         host: ${{ secrets.NCP_RELEASE_SERVER_IP }}
+         username: ${{ secrets.NCP_RELEASE_SERVER_USER }}
+         password: ${{ secrets.NCP_RELEASE_SERVER_PASSWORD }}
+         port: ${{ secrets.NCP_RELEASE_SERVER_SSH_PORT }}
+         script: |
+           sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+           sudo docker rm -f $(docker ps -q -a)
+           sudo docker pull ${{ secrets.DOCKER_REPO }}/nooblol-prod
+           docker-compose up -d
+           docker image prune -f
