@@ -89,4 +89,5 @@ jobs:
         run: |
            aws --endpoint-url=https://kr.object.ncloudstorage.com  s3 cp \
            --recursive \
-           build s3:uniquebucket
+           --region ap-northeast-2 \
+           build s3: uniquebucket
