@@ -80,7 +80,10 @@ jobs:
           AWS_DEFAULT_REGION: ap-northeast-2
         run: | 
          ./gradlew build -x test -x checkstyleTest -x checkstyleMain
-         aws --endpoint-url=https://kr.object.gov-ncloudstorage.com s3 cp /home/runner/work/unique-auction s3://uniquebucket
+         aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp \
+            --recursive \
+            --region ap-northeast-2 \
+            build s3://uniqueaction
 #  # 작업명
 #   CD:
 #     ## NCP OS : Ubuntu 18.04
