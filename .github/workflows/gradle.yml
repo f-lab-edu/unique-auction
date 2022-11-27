@@ -92,5 +92,5 @@ jobs:
            ls -l /home/runner/work/unique-auction
            ls -l /home/runner/work
            ls -l 
-           aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp ./build/libs/uniqueauction-0.0.1-SNAPSHOT.jar s3://uniquebucket
+           aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp /home/runner/work/unique-auction s3://uniquebucket
 
