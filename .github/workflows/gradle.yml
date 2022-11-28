@@ -84,6 +84,6 @@ jobs:
         run: | 
            aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp \
             --recursive \
-            build s3://uniquebucket
-            if: contains(github.ref, 'master') 
+            build s3://uniquebucket/release
+    if: contains(github.ref, 'master') 
  # github branch가 master 때만 deploy 실행한다.
