@@ -86,7 +86,6 @@ jobs:
           pwd
           ls -l
            aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp build/libs/uniqueauction-0.0.1-SNAPSHOT.jar 
-            --recursive \
-            --region ap-northeast-2 \
+            --recursive build/libs/uniqueauction-0.0.1-SNAPSHOT.jar
             build s3://uniquebucket
 
