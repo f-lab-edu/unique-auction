@@ -74,12 +74,15 @@ jobs:
       - uses: actions/checkout@v3
       # 실제 어플리케이션 빌드시 -x 옵션을 통해 test와 컨벤션(위에서해줌) 제외한다.
       - name: Build with Gradle
+        run:  |
+          ./gradlew build -x test -x checkstyleTest -x checkstyleMain
+
+      - name: deploy
         env: 
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ap-northeast-2
-        run:  |
-          ./gradlew build -x test -x checkstyleTest -x checkstyleMain
+        run: | 
            aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp \
             --recursive \
             --region ap-northeast-2 \
