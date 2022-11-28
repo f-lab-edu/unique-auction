@@ -84,6 +84,7 @@ jobs:
           AWS_DEFAULT_REGION: ap-northeast-2
         run: | 
           pwd
+          ls -l
            aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp \
             --recursive \
             --region ap-northeast-2 \
