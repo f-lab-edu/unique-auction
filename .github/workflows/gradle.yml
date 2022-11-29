@@ -84,6 +84,7 @@ jobs:
         run: | 
           pwd
           ls -l
+          ls -l /home/runner/work/unique-auction
            aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp \
             --recursive \
             build s3://uniquebucket/release
