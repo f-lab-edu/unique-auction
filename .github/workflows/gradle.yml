@@ -80,11 +80,14 @@ jobs:
         run: zip -qq -r ./$GITHUB_SHA.zip .
         shell: bash
 
-      - name: Upload to NCP Store
-        env: 
+      - name: Configure  credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with: 
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ap-northeast-2
+          
+      - name: Upload to NCP Store
         run: aws s3 cp ./$GITHUB_SHA.zip s3://uniquebucket/uniqueAction/$GITHUB_SHA.zip
 
     if: contains(github.ref, 'master') 
