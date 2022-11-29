@@ -88,9 +88,5 @@ jobs:
         run: |
           aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://uniquebucket/uniqueAction/$GITHUB_SHA.zip
     
-
-    #       - name: Upload to NCP Store
-    #         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://uniquebucket/uniqueAction/$GITHUB_SHA.zip
-
     if: contains(github.ref, 'master')
   # github branch가 master 때만 deploy 실행한다.
