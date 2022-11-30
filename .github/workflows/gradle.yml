@@ -76,6 +76,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build -x test -x checkstyleTest -x checkstyleMain
 
+    if: contains(github.ref, 'master')
       - name: Make zip file
         run: zip -qq -r ./build.zip .
         shell: bash
@@ -87,5 +88,4 @@ jobs:
           AWS_DEFAULT_REGION: ap-northeast-2
         run: |
           aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp --region ap-northeast-2 ./build.zip s3://uniquebucket/uniqueAction/build.zip
-    if: contains(github.ref, 'master')
   # github branch가 master 때만 deploy 실행한다.
