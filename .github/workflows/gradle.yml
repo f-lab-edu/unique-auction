@@ -89,9 +89,7 @@ jobs:
           aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp --region ap-northeast-2 ./build.zip s3://uniquebucket/uniqueAction/build.zip
     
       - name: Call CodeDeploy
-        run: |
-         aws deploy create-deployment \
-         --application-name uniqueaction \
-         --s3-location bucket=uniquebucket,bundleType=tgz,key=$/deploy.tar.gz \
+        run: aws deploy create-deployment --application-name uniqueaction --deployment-config-name CodeDeployDefault.AllAtOnce  --s3-location bucket= uniquebucket ,bundleType=zip,key=CI/build.zip
+
     if: contains(github.ref, 'master')
   # github branch가 master 때만 deploy 실행한다.
