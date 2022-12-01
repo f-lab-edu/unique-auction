@@ -2,9 +2,9 @@ ACCESSKEY="3llRJaaOdNenSwt7HruV"
 
 SECRETKEY="TGFs7Jjsul9376tTIsypkUNN1KvuxE26jQHmhvp0"
 
-project=
+project= "uniqueaction"
 
-stage=
+stage= "real"
 
 scenario=
 
