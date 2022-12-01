@@ -90,10 +90,9 @@ jobs:
     
       - name: Call CodeDeploy
         run: |
-           pwd 
-           ls -l /home/runner/work/unique-auction/unique-auction
            cd /home/runner/work/unique-auction/unique-auction
            ls -l
+           chmod +x ./deploy.sh
            ./deploy.sh
            
     if: contains(github.ref, 'master')
