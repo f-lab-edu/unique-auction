@@ -6,7 +6,7 @@ project= "uniqueaction"
 
 stage= "real"
 
-scenario=
+scenario= "deploy-release"
 
 METHOD="POST"
 
