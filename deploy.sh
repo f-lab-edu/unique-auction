@@ -1,14 +1,14 @@
-ACCESSKEY="3llRJaaOdNenSwt7HruV"
+ACCESSKEY = "3llRJaaOdNenSwt7HruV"
 
-SECRETKEY="TGFs7Jjsul9376tTIsypkUNN1KvuxE26jQHmhvp0"
+SECRETKEY = "TGFs7Jjsul9376tTIsypkUNN1KvuxE26jQHmhvp0"
 
-project= uniqueaction
+project = "uniqueaction"
 
-stage= real
+stage = "real"
 
-scenario= deploy-release
+scenario = "deploy-release"
 
-METHOD="POST"
+METHOD = "POST"
 
 
 
