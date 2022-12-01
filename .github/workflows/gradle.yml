@@ -92,7 +92,9 @@ jobs:
         run: |
            pwd 
            ls -l /home/runner/work/unique-auction/unique-auction
-           ./home/runner/work/unique-auction/unique-auction/deploy.sh
+           cd /home/runner/work/unique-auction/unique-auction
+           ls -l
+           ./deploy.sh
            
     if: contains(github.ref, 'master')
   # github branch가 master 때만 deploy 실행한다.
