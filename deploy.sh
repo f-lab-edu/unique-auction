@@ -34,4 +34,4 @@ makeSignature $ACCESSKEY $SECRETKEY $TIMESTAMP $METHOD $URI
 
 
 
-curl -X $METHOD https://sourcedeploy.apigw.ntruss.com$URI -H "accept: application/json" -H "x-ncp-region_code: KR" -H "x-ncp-iam-access-key: $ACCESSKEY" -H "x-ncp-apigw-timestamp: $TIMESTAMP" -H "x-ncp-apigw-signature-v2: $SIGNITURE"
+curl -X $METHOD https://vpcsourcedeploy.apigw.ntruss.com$URI -H "accept: application/json" -H "x-ncp-region_code: KR" -H "x-ncp-iam-access-key: $ACCESSKEY" -H "x-ncp-apigw-timestamp: $TIMESTAMP" -H "x-ncp-apigw-signature-v2: $SIGNITURE"
