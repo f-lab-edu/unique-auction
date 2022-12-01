@@ -4,7 +4,7 @@ SECRETKEY="TGFs7Jjsul9376tTIsypkUNN1KvuxE26jQHmhvp0"
 
 project=7007
 
-stag=5632
+stage=5632
 
 scenario=5893
 
