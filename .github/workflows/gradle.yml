@@ -89,7 +89,42 @@ jobs:
           aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp --region ap-northeast-2 ./build.zip s3://uniquebucket/uniqueAction/build.zip
     
       - name: Call CodeDeploy
-        run: aws deploy create-deployment --application-name uniqueaction --deployment-config-name CodeDeployDefault.AllAtOnce  --region ap-northeast-2
+        run: 
+          ACCESSKEY="3llRJaaOdNenSwt7HruV"
+
+          SECRETKEY="TGFs7Jjsul9376tTIsypkUNN1KvuxE26jQHmhvp0"
+
+          project=unique_actuon
+
+          stage=real
+
+          scenario=SCENARIO_NUM
+
+          METHOD="POST"
+
+function makeSignature() {
+
+        nl=$'\\n'
+
+        SIG="$4"' '"$5"${nl}"$3"${nl}"$1"
+
+        SIGNITURE=$(echo -n -e "$SIG"|iconv -t utf8 |openssl dgst -sha256 -hmac $2 -binary|openssl enc -base64)
+
+}
+
+
+
+TIMESTAMP=$(echo $(($(date +%s%N)/1000000)))
+
+URI="/api/v1/project/$project/stage/$stage/scenario/$scenario/deploy"
+
+
+
+makeSignature $ACCESSKEY $SECRETKEY $TIMESTAMP $METHOD $URI
+
+
+
+curl -X $METHOD https://vpcsourcedeploy.apigw.ntruss.com$URI -H "accept: application/json" -H "x-ncp-region_code: KR" -H "x-ncp-iam-access-key: $ACCESSKEY" -H "x-ncp-apigw-timestamp: $TIMESTAMP" -H "x-ncp-apigw-signature-v2: $SIGNITURE"
 
     if: contains(github.ref, 'master')
   # github branch가 master 때만 deploy 실행한다.
