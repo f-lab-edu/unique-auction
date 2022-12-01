@@ -89,6 +89,7 @@ jobs:
 #           aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp --region ap-northeast-2 ./build.zip s3://uniquebucket/uniqueAction/build.zip
     
       - name: Call CodeDeploy
+        shell: bash
         run: |
            cd /home/runner/work/unique-auction/unique-auction
            chmod +x ./deploy.sh
