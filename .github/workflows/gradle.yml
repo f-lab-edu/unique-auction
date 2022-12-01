@@ -66,12 +66,12 @@ jobs:
   #           rm -f ~/.gradle/caches/modules-2/modules-2.lock
   #           rm -f ~/.gradle/caches/modules-2/gc.properties
 
-#   Build:
-#     #     needs: [ codeFormatCheck, testCheck ]
-#     runs-on: ubuntu-18.04
-#     steps:
+  Build:
+    #     needs: [ codeFormatCheck, testCheck ]
+    runs-on: ubuntu-18.04
+    steps:
 
-#       - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 #       # 실제 어플리케이션 빌드시 -x 옵션을 통해 test와 컨벤션(위에서해줌) 제외한다.
 #       - name: Build with Gradle
 #         run: ./gradlew build -x test -x checkstyleTest -x checkstyleMain
