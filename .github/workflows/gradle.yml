@@ -66,65 +66,30 @@ jobs:
   #           rm -f ~/.gradle/caches/modules-2/modules-2.lock
   #           rm -f ~/.gradle/caches/modules-2/gc.properties
 
-  Build:
-    #     needs: [ codeFormatCheck, testCheck ]
-    runs-on: ubuntu-18.04
-    steps:
+#   Build:
+#     #     needs: [ codeFormatCheck, testCheck ]
+#     runs-on: ubuntu-18.04
+#     steps:
 
-      - uses: actions/checkout@v3
-      # 실제 어플리케이션 빌드시 -x 옵션을 통해 test와 컨벤션(위에서해줌) 제외한다.
-      - name: Build with Gradle
-        run: ./gradlew build -x test -x checkstyleTest -x checkstyleMain
+#       - uses: actions/checkout@v3
+#       # 실제 어플리케이션 빌드시 -x 옵션을 통해 test와 컨벤션(위에서해줌) 제외한다.
+#       - name: Build with Gradle
+#         run: ./gradlew build -x test -x checkstyleTest -x checkstyleMain
 
-      - name: Make zip file
-        run: zip -qq -r ./build.zip .
-        shell: bash
+#       - name: Make zip file
+#         run: zip -qq -r ./build.zip .
+#         shell: bash
 
-      - name: Upload to NCP Store
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ap-northeast-2
-        run: |
-          aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp --region ap-northeast-2 ./build.zip s3://uniquebucket/uniqueAction/build.zip
+#       - name: Upload to NCP Store
+#         env:
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           AWS_DEFAULT_REGION: ap-northeast-2
+#         run: |
+#           aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp --region ap-northeast-2 ./build.zip s3://uniquebucket/uniqueAction/build.zip
     
       - name: Call CodeDeploy
-        run: 
-          ACCESSKEY="3llRJaaOdNenSwt7HruV"
-
-          SECRETKEY="TGFs7Jjsul9376tTIsypkUNN1KvuxE26jQHmhvp0"
-
-          project=unique_actuon
-
-          stage=real
-
-          scenario=SCENARIO_NUM
-
-          METHOD="POST"
-
-function makeSignature() {
-
-        nl=$'\\n'
-
-        SIG="$4"' '"$5"${nl}"$3"${nl}"$1"
-
-        SIGNITURE=$(echo -n -e "$SIG"|iconv -t utf8 |openssl dgst -sha256 -hmac $2 -binary|openssl enc -base64)
-
-}
-
-
-
-TIMESTAMP=$(echo $(($(date +%s%N)/1000000)))
-
-URI="/api/v1/project/$project/stage/$stage/scenario/$scenario/deploy"
-
-
-
-makeSignature $ACCESSKEY $SECRETKEY $TIMESTAMP $METHOD $URI
-
-
-
-curl -X $METHOD https://vpcsourcedeploy.apigw.ntruss.com$URI -H "accept: application/json" -H "x-ncp-region_code: KR" -H "x-ncp-iam-access-key: $ACCESSKEY" -H "x-ncp-apigw-timestamp: $TIMESTAMP" -H "x-ncp-apigw-signature-v2: $SIGNITURE"
-
+        run:  echo $GITHUB_ACTION_PATH
+         
     if: contains(github.ref, 'master')
   # github branch가 master 때만 deploy 실행한다.
