@@ -2,11 +2,11 @@ ACCESSKEY="3llRJaaOdNenSwt7HruV"
 
 SECRETKEY="TGFs7Jjsul9376tTIsypkUNN1KvuxE26jQHmhvp0"
 
-project=uniqueauction
+project=
 
-stage=STAGE_NUM
+stage=
 
-scenario=SCENARIO_NUM
+scenario=
 
 METHOD="POST"
 
