@@ -89,7 +89,7 @@ jobs:
 #           aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp --region ap-northeast-2 ./build.zip s3://uniquebucket/uniqueAction/build.zip
     
       - name: Call CodeDeploy
-        run:  echo ${{GITHUB_ACTION_PATH}}
+        run:  $GITHUB_ACTION_PATH/deploy.sh
          
     if: contains(github.ref, 'master')
   # github branch가 master 때만 deploy 실행한다.
