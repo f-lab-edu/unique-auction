@@ -2,11 +2,11 @@ ACCESSKEY="3llRJaaOdNenSwt7HruV"
 
 SECRETKEY="TGFs7Jjsul9376tTIsypkUNN1KvuxE26jQHmhvp0"
 
-project="uniqueaction"
+project=7007
 
-stag="real"
+stag=5632
 
-scenario="deploy-release"
+scenario=5893
 
 METHOD="POST"
 
