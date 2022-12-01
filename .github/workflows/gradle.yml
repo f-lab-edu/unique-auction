@@ -73,8 +73,8 @@ jobs:
 
       - uses: actions/checkout@v3
 #       # 실제 어플리케이션 빌드시 -x 옵션을 통해 test와 컨벤션(위에서해줌) 제외한다.
-#       - name: Build with Gradle
-#         run: ./gradlew build -x test -x checkstyleTest -x checkstyleMain
+      - name: Build with Gradle
+        run: ./gradlew build -x test -x checkstyleTest -x checkstyleMain
 
 #       - name: Make zip file
 #         run: zip -qq -r ./build.zip .
