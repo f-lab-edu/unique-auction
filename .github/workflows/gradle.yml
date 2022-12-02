@@ -15,7 +15,7 @@ on:
 jobs:
   # 체크아웃 / 버전 설정
   setUp:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
 
 
@@ -72,26 +72,28 @@ jobs:
     steps:
 
       - uses: actions/checkout@v3
-      # 실제 어플리케이션 빌드시 -x 옵션을 통해 test와 컨벤션(위에서해줌) 제외한다.
+#       # 실제 어플리케이션 빌드시 -x 옵션을 통해 test와 컨벤션(위에서해줌) 제외한다.
       - name: Build with Gradle
         run: ./gradlew build -x test -x checkstyleTest -x checkstyleMain
 
-      - name: Make zip file
-        run: zip -qq -r ./$GITHUB_SHA.zip .
-        shell: bash
+#       - name: Make zip file
+#         run: zip -qq -r ./build.zip .
+#         shell: bash
 
-      - name: Upload to NCP Store
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ap-northeast-2
-        run: |
-          aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://uniquebucket/uniqueAction/$GITHUB_SHA.zip
+#       - name: Upload to NCP Store
+#         env:
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           AWS_DEFAULT_REGION: ap-northeast-2
+#         run: |
+#           aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp --region ap-northeast-2 ./build.zip s3://uniquebucket/uniqueAction/build.zip
     
-
-    #       - name: Upload to NCP Store
-    #         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://uniquebucket/uniqueAction/$GITHUB_SHA.zip
-
+      - name: Call CodeDeploy
+        shell: bash
+        run: |
+           cd /home/runner/work/unique-auction/unique-auction
+           chmod +x ./deploy.sh
+           ./deploy.sh
+           
     if: contains(github.ref, 'master')
   # github branch가 master 때만 deploy 실행한다.
-  #
