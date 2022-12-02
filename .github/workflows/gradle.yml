@@ -15,7 +15,7 @@ on:
 jobs:
   # 체크아웃 / 버전 설정
   setUp:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
 
 
