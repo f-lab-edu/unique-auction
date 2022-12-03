@@ -1,7 +1,5 @@
 spring:
   profiles: real1
-  server:
-    port: 8081
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://118.67.132.139:13309/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
@@ -20,12 +18,12 @@ spring:
     store-type: redis
     redis:
       flush-mode: on_save
+server:
+  port: 8081
 ---
 
 spring:
   profiles: real2
-  server:
-    port: 8082
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://118.67.132.139:13309/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
@@ -44,5 +42,8 @@ spring:
     store-type: redis
     redis:
       flush-mode: on_save
+server:
+  port: 8082
+
 
 
