@@ -25,11 +25,11 @@ fi
 
 echo ">$CURRENT_PROFILE current profile"
 
-if [ $CURRENT_PROFILE == real1 ]
+if [ $CURRENT_PROFILE == 'real1' ]
 then
   IDLE_PROFILE=real2
   IDLE_PORT=8082
-elif [ $CURRENT_PROFILE == real2 ]
+elif [ $CURRENT_PROFILE == 'real2' ]
 then
   IDLE_PROFILE=real1
   IDLE_PORT=8081
