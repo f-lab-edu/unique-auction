@@ -92,8 +92,8 @@ jobs:
         shell: bash
         run: |
           cd /home/runner/work/unique-auction/unique-auction/scripts
-          chmod +x ./deploy.sh
-          ./deploy.sh
+          chmod +x ./callNcloudDeploy.sh
+          ./callNcloudDeploy.sh
 
     if: contains(github.ref, 'master')
   # github branch가 master 때만 deploy 실행한다.
