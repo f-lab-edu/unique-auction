@@ -1,3 +1,5 @@
+cd /home/project/unique-auction
+
 BUILD_PATH=$(ls build/libs/*-SNAPSHOT.jar)
 JAR_NAME=$(ls $BUILD_PATH | grep 'uniqueauction' | tail -n 1 | xargs -0 -n 1 basename )
 echo "> build 파일명: $JAR_NAME"
@@ -65,4 +67,4 @@ nohup java -jar $IDLE_APPLICATION --spring.profiles.default=$IDLE_PROFILE &
 
 echo "> Profile Switching"
 sleep 10
-./home/project/unique-auction/scripts/switch.sh
+/home/project/unique-auction/scripts/switch.sh
