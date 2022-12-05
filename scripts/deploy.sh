@@ -5,7 +5,7 @@ JAR_NAME=$(ls $BUILD_PATH | grep 'uniqueauction' | tail -n 1 | xargs -0 -n 1 bas
 echo "> build 파일명: $JAR_NAME"
 
 echo "> build 파일 복사"
-DEPLOY_PATH=/home/project/unique-auction-1/jar/
+DEPLOY_PATH=/home/project/nginx/jar/
 sudo cp $BUILD_PATH $DEPLOY_PATH
 
 
