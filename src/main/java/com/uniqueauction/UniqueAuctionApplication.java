@@ -10,6 +10,9 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableJpaAuditing
 public class UniqueAuctionApplication {
 	public static void main(String[] args) {
+		if (System.getProperty("spring.profiles.default") == null) {
+			System.setProperty("spring.profiles.default", "test");
+		}
 		SpringApplication.run(UniqueAuctionApplication.class, args);
 	}
 }
