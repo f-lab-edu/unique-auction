@@ -4,9 +4,7 @@ BUILD_PATH=$(ls build/libs/*-SNAPSHOT.jar)
 JAR_NAME=$(ls $BUILD_PATH | grep 'uniqueauction' | tail -n 1 | xargs -0 -n 1 basename )
 echo "> build 파일명: $JAR_NAME"
 
-echo "> build 파일 복사"
-DEPLOY_PATH=/home/project/unique-auction-1/jar/
-sudo cp $BUILD_PATH $DEPLOY_PATH
+
 
 
 RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/profile)
@@ -25,20 +23,29 @@ fi
 
 echo ">$CURRENT_PROFILE current profile"
 
+echo "> build 파일 복사"
 if [ $CURRENT_PROFILE == 'real1' ]
 then
   IDLE_PROFILE=real2
   IDLE_PORT=8082
+
+  DEPLOY_PATH=/home/project/unique-auction-2/jar/
+
 elif [ $CURRENT_PROFILE == 'real2' ]
 then
   IDLE_PROFILE=real1
   IDLE_PORT=8081
+  DEPLOY_PATH=/home/project/unique-auction-1/jar/
 else
   echo "> 일치하는 Profile이 없습니다. Profile: $CURRENT_PROFILE"
   echo "> real1을 할당합니다. IDLE_PROFILE: real1"
   IDLE_PROFILE=real1
   IDLE_PORT=8081
+  DEPLOY_PATH=/home/project/unique-auction-2/jar/
 fi
+
+sudo cp $BUILD_PATH $DEPLOY_PATH
+
 
 IDLE_APPLICATION=$IDLE_PROFILE-uniqueauction.jar
 
@@ -62,7 +69,7 @@ echo "> Change Directory to $DEPLOY_PATH "
 cd $DEPLOY_PATH
 echo "> $IDLE_APPLICATION Deploying "
 
-nohup java -jar $IDLE_APPLICATION --spring.profiles.default=$IDLE_PROFILE &
+nohup java -jar $IDLE_APPLICATION --spring.profiles.active=$IDLE_PROFILE --logging.file.path=/home/deploy/log/ --logging.level.org.hibernate.SQL=DEBUG >> /home/deploy/log/deploy.log 2>/home/deploy/log/deploy_err.log &
 
 
 echo "> Profile Switching"
