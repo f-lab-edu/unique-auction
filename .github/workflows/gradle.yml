@@ -23,45 +23,45 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      #  코드포맷
-      codeFormatCheck:
-        needs: setUp
-        runs-on: ubuntu-18.04
-        steps:
+  #  코드포맷
+  codeFormatCheck:
+    needs: setUp
+    runs-on: ubuntu-18.04
+    steps:
 
-          # 코드 체크  아웃
-          - uses: actions/checkout@v3
+      # 코드 체크  아웃
+      - uses: actions/checkout@v3
 
-          # 코드 포맷
-          - name: codeFormat Check
-            run: ./gradlew checkstyleMain
+      # 코드 포맷
+      - name: codeFormat Check
+        run: ./gradlew checkstyleMain
 
-      testCheck:
-        needs: setUp
-        runs-on: ubuntu-18.04
-        steps:
+  testCheck:
+    needs: setUp
+    runs-on: ubuntu-18.04
+    steps:
 
-          # 코드 체크  아웃
-          - uses: actions/checkout@v3
+      # 코드 체크  아웃
+      - uses: actions/checkout@v3
 
-          # 테스트는 전부 성공해야 통과.
-          - name: Test with Gradle
-            run: spring_profiles_active=test ./gradlew clean build --build-cache -x checkstyleTest -x checkstyleMain
+      # 테스트는 전부 성공해야 통과.
+      - name: Test with Gradle
+        run: spring_profiles_active=test ./gradlew clean build --build-cache -x checkstyleTest -x checkstyleMain
 
-          # 테스트 후 결과를 보기 위한 단계 추가
-          - name: Publish Unit Test Results
-            uses: EnricoMi/publish-unit-test-result-action@v1
-            if: ${{ always() }}
-            with:
-              files: build/test-results/**/*.xml
+      # 테스트 후 결과를 보기 위한 단계 추가
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: ${{ always() }}
+        with:
+          files: build/test-results/**/*.xml
 
-          # 캐싱 제거 테스트를 더빠르게 해준다. 캐싱을 함으로서 재컴파일 필요 없고
-          # 종속성된 파일들을 원격 저장소에서 다운로드 할필요없이 캐시 복원된다
-          - name: Cleanup Gradle Cache
-            if: ${{ always() }}
-            run: |
-              rm -f ~/.gradle/caches/modules-2/modules-2.lock
-              rm -f ~/.gradle/caches/modules-2/gc.properties
+      # 캐싱 제거 테스트를 더빠르게 해준다. 캐싱을 함으로서 재컴파일 필요 없고
+      # 종속성된 파일들을 원격 저장소에서 다운로드 할필요없이 캐시 복원된다
+      - name: Cleanup Gradle Cache
+        if: ${{ always() }}
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
 
   Build:
     needs: [ codeFormatCheck, testCheck ]
