@@ -62,7 +62,8 @@ echo "> Change Directory to $DEPLOY_PATH "
 cd $DEPLOY_PATH
 echo "> $IDLE_APPLICATION Deploying "
 
-nohup java -jar $IDLE_APPLICATION --spring.profiles.default=$IDLE_PROFILE --logging.file.path=/home/deploy/log/ --logging.level.org.hibernate.SQL=DEBUG >> /home/deploy/log/deploy.log 2>/home/deploy/log/deploy_err.log &
+nohup java -jar $IDLE_APPLICATION --spring.config.location=file:/home/project/nginx/jar/application-prod.yml --spring.profiles.active=$IDLE_PROFILE --logging.file.path=/home/deploy/log/ --logging.level.org.hibernate.SQL=DEBUG >> /home/deploy/log/deploy.log 2>/home/deploy/log/deploy_err.log &
+
 
 
 echo "> Profile Switching"
