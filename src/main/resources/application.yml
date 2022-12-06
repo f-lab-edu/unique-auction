@@ -10,7 +10,6 @@ spring:
     show-sql: true
 
   redis:
-    #    host: docker-redis
     host: 118.67.132.139
     port: 16379
     password: 12345678
