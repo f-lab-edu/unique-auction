@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:13309/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 12345678
 
@@ -10,11 +10,6 @@ spring:
       ddl-auto: none
     show-sql: true
     defer-datasource-initialization: true
-
-  sql:
-    init:
-      mode: always
-      schema-locations: classpath:/schema.sql
 
   redis:
     #    host: docker-redis

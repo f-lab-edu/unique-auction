@@ -1,10 +1,12 @@
 package com.uniqueauction;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
 
+@Profile("test & !localtest")
 public abstract class AbstractContainerBaseTest {
 	static final String MYSQL_IMAGE = "mysql:8";
 	static final MySQLContainer<?> MY_SQL_CONTAINER;
