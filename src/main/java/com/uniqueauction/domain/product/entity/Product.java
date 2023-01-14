@@ -1,7 +1,6 @@
 package com.uniqueauction.domain.product.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +19,7 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Product {
+public class Product extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "product_id")
@@ -31,9 +30,6 @@ public class Product {
 	private Category category;
 	private String brand;
 	private String imgUrl;
-
-	@Embedded
-	BaseEntity baseEntity;
 
 	@Builder
 	public Product(Long id, String name, String brand, String modelNumber, String releasePrice, Category category,
