@@ -57,7 +57,6 @@ create table trade
     sale_id             bigint,
     created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
-    primary key (id),
     constraint FK_trade_purchase foreign key (purchase_id) references purchase (purchase_id),
     constraint FK_trade_sale foreign key (sale_id) references sale (sale_id)
 );
@@ -74,7 +73,7 @@ create table user
     created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (user_id),
-    unique key uk_email (email)
+    UNIQUE KEY uk_email (email)
 );
 
 create table review
