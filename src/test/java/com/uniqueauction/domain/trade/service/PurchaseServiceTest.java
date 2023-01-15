@@ -57,7 +57,7 @@ class PurchaseServiceTest {
 		//given
 
 		doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
-		Purchase purchase = getPurchaseReq().toEntity();
+		Purchase purchase = getPurchaseRequest().toEntity();
 		purchase.setProduct(getProduct());
 
 		doReturn(false)
@@ -73,7 +73,7 @@ class PurchaseServiceTest {
 
 		//when
 
-		purchaseService.savePurchase(getPurchaseReq());
+		purchaseService.savePurchase(getPurchaseRequest());
 
 		//then
 
@@ -96,7 +96,7 @@ class PurchaseServiceTest {
 		//then
 		assertThatThrownBy(
 			() ->
-				purchaseService.savePurchase(getPurchaseReq())
+				purchaseService.savePurchase(getPurchaseRequest())
 		).isInstanceOf(CommonException.class);
 
 	}
@@ -112,12 +112,12 @@ class PurchaseServiceTest {
 		//then
 		assertThatThrownBy(
 			() ->
-				purchaseService.savePurchase(getPurchaseReq())
+				purchaseService.savePurchase(getPurchaseRequest())
 		).isInstanceOf(CommonException.class);
 
 	}
 
-	public PurchaseRequest getPurchaseReq() {
+	public PurchaseRequest getPurchaseRequest() {
 		return PurchaseRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())

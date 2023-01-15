@@ -57,7 +57,7 @@ class SaleServiceTest {
 		//given
 
 		doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
-		Sale sale = getSaleReq().toEntity();
+		Sale sale = getSaleRequest().toEntity();
 		sale.setProduct(getProduct());
 
 		doReturn(false)
@@ -72,7 +72,7 @@ class SaleServiceTest {
 
 		//when
 
-		saleService.saveSale(getSaleReq());
+		saleService.saveSale(getSaleRequest());
 
 		//then
 
@@ -94,7 +94,7 @@ class SaleServiceTest {
 		//then
 		assertThatThrownBy(
 			() ->
-				saleService.saveSale(getSaleReq())
+				saleService.saveSale(getSaleRequest())
 		).isInstanceOf(CommonException.class);
 
 	}
@@ -113,12 +113,12 @@ class SaleServiceTest {
 		//then
 		assertThatThrownBy(
 			() ->
-				saleService.saveSale(getSaleReq())
+				saleService.saveSale(getSaleRequest())
 		).isInstanceOf(CommonException.class);
 
 	}
 
-	public SaleRequest getSaleReq() {
+	public SaleRequest getSaleRequest() {
 		return SaleRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())

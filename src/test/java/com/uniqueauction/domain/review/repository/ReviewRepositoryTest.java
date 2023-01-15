@@ -5,6 +5,7 @@ import static com.uniqueauction.domain.product.entity.Category.*;
 import static com.uniqueauction.domain.user.entity.Role.*;
 import static org.assertj.core.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,43 +43,28 @@ class ReviewRepositoryTest extends AbstractContainerBaseTest {
 	@Test
 	@DisplayName("리뷰 저장 테스트")
 	void reviewSave() {
-
-		setUp();
-
 		//then
 		assertThat(review.getContent()).isEqualTo("test");
-
 		clear();
-
 	}
 
 	@Test
 	@DisplayName("상품 아이디로 조회 테스트")
 	void findByProductIdTest() {
-
-		setUp();
-
 		//when
 		ReviewInfo byProductId = repository.findByProductId(review.getProduct().getId()).get(0);
-
 		//then
 		assertThat(byProductId.getContent()).isEqualTo("test");
-
 		clear();
 	}
 
 	@Test
 	@DisplayName("유저 아이디로 조회 테스트")
 	void findByUserIdTest() {
-
-		setUp();
-
 		//when
 		ReviewInfo byUserId = repository.findByUserId(review.getUser().getId()).get(0);
-
 		//then
 		assertThat(byUserId.getContent()).isEqualTo("test");
-
 		clear();
 	}
 
@@ -103,7 +89,7 @@ class ReviewRepositoryTest extends AbstractContainerBaseTest {
 			.build();
 	}
 
-	private SaveReviewRequest createSaveReviewsReq() {
+	private SaveReviewRequest createSaveReviewsRequest() {
 		return SaveReviewRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())
@@ -111,12 +97,11 @@ class ReviewRepositoryTest extends AbstractContainerBaseTest {
 			.content("test")
 			.build();
 	}
-
+	@BeforeEach
 	private void setUp() {
 		user = userRepository.save(getUser());
 		product = productRepository.save(getProduct());
-		review = repository.save(Review.createReview(user, product, createSaveReviewsReq()));
-
+		review = repository.save(Review.createReview(user, product, createSaveReviewsRequest()));
 	}
 
 	private void clear() {
