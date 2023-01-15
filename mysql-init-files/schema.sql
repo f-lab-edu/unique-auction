@@ -60,7 +60,6 @@ create table trade
     primary key (id),
     constraint FK_trade_purchase foreign key (purchase_id) references purchase (purchase_id),
     constraint FK_trade_sale foreign key (sale_id) references sale (sale_id)
-
 );
 
 create table user
@@ -75,7 +74,7 @@ create table user
     created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (user_id),
-    UNIQUE KEY uk_email (email)
+    unique key uk_email (email)
 );
 
 create table review
@@ -90,5 +89,4 @@ create table review
     primary key (review_id),
     constraint FK_review_user foreign key (user_id) references user (user_id),
     constraint FK_review_product foreign key (product_id) references product (product_id)
-
 );
