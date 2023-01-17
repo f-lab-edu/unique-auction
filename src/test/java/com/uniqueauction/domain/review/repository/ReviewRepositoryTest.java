@@ -1,17 +1,6 @@
 package com.uniqueauction.domain.review.repository;
 
-import static com.uniqueauction.CommonUtilMethod.*;
-import static com.uniqueauction.domain.product.entity.Category.*;
-import static com.uniqueauction.domain.user.entity.Role.*;
-import static org.assertj.core.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
@@ -20,10 +9,20 @@ import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.repository.UserRepository;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
 import com.uniqueauction.web.review.response.ReviewInfo;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static com.uniqueauction.CommonUtilMethod.getRandomLong;
+import static com.uniqueauction.domain.product.entity.Category.SHOES;
+import static com.uniqueauction.domain.user.entity.Role.CUSTOMER;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @TestContainerBase
 @SpringBootTest
-class ReviewRepositoryTest extends AbstractContainerBaseTest {
+class ReviewRepositoryTest {
 
 	@Autowired
 	private ReviewRepository repository;
