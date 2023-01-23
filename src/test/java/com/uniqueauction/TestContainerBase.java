@@ -17,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@ActiveProfiles("local-test")
+@ActiveProfiles("docker-test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public @interface TestContainerBase {
 }
