@@ -1,5 +1,20 @@
 spring:
   datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:mysql:8:///UA?TC_INITSCRIPT=file:mysql-init-files/schema.sql
+
+  redis:
+    host: 118.67.132.139
+    port: 16379
+    password: 12345678
+
+  config:
+    activate:
+      on-profile: docker-test
+
+---
+spring:
+  datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:13309/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
@@ -15,3 +30,7 @@ spring:
     #    host: docker-redis
     host: localhost
     port: 16379
+
+  config:
+    activate:
+      on-profile: local-test

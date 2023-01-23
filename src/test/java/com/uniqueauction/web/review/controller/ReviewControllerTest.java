@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.domain.review.entity.Review;
@@ -36,6 +37,7 @@ import com.uniqueauction.web.review.response.ReviewByUserResponse;
 import com.uniqueauction.web.review.response.ReviewInfo;
 
 @SpringBootTest
+@TestContainerBase
 @AutoConfigureMockMvc
 class ReviewControllerTest {
 

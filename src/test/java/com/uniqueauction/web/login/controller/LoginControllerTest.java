@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.login.service.LoginService;
 import com.uniqueauction.web.login.request.LoginRequest;
 
@@ -28,6 +29,7 @@ import com.uniqueauction.web.login.request.LoginRequest;
  * Car carObject = mapper.readValue(text, Car.class); //Car{name='k5',color='gary
  */
 @SpringBootTest
+@TestContainerBase
 @AutoConfigureMockMvc
 class LoginControllerTest {
 
