@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.service.UserService;
@@ -25,7 +26,7 @@ import com.uniqueauction.web.user.request.UpdateUserRequest;
 @SpringBootTest
 @TestContainerBase
 @AutoConfigureMockMvc
-class UserControllerTest {
+class UserControllerTest extends AbstractContainerBaseTest {
 
 	@MockBean
 	private UserService userService;
