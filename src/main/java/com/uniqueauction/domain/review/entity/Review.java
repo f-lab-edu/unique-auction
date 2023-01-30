@@ -1,7 +1,6 @@
 package com.uniqueauction.domain.review.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +22,7 @@ import lombok.ToString;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Review {
+public class Review extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,9 +40,6 @@ public class Review {
 	private int score;
 
 	private String content;
-
-	@Embedded
-	BaseEntity baseEntity;
 
 	@Builder
 	public Review(User user, Product product, int score, String content) {

@@ -1,5 +1,6 @@
 package com.uniqueauction.domain.review.repository;
 
+
 import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
@@ -8,6 +9,7 @@ import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.repository.UserRepository;
 import com.uniqueauction.web.review.request.SaveReviewRequest;
 import com.uniqueauction.web.review.response.ReviewInfo;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,43 +42,28 @@ class ReviewRepositoryTest {
 	@Test
 	@DisplayName("리뷰 저장 테스트")
 	void reviewSave() {
-
-		setUp();
-
 		//then
 		assertThat(review.getContent()).isEqualTo("test");
-
 		clear();
-
 	}
 
 	@Test
 	@DisplayName("상품 아이디로 조회 테스트")
 	void findByProductIdTest() {
-
-		setUp();
-
 		//when
 		ReviewInfo byProductId = repository.findByProductId(review.getProduct().getId()).get(0);
-
 		//then
 		assertThat(byProductId.getContent()).isEqualTo("test");
-
 		clear();
 	}
 
 	@Test
 	@DisplayName("유저 아이디로 조회 테스트")
 	void findByUserIdTest() {
-
-		setUp();
-
 		//when
 		ReviewInfo byUserId = repository.findByUserId(review.getUser().getId()).get(0);
-
 		//then
 		assertThat(byUserId.getContent()).isEqualTo("test");
-
 		clear();
 	}
 
@@ -101,7 +88,7 @@ class ReviewRepositoryTest {
 			.build();
 	}
 
-	private SaveReviewRequest createSaveReviewsReq() {
+	private SaveReviewRequest createSaveReviewsRequest() {
 		return SaveReviewRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())
@@ -109,12 +96,11 @@ class ReviewRepositoryTest {
 			.content("test")
 			.build();
 	}
-
+	@BeforeEach
 	private void setUp() {
 		user = userRepository.save(getUser());
 		product = productRepository.save(getProduct());
-		review = repository.save(Review.createReview(user, product, createSaveReviewsReq()));
-
+		review = repository.save(Review.createReview(user, product, createSaveReviewsRequest()));
 	}
 
 	private void clear() {

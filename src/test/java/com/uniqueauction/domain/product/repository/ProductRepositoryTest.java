@@ -19,21 +19,18 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
 @TestContainerBase
 @SpringBootTest
-class ProductRepositoryImplTest {
+class ProductRepositoryTest {
 
 	@Autowired
 	private ProductRepository productRepository;
-
 	@Autowired
 	private ProductService productService;
-
 	private Product product;
-
 	private Long pId;
 
 	@BeforeEach
 	public void set() {
-		product = getSaveReq().toEntity();
+		product = getSaveRequest().toEntity();
 		pId = productRepository.save(product).getId();
 	}
 
@@ -50,20 +47,17 @@ class ProductRepositoryImplTest {
 
 	@Test
 	void productSelectTest() {
-
 		//when
 		Optional<Product> product = productRepository.findById(pId);
-
 		//then
 		assertThat(product.get().getModelNumber()).isEqualTo("123");
-
 	}
 
 	@Test
 	void productUpdateTest() {
-		product = getUpdateReq(pId).toEntity();
+		product = getUpdateRequest(pId).toEntity();
 		//when
-		productService.update(getUpdateReq(pId).toEntity());
+		productService.update(getUpdateRequest(pId).toEntity());
 		Optional<Product> update = productRepository.findById(pId);
 		//then
 		assertThat(update.get().getModelNumber()).isEqualTo("457");
@@ -71,17 +65,14 @@ class ProductRepositoryImplTest {
 
 	@Test
 	void productDeleteTest() {
-
 		Optional<Product> result = productRepository.findById(pId);
-
 		//when
 		productRepository.delete(result.get());
-
 		//then
 		assertThat(productRepository.findAll().size()).isEqualTo(0);
 	}
 
-	private ProductSaveRequest getSaveReq() {
+	private ProductSaveRequest getSaveRequest() {
 		return ProductSaveRequest.builder()
 			.productName("상품1")
 			.modelNumber("123")
@@ -91,7 +82,7 @@ class ProductRepositoryImplTest {
 			.build();
 	}
 
-	private ProductUpdateRequest getUpdateReq(Long pId) {
+	private ProductUpdateRequest getUpdateRequest(Long pId) {
 		return ProductUpdateRequest.builder()
 			.productId(pId)
 			.productName("상품2")

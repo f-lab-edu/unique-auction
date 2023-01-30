@@ -7,9 +7,10 @@ import com.uniqueauction.domain.trade.entity.Purchase;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Builder
 @Getter
+@NoArgsConstructor
 public class PurchaseRequest {
 
 	@NotNull(message = "유저ID")
@@ -26,6 +27,15 @@ public class PurchaseRequest {
 
 	@NotBlank(message = "배송주소")
 	private String shippingAddress;
+
+	@Builder
+	public PurchaseRequest(Long userId, Long productId, String productSize, String bidPrice, String shippingAddress) {
+		this.userId = userId;
+		this.productId = productId;
+		this.productSize = productSize;
+		this.bidPrice = bidPrice;
+		this.shippingAddress = shippingAddress;
+	}
 
 	public Purchase toEntity() {
 		return Purchase.builder()
