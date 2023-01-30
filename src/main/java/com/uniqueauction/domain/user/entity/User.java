@@ -1,7 +1,6 @@
 package com.uniqueauction.domain.user.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -22,7 +21,7 @@ import lombok.ToString;
 
 /**
  *  Enum 타입 일경우
- *  @Enumerated(EnumType.STRING) 선언하지 않으면 enum필드 순서가 들어가는 인트값이 들어간다.
+ *  Enumerated(EnumType.STRING) 선언하지 않으면 enum필드 순서가 들어가는 인트값이 들어간다.
  *  원하는 값을 넣어주기위해 설정을 넣어준다.
  */
 @EqualsAndHashCode(callSuper = false)
@@ -32,7 +31,7 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User extends BaseEntity {
 
 	@Id
 	@Column(name = "user_id")
@@ -51,9 +50,6 @@ public class User {
 
 	@Version
 	Integer version;
-
-	@Embedded
-	BaseEntity baseEntity;
 
 	public void update(User user) {
 		this.email = user.getEmail();

@@ -45,12 +45,9 @@ class ReviewServiceTest {
 	@DisplayName("리뷰 저장 테스트")
 	void saveReviewsTest() {
 		//given
-
 		doReturn(getReview()).when(reviewRepository).save(any(Review.class));
-
 		//when
 		Review review = reviewService.save(getReview());
-
 		assertThat(getProduct()).isEqualTo(review.getProduct());
 		assertThat(getUser()).isEqualTo(review.getUser());
 		assertThat("test").isEqualTo(review.getContent());
@@ -61,11 +58,9 @@ class ReviewServiceTest {
 	@DisplayName("프로덕트 아이디로 리뷰 조회")
 	void findByProductId() {
 		doReturn(getReviewsInfo()).when(reviewRepository).findByProductId(any(Long.class));
-
 		//when
 		ReviewByProductResponse byProductId = reviewService.findByProductId(getProduct());
 		//then
-
 		assertThat(byProductId.getProductName()).isEqualTo("상품1");
 		assertThat(byProductId.getBrand()).isEqualTo("NIKE");
 		assertThat(byProductId.getReviews().size()).isEqualTo(5);
@@ -74,13 +69,10 @@ class ReviewServiceTest {
 	@Test
 	@DisplayName("User 아이디로 리뷰 조회")
 	void findByUserId() {
-
 		doReturn(getReviewsInfo()).when(reviewRepository).findByUserId(any(Long.class));
-
 		//when
 		ReviewByUserResponse byUserId = reviewService.findByUserId(getUser());
 		//then
-
 		assertThat(byUserId.getUsername()).isEqualTo("test");
 		assertThat(byUserId.getEmail()).isEqualTo("test@test.com");
 		assertThat(byUserId.getReviews().size()).isEqualTo(5);
@@ -121,13 +113,11 @@ class ReviewServiceTest {
 
 	private List<ReviewInfo> getReviewsInfo() {
 		List<ReviewInfo> reviews = new ArrayList<>();
-
 		reviews.add(new ReviewInfo(5, "test1"));
 		reviews.add(new ReviewInfo(4, "test2"));
 		reviews.add(new ReviewInfo(3, "test3"));
 		reviews.add(new ReviewInfo(2, "test4"));
 		reviews.add(new ReviewInfo(1, "test5"));
-
 		return reviews;
 	}
 
