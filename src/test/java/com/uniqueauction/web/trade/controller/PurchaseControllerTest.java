@@ -17,12 +17,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uniqueauction.AbstractContainerBaseTest;
+import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.trade.service.PurchaseService;
 import com.uniqueauction.web.trade.request.PurchaseRequest;
 
 @SpringBootTest
+@TestContainerBase
 @AutoConfigureMockMvc
-class PurchaseControllerTest {
+class PurchaseControllerTest extends AbstractContainerBaseTest {
 
 	private static final Long DUMY = getRandomLong();
 
