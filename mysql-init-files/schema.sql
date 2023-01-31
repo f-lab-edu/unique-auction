@@ -1,9 +1,3 @@
-drop table if exists trade;
-drop table if exists review;
-drop table if exists purchase;
-drop table if exists sale;
-drop table if exists user;
-drop table if exists product;
 
 create table product
 (
@@ -28,6 +22,7 @@ create table purchase
     trade_status        integer,
     user_id             bigint,
     product_id          bigint,
+    bid_due_date        char(8),
     created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (purchase_id),
@@ -43,6 +38,7 @@ create table sale
     trade_status        integer,
     user_id             bigint,
     product_id          bigint,
+    bid_due_date        char(8),
     created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (sale_id),

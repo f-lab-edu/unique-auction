@@ -30,7 +30,10 @@ public class Sale extends BaseEntity {
 	private String productSize;
 	private String bidPrice;
 	private String returnAddress;
+	@Setter
 	private TradeStatus tradeStatus;
+
+	private String bidDueDate;
 
 	@Setter
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -39,13 +42,14 @@ public class Sale extends BaseEntity {
 
 	@Builder
 	public Sale(Long id, Long userId, String productSize, String bidPrice, String returnAddress,
-		TradeStatus tradeStatus) {
+		TradeStatus tradeStatus, String bidDueDate) {
 		this.id = id;
 		this.userId = userId;
 		this.productSize = productSize;
 		this.bidPrice = bidPrice;
 		this.returnAddress = returnAddress;
 		this.tradeStatus = tradeStatus;
+		this.bidDueDate = bidDueDate;
 	}
 
 	public void changeTradeStatus(TradeStatus tradeStatus) {
