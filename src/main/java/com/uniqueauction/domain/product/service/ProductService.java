@@ -18,43 +18,60 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class ProductService {
 
-	private final ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-	@Transactional
-	public Product update(Product product) {
-		Product findProduct = productRepository.findById(product.getId())
-			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_PRODUCT));
-		return findProduct.updateProduct(product);
-	}
+    @Transactional
+    public Product update(Product product) {
+        //select for update - pessmistic lock.
+        //
+        //
+        //select * from product where id=? for update
+        Product findProduct = productRepository.findById(product.getId())
+                .orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_PRODUCT));
 
-	@Transactional(readOnly = true)
-	public List<Product> findByNameOrModelNumber(String searProduct) {
-		return productRepository.findByNameOrModelNumber(searProduct, searProduct);
-	}
+        findProduct.updateProduct(product);
 
-	@Transactional
-	public Product save(Product product) {
-		return productRepository.save(product);
-	}
+        //db update //mybatis
+        productRepository.save(findProduct);
 
-	@Transactional
-	public void delete(Long id) {
-		Optional<Product> product = productRepository.findById(id);
-		product.ifPresent(
-			productRepository::delete
-		);
-	}
+        return findProduct;
+    }
 
-	@Transactional(readOnly = true)
-	public Product findByModelNumber(String modelNumber) {
-		return productRepository.findByModelNumber(modelNumber);
-	}
+    public Product incrementPrice(Product product, int price) {
+        int updatedPrice = Integer.parseInt(product.getReleasePrice()) + price;
+        product.setReleasePrice("" + updatedPrice);
+        update(product);
+        return product;
+    }
 
-	@Transactional(readOnly = true)
-	public Product findById(Long id) {
-		return productRepository.findById(id)
-			.orElseThrow(()
-				-> new CommonNotFoundException(NOT_FOUND_PRODUCT)
-			);
-	}
+    @Transactional(readOnly = true)
+    public List<Product> findByNameOrModelNumber(String searProduct) {
+        return productRepository.findByNameOrModelNumber(searProduct, searProduct);
+    }
+
+    @Transactional
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Optional<Product> product = productRepository.findById(id);
+        product.ifPresent(
+                productRepository::delete
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public Product findByModelNumber(String modelNumber) {
+        return productRepository.findByModelNumber(modelNumber);
+    }
+
+    @Transactional(readOnly = true)
+    public Product findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(()
+                        -> new CommonNotFoundException(NOT_FOUND_PRODUCT)
+                );
+    }
 }

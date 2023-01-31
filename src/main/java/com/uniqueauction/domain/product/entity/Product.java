@@ -8,11 +8,7 @@ import javax.persistence.Id;
 
 import com.uniqueauction.domain.base.BaseEntity;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @EqualsAndHashCode(callSuper = false)
 @ToString
@@ -26,6 +22,8 @@ public class Product extends BaseEntity {
 	private Long id;
 	private String name;
 	private String modelNumber;
+
+	@Setter
 	private String releasePrice;
 	private Category category;
 	private String brand;
