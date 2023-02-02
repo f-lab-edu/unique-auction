@@ -1,7 +1,6 @@
 package com.uniqueauction.web.user.controller;
 
 import static com.uniqueauction.domain.user.entity.Role.*;
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

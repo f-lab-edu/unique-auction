@@ -2,6 +2,7 @@ package com.uniqueauction.web.trade.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
 import com.uniqueauction.domain.trade.entity.Purchase;
 
 import lombok.Builder;
@@ -31,7 +32,8 @@ public class PurchaseRequest {
 	private String bidDueDate;
 
 	@Builder
-	public PurchaseRequest(Long userId, Long productId, String productSize, String bidPrice, String shippingAddress, String bidDueDate) {
+	public PurchaseRequest(Long userId, Long productId, String productSize, String bidPrice, String shippingAddress,
+		String bidDueDate) {
 		this.userId = userId;
 		this.productId = productId;
 		this.productSize = productSize;

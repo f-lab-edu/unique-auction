@@ -34,9 +34,11 @@ public class PurchaseService {
 	@Transactional
 	public Long savePurchase(PurchaseRequest purchaseRequest) {
 		/* purchase 등록을 위한 product 조회 */
-		Product product = productRepository.findById(purchaseRequest.getProductId()).orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
+		Product product = productRepository.findById(purchaseRequest.getProductId())
+			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
 		/* product와 product size로 purchase 조회 */
-		Purchase purchase = purchaseRepository.findByProductAndProductSize(product, purchaseRequest.getProductSize()).orElse(purchaseRequest.toEntity());
+		Purchase purchase = purchaseRepository.findByProductAndProductSize(product, purchaseRequest.getProductSize())
+			.orElse(purchaseRequest.toEntity());
 
 		/* 구매 등록 */
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -46,24 +48,11 @@ public class PurchaseService {
 		/* due date가 지나지 않았다면 update */
 		if (!purchaseBidDueDate.isBefore(today) && purchase.getTradeStatus() == BID_PROGRESS) {
 			/* update */
-			Purchase updatePurchase
-				= Purchase.builder()
-				.id(purchase.getId())
-				.userId(purchaseRequest.getUserId())
-				.bidPrice(purchaseRequest.getBidPrice())
-				.bidDueDate(purchaseRequest.getBidDueDate())
-				.shippingAddress(purchaseRequest.getShippingAddress())
-				.productSize(purchaseRequest.getProductSize())
-				.product(product)
-				.tradeStatus(purchase.getTradeStatus())
-				.build();
-			purchaseRepository.save(updatePurchase);
-		} else {
-			/* insert */
-			purchase.setProduct(product);
-			purchase.changeTradeStatus(BID_PROGRESS);
-			purchaseRepository.save(purchase);
+			purchase.updatePurchase(purchaseRequest.toEntity());
 		}
+		purchase.changeTradeStatus(BID_PROGRESS);
+		purchase.setProduct(product);
+		purchaseRepository.save(purchase);
 
 		/* trade 생성 여부 확인을 위한 sale 검색 */
 		Optional<Sale> sale = saleRepository.findByProductAndProductSize(purchase.getProduct(),
@@ -85,7 +74,7 @@ public class PurchaseService {
 
 				/* 체결 상태를 업데이트 한다. */
 				s.setTradeStatus(BID_COMPLETE);
-				purchase.setTradeStatus(BID_COMPLETE);
+				purchase.changeTradeStatus(BID_COMPLETE);
 				saleRepository.save(s);
 				purchaseRepository.save(purchase);
 			}

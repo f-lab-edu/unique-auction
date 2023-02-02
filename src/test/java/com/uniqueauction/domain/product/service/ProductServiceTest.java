@@ -41,7 +41,7 @@ class ProductServiceTest {
 
 	private Product saveProduct;
 	private Product updateProduct;
-	private Long pId = getRandomLong();
+	private final Long pId = getRandomLong();
 
 	@BeforeEach
 	public void set() {

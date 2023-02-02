@@ -3,7 +3,7 @@ package com.uniqueauction.web.trade.controller;
 import static com.uniqueauction.CommonUtilMethod.*;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -74,6 +74,7 @@ class SaleControllerTest extends AbstractContainerBaseTest {
 			.productSize("256")
 			.bidPrice("10000")
 			.returnAddress("test/est/test")
+			.bidDueDate("20230205")
 			.build();
 	}
 
@@ -84,6 +85,7 @@ class SaleControllerTest extends AbstractContainerBaseTest {
 			.productSize("")
 			.bidPrice("10000")
 			.returnAddress("test/est/test")
+			.bidDueDate("20230205")
 			.build();
 	}
 

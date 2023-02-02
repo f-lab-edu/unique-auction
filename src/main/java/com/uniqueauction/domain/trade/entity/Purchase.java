@@ -8,12 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 import com.uniqueauction.domain.base.BaseEntity;
 import com.uniqueauction.domain.product.entity.Product;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @Entity
@@ -28,12 +29,10 @@ public class Purchase extends BaseEntity {
 	private String productSize;
 	private String bidPrice;
 	private String shippingAddress;
-	@Setter
 	private TradeStatus tradeStatus;
 
 	private String bidDueDate;
 
-	@Setter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
 	private Product product;
@@ -51,8 +50,23 @@ public class Purchase extends BaseEntity {
 		this.bidDueDate = bidDueDate;
 	}
 
+	public Purchase updatePurchase(Purchase purchase) {
+		this.userId = purchase.getUserId();
+		this.productSize = purchase.getProductSize();
+		this.bidPrice = purchase.getBidPrice();
+		this.shippingAddress = purchase.getShippingAddress();
+		this.product = purchase.getProduct();
+		this.tradeStatus = purchase.getTradeStatus();
+		this.bidDueDate = purchase.getBidDueDate();
+		return this;
+	}
+
 	public void changeTradeStatus(TradeStatus tradeStatus) {
 		this.tradeStatus = tradeStatus;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 }
