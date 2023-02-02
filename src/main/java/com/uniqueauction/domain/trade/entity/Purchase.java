@@ -1,5 +1,10 @@
 package com.uniqueauction.domain.trade.entity;
 
+import static com.uniqueauction.domain.trade.entity.TradeStatus.*;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +16,7 @@ import javax.persistence.ManyToOne;
 
 import com.uniqueauction.domain.base.BaseEntity;
 import com.uniqueauction.domain.product.entity.Product;
+import com.uniqueauction.web.trade.request.PurchaseRequest;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -61,12 +67,26 @@ public class Purchase extends BaseEntity {
 		return this;
 	}
 
-	public void changeTradeStatus(TradeStatus tradeStatus) {
+	public void updateTradeStatus(TradeStatus tradeStatus) {
 		this.tradeStatus = tradeStatus;
 	}
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public void savePurchase(Purchase purchase, PurchaseRequest purchaseRequest) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		LocalDate today = LocalDate.now();
+		LocalDate purchaseBidDueDate = LocalDate.parse(purchase.getBidDueDate(), formatter);
+
+		/* due date가 지나지 않았다면 update */
+		if (!purchaseBidDueDate.isBefore(today) && purchase.getTradeStatus() == BID_PROGRESS) {
+			/* update */
+			purchase.updatePurchase(purchaseRequest.toEntity());
+		}
+		purchase.updateTradeStatus(BID_PROGRESS);
+		purchase.setProduct(product);
 	}
 
 }

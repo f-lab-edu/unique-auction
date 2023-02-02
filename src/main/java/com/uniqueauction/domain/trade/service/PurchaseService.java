@@ -41,17 +41,7 @@ public class PurchaseService {
 			.orElse(purchaseRequest.toEntity());
 
 		/* 구매 등록 */
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-		LocalDate today = LocalDate.now();
-		LocalDate purchaseBidDueDate = LocalDate.parse(purchase.getBidDueDate(), formatter);
-
-		/* due date가 지나지 않았다면 update */
-		if (!purchaseBidDueDate.isBefore(today) && purchase.getTradeStatus() == BID_PROGRESS) {
-			/* update */
-			purchase.updatePurchase(purchaseRequest.toEntity());
-		}
-		purchase.changeTradeStatus(BID_PROGRESS);
-		purchase.setProduct(product);
+		purchase.savePurchase(purchase, purchaseRequest);
 		purchaseRepository.save(purchase);
 
 		/* trade 생성 여부 확인을 위한 sale 검색 */
@@ -59,6 +49,8 @@ public class PurchaseService {
 			purchase.getProductSize());
 
 		/* sale 데이터를 찾아서 판매 기간이 남아 있거나, 입찰 체결되지 않은 건, 판매 입찰이 구매 입찰보다 작은 금액일 경우 체결 */
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		LocalDate today = LocalDate.now();
 		sale.ifPresent(s -> {
 			LocalDate saleBidDueDate = LocalDate.parse(purchase.getBidDueDate(), formatter);
 			if (!saleBidDueDate.isBefore(today)
@@ -74,7 +66,7 @@ public class PurchaseService {
 
 				/* 체결 상태를 업데이트 한다. */
 				s.setTradeStatus(BID_COMPLETE);
-				purchase.changeTradeStatus(BID_COMPLETE);
+				purchase.updateTradeStatus(BID_COMPLETE);
 				saleRepository.save(s);
 				purchaseRepository.save(purchase);
 			}
