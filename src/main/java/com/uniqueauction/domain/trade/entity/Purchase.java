@@ -75,18 +75,4 @@ public class Purchase extends BaseEntity {
 		this.product = product;
 	}
 
-	public void savePurchase(Purchase purchase, PurchaseRequest purchaseRequest) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-		LocalDate today = LocalDate.now();
-		LocalDate purchaseBidDueDate = LocalDate.parse(purchase.getBidDueDate(), formatter);
-
-		/* due date가 지나지 않았다면 update */
-		if (!purchaseBidDueDate.isBefore(today) && purchase.getTradeStatus() == BID_PROGRESS) {
-			/* update */
-			purchase.updatePurchase(purchaseRequest.toEntity());
-		}
-		purchase.updateTradeStatus(BID_PROGRESS);
-		purchase.setProduct(product);
-	}
-
 }
