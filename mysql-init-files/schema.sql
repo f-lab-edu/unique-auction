@@ -13,26 +13,6 @@ create table product
     primary key (product_id)
 );
 
-create table trade
-(
-    id                  bigint not null auto_increment,
-    publisher_id        bigint,
-    buyer_id            bigint,
-    seller_id           bigint,
-    product_id          bigint,
-    trade_status        integer,
-    product_size        varchar(255),
-    price               bigint,
-    shipping_address    varchar(255),
-    created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
-    modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
-    primary key (id),
-    constraint FK_trade_publisher foreign key (publisher_id) references user (user_id),
-    constraint FK_trade_buyer foreign key (buyer_id) references user (user_id),
-    constraint FK_trade_seller foreign key (seller_id) references user (user_id),
-    constraint FK_trade_product foreign key (product_id) references product (product_id)
-);
-
 create table user
 (
     user_id             bigint not null auto_increment,
@@ -60,4 +40,24 @@ create table review
     primary key (review_id),
     constraint FK_review_user foreign key (user_id) references user (user_id),
     constraint FK_review_product foreign key (product_id) references product (product_id)
+);
+
+create table trade
+(
+    id                  bigint not null auto_increment,
+    publisher_id        bigint,
+    buyer_id            bigint,
+    seller_id           bigint,
+    product_id          bigint,
+    trade_status        integer,
+    product_size        varchar(255),
+    price               bigint,
+    shipping_address    varchar(255),
+    created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
+    modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
+    primary key (id),
+    constraint FK_trade_publisher foreign key (publisher_id) references user (user_id),
+    constraint FK_trade_buyer foreign key (buyer_id) references user (user_id),
+    constraint FK_trade_seller foreign key (seller_id) references user (user_id),
+    constraint FK_trade_product foreign key (product_id) references product (product_id)
 );
