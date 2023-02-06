@@ -25,24 +25,19 @@ public class TradeRequest {
 	@NotBlank(message = "사이즈")
 	private String productSize;
 
-	@NotBlank(message = "입찰가격")
+	@NotNull(message = "입찰가격")
 	private Long price;
 
 	@NotBlank(message = "배송주소")
 	private String shippingAddress;
 
-	@NotBlank(message = "입찰마감기한")
-	private String bidDueDate;
-
 	@Builder
-	public TradeRequest(Long userId, Long productId, String productSize, String bidPrice, String shippingAddress,
-		String bidDueDate) {
+	public TradeRequest(Long userId, Long productId, String productSize, Long price, String shippingAddress) {
 		this.userId = userId;
 		this.productId = productId;
 		this.productSize = productSize;
 		this.price = price;
 		this.shippingAddress = shippingAddress;
-		this.bidDueDate = bidDueDate;
 	}
 
 	public Trade convertForBuyer(User user, Product product, String address) {

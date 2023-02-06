@@ -73,9 +73,8 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 			.userId(eq(getRandomLong()))
 			.productId(getRandomLong())
 			.productSize(getRandomString())
-			.bidPrice(getRandomString())
+			.price(getRandomLong())
 			.shippingAddress(getRandomString())
-			.bidDueDate(getRandomString())
 			.build();
 	}
 
@@ -84,9 +83,8 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 			.userId(getRandomLong())
 			.productId(getRandomLong())
 			.productSize("")
-			.bidPrice(getRandomString())
+			.price(getRandomLong())
 			.shippingAddress(getRandomString())
-			.bidDueDate(getRandomString())
 			.build();
 	}
 

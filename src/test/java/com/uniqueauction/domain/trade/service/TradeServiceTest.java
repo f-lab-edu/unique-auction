@@ -87,9 +87,8 @@ class TradeServiceTest {
 			.userId(getRandomLong())
 			.productId(getRandomLong())
 			.productSize("275")
-			.bidPrice("30000")
+			.price(130000L)
 			.shippingAddress("test/est/test")
-			.bidDueDate("20230205")
 			.build();
 	}
 
