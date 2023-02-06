@@ -30,7 +30,6 @@ public class TradeService {
 			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
 
 		/* trade 등록을 위한 user 조회 */
-		System.out.println(tradeRequest.getUserId());
 		User user = userRepository.findById(tradeRequest.getUserId())
 			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
 
