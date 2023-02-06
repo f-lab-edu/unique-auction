@@ -2,7 +2,6 @@ package com.uniqueauction.domain.trade.service;
 
 import static com.uniqueauction.CommonUtilMethod.*;
 import static com.uniqueauction.domain.product.entity.Category.*;
-import static com.uniqueauction.domain.trade.entity.TradeStatus.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -18,54 +17,53 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
-import com.uniqueauction.domain.trade.entity.Purchase;
-import com.uniqueauction.domain.trade.entity.Sale;
 import com.uniqueauction.domain.trade.entity.Trade;
-import com.uniqueauction.domain.trade.entity.TradeStatus;
-import com.uniqueauction.domain.trade.repository.PurchaseRepository;
-import com.uniqueauction.domain.trade.repository.SaleRepository;
 import com.uniqueauction.domain.trade.repository.TradeRepository;
+import com.uniqueauction.domain.user.entity.Role;
+import com.uniqueauction.domain.user.entity.User;
+import com.uniqueauction.domain.user.repository.UserRepository;
 import com.uniqueauction.exception.advice.CommonException;
-import com.uniqueauction.web.trade.request.PurchaseRequest;
+import com.uniqueauction.web.trade.request.TradeRequest;
 
 @ExtendWith(MockitoExtension.class) // 클래스단에 해당 어노테이션을 달아, 클래스가 Mockito를 사용함을 명시적으로 알립니다.
-class PurchaseServiceTest {
+class TradeServiceTest {
 
 	@InjectMocks
-	PurchaseService purchaseService;
+	TradeService tradeService;
 
 	@Mock
 	ProductRepository productRepository;
 
 	@Mock
-	PurchaseRepository purchaseRepository;
-
-	@Mock
-	SaleRepository saleRepository;
+	UserRepository userRepository;
 
 	@Mock
 	TradeRepository tradeRepository;
 
 	@BeforeEach
 	void setUp() {
-		purchaseService = new PurchaseService(productRepository, purchaseRepository, saleRepository, tradeRepository);
+		tradeService = new TradeService(productRepository, tradeRepository, userRepository);
 	}
 
 	@Test
-	@DisplayName("구매입찰 등록 테스트")
+	@DisplayName("구매 등록 테스트")
 	void savePurchaseTest() {
+		User user = getUser();
+		Product product = getProduct();
+		String address = "서울 용산구 대사관로 110";
+
 		//given
 		doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
-		Purchase purchase = getPurchaseRequest().toEntity();
-		purchase.setProduct(getProduct());
-		doReturn(purchase).when(purchaseRepository).save(any(Purchase.class));
+		Trade trade = getTradeRequest().convertForBuyer(user, product, address);
+		doReturn(trade).when(tradeRepository).save(any(Trade.class));
 
 		//when
-		purchaseService.savePurchase(getPurchaseRequest());
+		System.out.println("X " + getTradeRequest().getUserId());
+		tradeService.createPurchase(getTradeRequest());
 
 		//then
 		verify(productRepository).findById(any(Long.class));
-		verify(purchaseRepository).save(any(Purchase.class));
+		verify(tradeRepository).save(any(Trade.class));
 	}
 
 	@Test
@@ -79,29 +77,13 @@ class PurchaseServiceTest {
 		//then
 		assertThatThrownBy(
 			() ->
-				purchaseService.savePurchase(getPurchaseRequest())
+				tradeService.createPurchase(getTradeRequest())
 		).isInstanceOf(CommonException.class);
 
 	}
 
-	@Test
-	@DisplayName("구매입찰 등록 실패테스트(중복된 구매물품일때 )")
-	void savePurchaseFailDuplicatePurchaseTest() {
-		//given
-
-		//when
-		doThrow(CommonException.class).when(productRepository).findById(any(Long.class));
-
-		//then
-		assertThatThrownBy(
-			() ->
-				purchaseService.savePurchase(getPurchaseRequest())
-		).isInstanceOf(CommonException.class);
-
-	}
-
-	public PurchaseRequest getPurchaseRequest() {
-		return PurchaseRequest.builder()
+	public TradeRequest getTradeRequest() {
+		return TradeRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())
 			.productSize("275")
@@ -123,24 +105,15 @@ class PurchaseServiceTest {
 			.build();
 	}
 
-	private Sale getSale() {
-		return Sale.builder()
+	private User getUser() {
+		return User.builder()
 			.id(getRandomLong())
-			.userId(getRandomLong())
-			.productSize("25666")
-			.bidPrice("10000")
-			.returnAddress("TESTSETTETETT")
-			.tradeStatus(BID_PROGRESS)
-			.bidDueDate("20230205")
+			.email("test_user@gmail.com")
+			.encodedPassword("user1234!!")
+			.username("테스트유저")
+			.phone("01012341234")
+			.role(Role.CUSTOMER)
 			.build();
-	}
-
-	private Trade getTrade(Purchase purchase) {
-		Trade trade = Trade.builder().purchase(purchase)
-			.sale(getSale())
-			.status(TradeStatus.BID_COMPLETE)
-			.build();
-		return trade;
 	}
 
 }
