@@ -3,7 +3,8 @@ package com.uniqueauction.web.trade.controller;
 import static com.uniqueauction.CommonUtilMethod.*;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -48,7 +49,7 @@ class PurchaseControllerTest extends AbstractContainerBaseTest {
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
-					.content(objectMapper.writeValueAsString(getPurchaseReq())))
+					.content(objectMapper.writeValueAsString(getPurchaseRequest())))
 			.andExpect(status().isCreated())
 			.andExpect(jsonPath("data", is(DUMY)));
 	}
@@ -62,28 +63,30 @@ class PurchaseControllerTest extends AbstractContainerBaseTest {
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
-					.content(objectMapper.writeValueAsString(getEmptyPurchaseReq())))
+					.content(objectMapper.writeValueAsString(getEmptyPurchaseRequest())))
 			.andExpect(status().isBadRequest());
 
 	}
 
-	public PurchaseRequest getPurchaseReq() {
+	public PurchaseRequest getPurchaseRequest() {
 		return PurchaseRequest.builder()
 			.userId(eq(getRandomLong()))
 			.productId(getRandomLong())
 			.productSize(getRandomString())
 			.bidPrice(getRandomString())
 			.shippingAddress(getRandomString())
+			.bidDueDate(getRandomString())
 			.build();
 	}
 
-	public PurchaseRequest getEmptyPurchaseReq() {
+	public PurchaseRequest getEmptyPurchaseRequest() {
 		return PurchaseRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())
 			.productSize("")
 			.bidPrice(getRandomString())
 			.shippingAddress(getRandomString())
+			.bidDueDate(getRandomString())
 			.build();
 	}
 

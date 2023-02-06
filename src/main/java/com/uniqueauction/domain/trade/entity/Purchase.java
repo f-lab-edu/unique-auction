@@ -1,5 +1,10 @@
 package com.uniqueauction.domain.trade.entity;
 
+import static com.uniqueauction.domain.trade.entity.TradeStatus.*;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,11 +16,11 @@ import javax.persistence.ManyToOne;
 
 import com.uniqueauction.domain.base.BaseEntity;
 import com.uniqueauction.domain.product.entity.Product;
+import com.uniqueauction.web.trade.request.PurchaseRequest;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @Entity
@@ -32,14 +37,15 @@ public class Purchase extends BaseEntity {
 	private String shippingAddress;
 	private TradeStatus tradeStatus;
 
-	@Setter
+	private String bidDueDate;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
 	private Product product;
 
 	@Builder
 	public Purchase(Long id, Long userId, String productSize, String bidPrice, String shippingAddress, Product product,
-		TradeStatus tradeStatus) {
+		TradeStatus tradeStatus, String bidDueDate) {
 		this.id = id;
 		this.userId = userId;
 		this.productSize = productSize;
@@ -47,9 +53,26 @@ public class Purchase extends BaseEntity {
 		this.shippingAddress = shippingAddress;
 		this.product = product;
 		this.tradeStatus = tradeStatus;
+		this.bidDueDate = bidDueDate;
 	}
 
-	public void changeTradeStatus(TradeStatus tradeStatus) {
+	public Purchase updatePurchase(Purchase purchase) {
+		this.userId = purchase.getUserId();
+		this.productSize = purchase.getProductSize();
+		this.bidPrice = purchase.getBidPrice();
+		this.shippingAddress = purchase.getShippingAddress();
+		this.product = purchase.getProduct();
+		this.tradeStatus = purchase.getTradeStatus();
+		this.bidDueDate = purchase.getBidDueDate();
+		return this;
+	}
+
+	public void updateTradeStatus(TradeStatus tradeStatus) {
 		this.tradeStatus = tradeStatus;
 	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
 }

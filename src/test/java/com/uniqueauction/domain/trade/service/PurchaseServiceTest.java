@@ -55,34 +55,17 @@ class PurchaseServiceTest {
 	@DisplayName("구매입찰 등록 테스트")
 	void savePurchaseTest() {
 		//given
-
 		doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
 		Purchase purchase = getPurchaseRequest().toEntity();
 		purchase.setProduct(getProduct());
-
-		doReturn(false)
-			.when(purchaseRepository)
-			.existsByProductAndProductSize(any(Product.class), any(String.class));
-
 		doReturn(purchase).when(purchaseRepository).save(any(Purchase.class));
 
-		doReturn(Optional.ofNullable(getSale())).when(saleRepository)
-			.findByProductAndProductSize(any(Product.class), any(String.class));
-
-		doReturn(getTrade(purchase)).when(tradeRepository).save(any(Trade.class));
-
 		//when
-
 		purchaseService.savePurchase(getPurchaseRequest());
 
 		//then
-
 		verify(productRepository).findById(any(Long.class));
-		verify(purchaseRepository).existsByProductAndProductSize(any(Product.class), any(String.class));
 		verify(purchaseRepository).save(any(Purchase.class));
-		verify(saleRepository).findByProductAndProductSize(any(Product.class), any(String.class));
-		verify(tradeRepository).save(any(Trade.class));
-
 	}
 
 	@Test
@@ -121,21 +104,22 @@ class PurchaseServiceTest {
 		return PurchaseRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())
-			.productSize("256")
-			.bidPrice("10000")
+			.productSize("275")
+			.bidPrice("30000")
 			.shippingAddress("test/est/test")
+			.bidDueDate("20230205")
 			.build();
 	}
 
 	private Product getProduct() {
 		return Product.builder()
 			.id(getRandomLong())
-			.name("상품1")
-			.modelNumber("1234")
-			.releasePrice("10000")
+			.name("New Balance 878 Triple Black")
+			.modelNumber("CM878XL")
+			.releasePrice("118000")
 			.category(SHOES)
 			.imgUrl("/test/set")
-			.brand("NIKE")
+			.brand("New Balance")
 			.build();
 	}
 
@@ -147,6 +131,7 @@ class PurchaseServiceTest {
 			.bidPrice("10000")
 			.returnAddress("TESTSETTETETT")
 			.tradeStatus(BID_PROGRESS)
+			.bidDueDate("20230205")
 			.build();
 	}
 

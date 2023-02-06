@@ -27,6 +27,9 @@ public class SaleRequest {
 	@NotBlank(message = "반송주소")
 	private String returnAddress;
 
+	@NotBlank(message = "입찰마감기한")
+	private String bidDueDate;
+
 	public Sale toEntity() {
 		return Sale.builder()
 			.userId(this.userId)
@@ -34,6 +37,7 @@ public class SaleRequest {
 			.bidPrice(this.bidPrice)
 			.productSize(this.productSize)
 			.returnAddress(this.returnAddress)
+			.bidDueDate(this.bidDueDate)
 			.build();
 	}
 }
