@@ -63,7 +63,7 @@ public class TradeService {
 		User buyer = userRepository.findById(saveTradeRequest.getUserId())
 			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
 
-		Trade trade = tradeRepository.findById(saveTradeRequest.getTradeId()).orElseThrow();
+		Trade trade = tradeRepository.findById(saveTradeRequest.getTradeId()).orElseThrow(() -> new CommonException(NOT_FOUND_TRADE));
 
 		trade.createPurchase(buyer, saveTradeRequest.getShippingAdress());
 
@@ -79,7 +79,7 @@ public class TradeService {
 		User seller = userRepository.findById(saveTradeRequest.getUserId())
 			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
 
-		Trade trade = tradeRepository.findById(saveTradeRequest.getTradeId()).orElseThrow();
+		Trade trade = tradeRepository.findById(saveTradeRequest.getTradeId()).orElseThrow(() -> new CommonException(NOT_FOUND_TRADE));
 
 		trade.createSale(seller, saveTradeRequest.getShippingAdress());
 
