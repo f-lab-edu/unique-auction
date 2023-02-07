@@ -24,7 +24,7 @@ public class TradeService {
 	private final UserRepository userRepository;
 
 	@Transactional
-	public Long createPurchase(TradeRequest tradeRequest) {
+	public Long requestPurchase(TradeRequest tradeRequest) {
 		/* trade 등록을 위한 product 조회 */
 		Product product = productRepository.findById(tradeRequest.getProductId())
 			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));

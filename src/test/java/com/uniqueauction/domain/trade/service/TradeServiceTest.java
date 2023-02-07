@@ -59,7 +59,7 @@ class TradeServiceTest {
 		doReturn(trade).when(tradeRepository).save(any(Trade.class));
 
 		//when
-		tradeService.createPurchase(getTradeRequest());
+		tradeService.requestPurchase(getTradeRequest());
 
 		//then
 		verify(productRepository).findById(any(Long.class));
@@ -77,7 +77,7 @@ class TradeServiceTest {
 		//then
 		assertThatThrownBy(
 			() ->
-				tradeService.createPurchase(getTradeRequest())
+				tradeService.requestPurchase(getTradeRequest())
 		).isInstanceOf(CommonException.class);
 
 	}

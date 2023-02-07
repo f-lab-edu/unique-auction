@@ -22,9 +22,9 @@ public class TradeController {
 
 	@PostMapping("/purchase")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CommonResponse<?> savePurchaseNow(@RequestBody @Validated TradeRequest tradeRequest,
+	public CommonResponse<?> requestPurchase(@RequestBody @Validated TradeRequest tradeRequest,
 		BindingResult result) {
-		Long purchaseId = tradeService.createPurchase(tradeRequest);
+		Long purchaseId = tradeService.requestPurchase(tradeRequest);
 		return CommonResponse.success(purchaseId);
 	}
 }

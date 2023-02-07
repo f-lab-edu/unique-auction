@@ -42,7 +42,7 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 	@DisplayName("구매입찰 정상 테스트 201 반환")
 	void purchaseCreateTest() throws Exception {
 
-		doReturn(DUMY).when(tradeService).createPurchase(any());
+		doReturn(DUMY).when(tradeService).requestPurchase(any());
 
 		mockMvc.perform(
 				post("/purchase")
