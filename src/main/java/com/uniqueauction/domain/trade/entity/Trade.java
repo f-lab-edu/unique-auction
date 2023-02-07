@@ -17,7 +17,6 @@ import com.uniqueauction.domain.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @Entity
@@ -69,18 +68,6 @@ public class Trade extends BaseEntity {
 
 	public void updateTradeStatus(TradeStatus tradeStatus) {
 		this.tradeStatus = tradeStatus;
-	}
-
-	public void makePurchase(User buyer, String shippingAddress) {
-		this.shippingAddress = shippingAddress;
-		this.buyer = buyer;
-		this.tradeStatus = TradeStatus.BID_COMPLETE;
-	}
-
-	public void makeSale(User seller, String shippingAddress) {
-		this.shippingAddress = shippingAddress;
-		this.seller = seller;
-		this.tradeStatus = TradeStatus.BID_COMPLETE;
 	}
 
 	public void createPurchase(User buyer, String shippingAdress) {
