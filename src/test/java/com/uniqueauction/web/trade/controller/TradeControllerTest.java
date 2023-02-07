@@ -42,7 +42,7 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 	@DisplayName("구매입찰 정상 테스트 201 반환")
 	void purchaseCreateTest() throws Exception {
 
-		doReturn(DUMY).when(tradeService).requestPurchase(any());
+		doReturn(DUMY).when(tradeService).bidPurchase(any());
 
 		mockMvc.perform(
 				post("/purchase")
@@ -68,8 +68,8 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 
 	}
 
-	public TradeRequest getPurchaseRequest() {
-		return TradeRequest.builder()
+	public TradeRequest.SaveBidRequest getPurchaseRequest() {
+		return TradeRequest.SaveBidRequest.builder()
 			.userId(eq(getRandomLong()))
 			.productId(getRandomLong())
 			.productSize(getRandomString())
@@ -78,8 +78,8 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 			.build();
 	}
 
-	public TradeRequest getEmptyPurchaseRequest() {
-		return TradeRequest.builder()
+	public TradeRequest.SaveBidRequest getEmptyPurchaseRequest() {
+		return TradeRequest.SaveBidRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())
 			.productSize("")

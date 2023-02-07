@@ -24,36 +24,68 @@ public class TradeService {
 	private final UserRepository userRepository;
 
 	@Transactional
-	public Long requestPurchase(TradeRequest tradeRequest) {
+	public Long bidPurchase(TradeRequest.SaveBidRequest saveBidRequest) {
 		/* trade 등록을 위한 product 조회 */
-		Product product = productRepository.findById(tradeRequest.getProductId())
+		Product product = productRepository.findById(saveBidRequest.getProductId())
 			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
 
 		/* trade 등록을 위한 user 조회 */
-		User user = userRepository.findById(tradeRequest.getUserId())
+		User user = userRepository.findById(saveBidRequest.getUserId())
 			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
 
 		/* buyer에 의한 trade 객체 생성 */
-		Trade trade = tradeRequest.convertForBuyer(user, product, tradeRequest.getShippingAddress());
+		Trade trade = saveBidRequest.convertForBuyer(user, product, saveBidRequest.getShippingAddress());
 
 		tradeRepository.save(trade);
 		return trade.getId();
 	}
 
 	@Transactional
-	public Long requestSale(TradeRequest tradeRequest) {
+	public Long bidSale(TradeRequest.SaveBidRequest saveBidRequest) {
 		/* trade 등록을 위한 product 조회 */
-		Product product = productRepository.findById(tradeRequest.getProductId())
+		Product product = productRepository.findById(saveBidRequest.getProductId())
 			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
 
 		/* trade 등록을 위한 user 조회 */
-		User user = userRepository.findById(tradeRequest.getUserId())
+		User user = userRepository.findById(saveBidRequest.getUserId())
 			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
 
 		/* seller 의한 trade 객체 생성 */
-		Trade trade = tradeRequest.convertForSeller(user, product, tradeRequest.getShippingAddress());
+		Trade trade = saveBidRequest.convertForSeller(user, product, saveBidRequest.getShippingAddress());
 
 		tradeRepository.save(trade);
 		return trade.getId();
+	}
+
+	@Transactional
+	public void createPurchase(TradeRequest.SaveTradeRequest saveTradeRequest) {
+		/* trade 등록을 위한 user 조회 */
+		User buyer = userRepository.findById(saveTradeRequest.getUserId())
+			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
+
+		Trade trade = tradeRepository.findById(saveTradeRequest.getTradeId()).orElseThrow();
+
+		trade.createPurchase(buyer, saveTradeRequest.getShippingAdress());
+
+		/*
+		판매자에게 message 전송
+		 */
+		tradeRepository.save(trade);
+	}
+
+	@Transactional
+	public void createSale(TradeRequest.SaveTradeRequest saveTradeRequest) {
+		/* trade 등록을 위한 user 조회 */
+		User seller = userRepository.findById(saveTradeRequest.getUserId())
+			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
+
+		Trade trade = tradeRepository.findById(saveTradeRequest.getTradeId()).orElseThrow();
+
+		trade.createSale(seller, saveTradeRequest.getShippingAdress());
+
+		/*
+		구매자에게 message 전송
+		 */
+		tradeRepository.save(trade);
 	}
 }

@@ -59,7 +59,7 @@ class TradeServiceTest {
 		doReturn(trade).when(tradeRepository).save(any(Trade.class));
 
 		//when
-		tradeService.requestPurchase(getTradeRequest());
+		tradeService.bidPurchase(getTradeRequest());
 
 		//then
 		verify(productRepository).findById(any(Long.class));
@@ -77,13 +77,13 @@ class TradeServiceTest {
 		//then
 		assertThatThrownBy(
 			() ->
-				tradeService.requestPurchase(getTradeRequest())
+				tradeService.bidPurchase(getTradeRequest())
 		).isInstanceOf(CommonException.class);
 
 	}
 
-	public TradeRequest getTradeRequest() {
-		return TradeRequest.builder()
+	public TradeRequest.SaveBidRequest getTradeRequest() {
+		return TradeRequest.SaveBidRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())
 			.productSize("275")

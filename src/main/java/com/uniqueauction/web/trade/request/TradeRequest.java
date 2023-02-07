@@ -16,51 +16,74 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TradeRequest {
 
-	@NotNull(message = "유저ID")
-	private Long userId;
+	@Getter
+	@NoArgsConstructor
+	public static class SaveBidRequest {
 
-	@NotNull(message = "상품번호")
-	private Long productId;
+		@NotNull(message = "유저ID")
+		private Long userId;
 
-	@NotBlank(message = "사이즈")
-	private String productSize;
+		@NotNull(message = "상품번호")
+		private Long productId;
 
-	@NotNull(message = "입찰가격")
-	private Long price;
+		@NotBlank(message = "사이즈")
+		private String productSize;
 
-	@NotBlank(message = "배송주소")
-	private String shippingAddress;
+		@NotNull(message = "입찰가격")
+		private Long price;
 
-	@Builder
-	public TradeRequest(Long userId, Long productId, String productSize, Long price, String shippingAddress) {
-		this.userId = userId;
-		this.productId = productId;
-		this.productSize = productSize;
-		this.price = price;
-		this.shippingAddress = shippingAddress;
+		@NotBlank(message = "배송주소")
+		private String shippingAddress;
+
+		@Builder
+		public SaveBidRequest(Long userId, Long productId, String productSize, Long price, String shippingAddress) {
+			this.userId = userId;
+			this.productId = productId;
+			this.productSize = productSize;
+			this.price = price;
+			this.shippingAddress = shippingAddress;
+		}
+
+		public Trade convertForBuyer(User user, Product product, String address) {
+			return Trade.builder()
+				.price(this.price)
+				.productSize(this.productSize)
+				.tradeStatus(TradeStatus.BID_PROGRESS)
+				.product(product)
+				.publisher(user)
+				.buyer(user)
+				.shippingAddress(address)
+				.build();
+		}
+
+		public Trade convertForSeller(User user, Product product, String address) {
+			return Trade.builder()
+				.price(this.price)
+				.productSize(this.productSize)
+				.tradeStatus(TradeStatus.BID_PROGRESS)
+				.product(product)
+				.publisher(user)
+				.seller(user)
+				.shippingAddress(address)
+				.build();
+		}
 	}
 
-	public Trade convertForBuyer(User user, Product product, String address) {
-		return Trade.builder()
-			.price(this.price)
-			.productSize(this.productSize)
-			.tradeStatus(TradeStatus.BID_PROGRESS)
-			.product(product)
-			.publisher(user)
-			.buyer(user)
-			.shippingAddress(address)
-			.build();
-	}
+	@Getter
+	@NoArgsConstructor
+	public static class SaveTradeRequest {
 
-	public Trade convertForSeller(User user, Product product, String address) {
-		return Trade.builder()
-			.price(this.price)
-			.productSize(this.productSize)
-			.tradeStatus(TradeStatus.BID_PROGRESS)
-			.product(product)
-			.publisher(user)
-			.seller(user)
-			.shippingAddress(address)
-			.build();
+		private Long tradeId;
+		private Long userId;
+		private Long productId;
+		private String shippingAdress;
+
+		@Builder
+		public SaveTradeRequest(Long tradeId, Long userId, Long productId, String shippingAdress) {
+			this.tradeId = tradeId;
+			this.userId = userId;
+			this.productId = productId;
+			this.shippingAdress = shippingAdress;
+		}
 	}
 }

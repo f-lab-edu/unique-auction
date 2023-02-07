@@ -82,4 +82,16 @@ public class Trade extends BaseEntity {
 		this.seller = seller;
 		this.tradeStatus = TradeStatus.BID_COMPLETE;
 	}
+
+	public void createPurchase(User buyer, String shippingAdress) {
+		this.buyer = buyer;
+		this.shippingAddress = shippingAdress;
+		this.tradeStatus = TradeStatus.BID_COMPLETE;
+	}
+
+	public void createSale(User seller, String shippingAdress) {
+		this.seller = seller;
+		this.shippingAddress = shippingAdress;
+		this.tradeStatus = TradeStatus.BID_COMPLETE;
+	}
 }
