@@ -45,7 +45,7 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 		doReturn(DUMY).when(tradeService).bidPurchase(any());
 
 		mockMvc.perform(
-				post("/purchase")
+				post("/purchase/bid")
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
@@ -59,7 +59,7 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 	void emptyTest() throws Exception {
 
 		mockMvc.perform(
-				post("/purchase")
+				post("/purchase/bid")
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
