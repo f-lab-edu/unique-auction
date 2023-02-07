@@ -27,4 +27,12 @@ public class TradeController {
 		Long purchaseId = tradeService.requestPurchase(tradeRequest);
 		return CommonResponse.success(purchaseId);
 	}
+
+	@PostMapping("/sale")
+	@ResponseStatus(HttpStatus.CREATED)
+	public CommonResponse<?> requestSale(@RequestBody @Validated TradeRequest tradeRequest,
+		BindingResult result) {
+		Long purchaseId = tradeService.requestSale(tradeRequest);
+		return CommonResponse.success(purchaseId);
+	}
 }

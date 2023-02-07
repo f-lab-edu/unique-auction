@@ -39,4 +39,21 @@ public class TradeService {
 		tradeRepository.save(trade);
 		return trade.getId();
 	}
+
+	@Transactional
+	public Long requestSale(TradeRequest tradeRequest) {
+		/* trade 등록을 위한 product 조회 */
+		Product product = productRepository.findById(tradeRequest.getProductId())
+			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
+
+		/* trade 등록을 위한 user 조회 */
+		User user = userRepository.findById(tradeRequest.getUserId())
+			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
+
+		/* seller 의한 trade 객체 생성 */
+		Trade trade = tradeRequest.convertForSeller(user, product, tradeRequest.getShippingAddress());
+
+		tradeRepository.save(trade);
+		return trade.getId();
+	}
 }
