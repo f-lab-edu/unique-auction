@@ -14,4 +14,16 @@ public interface TradeRepository extends JpaRepository<Trade, Long> {
 	Optional<Trade> findByPublisherIdAndProductAndProductSizeAndTradeStatus(Long publisherId, Product product,
 		String productSize,
 		TradeStatus tradeStatus);
+
+	Optional<Trade> findByPublisherIdAndProductAndProductSizeAndTradeStatusAndPriceLessThanEqual(Long publisherId,
+		Product product,
+		String productSize,
+		TradeStatus tradeStatus,
+		Long price);
+
+	Optional<Trade> findByPublisherIdAndProductAndProductSizeAndTradeStatusAndPriceGreaterThanEqual(Long publisherId,
+		Product product,
+		String productSize,
+		TradeStatus tradeStatus,
+		Long price);
 }

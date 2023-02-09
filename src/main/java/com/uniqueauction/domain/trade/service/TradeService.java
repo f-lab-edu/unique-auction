@@ -35,9 +35,10 @@ public class TradeService {
 			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
 
 		/* product와 product size, 구매 입찰 중인 trade 조회 - 조회되는 것이 있으면 업데이트 하기 위함 */
-		Trade trade = tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatus(buyer.getId(), product,
+		Trade trade = tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatusAndPriceLessThanEqual(
+				buyer.getId(), product,
 				tradeRequest.getProductSize(),
-				TradeStatus.SALE_PROGRESS)
+				TradeStatus.SALE_PROGRESS, tradeRequest.getPrice())
 			.orElse(tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatus(buyer.getId(), product,
 					tradeRequest.getProductSize(),
 					TradeStatus.PURCHASE_PROGRESS)
@@ -62,9 +63,11 @@ public class TradeService {
 			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
 
 		/* product와 product size, 구매 입찰 중인 trade 조회 - 조회되는 것이 있으면 업데이트 하기 위함 */
-		Trade trade = tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatus(seller.getId(), product,
+		Trade trade = tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatusAndPriceGreaterThanEqual(
+				seller.getId(), product,
 				tradeRequest.getProductSize(),
-				TradeStatus.PURCHASE_PROGRESS)
+				TradeStatus.PURCHASE_PROGRESS,
+				tradeRequest.getPrice())
 			.orElse(tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatus(seller.getId(), product,
 					tradeRequest.getProductSize(),
 					TradeStatus.PURCHASE_PROGRESS)
