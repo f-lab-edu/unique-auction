@@ -1,11 +1,8 @@
 package com.uniqueauction.web.trade.request;
 
-import java.time.LocalDate;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.trade.entity.Trade;
 import com.uniqueauction.domain.trade.entity.TradeStatus;
@@ -41,27 +38,27 @@ public class TradeRequest {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public Trade convertForBuyer(Long userId, Product product, String address) {
+	public Trade convertForBuyer(Product product) {
 		return Trade.builder()
 			.price(this.price)
 			.productSize(this.productSize)
 			.tradeStatus(TradeStatus.PURCHASE_PROGRESS)
 			.product(product)
-			.publisherId(userId)
-			.buyerId(userId)
-			.shippingAddress(address)
+			.publisherId(this.userId)
+			.buyerId(this.userId)
+			.shippingAddress(this.shippingAddress)
 			.build();
 	}
 
-	public Trade convertForSeller(Long userId, Product product, String address) {
+	public Trade convertForSeller(Product product) {
 		return Trade.builder()
 			.price(this.price)
 			.productSize(this.productSize)
 			.tradeStatus(TradeStatus.SALE_PROGRESS)
 			.product(product)
-			.publisherId(userId)
-			.sellerId(userId)
-			.shippingAddress(address)
+			.publisherId(this.userId)
+			.sellerId(this.userId)
+			.shippingAddress(this.shippingAddress)
 			.build();
 	}
 

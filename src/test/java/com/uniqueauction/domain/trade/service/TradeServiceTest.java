@@ -55,7 +55,7 @@ class TradeServiceTest {
 		//given
 		doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
 		doReturn(Optional.ofNullable(getUser())).when(userRepository).findById(any(Long.class));
-		Trade trade = getTradeRequest().convertForBuyer(user.getId(), product, address);
+		Trade trade = getTradeRequest().convertForBuyer(product);
 		doReturn(trade).when(tradeRepository).save(any(Trade.class));
 
 		//when

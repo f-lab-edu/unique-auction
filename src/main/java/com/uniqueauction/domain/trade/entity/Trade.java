@@ -1,7 +1,5 @@
 package com.uniqueauction.domain.trade.entity;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -52,20 +50,22 @@ public class Trade extends BaseEntity {
 		this.price = price;
 		this.shippingAddress = shippingAddress;
 	}
-
-	public void updateTradeStatus(TradeStatus tradeStatus) {
-		this.tradeStatus = tradeStatus;
-	}
-
-	public void createPurchase(Long buyerId, String shippingAdress) {
+	
+	public void updateTradeByBuyer(Long price, Long buyerId) {
+		this.price = price;
 		this.buyerId = buyerId;
-		this.shippingAddress = shippingAdress;
 		this.tradeStatus = TradeStatus.BID_COMPLETE;
 	}
 
-	public void createSale(Long sellerId, String shippingAdress) {
+	public void updateTradeBySeller(Long price, Long sellerId) {
+		this.price = price;
 		this.sellerId = sellerId;
-		this.shippingAddress = shippingAdress;
 		this.tradeStatus = TradeStatus.BID_COMPLETE;
 	}
+
+	public void updateTrade(Long price, String shippingAddress) {
+		this.price = price;
+		this.shippingAddress = shippingAddress;
+	}
+
 }

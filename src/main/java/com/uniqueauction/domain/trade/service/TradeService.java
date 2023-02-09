@@ -35,16 +35,20 @@ public class TradeService {
 			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
 
 		/* product와 product size, 구매 입찰 중인 trade 조회 - 조회되는 것이 있으면 업데이트 하기 위함 */
-		Trade trade = tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatusAndPriceLessThanEqual(
-				buyer.getId(), product,
+		Trade trade = tradeRepository.findByProductAndProductSizeAndTradeStatusAndPriceLessThanEqual(product,
 				tradeRequest.getProductSize(),
 				TradeStatus.SALE_PROGRESS, tradeRequest.getPrice())
 			.orElse(tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatus(buyer.getId(), product,
 					tradeRequest.getProductSize(),
 					TradeStatus.PURCHASE_PROGRESS)
-				.orElse(tradeRequest.convertForBuyer(buyer.getId(), product, tradeRequest.getShippingAddress())));
+				.orElse(tradeRequest.convertForBuyer(product)));
 
-		trade.createPurchase(buyer.getId(), tradeRequest.getShippingAddress());
+		/* 판매 입찰이 있는 경우 거래 체결을 위한 update, 기존 요청을 찾았을 경우 기존 요청 update  */
+		if (trade.getTradeStatus() == TradeStatus.SALE_PROGRESS) {
+			trade.updateTradeByBuyer(tradeRequest.getUserId(), tradeRequest.getPrice());
+		} else if (trade.getTradeStatus() == TradeStatus.PURCHASE_PROGRESS) {
+			trade.updateTrade(tradeRequest.getPrice(), tradeRequest.getShippingAddress());
+		}
 
 		/*
 		판매자에게 message 전송
@@ -63,17 +67,21 @@ public class TradeService {
 			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
 
 		/* product와 product size, 구매 입찰 중인 trade 조회 - 조회되는 것이 있으면 업데이트 하기 위함 */
-		Trade trade = tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatusAndPriceGreaterThanEqual(
-				seller.getId(), product,
+		Trade trade = tradeRepository.findByProductAndProductSizeAndTradeStatusAndPriceGreaterThanEqual(product,
 				tradeRequest.getProductSize(),
 				TradeStatus.PURCHASE_PROGRESS,
 				tradeRequest.getPrice())
 			.orElse(tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatus(seller.getId(), product,
 					tradeRequest.getProductSize(),
 					TradeStatus.PURCHASE_PROGRESS)
-				.orElse(tradeRequest.convertForBuyer(seller.getId(), product, tradeRequest.getShippingAddress())));
+				.orElse(tradeRequest.convertForSeller(product)));
 
-		trade.createSale(seller.getId(), tradeRequest.getShippingAddress());
+		/* 구매 입찰이 있는 경우 거래 체결을 위한 update, 기존 요청을 찾았을 경우 기존 요청 update  */
+		if (trade.getTradeStatus() == TradeStatus.PURCHASE_PROGRESS) {
+			trade.updateTradeBySeller(tradeRequest.getUserId(), tradeRequest.getPrice());
+		} else if (trade.getTradeStatus() == TradeStatus.SALE_PROGRESS) {
+			trade.updateTrade(tradeRequest.getPrice(), tradeRequest.getShippingAddress());
+		}
 
 		/*
 		구매자에게 message 전송
