@@ -38,12 +38,10 @@ public class Trade extends BaseEntity {
 	private Long price;
 	private String shippingAddress;
 
-	private LocalDate dueDate;
-
 	@Builder
 	public Trade(Long id, Long publisherId, Long buyerId,
 		Long sellerId, Product product, TradeStatus tradeStatus,
-		String productSize, Long price, String shippingAddress, LocalDate dueDate) {
+		String productSize, Long price, String shippingAddress) {
 		this.id = id;
 		this.publisherId = publisherId;
 		this.buyerId = buyerId;
@@ -53,7 +51,6 @@ public class Trade extends BaseEntity {
 		this.productSize = productSize;
 		this.price = price;
 		this.shippingAddress = shippingAddress;
-		this.dueDate = dueDate;
 	}
 
 	public void updateTradeStatus(TradeStatus tradeStatus) {

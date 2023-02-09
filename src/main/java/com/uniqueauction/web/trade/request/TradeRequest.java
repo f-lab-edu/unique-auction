@@ -32,18 +32,13 @@ public class TradeRequest {
 	@NotBlank(message = "배송주소")
 	private String shippingAddress;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd", timezone = "Asia/Seoul")
-	private LocalDate dueDate;
-
 	@Builder
-	public TradeRequest(Long userId, Long productId, String productSize, Long price, String shippingAddress,
-		LocalDate dueDate) {
+	public TradeRequest(Long userId, Long productId, String productSize, Long price, String shippingAddress) {
 		this.userId = userId;
 		this.productId = productId;
 		this.productSize = productSize;
 		this.price = price;
 		this.shippingAddress = shippingAddress;
-		this.dueDate = dueDate;
 	}
 
 	public Trade convertForBuyer(Long userId, Product product, String address) {
