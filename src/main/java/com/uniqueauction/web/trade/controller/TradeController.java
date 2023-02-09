@@ -20,39 +20,21 @@ public class TradeController {
 
 	private final TradeService tradeService;
 
-	/* 구매요청 - 입찰 */
-	@PostMapping("/purchase/bid")
-	@ResponseStatus(HttpStatus.CREATED)
-	public CommonResponse<?> bidPurchase(@RequestBody @Validated TradeRequest.SaveBidRequest saveBidRequest,
-		BindingResult result) {
-		Long purchaseId = tradeService.bidPurchase(saveBidRequest);
-		return CommonResponse.success(purchaseId);
-	}
-
-	/* 판매요청 - 입찰 */
-	@PostMapping("/sale/bid")
-	@ResponseStatus(HttpStatus.CREATED)
-	public CommonResponse<?> bidSale(@RequestBody @Validated TradeRequest.SaveBidRequest saveBidRequest,
-		BindingResult result) {
-		Long purchaseId = tradeService.bidSale(saveBidRequest);
-		return CommonResponse.success(purchaseId);
-	}
-
 	/* 구매 - 요청된 판매요청 데이터로 거래 체결 */
 	@PostMapping("/purchase")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CommonResponse<?> createPurchase(@RequestBody @Validated TradeRequest.SaveTradeRequest saveTradeRequest,
+	public CommonResponse<?> createPurchase(@RequestBody @Validated TradeRequest tradeRequest,
 		BindingResult result) {
-		tradeService.createPurchase(saveTradeRequest);
+		tradeService.createPurchase(tradeRequest);
 		return CommonResponse.success();
 	}
 
 	/* 판매 - 요청된 구매요청 데이터로 거래 체결 */
 	@PostMapping("/sale")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CommonResponse<?> createSale(@RequestBody @Validated TradeRequest.SaveTradeRequest saveTradeRequest,
+	public CommonResponse<?> createSale(@RequestBody @Validated TradeRequest tradeRequest,
 		BindingResult result) {
-		tradeService.createSale(saveTradeRequest);
+		tradeService.createSale(tradeRequest);
 		return CommonResponse.success();
 	}
 }

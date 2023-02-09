@@ -55,11 +55,11 @@ class TradeServiceTest {
 		//given
 		doReturn(Optional.ofNullable(getProduct())).when(productRepository).findById(any(Long.class));
 		doReturn(Optional.ofNullable(getUser())).when(userRepository).findById(any(Long.class));
-		Trade trade = getTradeRequest().convertForBuyer(user, product, address);
+		Trade trade = getTradeRequest().convertForBuyer(user.getId(), product, address);
 		doReturn(trade).when(tradeRepository).save(any(Trade.class));
 
 		//when
-		tradeService.bidPurchase(getTradeRequest());
+		tradeService.createPurchase(getTradeRequest());
 
 		//then
 		verify(productRepository).findById(any(Long.class));
@@ -70,20 +70,17 @@ class TradeServiceTest {
 	@DisplayName("구매입찰 등록 실패테스트(물품이없을때)")
 	void savePurchaseFailNotFoundProductTest() {
 		//given
-
-		doThrow(CommonException.class).when(productRepository).findById(any(Long.class));
-
-		//when
+		//doThrow(CommonException.class).when(productRepository).findById(any(Long.class));
 		//then
 		assertThatThrownBy(
 			() ->
-				tradeService.bidPurchase(getTradeRequest())
+				tradeService.createPurchase(getTradeRequest())
 		).isInstanceOf(CommonException.class);
 
 	}
 
-	public TradeRequest.SaveBidRequest getTradeRequest() {
-		return TradeRequest.SaveBidRequest.builder()
+	public TradeRequest getTradeRequest() {
+		return TradeRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())
 			.productSize("275")

@@ -1,9 +1,6 @@
 package com.uniqueauction.web.trade.controller;
 
 import static com.uniqueauction.CommonUtilMethod.*;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -28,7 +25,7 @@ import com.uniqueauction.web.trade.request.TradeRequest;
 @AutoConfigureMockMvc
 class TradeControllerTest extends AbstractContainerBaseTest {
 
-	private static final Long DUMY = getRandomLong();
+	//private static final Long DUMY = getRandomLong();
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -41,17 +38,13 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 	@Test
 	@DisplayName("구매입찰 정상 테스트 201 반환")
 	void purchaseCreateTest() throws Exception {
-
-		doReturn(DUMY).when(tradeService).bidPurchase(any());
-
 		mockMvc.perform(
-				post("/purchase/bid")
+				post("/purchase")
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(getPurchaseRequest())))
-			.andExpect(status().isCreated())
-			.andExpect(jsonPath("data", is(DUMY)));
+			.andExpect(status().isCreated());
 	}
 
 	@Test
@@ -59,7 +52,7 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 	void emptyTest() throws Exception {
 
 		mockMvc.perform(
-				post("/purchase/bid")
+				post("/purchase")
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
@@ -68,8 +61,8 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 
 	}
 
-	public TradeRequest.SaveBidRequest getPurchaseRequest() {
-		return TradeRequest.SaveBidRequest.builder()
+	public TradeRequest getPurchaseRequest() {
+		return TradeRequest.builder()
 			.userId(eq(getRandomLong()))
 			.productId(getRandomLong())
 			.productSize(getRandomString())
@@ -78,8 +71,8 @@ class TradeControllerTest extends AbstractContainerBaseTest {
 			.build();
 	}
 
-	public TradeRequest.SaveBidRequest getEmptyPurchaseRequest() {
-		return TradeRequest.SaveBidRequest.builder()
+	public TradeRequest getEmptyPurchaseRequest() {
+		return TradeRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())
 			.productSize("")

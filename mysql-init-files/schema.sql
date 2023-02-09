@@ -53,6 +53,7 @@ create table trade
     product_size        varchar(255),
     price               bigint,
     shipping_address    varchar(255),
+    due_date            date,
     created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
     modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (id),
