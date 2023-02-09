@@ -50,7 +50,7 @@ public class Trade extends BaseEntity {
 		this.price = price;
 		this.shippingAddress = shippingAddress;
 	}
-	
+
 	public void updateTradeByBuyer(Long price, Long buyerId) {
 		this.price = price;
 		this.buyerId = buyerId;
