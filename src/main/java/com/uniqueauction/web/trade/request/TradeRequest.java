@@ -3,7 +3,6 @@ package com.uniqueauction.web.trade.request;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.trade.entity.Trade;
 import com.uniqueauction.domain.trade.entity.TradeStatus;
 
@@ -38,24 +37,24 @@ public class TradeRequest {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public Trade convertForBuyer(Product product) {
+	public Trade convertForBuyer(Long productId) {
 		return Trade.builder()
 			.price(this.price)
 			.productSize(this.productSize)
 			.tradeStatus(TradeStatus.PURCHASE_PROGRESS)
-			.product(product)
+			.productId(productId)
 			.publisherId(this.userId)
 			.buyerId(this.userId)
 			.shippingAddress(this.shippingAddress)
 			.build();
 	}
 
-	public Trade convertForSeller(Product product) {
+	public Trade convertForSeller(Long productId) {
 		return Trade.builder()
 			.price(this.price)
 			.productSize(this.productSize)
 			.tradeStatus(TradeStatus.SALE_PROGRESS)
-			.product(product)
+			.productId(productId)
 			.publisherId(this.userId)
 			.sellerId(this.userId)
 			.shippingAddress(this.shippingAddress)

@@ -35,13 +35,14 @@ public class TradeService {
 			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
 
 		/* product와 product size, 구매 입찰 중인 trade 조회 - 조회되는 것이 있으면 업데이트 하기 위함 */
-		Trade trade = tradeRepository.findByProductAndProductSizeAndTradeStatusAndPriceLessThanEqual(product,
+		Trade trade = tradeRepository.findByProductIdAndProductSizeAndTradeStatusAndPriceLessThanEqual(product.getId(),
 				tradeRequest.getProductSize(),
 				TradeStatus.SALE_PROGRESS, tradeRequest.getPrice())
-			.orElse(tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatus(buyer.getId(), product,
+			.orElse(tradeRepository.findByPublisherIdAndProductIdAndProductSizeAndTradeStatus(buyer.getId(),
+					product.getId(),
 					tradeRequest.getProductSize(),
 					TradeStatus.PURCHASE_PROGRESS)
-				.orElse(tradeRequest.convertForBuyer(product)));
+				.orElse(tradeRequest.convertForBuyer(product.getId())));
 
 		/* 판매 입찰이 있는 경우 거래 체결을 위한 update, 기존 요청을 찾았을 경우 기존 요청 update  */
 		if (trade.getTradeStatus() == TradeStatus.SALE_PROGRESS) {
@@ -67,14 +68,16 @@ public class TradeService {
 			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
 
 		/* product와 product size, 구매 입찰 중인 trade 조회 - 조회되는 것이 있으면 업데이트 하기 위함 */
-		Trade trade = tradeRepository.findByProductAndProductSizeAndTradeStatusAndPriceGreaterThanEqual(product,
+		Trade trade = tradeRepository.findByProductIdAndProductSizeAndTradeStatusAndPriceGreaterThanEqual(
+				product.getId(),
 				tradeRequest.getProductSize(),
 				TradeStatus.PURCHASE_PROGRESS,
 				tradeRequest.getPrice())
-			.orElse(tradeRepository.findByPublisherIdAndProductAndProductSizeAndTradeStatus(seller.getId(), product,
+			.orElse(tradeRepository.findByPublisherIdAndProductIdAndProductSizeAndTradeStatus(seller.getId(),
+					product.getId(),
 					tradeRequest.getProductSize(),
 					TradeStatus.PURCHASE_PROGRESS)
-				.orElse(tradeRequest.convertForSeller(product)));
+				.orElse(tradeRequest.convertForSeller(product.getId())));
 
 		/* 구매 입찰이 있는 경우 거래 체결을 위한 update, 기존 요청을 찾았을 경우 기존 요청 update  */
 		if (trade.getTradeStatus() == TradeStatus.PURCHASE_PROGRESS) {
