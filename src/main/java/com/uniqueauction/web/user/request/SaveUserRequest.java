@@ -7,12 +7,13 @@ import com.uniqueauction.domain.user.entity.User;
 import com.utils.annotation.RegExp;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 @AllArgsConstructor
-public class JoinRequest {
-	private Long userId;
+public class SaveUserRequest {
 	private Boolean isAdmin;
 
 	@RegExp(regExpCode = EMAIL)
@@ -27,25 +28,22 @@ public class JoinRequest {
 	@RegExp(regExpCode = PHONE)
 	private String phone;
 
-	public JoinRequest() {
+	public SaveUserRequest() {
 		this.isAdmin = false;
 	}
 
-	public User convert(JoinRequest joinRequest) {
-
+	public User convert() {
 		Role requestRole = Role.CUSTOMER;
 
-		if (joinRequest.getIsAdmin()) {
+		if (this.getIsAdmin()) {
 			requestRole = Role.ADMIN;
 		}
 
 		return User.builder()
-			.email(joinRequest.getEmail())
-			.username(joinRequest.getUsername())
-			.encodedPassword(joinRequest.getPassword())
-			.phone(joinRequest.getPhone())
+			.email(getEmail())
+			.username(getUsername())
+			.phone(getPhone())
 			.role(requestRole)
 			.build();
 	}
-
 }

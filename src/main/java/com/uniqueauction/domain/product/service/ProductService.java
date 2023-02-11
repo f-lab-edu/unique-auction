@@ -33,8 +33,8 @@ public class ProductService {
 	}
 
 	@Transactional
-	public Long save(Product product) {
-		return productRepository.save(product).getId();
+	public Product save(Product product) {
+		return productRepository.save(product);
 	}
 
 	@Transactional

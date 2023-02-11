@@ -1,9 +1,3 @@
-drop table if exists trade;
-drop table if exists review;
-drop table if exists purchase;
-drop table if exists sale;
-drop table if exists user;
-drop table if exists product;
 
 create table product
 (
@@ -14,61 +8,9 @@ create table product
     img_url             varchar(255),
     model_number        varchar(255),
     release_price       varchar(255),
-    created_by          varchar(255),
-    created_date        timestamp,
-    last_modified_by    varchar(255),
-    last_modified_date  timestamp,
+    created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
+    modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (product_id)
-);
-
-create table purchase
-(
-    purchase_id         bigint not null auto_increment,
-    bid_price           varchar(255),
-    product_size        varchar(255),
-    shipping_address    varchar(255),
-    trade_status        integer,
-    user_id             bigint,
-    product_id          bigint,
-    created_by          varchar(255),
-    created_date        timestamp,
-    last_modified_by    varchar(255),
-    last_modified_date  timestamp,
-    primary key (purchase_id),
-    constraint FK_purchase_product foreign key (product_id) references product (product_id)
-);
-
-create table sale
-(
-    sale_id             bigint not null auto_increment,
-    bid_price           varchar(255),
-    product_size        varchar(255),
-    return_address      varchar(255),
-    trade_status        integer,
-    user_id             bigint,
-    product_id          bigint,
-    created_by          varchar(255),
-    created_date        timestamp,
-    last_modified_by    varchar(255),
-    last_modified_date  timestamp,
-    primary key (sale_id),
-    constraint FK_sale_product foreign key (product_id) references product (product_id)
-);
-
-create table trade
-(
-    id                  bigint not null auto_increment,
-    status              integer,
-    purchase_id         bigint,
-    sale_id             bigint,
-    created_by          varchar(255),
-    created_date        timestamp,
-    last_modified_by    varchar(255),
-    last_modified_date  timestamp,
-    primary key (id),
-    constraint FK_trade_purchase foreign key (purchase_id) references purchase (purchase_id),
-    constraint FK_trade_sale foreign key (sale_id) references sale (sale_id)
-
 );
 
 create table user
@@ -79,11 +21,11 @@ create table user
     phone               varchar(255),
     role                varchar(10),
     username            varchar(255),
-    created_by          varchar(255),
-    created_date        timestamp,
-    last_modified_by    varchar(255),
-    last_modified_date  timestamp,
-    primary key (user_id)
+    version             integer(255),
+    created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
+    modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
+    primary key (user_id),
+    UNIQUE KEY uk_email (email)
 );
 
 create table review
@@ -93,12 +35,29 @@ create table review
     content     varchar(100),
     user_id     bigint,
     product_id  bigint,
-    created_by          varchar(255),
-    created_date        timestamp,
-    last_modified_by    varchar(255),
-    last_modified_date  timestamp,
+    created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
+    modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
     primary key (review_id),
     constraint FK_review_user foreign key (user_id) references user (user_id),
     constraint FK_review_product foreign key (product_id) references product (product_id)
+);
 
+create table trade
+(
+    id                  bigint not null auto_increment,
+    publisher_id        bigint,
+    buyer_id            bigint,
+    seller_id           bigint,
+    product_id          bigint,
+    trade_status        integer,
+    product_size        varchar(255),
+    price               bigint,
+    shipping_address    varchar(255),
+    created_date        timestamp DEFAULT CURRENT_TIMESTAMP,
+    modified_date       timestamp DEFAULT CURRENT_TIMESTAMP,
+    primary key (id),
+    constraint FK_trade_publisher foreign key (publisher_id) references user (user_id),
+    constraint FK_trade_buyer foreign key (buyer_id) references user (user_id),
+    constraint FK_trade_seller foreign key (seller_id) references user (user_id),
+    constraint FK_trade_product foreign key (product_id) references product (product_id)
 );

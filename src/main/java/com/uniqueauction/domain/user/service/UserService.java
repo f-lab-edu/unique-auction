@@ -3,12 +3,12 @@ package com.uniqueauction.domain.user.service;
 import static com.uniqueauction.exception.ErrorCode.*;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.repository.UserRepository;
 import com.uniqueauction.exception.advice.CommonException;
 import com.uniqueauction.exception.advice.CommonNotFoundException;
-import com.uniqueauction.web.user.request.JoinRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,25 +16,25 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class UserService {
 	private final UserRepository userRepository;
-	private final EncryptService encryptService;
 
-	public void join(JoinRequest joinRequest) {
-		User user = joinRequest.convert(joinRequest);
+	@Transactional
+	public User join(User user) {
 		if (!existsByEmail(user.getEmail())) {
-			user.setEncodedPassword(encryptService.encrypt(joinRequest.getPassword()));
+			userRepository.save(user);
 		} else {
 			throw new CommonException(DUPLICATE_USER);
 		}
-
-		userRepository.save(user);
+		return userRepository.findByEmail(user.getEmail());
 	}
 
-	public void update(Long id) {
-		User user = userRepository.findById(id)
-			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_USER));
-		userRepository.save(user);
+	@Transactional
+	public User update(User updateUser) {
+		User user = userRepository.findByEmail(updateUser.getEmail());
+		user.update(updateUser);
+		return user;
 	}
 
+	@Transactional(readOnly = true)
 	public User findById(Long userId) {
 		return userRepository.findById(userId)
 			.orElseThrow(() -> new CommonNotFoundException(NOT_FOUND_USER));

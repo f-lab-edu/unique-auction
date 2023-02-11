@@ -1,18 +1,20 @@
 package com.uniqueauction.web.product.controller;
 
+import static com.uniqueauction.CommonUtilMethod.*;
 import static com.uniqueauction.domain.product.entity.Category.*;
-import static org.mockito.Mockito.*;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,9 +24,9 @@ import com.uniqueauction.domain.product.service.ProductService;
 import com.uniqueauction.web.product.request.ProductSaveRequest;
 import com.uniqueauction.web.product.request.ProductUpdateRequest;
 
-
-@ExtendWith(SpringExtension.class)
+@SpringBootTest
 @TestContainerBase
+@AutoConfigureMockMvc
 class ProductControllerTest extends AbstractContainerBaseTest {
 
 	@Autowired
@@ -39,6 +41,8 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 	@DisplayName("상품 저장 완료가 되면 status  200을 반환한다.")
 	void productSaveTest() throws Exception {
 
+		doReturn(createProduct().toEntity()).when(productService).save(any());
+
 		mockMvc.perform(
 
 				post("/products")
@@ -46,7 +50,13 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
 					.content(objectMapper.writeValueAsString(createProduct())))
-			.andExpect(status().isCreated());
+			.andExpect(status().isCreated())
+			.andExpect(jsonPath("data.name", is("상품1")))
+			.andExpect(jsonPath("data.modelNumber", is("1")))
+			.andExpect(jsonPath("data.releasePrice", is("10000")))
+			.andExpect(jsonPath("data.category", is("SHOES")))
+			.andExpect(jsonPath("data.imgUrl", is("/test/test")))
+			.andExpect(jsonPath("data.brand", is("DD")));
 
 	}
 
@@ -69,14 +79,13 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 	@Test
 	@DisplayName("상품 삭제  완료가 되면 status  200을 반환한다.")
 	void productDeleteTest() throws Exception {
-		Long id = 1L;
 
 		mockMvc.perform(
 				delete("/products/" + 1)
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
-					.content(String.valueOf(id)))
+					.content(String.valueOf(getRandomLong())))
 			.andExpect(status().isOk());
 
 	}
@@ -84,14 +93,13 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 	@Test
 	@DisplayName("상품 상세  완료가 되면 status  200을 반환한다.")
 	void productDetailSelectTest() throws Exception {
-		Long id = 1L;
 
 		mockMvc.perform(
 				get("/products/" + 1)
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
-					.content(String.valueOf(id)))
+					.content(String.valueOf(getRandomLong())))
 			.andExpect(status().isOk());
 
 	}
@@ -115,7 +123,7 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 			.modelNumber("1")
 			.releasePrice("10000")
 			.category(SHOES)
-			.imgUrl(":test")
+			.imgUrl("/test/test")
 			.brand("DD")
 			.build();
 	}
@@ -126,7 +134,7 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 			.modelNumber("")
 			.releasePrice("10000")
 			.category(SHOES)
-			.imgUrl(":test")
+			.imgUrl("test/test")
 			.brand("DD")
 			.imgUrl("/test/test")
 			.build();
@@ -134,7 +142,7 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 
 	private ProductUpdateRequest updateProduct() {
 		return ProductUpdateRequest.builder()
-			.productId(1L)
+			.productId(getRandomLong())
 			.productName("상품2")
 			.modelNumber("1")
 			.releasePrice("10000")

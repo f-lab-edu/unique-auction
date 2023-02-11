@@ -7,10 +7,10 @@ import lombok.Getter;
 @Getter
 public class SearchProductResponse {
 
-	private String productName;
-	private String modelNumber;
-	private String releasePrice;
-	private String brand;
+	private final String productName;
+	private final String modelNumber;
+	private final String releasePrice;
+	private final String brand;
 
 	public SearchProductResponse(Product product) {
 		this.productName = product.getName();

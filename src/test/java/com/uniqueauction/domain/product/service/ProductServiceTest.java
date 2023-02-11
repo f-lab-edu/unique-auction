@@ -1,21 +1,20 @@
 package com.uniqueauction.domain.product.service;
 
+import static com.uniqueauction.CommonUtilMethod.*;
 import static com.uniqueauction.domain.product.entity.Category.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.uniqueauction.AbstractContainerBaseTest;
-import com.uniqueauction.TestContainerBase;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
 import com.uniqueauction.exception.advice.CommonNotFoundException;
@@ -30,8 +29,8 @@ import com.uniqueauction.web.product.request.ProductUpdateRequest;
  * @Spy: Stub하지 않은 메소드들은 원본 메소드 그대로 사용하는 어노테이션
  * @InjectMocks: @Mock 또는 @Spy로 생성된 가짜 객체를 자동으로 주입시켜주는 어노테이션
  */
-@TestContainerBase
-class ProductServiceTest extends AbstractContainerBaseTest {
+@ExtendWith(MockitoExtension.class) // 클래스단에 해당 어노테이션을 달아, 클래스가 Mockito를 사용함을 명시적으로 알립니다.
+class ProductServiceTest {
 
 	@Spy
 	@InjectMocks
@@ -42,7 +41,7 @@ class ProductServiceTest extends AbstractContainerBaseTest {
 
 	private Product saveProduct;
 	private Product updateProduct;
-	private Long pId = 1L;
+	private final Long pId = getRandomLong();
 
 	@BeforeEach
 	public void set() {
@@ -54,12 +53,16 @@ class ProductServiceTest extends AbstractContainerBaseTest {
 	void productSaveTest() {
 
 		//given
-		doReturn(1L).when(productService).save(saveProduct);
+		doReturn(getSaveProduct()).when(productService).save(any(Product.class));
 
 		//when
-		Long save = productService.save(saveProduct);
+		Product product = productService.save(saveProduct);
 
-		assertThat(1L).isEqualTo(save);
+		assertThat("상품1").isEqualTo(product.getName());
+		assertThat("123").isEqualTo(product.getModelNumber());
+		assertThat("10000").isEqualTo(product.getReleasePrice());
+		assertThat(SHOES).isEqualTo(product.getCategory());
+		assertThat("/test/test").isEqualTo(product.getImgUrl());
 		//then
 
 		verify(productService).save(saveProduct);
@@ -68,8 +71,6 @@ class ProductServiceTest extends AbstractContainerBaseTest {
 
 	@Test
 	void productDetailSelectTest() {
-
-		Long pId = 1L;
 
 		//given
 		doReturn(Optional.of(getSaveProduct())).when(productRepository).findById(pId);
@@ -87,8 +88,6 @@ class ProductServiceTest extends AbstractContainerBaseTest {
 
 	@Test
 	void productUpdateTest() {
-
-		Long pId = 1L;
 
 		//given
 		doReturn(updateProduct).when(productService).update(updateProduct);
@@ -109,8 +108,8 @@ class ProductServiceTest extends AbstractContainerBaseTest {
 
 		//given
 
-		doReturn(pId).when(productService).save(saveProduct);
-		doNothing().when(productService).delete(pId);
+		doReturn(getSaveProduct()).when(productService).save(any(Product.class));
+		doNothing().when(productService).delete(anyLong());
 
 		//when
 		productService.save(saveProduct);
@@ -153,11 +152,4 @@ class ProductServiceTest extends AbstractContainerBaseTest {
 			.imgUrl("/test/test")
 			.build();
 	}
-
-	public List<Product> getListProduct(ProductSaveRequest saveProduct) {
-		List<Product> list = new ArrayList<>();
-		list.add(saveProduct.toEntity());
-		return list;
-	}
-
 }
