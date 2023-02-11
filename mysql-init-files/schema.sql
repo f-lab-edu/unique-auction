@@ -49,7 +49,7 @@ create table trade
     buyer_id            bigint,
     seller_id           bigint,
     product_id          bigint,
-    trade_status        integer,
+    trade_status        varchar(100),
     product_size        varchar(255),
     price               bigint,
     shipping_address    varchar(255),

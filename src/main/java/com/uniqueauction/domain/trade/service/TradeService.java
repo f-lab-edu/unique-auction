@@ -44,7 +44,7 @@ public class TradeService {
 
 		/* 구매자가 찾는 판매 요청 내역이 있을 경우 거래 체결 */
 		if (trade.isPresent()) {
-			trade.get().tradeCompleteByBuyer(tradeRequest.getUserId(), tradeRequest.getPrice());
+			trade.get().tradeCompleteByBuyer(tradeRequest.getPrice(), tradeRequest.getUserId());
 		} else {
 			/* 기존 요청한 구매 요청 있는지 조회 한다  */
 			trade = tradeRepository.findByPublisherIdAndProductIdAndProductSizeAndTradeStatus(buyer.getId(),
@@ -56,7 +56,7 @@ public class TradeService {
 			if (trade.isPresent()) {
 				trade.get().updateTrade(tradeRequest.getPrice(), tradeRequest.getShippingAddress());
 			} else {
-				trade = Optional.ofNullable(tradeRequest.convertForSeller(product.getId()));
+				trade = Optional.ofNullable(tradeRequest.convertForBuyer(product.getId()));
 			}
 		}
 
@@ -84,7 +84,7 @@ public class TradeService {
 
 		/* 판매자가 찾는 구매 요청이 있을 경우 거래 체결 */
 		if (trade.isPresent()) {
-			trade.get().tradeCompleteBySeller(tradeRequest.getUserId(), tradeRequest.getPrice());
+			trade.get().tradeCompleteBySeller(tradeRequest.getPrice(), tradeRequest.getUserId());
 		} else {
 			/* 기존 요청한 판매 요청 있는지 조회 한다  */
 			trade = tradeRepository.findByPublisherIdAndProductIdAndProductSizeAndTradeStatus(seller.getId(),
