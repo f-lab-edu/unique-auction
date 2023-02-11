@@ -45,13 +45,13 @@ public class Trade extends BaseEntity {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public void updateTradeByBuyer(Long price, Long buyerId) {
+	public void tradeCompleteByBuyer(Long price, Long buyerId) {
 		this.price = price;
 		this.buyerId = buyerId;
 		this.tradeStatus = TradeStatus.BID_COMPLETE;
 	}
 
-	public void updateTradeBySeller(Long price, Long sellerId) {
+	public void tradeCompleteBySeller(Long price, Long sellerId) {
 		this.price = price;
 		this.sellerId = sellerId;
 		this.tradeStatus = TradeStatus.BID_COMPLETE;
