@@ -1,9 +1,7 @@
 package com.uniqueauction.web.trade.controller;
 
 import static com.uniqueauction.CommonUtilMethod.*;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -19,15 +17,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueauction.AbstractContainerBaseTest;
 import com.uniqueauction.TestContainerBase;
-import com.uniqueauction.domain.trade.service.SaleService;
-import com.uniqueauction.web.trade.request.SaleRequest;
+import com.uniqueauction.domain.trade.service.TradeService;
+import com.uniqueauction.web.trade.request.TradeRequest;
 
 @SpringBootTest
 @TestContainerBase
 @AutoConfigureMockMvc
-class SaleControllerTest extends AbstractContainerBaseTest {
+class TradeControllerTest extends AbstractContainerBaseTest {
 
-	private static final Long DUMY = getRandomLong();
+	//private static final Long DUMY = getRandomLong();
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -35,23 +33,18 @@ class SaleControllerTest extends AbstractContainerBaseTest {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@MockBean
-	private SaleService saleService;
+	private TradeService tradeService;
 
 	@Test
-	@DisplayName("판매입찰 정상 테스트 201 반환 ")
-	void saleCreateTest() throws Exception {
-
-		doReturn(DUMY).when(saleService).saveSale(any());
-
+	@DisplayName("구매입찰 정상 테스트 201 반환")
+	void purchaseCreateTest() throws Exception {
 		mockMvc.perform(
-				post("/sale")
+				post("/purchase")
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
-					.content(objectMapper.writeValueAsString(getSaleReq())))
-			.andExpect(status().isCreated())
-			.andExpect(jsonPath("data", is(DUMY)));
-
+					.content(objectMapper.writeValueAsString(getPurchaseRequest())))
+			.andExpect(status().isCreated());
 	}
 
 	@Test
@@ -59,33 +52,32 @@ class SaleControllerTest extends AbstractContainerBaseTest {
 	void emptyTest() throws Exception {
 
 		mockMvc.perform(
-				post("/sale")
+				post("/purchase")
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON)
 					.characterEncoding("UTF-8")
-					.content(objectMapper.writeValueAsString(getEmptySaleReq())))
+					.content(objectMapper.writeValueAsString(getEmptyPurchaseRequest())))
 			.andExpect(status().isBadRequest());
+
 	}
 
-	public SaleRequest getSaleReq() {
-		return SaleRequest.builder()
-			.userId(getRandomLong())
+	public TradeRequest getPurchaseRequest() {
+		return TradeRequest.builder()
+			.userId(eq(getRandomLong()))
 			.productId(getRandomLong())
-			.productSize("256")
-			.bidPrice("10000")
-			.returnAddress("test/est/test")
-			.bidDueDate("20230205")
+			.productSize(getRandomString())
+			.price(getRandomLong())
+			.shippingAddress(getRandomString())
 			.build();
 	}
 
-	public SaleRequest getEmptySaleReq() {
-		return SaleRequest.builder()
+	public TradeRequest getEmptyPurchaseRequest() {
+		return TradeRequest.builder()
 			.userId(getRandomLong())
 			.productId(getRandomLong())
 			.productSize("")
-			.bidPrice("10000")
-			.returnAddress("test/est/test")
-			.bidDueDate("20230205")
+			.price(getRandomLong())
+			.shippingAddress(getRandomString())
 			.build();
 	}
 

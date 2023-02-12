@@ -16,8 +16,8 @@ echo ">$RESPONSE_CODE response code"
 # 아무것도 구동중이지  않을 때 우리가 프로젝트에서 만든 api로 조회하면 당연히 오류가 난다. 이를 방지!
 if [ ${RESPONSE_CODE} -ge 400 ]
 then
-        echo "> There is no running app lets set real2"
-        CURRENT_PROFILE=real2
+        echo "> There is no running app lets set prod-main-2"
+        CURRENT_PROFILE=prod-main-2
 else
         CURRENT_PROFILE=$(curl -s http://localhost/profile)
 fi
@@ -25,18 +25,18 @@ fi
 
 echo ">$CURRENT_PROFILE current profile"
 
-if [ $CURRENT_PROFILE == 'real1' ]
+if [ $CURRENT_PROFILE == 'prod-main-1' ]
 then
-  IDLE_PROFILE=real2
+  IDLE_PROFILE=prod-main-2
   IDLE_PORT=8082
-elif [ $CURRENT_PROFILE == 'real2' ]
+elif [ $CURRENT_PROFILE == 'prod-main-2' ]
 then
-  IDLE_PROFILE=real1
+  IDLE_PROFILE=prod-main-1
   IDLE_PORT=8081
 else
   echo "> 일치하는 Profile이 없습니다. Profile: $CURRENT_PROFILE"
-  echo "> real1을 할당합니다. IDLE_PROFILE: real1"
-  IDLE_PROFILE=real1
+  echo "> prod-main-1 할당합니다. IDLE_PROFILE: prod-main-1"
+  IDLE_PROFILE=prod-main-1
   IDLE_PORT=8081
 fi
 

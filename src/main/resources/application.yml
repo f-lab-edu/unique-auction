@@ -7,7 +7,7 @@ spring:
 
   config:
     activate:
-      on-profile: docker-main
+      on-profile: prod-main-1
 
   jpa:
     show-sql: true
@@ -23,6 +23,33 @@ spring:
       flush-mode: on_save
 
 ---
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://118.67.132.139:13309/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: uauser
+    password: 12345678
+
+  config:
+    activate:
+      on-profile: prod-main-2
+
+  jpa:
+    show-sql: true
+
+  redis:
+    host: 118.67.132.139
+    port: 16379
+    password: 12345678
+
+  session:
+    store-type: redis
+    redis:
+      flush-mode: on_save
+
+---
+
 
 spring:
 

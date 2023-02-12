@@ -2,11 +2,11 @@
 echo "> 현재 구동중인 Port 확인"
 CURRENT_PROFILE=$(curl -s http://localhost/profile)
 
-# Idle Profile 찾기: real1이 사용중이면 real2가 Idle
-if [ $CURRENT_PROFILE == 'real1' ]
+# Idle Profile 찾기: prod-main-1이 사용중이면 prod-main-2가 Idle
+if [ $CURRENT_PROFILE == 'prod-main-1' ]
 then
   IDLE_PORT=8082
-elif [ $CURRENT_PROFILE == 'real2' ]
+elif [ $CURRENT_PROFILE == 'prod-main-2' ]
 then
   IDLE_PORT=8081
 else
