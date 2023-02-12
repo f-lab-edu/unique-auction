@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.uniqueauction.domain.kafka.service.KafkaProducer;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
 import com.uniqueauction.domain.trade.entity.Trade;
@@ -25,6 +26,7 @@ public class TradeService {
 	private final ProductRepository productRepository;
 	private final TradeRepository tradeRepository;
 	private final UserRepository userRepository;
+	private final KafkaProducer kafkaProducer;
 
 	@Transactional
 	public void createPurchase(TradeRequest tradeRequest) {
@@ -45,6 +47,7 @@ public class TradeService {
 		/* 구매자가 찾는 판매 요청 내역이 있을 경우 거래 체결 */
 		if (trade.isPresent()) {
 			trade.get().tradeCompleteByBuyer(tradeRequest.getPrice(), tradeRequest.getUserId());
+			kafkaProducer.sendMessage("trade-topic", trade.get());
 		} else {
 			/* 기존 요청한 구매 요청 있는지 조회 한다  */
 			trade = tradeRepository.findByPublisherIdAndProductIdAndProductSizeAndTradeStatus(buyer.getId(),
@@ -85,6 +88,7 @@ public class TradeService {
 		/* 판매자가 찾는 구매 요청이 있을 경우 거래 체결 */
 		if (trade.isPresent()) {
 			trade.get().tradeCompleteBySeller(tradeRequest.getPrice(), tradeRequest.getUserId());
+			kafkaProducer.sendMessage("trade-topic", trade.get());
 		} else {
 			/* 기존 요청한 판매 요청 있는지 조회 한다  */
 			trade = tradeRepository.findByPublisherIdAndProductIdAndProductSizeAndTradeStatus(seller.getId(),

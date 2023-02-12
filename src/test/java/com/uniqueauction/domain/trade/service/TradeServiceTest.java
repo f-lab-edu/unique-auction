@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.uniqueauction.domain.kafka.service.KafkaProducer;
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
 import com.uniqueauction.domain.trade.entity.Trade;
@@ -40,9 +41,12 @@ class TradeServiceTest {
 	@Mock
 	TradeRepository tradeRepository;
 
+	@Mock
+	KafkaProducer kafkaProducer;
+
 	@BeforeEach
 	void setUp() {
-		tradeService = new TradeService(productRepository, tradeRepository, userRepository);
+		tradeService = new TradeService(productRepository, tradeRepository, userRepository, kafkaProducer);
 	}
 
 	@Test
