@@ -20,7 +20,7 @@ import com.uniqueauction.domain.trade.entity.Trade;
 public class KafkaProducerConfig {
 
 	@Bean
-	public Map<String, Object> kafkaConfigProducer() {
+	public Map<String, Object> producerConfig() {
 		Map<String, Object> properties = new HashMap<>();
 		properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
 		properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -30,7 +30,7 @@ public class KafkaProducerConfig {
 
 	@Bean
 	public ProducerFactory<String, Trade> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(kafkaConfigProducer());
+		return new DefaultKafkaProducerFactory<>(producerConfig());
 	}
 
 	@Bean

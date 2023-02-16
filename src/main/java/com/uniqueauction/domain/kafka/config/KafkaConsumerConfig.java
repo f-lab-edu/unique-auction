@@ -12,6 +12,7 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import com.uniqueauction.domain.trade.entity.Trade;
 
@@ -20,18 +21,18 @@ import com.uniqueauction.domain.trade.entity.Trade;
 public class KafkaConsumerConfig {
 
 	@Bean
-	public Map<String, Object> kafkaConfigConsumer() {
+	public Map<String, Object> consumerConfig() {
 		Map<String, Object> properties = new HashMap<>();
 		properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
 		properties.put(ConsumerConfig.GROUP_ID_CONFIG, "trade");
 		properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-		properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 		return properties;
 	}
 
 	@Bean
 	public ConsumerFactory<String, Trade> consumerFactory() {
-		return new DefaultKafkaConsumerFactory<>(kafkaConfigConsumer(),
+		return new DefaultKafkaConsumerFactory<>(consumerConfig(),
 			new StringDeserializer(), new JsonDeserializer<>(Trade.class));
 	}
 
