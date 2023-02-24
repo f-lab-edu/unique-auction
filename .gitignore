@@ -16,7 +16,6 @@ db/
 .settings
 .springBeans
 .sts4-cache
-*.yml
 bin/
 !**/src/main/**/bin/
 !**/.github/workflows/
