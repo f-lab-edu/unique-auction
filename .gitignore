@@ -19,6 +19,7 @@ db/
 *.yml
 bin/
 !**/src/main/**/bin/
+!**/.github/workflows/
 !**/src/test/**/bin/
 **/src/main/resources/application.yml
 **/src/test/resources/application.yml
