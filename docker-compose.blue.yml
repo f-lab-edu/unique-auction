@@ -1,7 +1,7 @@
 version: "3.0"
 services:
   unique-auction:
-    image: unique-auction
+    image: vymr1000/unique-auction
 
     container_name: unique-auction-blue
 
