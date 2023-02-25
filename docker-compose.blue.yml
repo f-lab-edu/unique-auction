@@ -1,9 +1,9 @@
 version: "3.0"
 services:
   unique-auction:
-    image: uniqueauction-img-blue
+    image: unique-auction
 
-    container_name: uniqueauction-blue
+    container_name: unique-auction-blue
 
     environment:
       - LANG=ko_KR.UTF-8
