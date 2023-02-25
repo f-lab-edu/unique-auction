@@ -24,7 +24,7 @@ jobs:
 
   #  코드포맷
   code_format_check:
-    needs: setUp
+    needs: set_up
     runs-on: ubuntu-18.04
     steps:
       # 코드 체크  아웃
@@ -35,7 +35,7 @@ jobs:
         run: ./gradlew checkstyleMain
 
   test_check:
-    needs: setUp
+    needs: set_up
     runs-on: ubuntu-18.04
     steps:
       # 코드 체크  아웃
