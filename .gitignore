@@ -18,7 +18,10 @@ db/
 .sts4-cache
 bin/
 !**/src/main/**/bin/
+!**/.github/workflows/
 !**/src/test/**/bin/
+**/src/main/resources/application.yml
+**/src/test/resources/application.yml
 
 ### IntelliJ IDEA ###
 .idea

@@ -9,14 +9,13 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "develop" ,"master" ]
+    branches: [ "develop" , "release" ]
   pull_request:
     branches: [ '*' ]
 jobs:
-  setUp:
+  set_up:
     runs-on: ubuntu-18.04
     steps:
-
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
@@ -24,23 +23,21 @@ jobs:
           distribution: 'temurin'
 
   #  코드포맷
-  codeFormatCheck:
-    needs: setUp
+  code_format_check:
+    needs: set_up
     runs-on: ubuntu-18.04
     steps:
-
       # 코드 체크  아웃
       - uses: actions/checkout@v3
 
       # 코드 포맷
-      - name: codeFormat Check
+      - name: Code Format Check
         run: ./gradlew checkstyleMain
 
-  testCheck:
-    needs: setUp
+  test_check:
+    needs: set_up
     runs-on: ubuntu-18.04
     steps:
-
       # 코드 체크  아웃
       - uses: actions/checkout@v3
 
@@ -63,34 +60,25 @@ jobs:
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
 
-  Build:
-    needs: [ codeFormatCheck, testCheck ]
+  build-docker-image:
+    needs: [ code_format_check, test_check ]
     runs-on: ubuntu-18.04
+    if: contains(github.ref, 'develop')
+    # github branch가 develop 때만 deploy 실행한다.
     steps:
-
-      - uses: actions/checkout@v3
-      #       # 실제 어플리케이션 빌드시 -x 옵션을 통해 test와 컨벤션(위에서해줌) 제외한다.
-      - name: Build with Gradle
-        run: ./gradlew build -x test -x checkstyleTest -x checkstyleMain
-
-      - name: Make zip file
-        run: zip -qq -r ./build.zip .
-        shell: bash
-
-      - name: Upload to NCP Store
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ap-northeast-2
-        run: |
-          aws —endpoint-url=https://kr.object.ncloudstorage.com s3 cp —region ap-northeast-2 ./build.zip s3://uniquebucket/uniqueAction/build.zip
-
-      - name: Call CodeDeploy
-        shell: bash
-        run: |
-          cd /home/runner/work/unique-auction/unique-auction/scripts
-          chmod +x ./callNcloudDeploy.sh
-          ./callNcloudDeploy.sh
-
-    if: contains(github.ref, 'master')
-  # github branch가 master 때만 deploy 실행한다.
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
