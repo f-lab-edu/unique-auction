@@ -63,8 +63,8 @@ jobs:
   build_docker_image:
     needs: [ code_format_check, test_check ]
     runs-on: ubuntu-18.04
-    if: contains(github.ref_name, 'feature')
-    # github branch가 develop 때만 deploy 실행한다.
+    if: contains(${{ github.ref_name }}, 'feature')
+    # github branch에 feature가 포함되면 deploy 실행한다.
     steps:
       - name: Checkout
         uses: actions/checkout@v3
