@@ -27,7 +27,7 @@ jobs:
     needs: set_up
     runs-on: ubuntu-18.04
     steps:
-      # 코드 체크  아웃
+      # 코드 체크 아웃
       - uses: actions/checkout@v3
 
       # 코드 포맷
@@ -38,7 +38,7 @@ jobs:
     needs: set_up
     runs-on: ubuntu-18.04
     steps:
-      # 코드 체크  아웃
+      # 코드 체크 아웃
       - uses: actions/checkout@v3
 
       # 테스트는 전부 성공해야 통과.
@@ -60,7 +60,7 @@ jobs:
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
 
-  build-docker-image:
+  build_docker_image:
     needs: [ code_format_check, test_check ]
     runs-on: ubuntu-18.04
     if: contains(github.ref, '#118-feature-git-action')
