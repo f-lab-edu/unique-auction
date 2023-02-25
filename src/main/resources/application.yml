@@ -7,7 +7,7 @@ spring:
 
   config:
     activate:
-      on-profile: prod-main-1
+      on-profile: prod-main
 
   jpa:
     show-sql: true
@@ -21,66 +21,3 @@ spring:
     store-type: redis
     redis:
       flush-mode: on_save
-
----
-
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://118.67.132.139:13309/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-    username: uauser
-    password: 12345678
-
-  config:
-    activate:
-      on-profile: prod-main-2
-
-  jpa:
-    show-sql: true
-
-  redis:
-    host: 118.67.132.139
-    port: 16379
-    password: 12345678
-
-  session:
-    store-type: redis
-    redis:
-      flush-mode: on_save
-
----
-
-
-spring:
-
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 12345678
-
-  config:
-    activate:
-      on-profile: local-main
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    defer-datasource-initialization: true
-    generate-ddl: true
-
-  redis:
-    host: localhost
-    port: 6379
-    password: 12345678
-
-  session:
-    store-type: redis
-    redis:
-      flush-mode: on_save
-
-  sql:
-    init:
-      schema-locations: classpath*:mysql-init-files/schema.sql
-

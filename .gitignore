@@ -19,6 +19,8 @@ db/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+**/src/main/resources/application-local-main.yml
+**/src/test/resources/application-local-test.yml
 
 ### IntelliJ IDEA ###
 .idea
