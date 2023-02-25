@@ -21,6 +21,9 @@ bin/
 !**/src/test/**/bin/
 **/src/main/resources/application-local-main.yml
 **/src/test/resources/application-local-test.yml
+scouter/*
+!scouter/agent.java/
+scouter/agent.java/plugin
 
 ### IntelliJ IDEA ###
 .idea
