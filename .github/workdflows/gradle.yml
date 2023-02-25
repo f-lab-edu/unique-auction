@@ -9,7 +9,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "develop" , "master" ]
+    branches: [ "develop" , "release" ]
   pull_request:
     branches: [ '*' ]
 jobs:
@@ -63,8 +63,8 @@ jobs:
   build-docker-image:
     needs: [ code_format_check, test_check ]
     runs-on: ubuntu-18.04
-    if: contains(github.ref, '#118-release-configuration')
-    # github branch가 release 때만 deploy 실행한다.
+    if: contains(github.ref, 'develop')
+    # github branch가 develop 때만 deploy 실행한다.
     steps:
       - name: Checkout
         uses: actions/checkout@v3
