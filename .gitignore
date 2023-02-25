@@ -1,29 +1,15 @@
-HELP.md
+
+### Project Configuration ###
 .gradle
-build/
-db/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-.DS_Store
-
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
 **/src/main/resources/application-local-main.yml
 **/src/test/resources/application-local-test.yml
+
+### Git action workflow ###
 scouter/*
 !scouter/agent.java/
 scouter/agent.java/plugin
+build/*
+!build/libs/
 
 ### IntelliJ IDEA ###
 .idea
@@ -31,17 +17,6 @@ scouter/agent.java/plugin
 *.iml
 *.ipr
 out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
 
 ### VS Code ###
 .vscode/
-
-db/data/mysql.sock
