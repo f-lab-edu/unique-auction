@@ -8,8 +8,7 @@
 scouter/*
 !scouter/agent.java/
 scouter/agent.java/plugin
-build/*
-!build/libs/
+build/
 
 ### IntelliJ IDEA ###
 .idea
