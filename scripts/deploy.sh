@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ROOT=/home/project/unique-auction
+ROOT=/home/project
 # docker login & image pull
 docker pull vymr1000/unique-auction
 
