@@ -1,13 +1,21 @@
 version: "3.0"
 services:
-  unique-auction:
-    image: uniqueauction-img-blue
-
-    container_name: uniqueauction-blue
-
+  # Appication Server 1 (blue)
+  blue-server-1:
+    image: vymr1000/unique-auction
+    container_name: blue-server-1
     environment:
       - LANG=ko_KR.UTF-8
       - UWSGI_PORT=8080
-
     ports:
       - '7101:8080'
+
+  # Appication Server 2 (blue)
+  blue-server-2:
+    image: vymr1000/unique-auction
+    container_name: blue-server-2
+    environment:
+      - LANG=ko_KR.UTF-8
+      - UWSGI_PORT=8080
+    ports:
+      - '7102:8080'

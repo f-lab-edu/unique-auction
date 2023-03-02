@@ -6,5 +6,4 @@ COPY entrypoint.sh entrypoint.sh
 COPY ${ROOT}/scouter.agent.jar ${ROOT}/scouter.agent.jar
 COPY ${ROOT}/conf/scouter.conf ${ROOT}/conf/scouter.conf
 RUN chmod +x /entrypoint.sh
-
 ENTRYPOINT ["./entrypoint.sh"]

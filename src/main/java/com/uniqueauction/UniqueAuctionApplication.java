@@ -11,7 +11,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 public class UniqueAuctionApplication {
 	public static void main(String[] args) {
 		if (System.getProperty("spring.profiles.default") == null) {
-			System.setProperty("spring.profiles.default", "prod-main-1");
+			System.setProperty("spring.profiles.default", "prod-main");
 		}
 		SpringApplication.run(UniqueAuctionApplication.class, args);
 	}
