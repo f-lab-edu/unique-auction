@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @RestController
-public class ProfiileController {
+@RequiredArgsConstructor
+public class ProfileController {
 
 	private final Environment env;
 
-	// 프로젝트가 실행중일 때 default profile 을 조회하는 API
-	@GetMapping("/profile")
+	//profile 조회
+	@GetMapping(value = "/profile")
 	public String getProfile() {
-		return Arrays.stream(env.getDefaultProfiles())
+		return Arrays.stream(env.getActiveProfiles())
 			.findFirst()
 			.orElse("");
 	}
