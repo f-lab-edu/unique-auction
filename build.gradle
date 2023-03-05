@@ -43,6 +43,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter:5.9.0"
     testImplementation "org.testcontainers:junit-jupiter:1.17.4"
     testImplementation "org.testcontainers:mysql:1.17.4"
+    testImplementation "org.testcontainers:kafka:1.17.6"
 }
 
 tasks.named('test') {

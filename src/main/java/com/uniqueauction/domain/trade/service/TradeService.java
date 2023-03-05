@@ -47,7 +47,7 @@ public class TradeService {
 		/* 구매자가 찾는 판매 요청 내역이 있을 경우 거래 체결 */
 		if (trade.isPresent()) {
 			trade.get().tradeCompleteByBuyer(tradeRequest.getPrice(), tradeRequest.getUserId());
-			kafkaProducer.sendMessage("trade-topic", trade.get());
+			kafkaProducer.sendMessage("trades", trade.get());
 		} else {
 			/* 기존 요청한 구매 요청 있는지 조회 한다  */
 			trade = tradeRepository.findByPublisherIdAndProductIdAndProductSizeAndTradeStatus(buyer.getId(),

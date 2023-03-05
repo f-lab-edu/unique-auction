@@ -20,7 +20,9 @@ public class MessageService {
 	private final JavaMailSender emailSender;
 	private final UserRepository userRepository;
 
-	@KafkaListener(topics = "trade-topic")
+	@KafkaListener(
+		topics = "trades"
+	)
 	public void sendSimpleMessage(Trade trade) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		User user = userRepository.findById(trade.getPublisherId())
