@@ -1,4 +1,4 @@
-package com.utils.config;
+package com.uniqueauction.domain.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

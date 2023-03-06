@@ -6,3 +6,19 @@ spring:
   config:
     activate:
       on-profile: docker-test
+
+  kafka:
+    consumer:
+      group-id: "trades"
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: test
+    password: test
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

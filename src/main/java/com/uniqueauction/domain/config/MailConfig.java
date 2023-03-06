@@ -1,4 +1,4 @@
-package com.utils.config;
+package com.uniqueauction.domain.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -9,10 +9,10 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 public class MailConfig {
 
-	@Value("${mail.username}")
+	@Value("${spring.mail.username}")
 	private String username;
 
-	@Value("${mail.password}")
+	@Value("${spring.mail.password}")
 	private String password;
 
 	@Bean

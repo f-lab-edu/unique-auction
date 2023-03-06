@@ -1,4 +1,4 @@
-package com.utils.config;
+package com.uniqueauction.domain.config;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -31,7 +31,6 @@ public class MessageService {
 		message.setTo(user.getEmail());
 		message.setSubject("CONSUMER KAFKA RECEIVED MESSAGE 거래 체결 안내");
 		message.setText(trade.getId() + "거래 완료");
-		System.out.println("체결 이메일 발송");
 		emailSender.send(message);
 	}
 }
