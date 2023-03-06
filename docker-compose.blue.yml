@@ -17,5 +17,7 @@ services:
     environment:
       - LANG=ko_KR.UTF-8
       - UWSGI_PORT=8080
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
     ports:
       - '7102:8080'
