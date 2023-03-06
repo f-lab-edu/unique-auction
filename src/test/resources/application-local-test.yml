@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:13309/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 12345678
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    defer-datasource-initialization: true
+
+  redis:
+    #    host: docker-redis
+    host: localhost
+    port: 16379
+
+  config:
+    activate:
+      on-profile: local-test

@@ -1,8 +1,6 @@
 
 ### Project Configuration ###
 .gradle
-**/src/main/resources/application-local-main.yml
-**/src/test/resources/application-local-test.yml
 
 ### Git action workflow ###
 scouter/*
