@@ -7,7 +7,13 @@ spring:
     activate:
       on-profile: docker-test
 
+  redis:
+    host: 118.67.132.139
+    port: 16379
+    password: 12345678
+
   kafka:
+    bootstrap-servers: 118.67.132.139:9092
     consumer:
       group-id: "trades"
 

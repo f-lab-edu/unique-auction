@@ -23,7 +23,7 @@ spring:
       flush-mode: on_save
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 118.67.132.139:9092
     consumer:
       group-id: "trades"
 
