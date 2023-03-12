@@ -90,4 +90,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/unique-auction:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/unique-auction:${{ github.sha }}
