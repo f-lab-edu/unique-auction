@@ -46,7 +46,7 @@ public class BidService {
 		/* 기존 요청 내역 존재시 업데이트, 없으면 신규 생성 */
 		trade.updateTrade(tradeRequest.getPrice(), tradeRequest.getShippingAddress());
 
-		/* 판매자에게 message 전송 */
+		/* 요청 내역 Kafka 메시지 전송 */
 		kafkaProducer.sendBid("bid-topic", trade);
 	}
 }

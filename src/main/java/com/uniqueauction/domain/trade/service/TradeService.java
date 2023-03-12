@@ -25,43 +25,53 @@ public class TradeService {
 	private final JavaMailSender emailSender;
 	private final TradeRepository tradeRepository;
 
-	@KafkaListener(
-		topics = "bid-topic"
-	)
+	@KafkaListener(topics = "bid-topic")
 	public void processBid(Trade bid) {
-		Optional<Trade> existingTrade;
+		/* Bidder 조회 */
+		User bidder = findBidder(bid);
 
-		/* trade 등록을 위한 user 조회 */
-		User bidder = userRepository.findById(bid.getPublisherId())
-			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
+		/* 거래를 체결할 수 있는 데이터 존재 체크 */
+		Optional<Trade> existingTrade = checkExistingTrade(bid);
 
-		System.out.println(bid.getTradeStatus() + ", " + bid.getPrice());
-
-		TradeStatus tradeStatus = (bid.getTradeStatus() == TradeStatus.SALE_PROGRESS) ? TradeStatus.PURCHASE_PROGRESS :
-			TradeStatus.SALE_PROGRESS;
-
-		System.out.println(bid.getTradeStatus() + ", " + bid.getPrice());
-
-		/* product와 product size, 판매 입찰 중인 trade 조회 - 조회되는 것이 있으면 거래 체결 하기 위함 */
-		if (bid.getTradeStatus() == TradeStatus.PURCHASE_PROGRESS) {
-			existingTrade = tradeRepository.findByProductIdAndProductSizeAndTradeStatusAndPriceLessThanEqual(
-				bid.getProductId(),
-				bid.getProductSize(),
-				tradeStatus, bid.getPrice());
-		} else {
-			existingTrade = tradeRepository.findByProductIdAndProductSizeAndTradeStatusAndPriceGreaterThanEqual(
-				bid.getProductId(),
-				bid.getProductSize(),
-				tradeStatus, bid.getPrice());
-		}
-
+		/* 존재시 거래 체결 없으면 요청 저장 */
 		existingTrade.ifPresentOrElse(
-			trade -> {
-				trade.tradeComplete(bid.getPrice(), bid.getPublisherId(), bid.getTradeStatus());
-				tradeRepository.save(trade);
-				// 거래체결 E Mail 전송
-				sendTradeConfirmationEmail(bidder.getEmail(), bid.getId());
-			}, () -> tradeRepository.save(bid));
+			trade -> completeTrade(trade, bid, bidder),
+			() -> saveBid(bid));
+	}
+
+	private User findBidder(Trade bid) {
+		return userRepository.findById(bid.getPublisherId())
+			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
+	}
+
+	private Optional<Trade> checkExistingTrade(Trade bid) {
+		TradeStatus tradeStatus = (bid.getTradeStatus() == TradeStatus.SALE_PROGRESS)
+			? TradeStatus.PURCHASE_PROGRESS
+			: TradeStatus.SALE_PROGRESS;
+
+		if (bid.getTradeStatus() == TradeStatus.PURCHASE_PROGRESS) {
+			return tradeRepository.findByProductIdAndProductSizeAndTradeStatusAndPriceLessThanEqual(
+				bid.getProductId(),
+				bid.getProductSize(),
+				tradeStatus,
+				bid.getPrice());
+		} else {
+			return tradeRepository.findByProductIdAndProductSizeAndTradeStatusAndPriceGreaterThanEqual(
+				bid.getProductId(),
+				bid.getProductSize(),
+				tradeStatus,
+				bid.getPrice());
+		}
+	}
+
+	private void completeTrade(Trade trade, Trade bid, User bidder) {
+		trade.tradeComplete(bid.getPrice(), bid.getPublisherId(), bid.getTradeStatus());
+		tradeRepository.save(trade);
+		sendTradeConfirmationEmail(bidder.getEmail(), bid.getId());
+	}
+
+	private void saveBid(Trade bid) {
+		tradeRepository.save(bid);
 	}
 
 	private void sendTradeConfirmationEmail(String toEmail, Long bidId) {
