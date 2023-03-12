@@ -4,6 +4,8 @@
 
 StockX와 국내 KREAM를 벤치마킹한 한정판 거래 플랫폼
 
+<br/>
+
 ### 프로젝트 아키텍처
 
 <img src="src/docs/images/Architecture.png" width="700px"/>
