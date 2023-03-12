@@ -1,4 +1,4 @@
-package com.uniqueauction.domain.kafka.service;
+package com.uniqueauction.infrastructure.messaging;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class KafkaProducer {
 	private final KafkaTemplate<String, Trade> kafkaTemplate;
 
-	public void sendMessage(String topic, Trade trade) {
+	public void sendBid(String topic, Trade trade) {
 		this.kafkaTemplate.send(topic, trade);
 	}
 }

@@ -28,37 +28,30 @@ public class TradeRequest {
 	@NotBlank(message = "배송주소")
 	private String shippingAddress;
 
+	@NotNull(message = "요청구분")
+	private TradeStatus tradeStatus;
+
 	@Builder
-	public TradeRequest(Long userId, Long productId, String productSize, Long price, String shippingAddress) {
+	public TradeRequest(Long userId, Long productId, String productSize, Long price, String shippingAddress,
+		TradeStatus tradeStatus) {
 		this.userId = userId;
 		this.productId = productId;
 		this.productSize = productSize;
 		this.price = price;
 		this.shippingAddress = shippingAddress;
+		this.tradeStatus = tradeStatus;
 	}
 
-	public Trade convertForBuyer(Long productId) {
+	public Trade convert(Long productId, TradeStatus tradeStatus) {
 		return Trade.builder()
 			.price(this.price)
 			.productSize(this.productSize)
-			.tradeStatus(TradeStatus.PURCHASE_PROGRESS)
+			.tradeStatus(tradeStatus)
 			.productId(productId)
 			.publisherId(this.userId)
-			.buyerId(this.userId)
+			.sellerId(tradeStatus == TradeStatus.SALE_PROGRESS ? this.userId : null)
+			.buyerId(tradeStatus == TradeStatus.PURCHASE_PROGRESS ? this.userId : null)
 			.shippingAddress(this.shippingAddress)
 			.build();
 	}
-
-	public Trade convertForSeller(Long productId) {
-		return Trade.builder()
-			.price(this.price)
-			.productSize(this.productSize)
-			.tradeStatus(TradeStatus.SALE_PROGRESS)
-			.productId(productId)
-			.publisherId(this.userId)
-			.sellerId(this.userId)
-			.shippingAddress(this.shippingAddress)
-			.build();
-	}
-
 }

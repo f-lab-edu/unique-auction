@@ -25,7 +25,7 @@ spring:
   kafka:
     bootstrap-servers: 118.67.132.139:9092
     consumer:
-      group-id: "trades"
+      group-id: "bid-group"
 
   mail:
     host: smtp.gmail.com
