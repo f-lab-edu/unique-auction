@@ -28,26 +28,38 @@ public class BidService {
 	@Transactional
 	public void createBid(TradeRequest tradeRequest) {
 		/* trade 등록을 위한 user 조회 */
-		User bidder = userRepository.findById(tradeRequest.getUserId())
-			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
+		User bidder = findUserById(tradeRequest.getUserId());
 
 		/* purchase 등록을 위한 product 조회 */
-		Product product = productRepository.findById(tradeRequest.getProductId())
-			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
+		Product product = findProductById(tradeRequest.getProductId());
 
 		/* 기존 요청한 구매 요청 있는지 조회 한다 */
-		Trade trade = tradeRepository.findByPublisherIdAndProductIdAndProductSizeAndTradeStatus(
+		Trade trade = findOrCreateTrade(bidder, product, tradeRequest);
+
+		/* 기존 요청 업데이트 */
+		trade.updateTrade(tradeRequest.getPrice(), tradeRequest.getShippingAddress());
+
+		/* 요청 내역 Kafka 메시지 전송 */
+		kafkaProducer.sendBid("bid-topic", trade);
+	}
+
+	private User findUserById(Long userId) {
+		return userRepository.findById(userId)
+			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
+	}
+
+	private Product findProductById(Long productId) {
+		return productRepository.findById(productId)
+			.orElseThrow(() -> new CommonException(NOT_FOUND_PRODUCT));
+	}
+
+	private Trade findOrCreateTrade(User bidder, Product product, TradeRequest tradeRequest) {
+		return tradeRepository.findByPublisherIdAndProductIdAndProductSizeAndTradeStatus(
 				bidder.getId(),
 				product.getId(),
 				tradeRequest.getProductSize(),
 				tradeRequest.getTradeStatus())
 			.orElse(tradeRequest.convert(product.getId(), tradeRequest.getTradeStatus()));
-
-		/* 기존 요청 내역 존재시 업데이트, 없으면 신규 생성 */
-		trade.updateTrade(tradeRequest.getPrice(), tradeRequest.getShippingAddress());
-
-		/* 요청 내역 Kafka 메시지 전송 */
-		kafkaProducer.sendBid("bid-topic", trade);
 	}
 }
 
