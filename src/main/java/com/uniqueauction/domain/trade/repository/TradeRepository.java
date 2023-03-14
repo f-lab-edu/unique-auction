@@ -3,6 +3,7 @@ package com.uniqueauction.domain.trade.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,7 +24,8 @@ public interface TradeRepository extends JpaRepository<Trade, Long> {
 		+ "and t.productSize = :#{#trade.productSize} "
 		+ "and t.tradeStatus = :tradeStatus "
 		+ "and t.price >= :#{#trade.price} ")
-	List<Trade> findPurchaseBid(@Param(value = "trade") Trade trade, @Param("tradeStatus") TradeStatus tradeStatus);
+	List<Trade> findPurchaseBid(@Param(value = "trade") Trade trade, @Param("tradeStatus") TradeStatus tradeStatus,
+		PageRequest pageRequest);
 
 	@Query(value = "select t "
 		+ "from Trade t "
@@ -31,5 +33,6 @@ public interface TradeRepository extends JpaRepository<Trade, Long> {
 		+ "and t.productSize = :#{#trade.productSize} "
 		+ "and t.tradeStatus = :tradeStatus "
 		+ "and t.price <= :#{#trade.price} ")
-	List<Trade> findSaleBid(@Param(value = "trade") Trade trade, @Param("tradeStatus") TradeStatus tradeStatus);
+	List<Trade> findSaleBid(@Param(value = "trade") Trade trade, @Param("tradeStatus") TradeStatus tradeStatus,
+		PageRequest pageRequest);
 }

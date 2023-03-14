@@ -2,6 +2,7 @@ package com.uniqueauction.domain.trade.service;
 
 import static com.uniqueauction.exception.ErrorCode.*;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -42,14 +43,15 @@ public class TradeService {
 	}
 
 	private Trade checkExistingTrade(Trade bid) {
+		PageRequest pageRequest = PageRequest.of(0, 1);
 		TradeStatus tradeStatus = (bid.getTradeStatus() == TradeStatus.SALE_PROGRESS)
 			? TradeStatus.PURCHASE_PROGRESS
 			: TradeStatus.SALE_PROGRESS;
 
 		if (bid.getTradeStatus() == TradeStatus.PURCHASE_PROGRESS) {
-			return tradeRepository.findSaleBid(bid, tradeStatus).stream().findFirst().orElse(null);
+			return tradeRepository.findSaleBid(bid, tradeStatus, pageRequest).stream().findFirst().orElse(null);
 		} else {
-			return tradeRepository.findPurchaseBid(bid, tradeStatus).stream().findFirst().orElse(null);
+			return tradeRepository.findPurchaseBid(bid, tradeStatus, pageRequest).stream().findFirst().orElse(null);
 		}
 	}
 
