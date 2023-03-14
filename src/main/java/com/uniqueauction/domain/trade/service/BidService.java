@@ -39,6 +39,9 @@ public class BidService {
 		/* 기존 요청 업데이트 */
 		trade.updateTrade(tradeRequest.getPrice(), tradeRequest.getShippingAddress());
 
+		/* Bid 저장 */
+		saveBid(trade);
+
 		/* 요청 내역 Kafka 메시지 전송 */
 		kafkaProducer.sendBid("bid-topic", trade);
 	}
@@ -60,6 +63,10 @@ public class BidService {
 				tradeRequest.getProductSize(),
 				tradeRequest.getTradeStatus())
 			.orElse(tradeRequest.convert(product.getId(), tradeRequest.getTradeStatus()));
+	}
+
+	private void saveBid(Trade bid) {
+		tradeRepository.save(bid);
 	}
 }
 

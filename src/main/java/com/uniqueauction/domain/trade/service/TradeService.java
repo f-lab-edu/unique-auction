@@ -29,10 +29,8 @@ public class TradeService {
 		/* 거래를 체결할 수 있는 데이터 존재 체크 */
 		Trade existingTrade = checkExistingTrade(bid);
 
-		/* 존재시 거래 체결 없으면 요청을 저장 */
-		if (existingTrade == null) {
-			saveBid(bid);
-		} else {
+		/* 거래 체결 대상이 있을때 저장 */
+		if (existingTrade != null) {
 			completeTrade(existingTrade, bid);
 		}
 	}
@@ -61,10 +59,6 @@ public class TradeService {
 		trade.tradeComplete(bid.getPrice(), bid.getPublisherId(), bid.getTradeStatus());
 		tradeRepository.save(trade);
 		sendTradeConfirmationEmail(bidder.getEmail(), bid.getId());
-	}
-
-	private void saveBid(Trade bid) {
-		tradeRepository.save(bid);
 	}
 
 	private void sendTradeConfirmationEmail(String toEmail, Long bidId) {
