@@ -2,8 +2,6 @@ package com.uniqueauction.domain.trade.service;
 
 import static com.uniqueauction.exception.ErrorCode.*;
 
-import java.util.Optional;
-
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -27,16 +25,15 @@ public class TradeService {
 
 	@KafkaListener(topics = "bid-topic")
 	public void processBid(Trade bid) {
-		/* Bidder 조회 */
-		User bidder = findBidder(bid);
-
 		/* 거래를 체결할 수 있는 데이터 존재 체크 */
-		Optional<Trade> existingTrade = checkExistingTrade(bid);
+		Trade existingTrade = checkExistingTrade(bid);
 
-		/* 존재시 거래 체결 없으면 요청 저장 */
-		existingTrade.ifPresentOrElse(
-			trade -> completeTrade(trade, bid, bidder),
-			() -> saveBid(bid));
+		/* 존재시 거래 체결 없으면 요청을 저장 */
+		if (existingTrade == null) {
+			saveBid(bid);
+		} else {
+			completeTrade(existingTrade, bid);
+		}
 	}
 
 	private User findBidder(Trade bid) {
@@ -44,27 +41,21 @@ public class TradeService {
 			.orElseThrow(() -> new CommonException(NOT_FOUND_USER));
 	}
 
-	private Optional<Trade> checkExistingTrade(Trade bid) {
+	private Trade checkExistingTrade(Trade bid) {
 		TradeStatus tradeStatus = (bid.getTradeStatus() == TradeStatus.SALE_PROGRESS)
 			? TradeStatus.PURCHASE_PROGRESS
 			: TradeStatus.SALE_PROGRESS;
 
 		if (bid.getTradeStatus() == TradeStatus.PURCHASE_PROGRESS) {
-			return tradeRepository.findByProductIdAndProductSizeAndTradeStatusAndPriceLessThanEqual(
-				bid.getProductId(),
-				bid.getProductSize(),
-				tradeStatus,
-				bid.getPrice());
+			return tradeRepository.findSaleBid(bid, tradeStatus).stream().findFirst().orElse(null);
 		} else {
-			return tradeRepository.findByProductIdAndProductSizeAndTradeStatusAndPriceGreaterThanEqual(
-				bid.getProductId(),
-				bid.getProductSize(),
-				tradeStatus,
-				bid.getPrice());
+			return tradeRepository.findPurchaseBid(bid, tradeStatus).stream().findFirst().orElse(null);
 		}
 	}
 
-	private void completeTrade(Trade trade, Trade bid, User bidder) {
+	private void completeTrade(Trade trade, Trade bid) {
+		/* Bidder 조회 */
+		User bidder = findBidder(bid);
 		trade.tradeComplete(bid.getPrice(), bid.getPublisherId(), bid.getTradeStatus());
 		tradeRepository.save(trade);
 		sendTradeConfirmationEmail(bidder.getEmail(), bid.getId());
