@@ -26,7 +26,7 @@ public class BidService {
 	private final KafkaProducer kafkaProducer;
 
 	@Transactional
-	public void createBid(TradeRequest tradeRequest) {
+	public synchronized void createBid(TradeRequest tradeRequest) {
 		/* trade 등록을 위한 user 조회 */
 		User bidder = findUserById(tradeRequest.getUserId());
 
