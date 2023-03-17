@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.redisson.api.RLock;
 
 import com.uniqueauction.domain.product.entity.Product;
 import com.uniqueauction.domain.product.repository.ProductRepository;
@@ -61,6 +62,7 @@ class BidServiceTest {
 		User bidder = getUser();
 		Product product = getProduct();
 		TradeRequest tradeRequest = getTradeRequest();
+		RLock lock = redisLockRepository.getLock("trade_" + product.getId());
 
 		// mock 설정
 		when(userRepository.findById(tradeRequest.getUserId())).thenReturn(Optional.of(bidder));
@@ -70,6 +72,7 @@ class BidServiceTest {
 			.thenReturn(Optional.empty());
 		when(tradeRepository.save(mock(Trade.class))).thenReturn(
 			tradeRequest.convert(product.getId(), tradeRequest.getTradeStatus()));
+		when(redisLockRepository.tryLock(lock, 5, 60)).thenReturn(true);
 
 		// 테스트
 		bidService.createBid(tradeRequest);
