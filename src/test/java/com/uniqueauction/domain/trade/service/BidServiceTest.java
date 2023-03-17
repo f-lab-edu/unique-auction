@@ -25,7 +25,8 @@ import com.uniqueauction.domain.user.entity.Role;
 import com.uniqueauction.domain.user.entity.User;
 import com.uniqueauction.domain.user.repository.UserRepository;
 import com.uniqueauction.exception.advice.CommonException;
-import com.uniqueauction.infrastructure.messaging.KafkaProducer;
+import com.uniqueauction.infrastructure.kafka.KafkaProducer;
+import com.uniqueauction.infrastructure.redis.RedisLockRepository;
 import com.uniqueauction.web.trade.request.TradeRequest;
 
 class BidServiceTest {
@@ -44,10 +45,14 @@ class BidServiceTest {
 	@Mock
 	private KafkaProducer kafkaProducer;
 
+	@Mock
+	private RedisLockRepository redisLockRepository;
+
 	@BeforeEach
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
-		bidService = new BidService(productRepository, tradeRepository, userRepository, kafkaProducer);
+		bidService = new BidService(productRepository, tradeRepository, userRepository, kafkaProducer,
+			redisLockRepository);
 	}
 
 	@Test

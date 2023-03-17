@@ -1,21 +1,32 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:13309/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 12345678
-
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-    defer-datasource-initialization: true
-
-  redis:
-    #    host: docker-redis
-    host: localhost
-    port: 16379
 
   config:
     activate:
       on-profile: local-test
+
+  redis:
+    host: 118.67.132.139
+    port: 16379
+    password: 12345678
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: "bid-group"
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: nonmein10000@gmail.com
+    password: unique3379
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

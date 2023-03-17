@@ -1,4 +1,4 @@
-package com.uniqueauction.infrastructure.config;
+package com.uniqueauction.infrastructure.kafka;
 
 import java.util.HashMap;
 import java.util.Map;

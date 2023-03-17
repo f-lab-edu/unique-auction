@@ -34,6 +34,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.redisson:redisson-spring-boot-starter:3.17.7'
 
 
     compileOnly 'org.projectlombok:lombok'
