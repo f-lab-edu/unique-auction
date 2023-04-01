@@ -1,20 +1,25 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://118.67.132.139:13309/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-    username: uauser
+    url: jdbc:mysql://localhost:3306/UA?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
     password: 12345678
+
 
   config:
     activate:
-      on-profile: prod-main
+      on-profile: local-main
 
   jpa:
+    hibernate:
+      ddl-auto: update
     show-sql: true
+    defer-datasource-initialization: true
+    generate-ddl: true
 
   redis:
-    host: 118.67.132.139
-    port: 16379
+    host: localhost
+    port: 6379
     password: 12345678
 
   session:
@@ -22,10 +27,14 @@ spring:
     redis:
       flush-mode: on_save
 
+  sql:
+    init:
+      schema-locations: classpath*:mysql-init-files/schema.sql
+
   kafka:
-    bootstrap-servers: 118.67.132.139:9092
+    bootstrap-servers: localhost:9092
     consumer:
-      group-id: "bid-group"
+      group-id: "trades"
 
   mail:
     host: smtp.gmail.com

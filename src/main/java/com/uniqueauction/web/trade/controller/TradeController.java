@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uniqueauction.domain.trade.service.TradeService;
+import com.uniqueauction.domain.trade.service.BidService;
 import com.uniqueauction.web.response.CommonResponse;
 import com.uniqueauction.web.trade.request.TradeRequest;
 
@@ -18,14 +18,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TradeController {
 
-	private final TradeService tradeService;
+	private final BidService bidService;
 
 	/* 구매 - 요청된 판매요청 데이터로 거래 체결 */
 	@PostMapping("/purchase")
 	@ResponseStatus(HttpStatus.CREATED)
 	public CommonResponse<?> createPurchase(@RequestBody @Validated TradeRequest tradeRequest,
 		BindingResult result) {
-		tradeService.createPurchase(tradeRequest);
+		bidService.createBid(tradeRequest);
 		return CommonResponse.success();
 	}
 
@@ -34,7 +34,7 @@ public class TradeController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public CommonResponse<?> createSale(@RequestBody @Validated TradeRequest tradeRequest,
 		BindingResult result) {
-		tradeService.createSale(tradeRequest);
+		bidService.createBid(tradeRequest);
 		return CommonResponse.success();
 	}
 }

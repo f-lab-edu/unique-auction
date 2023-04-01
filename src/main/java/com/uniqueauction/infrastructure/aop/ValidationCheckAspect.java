@@ -1,4 +1,4 @@
-package com.uniqueauction.domain.aop;
+package com.uniqueauction.infrastructure.aop;
 
 import static com.uniqueauction.exception.ErrorCode.*;
 
