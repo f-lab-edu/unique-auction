@@ -5,7 +5,7 @@
 StockX와 국내 KREAM를 벤치마킹한 한정판 거래 플랫폼
 
 Unique Auction은 Springboot, Mysql, JPA, Docker, Kafka, Redis, Scouter 기술스택을 사용하여 만들어진 프로젝트입니다.
-패키지는 DDD 계층 구조를 따르고 있으며, 객체 지향 원칙을 준수하기 위해 노력했습니다. 이를 통해 유지보수성과 확장성을 높이고 있습니다.
+패키지는 DDD 계층 구조를 따르고 있으며, 객체 지향 원칙을 준수하기 위해 노력했습니다.
 Spring Boot와 JPA를 사용하여 백엔드를 개발하였으며, MySQL을 데이터베이스로 사용합니다. 또한 Docker를 활용해 컨테이너화하고 Kafka와 Redis를 사용하여 메시지 큐와 세션 기능을 구현했습니다.
 
 
