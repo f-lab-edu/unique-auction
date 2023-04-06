@@ -13,18 +13,11 @@ Spring Boot와 JPA를 사용하여 백엔드를 개발하였으며, MySQL을 데
 팀 협업을 위한 프로젝트 관리 규약  
 [Team convention 바로가기](https://github.com/f-lab-edu/unique-auction/wiki/01.-Team-Convention)
 
-<br/>
-
 ## 02. API Guide
 API 가이드 문서    
-[API Guide 바로가기](https://github.com/f-lab-edu/unique-auction/wiki/04.-API-Guide)
-
-<br/>
+[API Guide 바로가기](https://chivalrous-raft-038.notion.site/Unique-Auction-API-895719481430450bb10a6d1d94bae01a)
 
 ## 03. Structure
-Unique Auction의 패키지 구조  
-[Structure 바로가기](https://github.com/f-lab-edu/unique-auction/wiki/03.-Structure)
-
 ### 프로젝트 아키텍처
 <img src="src/docs/images/Architecture.png" width="700px"/>
 
