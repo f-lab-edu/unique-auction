@@ -19,13 +19,13 @@ API 가이드 문서
 
 ## 03. Structure
 ### 프로젝트 아키텍처
-<img src="src/docs/images/Architecture.png" width="700px"/>
+<img src="docs/images/Architecture.png" width="700px"/>
 
 <br/>
 
 ### 서버 구성도
 
-<img src="src/docs/images/Server.png" width="700px"/>
+<img src="docs/images/Server.png" width="700px"/>
 
 <br/>
 
@@ -35,11 +35,11 @@ API 가이드 문서
 테스트 진행은 핵심 로직인 특정 상품에 대한 구매와 판매 거래 체결에 대한 부하 테스트를 진행했습니다.
 결과적으로 총 Test Count 31,000 / TPS 1,170 / Peak TPS 2,200 / Error 260의 결과를 얻었습니다. 요청 처리율 99.2%에서 100%로 보장할 수 있도록 성능 병목현상을 찾아내고 최적화 작업을 진행할 계획입니다!
 
-<img src="src/docs/images/ngrinder.png" width="700px"/>
+<img src="docs/images/ngrinder.png" width="700px"/>
 
 <br/>
 
-<img src="src/docs/images/scouter.png" width="700px"/>
+<img src="docs/images/scouter.png" width="700px"/>
 
 <br/>
 
