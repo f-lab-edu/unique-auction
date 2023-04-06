@@ -13,11 +13,13 @@ Spring Boot와 JPA를 사용하여 백엔드를 개발하였으며, MySQL을 데
 팀 협업을 위한 프로젝트 관리 규약  
 [Team convention 바로가기](https://github.com/f-lab-edu/unique-auction/wiki/01.-Team-Convention)
 
+<br/>
 
-## 02. Use case
-유스케이스  
-[Use case 바로가기](https://github.com/f-lab-edu/unique-auction/wiki/02.-Use-Case)
+## 02. API Guide
+API 가이드 문서    
+[API Guide 바로가기](https://github.com/f-lab-edu/unique-auction/wiki/04.-API-Guide)
 
+<br/>
 
 ## 03. Structure
 Unique Auction의 패키지 구조  
@@ -48,10 +50,11 @@ Unique Auction의 패키지 구조
 <br/>
 
 
-## 05. API Guide
-API 가이드 문서    
-[API Guide 바로가기](https://github.com/f-lab-edu/unique-auction/wiki/04.-API-Guide)
+## 05. Use case
+유스케이스  
+[Use case 바로가기](https://github.com/f-lab-edu/unique-auction/wiki/02.-Use-Case)
 
+<br/>
 
 ## 06. UI Prototype
 UI 프로토타입 카카오 오븐    
